@@ -7,7 +7,6 @@
 
 <title>Contacto | Instituto Técnico Élite</title>
 
-<!-- Iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -69,7 +68,7 @@ font-weight:600;
 
 .menu-toggle{
 display:none;
-font-size:24px;
+font-size:26px;
 cursor:pointer;
 }
 
@@ -188,6 +187,44 @@ font-size:15px;
 opacity:0.9;
 }
 
+/* FOOTER */
+
+.footer{
+background:#1f3565;
+color:#cfd7ec;
+padding:50px 60px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+margin-bottom:25px;
+}
+
+.footer h4{
+color:white;
+margin-bottom:10px;
+}
+
+.footer p{
+font-size:14px;
+margin-bottom:6px;
+}
+
+.copyright{
+text-align:center;
+font-size:13px;
+opacity:0.9;
+margin-top:10px;
+}
+
+.legal{
+text-align:center;
+margin-top:15px;
+font-size:13px;
+}
+
 /* WHATSAPP */
 
 .whatsapp{
@@ -209,10 +246,10 @@ box-shadow:0 4px 10px rgba(0,0,0,0.3);
 
 /* RESPONSIVE */
 
-@media (max-width:768px){
+@media(max-width:900px){
 
 .navbar{
-padding:15px 20px;
+padding:15px 25px;
 }
 
 .menu-toggle{
@@ -221,18 +258,16 @@ display:block;
 
 .navbar nav{
 position:absolute;
-top:60px;
+top:65px;
 left:0;
 width:100%;
 background:#1f3565;
 flex-direction:column;
-align-items:flex-start;
 display:none;
-padding:20px;
 }
 
 .navbar nav a{
-margin:10px 0;
+margin:15px 0;
 }
 
 .navbar nav.active{
@@ -241,11 +276,11 @@ display:flex;
 
 .contacto{
 grid-template-columns:1fr;
-padding:40px 20px;
+padding:40px 25px;
 }
 
 .hero h1{
-font-size:28px;
+font-size:30px;
 }
 
 .hero p{
@@ -336,15 +371,17 @@ Nuestro equipo académico responderá tus consultas lo antes posible para brinda
 
 <h3>Envíanos un mensaje</h3>
 
-<form>
+<form action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST" onsubmit="enviarWhatsApp()">
 
-<input type="text" placeholder="Nombre completo" required>
+<input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
 
-<input type="email" placeholder="Correo electrónico" required>
+<input type="email" id="correo" name="email" placeholder="Correo electrónico" required>
 
-<input type="tel" placeholder="Teléfono">
+<input type="tel" id="telefono" name="telefono" placeholder="Teléfono">
 
-<textarea placeholder="Escribe tu mensaje"></textarea>
+<textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje"></textarea>
+
+<input type="hidden" name="_captcha" value="false">
 
 <button class="btn-enviar">Enviar mensaje</button>
 
@@ -357,7 +394,7 @@ Nuestro equipo académico responderá tus consultas lo antes posible para brinda
 
 <iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
 
-<!-- Botón WhatsApp -->
+<!-- Botón WhatsApp flotante -->
 <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
@@ -366,6 +403,25 @@ Nuestro equipo académico responderá tus consultas lo antes posible para brinda
 
 function toggleMenu(){
 document.getElementById("menu").classList.toggle("active");
+}
+
+function enviarWhatsApp(){
+
+let nombre = document.getElementById("nombre").value;
+let correo = document.getElementById("correo").value;
+let telefono = document.getElementById("telefono").value;
+let mensaje = document.getElementById("mensaje").value;
+
+let texto = "Hola, quiero información del Instituto Técnico Élite.%0A%0A"
++ "Nombre: " + nombre + "%0A"
++ "Correo: " + correo + "%0A"
++ "Teléfono: " + telefono + "%0A"
++ "Mensaje: " + mensaje;
+
+let url = "https://wa.me/573045778728?text=" + texto;
+
+window.open(url, "_blank");
+
 }
 
 </script>
