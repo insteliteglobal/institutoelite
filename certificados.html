@@ -3,142 +3,322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instituto Técnico Élite</title>
+
+<title>Certificados | Instituto Técnico Élite</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* RESET */
-*{margin:0; padding:0; box-sizing:border-box; font-family:Segoe UI, Arial;}
-body{background:#f3f5f8; color:#1f2a44;}
+
+html{scroll-behavior:smooth;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, Arial;
+}
+
+body{
+background:#f3f5f8;
+color:#1f2a44;
+}
 
 /* NAVBAR */
-.navbar{background:#1f3565; color:white; display:flex; justify-content:space-between; align-items:center; padding:15px 60px; position:sticky; top:0; z-index:1000; border-bottom:3px solid #0a3d6b;}
-.logo{font-weight:600; font-size:18px;}
-.nav-links{display:flex; align-items:center;}
-.nav-links a{color:white; text-decoration:none; margin-left:20px; font-size:15px;}
-.btn-blanco{background:white; color:#1f3565 !important; padding:6px 14px; border-radius:6px; font-weight:600;}
-.menu-toggle{display:none; font-size:24px; cursor:pointer;}
 
-/* PORTADA */
-.hero{height:260px; background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.80)), url("graduacion.jpg"); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; color:white;}
-.hero h1{font-size:34px; margin-bottom:10px;}
-.hero p{font-size:17px; opacity:0.95;}
+.navbar{
+background:#1f3565;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 60px;
+position:sticky;
+top:0;
+z-index:1000;
+}
 
-/* FORMULARIO CERTIFICADO */
-.certificados{padding:60px; display:flex; justify-content:center;}
-.cert-card{background:white; padding:40px; border-radius:10px; width:400px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.15);}
-.cert-card h2{margin-bottom:20px;}
-.cert-card input{width:100%; padding:12px; margin:10px 0; border-radius:6px; border:1px solid #ccc;}
-.cert-card button{width:100%; padding:12px; background:#1f3565; color:white; border:none; border-radius:6px; cursor:pointer; font-size:15px;}
-.cert-card button:hover{background:#16325c;}
-#resultado{margin-top:15px; font-size:14px;}
+.logo{
+font-weight:600;
+font-size:18px;
+}
 
-/* FOOTER */
-.footer{background:#1f3565; color:#cfd7ec; padding:50px 60px;}
-.footer-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-bottom:25px;}
-.footer h4{color:white; margin-bottom:10px;}
-.footer p{font-size:14px; margin-bottom:6px;}
-.copyright{text-align:center; font-size:13px; opacity:0.9; margin-top:10px;}
-.legal{text-align:center; margin-top:15px; font-size:13px;}
+/* MENU */
+
+.nav-links{
+display:flex;
+align-items:center;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-size:15px;
+}
+
+.btn-blanco{
+background:white;
+color:#1f3565 !important;
+padding:6px 14px;
+border-radius:6px;
+font-weight:600;
+}
+
+/* HAMBURGUESA */
+
+.menu-toggle{
+display:none;
+font-size:24px;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+height:300px;
+background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.80)),
+url("graduacion.jpg");
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:38px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+/* BUSCADOR CERTIFICADO */
+
+.certificados{
+padding:60px;
+display:flex;
+justify-content:center;
+}
+
+.card{
+background:white;
+padding:40px;
+border-radius:10px;
+width:400px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+.card input{
+width:100%;
+padding:12px;
+margin:12px 0;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.card button{
+width:100%;
+padding:12px;
+background:#1f3565;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.card button:hover{
+background:#15284e;
+}
+
+#resultado{
+margin-top:15px;
+font-size:14px;
+}
 
 /* WHATSAPP */
-.whatsapp{position:fixed; bottom:20px; right:20px; background:#25D366; color:white; width:55px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+width:55px;
+height:55px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
 
 /* RESPONSIVE */
+
 @media(max-width:768px){
-  .menu-toggle{display:block;}
-  .nav-links{position:absolute; top:65px; left:0; background:#1f3565; width:100%; flex-direction:column; display:none; padding:20px 0;}
-  .nav-links a{margin:10px 0;}
-  .nav-links.active{display:flex;}
-  .navbar{padding:15px 20px;}
-  .certificados{padding:30px 20px;}
-  .cert-card{width:100%;}
+
+.navbar{
+padding:15px 20px;
 }
+
+.menu-toggle{
+display:block;
+font-size:26px;
+}
+
+.nav-links{
+position:absolute;
+top:65px;
+left:0;
+background:#1f3565;
+width:100%;
+flex-direction:column;
+display:none;
+padding:15px 0;
+}
+
+.nav-links a{
+margin:12px 0;
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.hero{
+height:auto;
+padding:50px 20px;
+}
+
+.hero h1{
+font-size:28px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.certificados{
+padding:30px 20px;
+}
+
+.card{
+width:100%;
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
 <header class="navbar">
-  <div class="logo">Instituto Técnico Élite</div>
-  <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-  <nav class="nav-links" id="menu">
-    <a href="inicio.html">Inicio</a>
-    <a href="oferta-academica.html">Oferta Académica</a>
-    <a href="pagos-en-linea.html">Pagos en línea</a>
-    <a href="quienes-somos.html">Quiénes somos</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="certificados.html">Certificados</a>
-    <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
-    <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
-  </nav>
+
+<div class="logo">Instituto Técnico Élite</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">
+<i class="fas fa-bars"></i>
+</div>
+
+<nav class="nav-links" id="menu">
+
+<a href="inicio.html">Inicio</a>
+<a href="oferta-academica.html">Oferta Académica</a>
+<a href="pagos-en-linea.html">Pagos en línea</a>
+<a href="quienes-somos.html">Quiénes somos</a>
+<a href="contacto.html">Contacto</a>
+<a href="certificados.html">Certificados</a>
+
+<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+<a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+
+</nav>
+
 </header>
 
 <section class="hero">
-  <div>
-    <h1>Descargar certificado</h1>
-    <p>Consulta y descarga tu certificado académico de forma rápida y segura.</p>
-  </div>
+<div>
+<h1>Descargar Certificado</h1>
+<p>Consulta y descarga tu certificado académico</p>
+</div>
 </section>
 
 <section class="certificados">
-  <div class="cert-card">
-    <h2>Consultar certificado</h2>
-    <input type="text" id="cedula" placeholder="Ingrese su cédula">
-    <button onclick="consultar()">Consultar</button>
-    <div id="resultado"></div>
-  </div>
+
+<div class="card">
+
+<h2>Consultar certificado</h2>
+
+<input type="text" id="cedula" placeholder="Ingrese su cédula">
+
+<button onclick="consultar()">Consultar</button>
+
+<div id="resultado"></div>
+
+</div>
+
 </section>
 
 <iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
-<a href="https://wa.me/573045778728" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
 
 <script>
-function toggleMenu(){document.getElementById("menu").classList.toggle("active");}
 
-const APP_WEB_URL = "https://script.google.com/macros/s/AKfycbzHsA9MIMnDfR02MN-ySE3NUAuAGfHg9RuRn8J-_noeu2BxF_PArfjNIvWFiv4v6B4/exec";
+function toggleMenu(){
+const menu = document.getElementById("menu");
+menu.classList.toggle("active");
+}
+
+const links = document.querySelectorAll(".nav-links a");
+
+links.forEach(link => {
+link.addEventListener("click", () => {
+document.getElementById("menu").classList.remove("active");
+});
+});
+
+/* SCRIPT CONSULTA */
+
+const API="https://script.google.com/macros/s/AKfycbzBsUIPIeOD-43K7eVPmA2BGMeuFjI25tALKJPEB4rbgiMw1Y15vIM0U8-WSDlLasSA/exec";
 
 function consultar(){
-  const cedula = document.getElementById("cedula").value.trim();
-  const resultado = document.getElementById("resultado");
-  if(!cedula){resultado.innerHTML="<p style='color:red'>Ingrese su cédula</p>"; return;}
-  resultado.innerHTML="Consultando...";
-  
-  fetch(APP_WEB_URL + "?cedula=" + encodeURIComponent(cedula))
-    .then(res => res.json())
-    .then(data => {
-      if(data.error){
-        resultado.innerHTML="<p style='color:red'>"+data.error+"</p>";
-      } else {
-        resultado.innerHTML="<p style='color:green; font-weight:bold'>Cordial saludo, "+data.nombre+"</p>";
-        const btn=document.createElement("button");
-        btn.textContent="Descargar certificado";
-        btn.style.marginTop="10px";
-        btn.onclick=()=> descargarPDF(data.link);
-        resultado.appendChild(btn);
-      }
-    })
-    .catch(err=>{
-      resultado.innerHTML="<p style='color:red'>Error al consultar. Intente nuevamente.</p>";
-      console.error(err);
-    });
+
+var cedula=document.getElementById("cedula").value;
+var resultado=document.getElementById("resultado");
+
+resultado.innerHTML="Consultando...";
+
+fetch(API+"?cedula="+cedula)
+.then(r=>r.json())
+.then(data=>{
+
+if(data.error){
+
+resultado.innerHTML="<p style='color:red'>"+data.error+"</p>";
+
+}else{
+
+resultado.innerHTML=
+"<p style='color:green;font-weight:bold'>Cordial saludo "+data.nombre+"</p>"+
+"<br><a href='"+data.link+"' target='_blank'>Descargar certificado</a>";
+
 }
 
-function descargarPDF(url){
-  fetch(url)
-    .then(resp=>resp.blob())
-    .then(blob=>{
-      const link=document.createElement("a");
-      link.href=window.URL.createObjectURL(blob);
-      link.download="Certificado.pdf";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-    })
-    .catch(err=>{
-      alert("Error al descargar el certificado");
-      console.error(err);
-    });
+});
+
 }
+
 </script>
 
 </body>
