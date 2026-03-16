@@ -7,46 +7,130 @@
 
 <title>Certificados | Instituto Técnico Élite</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
+
+html{
+scroll-behavior:smooth;
+}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI,Arial;
+font-family:Segoe UI, Arial;
 }
 
 body{
 background:#f3f5f8;
+color:#1f2a44;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:#1f3565;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 60px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-weight:600;
+font-size:18px;
+}
+
+/* MENU */
+
+.nav-links{
+display:flex;
+align-items:center;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-size:15px;
+}
+
+.btn-blanco{
+background:white;
+color:#1f3565 !important;
+padding:6px 14px;
+border-radius:6px;
+font-weight:600;
+}
+
+/* HAMBURGUESA */
+
+.menu-toggle{
+display:none;
+font-size:24px;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+height:250px;
+background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.75)),
+url("graduacion.jpg");
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+/* CONTENIDO */
+
+.contenido{
+padding:60px 20px;
 display:flex;
 justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
 }
+
+/* TARJETA */
 
 .card{
 background:white;
 padding:40px;
 border-radius:10px;
 width:100%;
-max-width:400px;
+max-width:420px;
 text-align:center;
 box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-h2{
-color:#1f3565;
+.card h2{
 margin-bottom:20px;
+color:#1f3565;
 }
+
+/* INPUT */
 
 input{
 width:100%;
 padding:12px;
-border:1px solid #ccc;
 border-radius:6px;
+border:1px solid #ccc;
 margin-bottom:15px;
 }
+
+/* BOTON */
 
 button{
 width:100%;
@@ -56,25 +140,139 @@ color:white;
 border:none;
 border-radius:6px;
 cursor:pointer;
+font-size:15px;
 }
 
 button:hover{
-background:#15284e;
+background:#162a52;
 }
+
+/* RESULTADO */
 
 #resultado{
 margin-top:20px;
+font-size:15px;
+}
+
+/* MENSAJE SALUDO */
+
+.saludo{
+color:#2a7be4;
+margin-bottom:10px;
+}
+
+/* WHATSAPP */
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+width:55px;
+height:55px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.navbar{
+padding:15px 20px;
+}
+
+.logo{
+font-size:16px;
+}
+
+.menu-toggle{
+display:block;
+font-size:26px;
+}
+
+.nav-links{
+position:absolute;
+top:65px;
+left:0;
+background:#1f3565;
+width:100%;
+flex-direction:column;
+display:none;
+padding:15px 0;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.nav-links a{
+margin:12px 0;
+font-size:16px;
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.hero{
+height:auto;
+padding:40px 20px;
+}
+
+.hero h1{
+font-size:28px;
+}
+
+.card{
+padding:30px 25px;
+}
+
 }
 
 </style>
-
 </head>
 
 <body>
 
+<header class="navbar">
+
+<div class="logo">Instituto Técnico Élite</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">
+<i class="fas fa-bars"></i>
+</div>
+
+<nav class="nav-links" id="menu">
+
+<a href="inicio.html">Inicio</a>
+<a href="oferta-academica.html">Oferta Académica</a>
+<a href="pagos-en-linea.html">Pagos en línea</a>
+<a href="quienes-somos.html">Quiénes somos</a>
+<a href="contacto.html">Contacto</a>
+<a href="certificados.html">Certificados</a>
+
+<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+<a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+<div>
+<h1>Descargar Certificado</h1>
+</div>
+</section>
+
+<section class="contenido">
+
 <div class="card">
 
-<h2>Descargar Certificado</h2>
+<h2>Consultar certificado</h2>
 
 <input type="text" id="cedula" placeholder="Ingrese su cédula">
 
@@ -84,7 +282,28 @@ margin-top:20px;
 
 </div>
 
+</section>
+
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
+
 <script>
+
+function toggleMenu(){
+const menu = document.getElementById("menu");
+menu.classList.toggle("active");
+}
+
+const links = document.querySelectorAll(".nav-links a");
+
+links.forEach(link => {
+link.addEventListener("click", () => {
+document.getElementById("menu").classList.remove("active");
+});
+});
+
+/* BUSCAR CERTIFICADO */
 
 const URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQXx5WMtDLiNSahFtRXm7diaQ3Ewa7sDhjr05S-HvdNwDwF95w8zurlArj_Z0rkLNRs1uRyUb9WqKmE/pub?gid=0&single=true&output=csv";
 
@@ -93,7 +312,7 @@ async function buscar(){
 let cedula=document.getElementById("cedula").value.trim();
 
 if(cedula===""){
-document.getElementById("resultado").innerHTML="Ingrese su cédula";
+document.getElementById("resultado").innerHTML="<p style='color:red'>Ingrese su cédula</p>";
 return;
 }
 
@@ -111,8 +330,7 @@ let col=filas[i].split(",");
 if(col[0]==cedula){
 
 document.getElementById("resultado").innerHTML=
-"<p><b>Cordial saludo "+col[1]+"</b></p>"+
-"<br>"+
+"<p class='saludo'>Cordial saludo "+col[1]+"</p>"+
 "<a href='"+col[3]+"' target='_blank'><button>Descargar certificado</button></a>";
 
 return;
@@ -121,7 +339,7 @@ return;
 
 }
 
-document.getElementById("resultado").innerHTML="No se encontró certificado";
+document.getElementById("resultado").innerHTML="<p style='color:red'>No se encontró certificado</p>";
 
 }
 
