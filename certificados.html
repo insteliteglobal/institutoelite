@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -79,7 +80,7 @@ cursor:pointer;
 /* HERO */
 
 .hero{
-height:260px;
+height:180px;
 background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.75)),
 url("graduacion.jpg");
 background-size:cover;
@@ -98,7 +99,7 @@ font-size:36px;
 /* CONTENIDO */
 
 .contenido{
-padding:60px 20px;
+padding:30px 20px;
 display:flex;
 justify-content:center;
 }
@@ -128,7 +129,6 @@ padding:12px;
 border-radius:6px;
 border:1px solid #ccc;
 margin-bottom:15px;
-font-size:15px;
 }
 
 /* BOTON */
@@ -155,7 +155,7 @@ margin-top:20px;
 font-size:15px;
 }
 
-/* SALUDO */
+/* MENSAJE SALUDO */
 
 .saludo{
 color:#2a7be4;
@@ -179,7 +179,6 @@ justify-content:center;
 font-size:26px;
 text-decoration:none;
 box-shadow:0 4px 10px rgba(0,0,0,0.3);
-z-index:999;
 }
 
 /* RESPONSIVE */
@@ -222,7 +221,7 @@ display:flex;
 
 .hero{
 height:auto;
-padding:40px 20px;
+padding:30px 20px;
 }
 
 .hero h1{
@@ -258,7 +257,6 @@ padding:30px 25px;
 <a href="certificados.html">Certificados</a>
 
 <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
-
 <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
 
 </nav>
@@ -267,7 +265,7 @@ padding:30px 25px;
 
 <section class="hero">
 <div>
-<h1>Descargar Certificado</h1>
+<h1>Descargar certificado</h1>
 </div>
 </section>
 
@@ -287,19 +285,15 @@ padding:30px 25px;
 
 </section>
 
-<!-- BOTON WHATSAPP -->
-
 <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- FOOTER -->
+<!-- Footer -->
 
 <iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
 
 <script>
-
-/* MENU HAMBURGUESA */
 
 function toggleMenu(){
 const menu = document.getElementById("menu");
@@ -341,7 +335,7 @@ let col=filas[i].split(",");
 if(col[0]==cedula){
 
 document.getElementById("resultado").innerHTML=
-"<p class='saludo'>Cordial saludo, "+col[1]+"</p>"+
+"<p class='saludo'>Cordial saludo "+col[1]+"</p>"+
 "<a href='"+col[3]+"' target='_blank'><button>Descargar certificado</button></a>";
 
 return;
@@ -358,3 +352,4 @@ document.getElementById("resultado").innerHTML="<p style='color:red'>No se encon
 
 </body>
 </html>
+```
