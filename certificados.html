@@ -294,8 +294,6 @@ padding:30px 25px;
 
 <script>
 
-<script>
-
 function toggleMenu(){
 const menu = document.getElementById("menu");
 menu.classList.toggle("active");
@@ -324,33 +322,27 @@ return;
 
 document.getElementById("resultado").innerHTML="Consultando...";
 
-try {
-
 const res=await fetch(URL);
 const data=await res.text();
 
 const filas=data.split("\n");
 
-// 🔥 NUEVO: guardamos múltiples
 let encontrados = [];
 
 for(let i=1;i<filas.length;i++){
 
 let col=filas[i].split(",");
 
-// 👇 TU MISMA LÓGICA
 if(col[0]==cedula){
-
 encontrados.push(col);
-
 }
 
 }
 
-// 🔥 SI ENCUENTRA (UNO O MUCHOS)
+// SI ENCUENTRA
 if(encontrados.length > 0){
 
-// 👉 si solo hay 1, se comporta EXACTAMENTE igual que tu código
+// UNO (igual que antes)
 if(encontrados.length === 1){
 
 let col = encontrados[0];
@@ -363,34 +355,12 @@ return;
 
 }
 
-// 👉 si hay varios, muestra tabla
+// VARIOS
 let html = "<p class='saludo'>Cordial saludo "+encontrados[0][1]+"</p>";
 
-html += `
-<table style="width:100%; border-collapse:collapse; margin-top:15px;">
-<thead>
-<tr style="background:#1f3565; color:white;">
-<th style="padding:10px; border:1px solid #ddd;">Programa</th>
-<th style="padding:10px; border:1px solid #ddd;">Descargar</th>
-</tr>
-</thead>
-<tbody>
-`;
-
-encontrados.forEach(col => {
-html += `
-<tr>
-<td style="padding:10px; border:1px solid #ddd;">${col[3] || 'N/A'}</td>
-<td style="padding:10px; border:1px solid #ddd;">
-<a href="${col[4]}" target="_blank">
-<button>Descargar</button>
-</a>
-</td>
-</tr>
-`;
+encontrados.forEach((col,i)=>{
+html += "<p>"+col[3]+" - <a href='"+col[4]+"' target='_blank'>Descargar certificado "+(i+1)+"</a></p>";
 });
-
-html += "</tbody></table>";
 
 document.getElementById("resultado").innerHTML = html;
 
@@ -398,24 +368,12 @@ return;
 
 }
 
-// ❌ SI NO ENCUENTRA
+// NO ENCUENTRA
 document.getElementById("resultado").innerHTML="<p style='color:red'>No se encontró certificado</p>";
 
-} catch (e) {
-
-// 🔥 EVITA QUE SE QUEDE PEGADO
-console.error(e);
-
-document.getElementById("resultado").innerHTML=
-"<p style='color:red'>Error al consultar. Revisa la conexión o el enlace del Sheet.</p>";
-
 }
 
-}
-
-</script>
 </script>
 
 </body>
 </html>
-```
