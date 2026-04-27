@@ -27,8 +27,6 @@ background:#f3f5f8;
 color:#1f2a44;
 }
 
-/* NAVBAR */
-
 .navbar{
 background:#1f3565;
 color:white;
@@ -45,8 +43,6 @@ z-index:1000;
 font-weight:600;
 font-size:18px;
 }
-
-/* MENU */
 
 .nav-links{
 display:flex;
@@ -68,15 +64,11 @@ border-radius:6px;
 font-weight:600;
 }
 
-/* HAMBURGUESA */
-
 .menu-toggle{
 display:none;
 font-size:24px;
 cursor:pointer;
 }
-
-/* HERO */
 
 .hero{
 height:180px;
@@ -95,15 +87,11 @@ color:white;
 font-size:36px;
 }
 
-/* CONTENIDO */
-
 .contenido{
 padding:30px 20px;
 display:flex;
 justify-content:center;
 }
-
-/* TARJETA */
 
 .card{
 background:white;
@@ -120,8 +108,6 @@ margin-bottom:20px;
 color:#1f3565;
 }
 
-/* INPUT */
-
 input{
 width:100%;
 padding:12px;
@@ -129,8 +115,6 @@ border-radius:6px;
 border:1px solid #ccc;
 margin-bottom:15px;
 }
-
-/* BOTON */
 
 button{
 width:100%;
@@ -147,21 +131,15 @@ button:hover{
 background:#162a52;
 }
 
-/* RESULTADO */
-
 #resultado{
 margin-top:20px;
 font-size:15px;
 }
 
-/* MENSAJE SALUDO */
-
 .saludo{
 color:#2a7be4;
 margin-bottom:10px;
 }
-
-/* WHATSAPP */
 
 .whatsapp{
 position:fixed;
@@ -179,8 +157,6 @@ font-size:26px;
 text-decoration:none;
 box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
-
-/* RESPONSIVE */
 
 @media(max-width:768px){
 
@@ -288,8 +264,6 @@ padding:30px 25px;
 <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- Footer -->
-
 <iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
 
 <script>
@@ -333,7 +307,8 @@ for(let i=1;i<filas.length;i++){
 
 let col=filas[i].split(",");
 
-if(col[0]==cedula){
+// comparación robusta
+if(col[0] && col[0].trim() == cedula.trim()){
 encontrados.push(col);
 }
 
@@ -342,25 +317,33 @@ encontrados.push(col);
 // SI ENCUENTRA
 if(encontrados.length > 0){
 
-// UNO (igual que antes)
-if(encontrados.length === 1){
-
-let col = encontrados[0];
-
-document.getElementById("resultado").innerHTML=
-"<p class='saludo'>Cordial saludo "+col[1]+"</p>"+
-"<a href='"+col[4]+"' target='_blank'><button>Descargar certificado</button></a>";
-
-return;
-
-}
-
-// VARIOS
 let html = "<p class='saludo'>Cordial saludo "+encontrados[0][1]+"</p>";
 
-encontrados.forEach((col,i)=>{
-html += "<p>"+col[3]+" - <a href='"+col[4]+"' target='_blank'>Descargar certificado "+(i+1)+"</a></p>";
+html += `
+<table style="width:100%; border-collapse:collapse; margin-top:15px;">
+<thead>
+<tr style="background:#1f3565; color:white;">
+<th style="padding:10px; border:1px solid #ddd;">Programa</th>
+<th style="padding:10px; border:1px solid #ddd;">Descargar</th>
+</tr>
+</thead>
+<tbody>
+`;
+
+encontrados.forEach(col => {
+html += `
+<tr>
+<td style="padding:10px; border:1px solid #ddd;">${col[3] || 'Sin programa'}</td>
+<td style="padding:10px; border:1px solid #ddd;">
+<a href="${col[4]}" target="_blank">
+<button>Descargar</button>
+</a>
+</td>
+</tr>
+`;
 });
+
+html += "</tbody></table>";
 
 document.getElementById("resultado").innerHTML = html;
 
