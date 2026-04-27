@@ -324,19 +324,25 @@ return;
 
 document.getElementById("resultado").innerHTML="Consultando...";
 
+try {
+
 const res=await fetch(URL);
+
+// 🔥 SI FALLA FETCH
+if(!res.ok){
+throw new Error("Error al acceder al archivo");
+}
+
 const data=await res.text();
 
 const filas=data.split("\n");
 
-// 🔥 NUEVO: acumulador (NO rompe tu lógica)
 let resultados = [];
 
 for(let i=1;i<filas.length;i++){
 
 let col=filas[i].split(",");
 
-// misma validación original
 if(col[0]==cedula){
 
 resultados.push({
@@ -350,7 +356,6 @@ link: col[4]
 
 }
 
-// ✅ SI ENCUENTRA RESULTADOS
 if(resultados.length > 0){
 
 let html = "<p class='saludo'>Cordial saludo "+resultados[0].nombre+"</p>";
@@ -387,8 +392,15 @@ return;
 
 }
 
-// ❌ SI NO ENCUENTRA
 document.getElementById("resultado").innerHTML="<p style='color:red'>No se encontró certificado</p>";
+
+} catch (error) {
+
+console.error(error);
+
+// 🔥 MENSAJE CLARO
+document.getElementById("resultado").innerHTML =
+"<p style='color:red'>Error al consultar. Verifica que la hoja de Google esté pública.</p>";
 
 }
 
