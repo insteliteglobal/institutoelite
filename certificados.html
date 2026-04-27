@@ -322,67 +322,45 @@ return;
 
 document.getElementById("resultado").innerHTML="Consultando...";
 
-try {
-
 const res=await fetch(URL);
-
-// 🔥 SI FALLA FETCH
-if(!res.ok){
-throw new Error("Error al acceder al archivo");
-}
-
 const data=await res.text();
 
 const filas=data.split("\n");
 
-let resultados = [];
+let encontrados = [];
 
 for(let i=1;i<filas.length;i++){
 
 let col=filas[i].split(",");
 
 if(col[0]==cedula){
-
-resultados.push({
-nombre: col[1],
-correo: col[2],
-programa: col[3],
-link: col[4]
-});
-
+encontrados.push(col);
 }
 
 }
 
-if(resultados.length > 0){
+// SI ENCUENTRA
+if(encontrados.length > 0){
 
-let html = "<p class='saludo'>Cordial saludo "+resultados[0].nombre+"</p>";
+// UNO (igual que antes)
+if(encontrados.length === 1){
 
-html += `
-<table style="width:100%; border-collapse:collapse; margin-top:15px;">
-<thead>
-<tr style="background:#1f3565; color:white;">
-<th style="padding:10px; border:1px solid #ddd;">Programa</th>
-<th style="padding:10px; border:1px solid #ddd;">Certificado</th>
-</tr>
-</thead>
-<tbody>
-`;
+let col = encontrados[0];
 
-resultados.forEach(r => {
-html += `
-<tr>
-<td style="padding:10px; border:1px solid #ddd;">${r.programa || 'N/A'}</td>
-<td style="padding:10px; border:1px solid #ddd;">
-<a href="${r.link}" target="_blank">
-<button>Descargar</button>
-</a>
-</td>
-</tr>
-`;
+document.getElementById("resultado").innerHTML=
+"<p class='saludo'>Cordial saludo "+col[1]+"</p>"+
+"<a href='"+col[4]+"' target='_blank'><button>Descargar certificado</button></a>";
+
+return;
+
+}
+
+// VARIOS
+let html = "<p class='saludo'>Cordial saludo "+encontrados[0][1]+"</p>";
+
+encontrados.forEach((col,i)=>{
+html += "<p>"+col[3]+" - <a href='"+col[4]+"' target='_blank'>Descargar certificado "+(i+1)+"</a></p>";
 });
-
-html += "</tbody></table>";
 
 document.getElementById("resultado").innerHTML = html;
 
@@ -390,17 +368,11 @@ return;
 
 }
 
+// NO ENCUENTRA
 document.getElementById("resultado").innerHTML="<p style='color:red'>No se encontró certificado</p>";
 
-} catch (error) {
-
-console.error(error);
-
-// 🔥 MENSAJE CLARO
-document.getElementById("resultado").innerHTML =
-"<p style='color:red'>Error al consultar. Verifica que la hoja de Google esté pública.</p>";
-
 }
+
 </script>
 
 </body>
