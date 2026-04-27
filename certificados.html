@@ -294,6 +294,7 @@ padding:30px 25px;
 
 <script>
 
+
 function toggleMenu(){
 const menu = document.getElementById("menu");
 menu.classList.toggle("active");
@@ -327,25 +328,69 @@ const data=await res.text();
 
 const filas=data.split("\n");
 
+// 🔥 NUEVO: acumulador (NO rompe tu lógica)
+let resultados = [];
+
 for(let i=1;i<filas.length;i++){
 
 let col=filas[i].split(",");
 
+// misma validación original
 if(col[0]==cedula){
 
-document.getElementById("resultado").innerHTML=
-"<p class='saludo'>Cordial saludo "+col[1]+"</p>"+
-"<a href='"+col[3]+"' target='_blank'><button>Descargar certificado</button></a>";
+resultados.push({
+nombre: col[1],
+correo: col[2],
+programa: col[3],
+link: col[4]
+});
+
+}
+
+}
+
+// ✅ SI ENCUENTRA RESULTADOS
+if(resultados.length > 0){
+
+let html = "<p class='saludo'>Cordial saludo "+resultados[0].nombre+"</p>";
+
+html += `
+<table style="width:100%; border-collapse:collapse; margin-top:15px;">
+<thead>
+<tr style="background:#1f3565; color:white;">
+<th style="padding:10px; border:1px solid #ddd;">Programa</th>
+<th style="padding:10px; border:1px solid #ddd;">Certificado</th>
+</tr>
+</thead>
+<tbody>
+`;
+
+resultados.forEach(r => {
+html += `
+<tr>
+<td style="padding:10px; border:1px solid #ddd;">${r.programa || 'N/A'}</td>
+<td style="padding:10px; border:1px solid #ddd;">
+<a href="${r.link}" target="_blank">
+<button>Descargar</button>
+</a>
+</td>
+</tr>
+`;
+});
+
+html += "</tbody></table>";
+
+document.getElementById("resultado").innerHTML = html;
 
 return;
 
 }
 
-}
-
+// ❌ SI NO ENCUENTRA
 document.getElementById("resultado").innerHTML="<p style='color:red'>No se encontró certificado</p>";
 
 }
+
 
 </script>
 
