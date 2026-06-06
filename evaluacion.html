@@ -21,7 +21,7 @@
             color: #1f2a44;
         }
 
-        /* NAVBAR (Restaurado 100% a la plantilla original) */
+        /* NAVBAR */
         .navbar {
             background: #1f3565;
             color: white;
@@ -321,7 +321,6 @@
 </head>
 <body>
 
-    <!-- MODAL DE VALIDACIÓN -->
     <div class="modal-overlay" id="alertaModal">
         <div class="modal-box">
             <i class="fas fa-exclamation-circle modal-icon"></i>
@@ -331,15 +330,13 @@
         </div>
     </div>
 
-    <!-- SPINNER CARGA PDF -->
     <div class="loading-overlay" id="loadingPdf">
         <div class="spinner"></div>
-        <h3 style="color:#1f3565;">Generando PDF y enviando...</h3>
+        <h3 style="color:#1f3565;">Procesando evaluación...</h3>
         <p style="color:#666;">Por favor, espera un momento.</p>
     </div>
 
-    <!-- NAVBAR -->
-    <header class="navbar pdf-hidden">
+    <header class="navbar">
         <div class="logo">
             Instituto Técnico Élite
         </div>
@@ -358,15 +355,12 @@
         </nav>
     </header>
 
-    <!-- PORTADA -->
-    <section class="hero pdf-hidden">
+    <section class="hero">
         <h1>Cuestionario de Etnoeducación</h1>
     </section>
 
-    <!-- CUESTIONARIO -->
     <section class="contenedor">
         <div class="form-evaluacion" id="pdf-content">
-            <!-- Etiqueta novalidate para quitar la alerta nativa del navegador -->
             <form id="evaluacionForm" action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST" novalidate>
                 
                 <input type="hidden" name="_subject" value="Nueva Respuesta: Cuestionario Etnoeducación">
@@ -374,7 +368,6 @@
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_next" value="https://institutoelite.q10.com"> 
 
-                <!-- SECCIÓN 1: DATOS -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante</h2>
                     
@@ -394,7 +387,6 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN 2: SELECCIÓN MÚLTIPLE -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-list-ul"></i> Selección Múltiple</h2>
                     <p style="margin-bottom: 20px; color: #666;">Seleccione la respuesta correcta para cada pregunta.</p>
@@ -500,7 +492,6 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN 3: VERDADERO O FALSO -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-check-circle"></i> Verdadero o Falso</h2>
                     <p style="margin-bottom: 20px; color: #666;">Indique si la afirmación es Verdadera (V) o Falsa (F).</p>
@@ -546,7 +537,6 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN 4: PREGUNTAS ABIERTAS -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-pen-nib"></i> Preguntas Abiertas</h2>
                     <p style="margin-bottom: 20px; color: #666;">Desarrolle brevemente las siguientes preguntas.</p>
@@ -577,8 +567,7 @@
                     </div>
                 </div>
 
-                <!-- BOTÓN FINAL -->
-                <div class="action-buttons pdf-hidden">
+                <div class="action-buttons" id="areaBotones">
                     <button type="button" class="btn-enviar" onclick="procesarEvaluacion()">
                         <i class="fas fa-paper-plane"></i> Finalizar y Enviar
                     </button>
@@ -588,8 +577,7 @@
         </div>
     </section>
 
-    <!-- WHATSAPP FLOTANTE -->
-    <a href="https://wa.me/573045778728" class="whatsapp pdf-hidden" target="_blank">
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -654,33 +642,33 @@
                 // Desplazamiento suave hacia el primer error
                 setTimeout(() => {
                     primerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300); // Pequeño retraso para que el usuario vea el modal primero
+                }, 300);
                 return;
             }
 
             // 4. Si todo es válido: Mostrar pantalla de carga
             document.getElementById('loadingPdf').classList.add('active');
             
-            // Ocultar elementos que no van en el PDF
-            const elementosOcultosNav = document.querySelectorAll('.pdf-hidden');
-            elementosOcultosNav.forEach(el => el.style.display = 'none');
+            // Ocultamos SOLO el botón de enviar para que no salga en el PDF
+            const areaBotones = document.getElementById('areaBotones');
+            areaBotones.style.display = 'none';
 
             const nombreEstudiante = form.Nombre_Estudiante.value || 'Estudiante';
             
-            // Configuración del PDF
+            // Configuración Mejorada del PDF (Fuerza ancho de PC para que no se deforme)
             const opt = {
                 margin:       10,
                 filename:     `Evaluacion_Etnoeducacion_${nombreEstudiante.replace(/ /g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
+                html2canvas:  { scale: 2, windowWidth: 1024 }, // Evita que se enrede el diseño en celulares
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             // Generar y Enviar
             html2pdf().set(opt).from(document.getElementById('pdf-content')).save().then(() => {
-                // Restaurar visibilidad
-                elementosOcultosNav.forEach(el => el.style.display = '');
-                // Enviar formulario
+                // Restauramos el botón visualmente
+                areaBotones.style.display = 'flex';
+                // Enviar formulario (Sin que la página salte)
                 form.submit();
             });
         }
