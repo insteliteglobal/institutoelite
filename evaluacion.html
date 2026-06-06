@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Etnoeducación | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f5f8;
+            color: #1f2a44;
+        }
+
+        /* NAVBAR (Restaurado 100% a la plantilla original) */
+        .navbar {
+            background: #1f3565;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+            transition: opacity 0.3s;
+        }
+
+        .navbar nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .btn-blanco {
+            background: white;
+            color: #1f3565 !important;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        /* PORTADA */
+        .hero {
+            height: 180px;
+            background: linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.85)),
+                        url("https://images.unsplash.com/photo-1523580494863-6f3031224c94");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* ÁREA DEL FORMULARIO */
+        .form-evaluacion {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+        }
+
+        /* ESTILOS DE PREGUNTAS Y CAMPOS */
+        .section-title {
+            color: #1f3565;
+            border-bottom: 2px solid #e0e6ed;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            margin-top: 20px;
+        }
+
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        
+        label.field-label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #1f3565;
+            outline: none;
+        }
+
+        textarea { min-height: 100px; resize: vertical; }
+
+        /* ESTILOS DE PREGUNTAS DE SELECCIÓN */
+        .question-block {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #1f3565;
+            transition: all 0.3s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1f2a44;
+            font-size: 16px;
+        }
+
+        .options-group label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border: 1px solid #e0e6ed;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: normal;
+        }
+
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        
+        .options-group input[type="radio"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: #1f3565;
+        }
+
+        /* VALIDACIÓN VISUAL PROFESIONAL */
+        .error-highlight {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.4);
+        }
+        
+        .question-block.error-highlight {
+            border-left: 4px solid #dc3545;
+            background-color: #fff8f8;
+        }
+
+        /* BOTONES DE ACCIÓN */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            border-top: 2px solid #e0e6ed;
+            padding-top: 25px;
+        }
+
+        .btn-enviar {
+            background: #28a745;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        .btn-enviar:hover { background: #218838; box-shadow: 0 4px 10px rgba(40,167,69,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        /* MODAL DE ALERTA PERSONALIZADO */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+
+        .modal-icon {
+            font-size: 50px;
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            color: #1f3565;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-cerrar-modal {
+            background: #1f3565;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* PANTALLA DE CARGA PARA PDF */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 3000; opacity: 0; visibility: hidden; transition: opacity 0.3s;
+        }
+        .loading-overlay.active { opacity: 1; visibility: visible; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MODAL DE VALIDACIÓN -->
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Faltan respuestas</h3>
+            <p class="modal-text">Por favor, revisa el cuestionario. Hemos resaltado en rojo las preguntas que te faltan por responder.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <!-- SPINNER CARGA PDF -->
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Generando PDF y enviando...</h3>
+        <p style="color:#666;">Por favor, espera un momento.</p>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar pdf-hidden">
+        <div class="logo">
+            Instituto Técnico Élite
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+        </nav>
+    </header>
+
+    <!-- PORTADA -->
+    <section class="hero pdf-hidden">
+        <h1>Cuestionario de Etnoeducación</h1>
+    </section>
+
+    <!-- CUESTIONARIO -->
+    <section class="contenedor">
+        <div class="form-evaluacion" id="pdf-content">
+            <!-- Etiqueta novalidate para quitar la alerta nativa del navegador -->
+            <form id="evaluacionForm" action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST" novalidate>
+                
+                <input type="hidden" name="_subject" value="Nueva Respuesta: Cuestionario Etnoeducación">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://institutoelite.q10.com"> 
+
+                <!-- SECCIÓN 1: DATOS -->
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante</h2>
+                    
+                    <div class="form-group">
+                        <label class="field-label">Nombre Completo:</label>
+                        <input type="text" name="Nombre_Estudiante" required placeholder="Nombres y Apellidos">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="field-label">Número de Documento (C.C. / T.I.):</label>
+                        <input type="text" name="Documento_Estudiante" required placeholder="Ej. 1000123456">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">Fecha de Realización:</label>
+                        <input type="date" name="Fecha_Evaluacion" required id="fechaActual">
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 2: SELECCIÓN MÚLTIPLE -->
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-list-ul"></i> Selección Múltiple</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Seleccione la respuesta correcta para cada pregunta.</p>
+
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Qué es la etnoeducación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_1" value="A" required> a) Un modelo de educación deportiva.</label>
+                            <label><input type="radio" name="Pregunta_1" value="B"> b) Un proceso educativo que reconoce y fortalece la identidad cultural de los pueblos.</label>
+                            <label><input type="radio" name="Pregunta_1" value="C"> c) Un sistema de educación privada.</label>
+                            <label><input type="radio" name="Pregunta_1" value="D"> d) Un método exclusivo para adultos.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">2. El principal objetivo de la etnoeducación es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_2" value="A" required> a) Eliminar las diferencias culturales.</label>
+                            <label><input type="radio" name="Pregunta_2" value="B"> b) Promover una sola cultura.</label>
+                            <label><input type="radio" name="Pregunta_2" value="C"> c) Preservar y fortalecer la identidad cultural de los pueblos.</label>
+                            <label><input type="radio" name="Pregunta_2" value="D"> d) Enseñar únicamente tecnología.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">3. La Constitución Política de Colombia reconoce:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_3" value="A" required> a) La diversidad étnica y cultural de la nación.</label>
+                            <label><input type="radio" name="Pregunta_3" value="B"> b) Una sola cultura nacional.</label>
+                            <label><input type="radio" name="Pregunta_3" value="C"> c) La prohibición de las lenguas indígenas.</label>
+                            <label><input type="radio" name="Pregunta_3" value="D"> d) Ninguna de las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">4. ¿Cuál de los siguientes grupos puede beneficiarse de la etnoeducación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_4" value="A" required> a) Comunidades indígenas.</label>
+                            <label><input type="radio" name="Pregunta_4" value="B"> b) Comunidades afrocolombianas.</label>
+                            <label><input type="radio" name="Pregunta_4" value="C"> c) Pueblo Rrom (gitano).</label>
+                            <label><input type="radio" name="Pregunta_4" value="D"> d) Todas las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">5. La interculturalidad busca:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_5" value="A" required> a) El aislamiento cultural.</label>
+                            <label><input type="radio" name="Pregunta_5" value="B"> b) El diálogo y respeto entre diferentes culturas.</label>
+                            <label><input type="radio" name="Pregunta_5" value="C"> c) La imposición cultural.</label>
+                            <label><input type="radio" name="Pregunta_5" value="D"> d) La discriminación.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Qué papel tiene la lengua materna en la etnoeducación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_6" value="A" required> a) Ninguno.</label>
+                            <label><input type="radio" name="Pregunta_6" value="B"> b) Es un elemento fundamental para preservar la identidad cultural.</label>
+                            <label><input type="radio" name="Pregunta_6" value="C"> c) Debe reemplazarse por otra lengua.</label>
+                            <label><input type="radio" name="Pregunta_6" value="D"> d) Solo sirve para la comunicación informal.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">7. La etnoeducación promueve:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_7" value="A" required> a) El respeto por la diversidad.</label>
+                            <label><input type="radio" name="Pregunta_7" value="B"> b) La exclusión social.</label>
+                            <label><input type="radio" name="Pregunta_7" value="C"> c) La discriminación.</label>
+                            <label><input type="radio" name="Pregunta_7" value="D"> d) El desconocimiento cultural.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">8. ¿Quiénes participan en los procesos etnoeducativos?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_8" value="A" required> a) Solo los docentes.</label>
+                            <label><input type="radio" name="Pregunta_8" value="B"> b) Solo los estudiantes.</label>
+                            <label><input type="radio" name="Pregunta_8" value="C"> c) La comunidad, docentes, estudiantes y familias.</label>
+                            <label><input type="radio" name="Pregunta_8" value="D"> d) Ninguno.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">9. Un principio de la etnoeducación es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_9" value="A" required> a) Homogeneización cultural.</label>
+                            <label><input type="radio" name="Pregunta_9" value="B"> b) Identidad cultural.</label>
+                            <label><input type="radio" name="Pregunta_9" value="C"> c) Exclusión.</label>
+                            <label><input type="radio" name="Pregunta_9" value="D"> d) Competencia cultural.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">10. La educación propia se refiere a:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_10" value="A" required> a) Procesos educativos construidos desde la cultura de cada pueblo.</label>
+                            <label><input type="radio" name="Pregunta_10" value="B"> b) Educación individual.</label>
+                            <label><input type="radio" name="Pregunta_10" value="C"> c) Educación privada.</label>
+                            <label><input type="radio" name="Pregunta_10" value="D"> d) Educación virtual exclusivamente.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 3: VERDADERO O FALSO -->
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-check-circle"></i> Verdadero o Falso</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Indique si la afirmación es Verdadera (V) o Falsa (F).</p>
+
+                    <div class="question-block">
+                        <div class="question-text">11. La etnoeducación reconoce los saberes ancestrales.</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_11_VF" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="Pregunta_11_VF" value="Falso"> Falso</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">12. La diversidad cultural es una riqueza para la sociedad.</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_12_VF" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="Pregunta_12_VF" value="Falso"> Falso</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">13. La etnoeducación busca que todos los pueblos abandonen sus costumbres.</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_13_VF" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="Pregunta_13_VF" value="Falso"> Falso</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">14. Las comunidades tienen derecho a participar en la construcción de sus procesos educativos.</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_14_VF" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="Pregunta_14_VF" value="Falso"> Falso</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">15. La lengua y la cultura están relacionadas entre sí.</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_15_VF" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="Pregunta_15_VF" value="Falso"> Falso</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 4: PREGUNTAS ABIERTAS -->
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-pen-nib"></i> Preguntas Abiertas</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Desarrolle brevemente las siguientes preguntas.</p>
+
+                    <div class="form-group">
+                        <label class="field-label">16. Explique con sus palabras qué significa la etnoeducación.</label>
+                        <textarea name="Pregunta_16_Abierta" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">17. ¿Por qué es importante preservar las tradiciones culturales?</label>
+                        <textarea name="Pregunta_17_Abierta" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">18. Mencione dos aportes de la etnoeducación al desarrollo de las comunidades.</label>
+                        <textarea name="Pregunta_18_Abierta" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">19. ¿Cómo puede la escuela promover el respeto por la diversidad cultural?</label>
+                        <textarea name="Pregunta_19_Abierta" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">20. Describa una práctica cultural de su comunidad que considere importante conservar.</label>
+                        <textarea name="Pregunta_20_Abierta" required></textarea>
+                    </div>
+                </div>
+
+                <!-- BOTÓN FINAL -->
+                <div class="action-buttons pdf-hidden">
+                    <button type="button" class="btn-enviar" onclick="procesarEvaluacion()">
+                        <i class="fas fa-paper-plane"></i> Finalizar y Enviar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/573045778728" class="whatsapp pdf-hidden" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Setear fecha actual por defecto
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        // Menú Responsive
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        // Funciones del Modal Personalizado
+        function abrirModal() {
+            document.getElementById("alertaModal").classList.add("active");
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+
+        // Lógica Avanzada de Validación
+        function procesarEvaluacion() {
+            const form = document.getElementById('evaluacionForm');
+            let formEsValido = true;
+            let primerCampoInvalido = null;
+
+            // 1. Limpiar errores previos
+            document.querySelectorAll('.error-highlight').forEach(el => {
+                el.classList.remove('error-highlight');
+            });
+
+            // 2. Comprobar cada elemento con el atributo "required"
+            const camposRequeridos = form.querySelectorAll('[required]');
+            
+            camposRequeridos.forEach(campo => {
+                if (campo.type === 'radio') {
+                    // Validar grupos de Radio Buttons
+                    const grupoRadios = form.querySelectorAll(`input[name="${campo.name}"]`);
+                    let seleccionado = false;
+                    grupoRadios.forEach(radio => { if (radio.checked) seleccionado = true; });
+                    
+                    if (!seleccionado) {
+                        formEsValido = false;
+                        const bloquePregunta = campo.closest('.question-block');
+                        bloquePregunta.classList.add('error-highlight');
+                        if (!primerCampoInvalido) primerCampoInvalido = bloquePregunta;
+                    }
+                } else {
+                    // Validar Textos y Fechas
+                    if (!campo.value.trim()) {
+                        formEsValido = false;
+                        campo.classList.add('error-highlight');
+                        if (!primerCampoInvalido) primerCampoInvalido = campo;
+                    }
+                }
+            });
+
+            // 3. Acciones si hay errores
+            if (!formEsValido) {
+                abrirModal();
+                // Desplazamiento suave hacia el primer error
+                setTimeout(() => {
+                    primerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300); // Pequeño retraso para que el usuario vea el modal primero
+                return;
+            }
+
+            // 4. Si todo es válido: Mostrar pantalla de carga
+            document.getElementById('loadingPdf').classList.add('active');
+            
+            // Ocultar elementos que no van en el PDF
+            const elementosOcultosNav = document.querySelectorAll('.pdf-hidden');
+            elementosOcultosNav.forEach(el => el.style.display = 'none');
+
+            const nombreEstudiante = form.Nombre_Estudiante.value || 'Estudiante';
+            
+            // Configuración del PDF
+            const opt = {
+                margin:       10,
+                filename:     `Evaluacion_Etnoeducacion_${nombreEstudiante.replace(/ /g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generar y Enviar
+            html2pdf().set(opt).from(document.getElementById('pdf-content')).save().then(() => {
+                // Restaurar visibilidad
+                elementosOcultosNav.forEach(el => el.style.display = '');
+                // Enviar formulario
+                form.submit();
+            });
+        }
+        
+        // Quitar el color rojo apenas el estudiante empiece a escribir o seleccione una opción
+        document.addEventListener('input', function(e) {
+            if(e.target.required) {
+                if(e.target.type === 'radio') {
+                    e.target.closest('.question-block').classList.remove('error-highlight');
+                } else {
+                    e.target.classList.remove('error-highlight');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
