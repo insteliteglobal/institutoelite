@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Técnico Laboral en Análisis y Programación de Sistemas | Instituto Técnico Élite</title>
+<!-- Font Awesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Arial;}
+body{background:#f3f5f8;color:#1f2a44;}
+
+/* NAVBAR */
+.navbar{background:#1f3565;color:white;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;position:sticky;top:0;z-index:1000;flex-wrap:wrap;}
+.logo{font-weight:600;font-size:18px;color:white;}
+.menu-toggle{display:none;font-size:24px;color:white;cursor:pointer;}
+.navbar nav{display:flex;flex-wrap:wrap;align-items:center;}
+.navbar nav a{color:white;text-decoration:none;margin-left:20px;margin-top:0;font-size:15px;}
+.btn-blanco{background:white;color:#1f3565 !important;padding:6px 14px;border-radius:6px;font-weight:600;margin-left:10px;margin-top:0;}
+
+/* PORTADA */
+.hero{
+height:420px;
+background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.85)),
+url("https://images.unsplash.com/photo-1555066931-4365d14bab8c"); /* Imagen de programación de alta calidad */
+background-size:cover;background-position:center;
+display:flex;align-items:center;justify-content:center;text-align:center;color:white;
+}
+.hero h1{font-size:36px;margin-bottom:8px;}
+.hero p{font-size:18px;margin-bottom:15px;}
+.btn-principal{background:white;color:#1f3565;padding:10px 22px;border-radius:6px;text-decoration:none;margin-right:10px;}
+.btn-secundario{background:#1f3565;color:white;padding:10px 22px;border-radius:6px;text-decoration:none;}
+
+/* Buscador */
+.main-search{display:flex;justify-content:flex-start;margin:20px 0 40px 0;}
+.main-search form{display:flex;width:300px;}
+.main-search input{flex:1;padding:8px;border-radius:6px 0 0 6px;border:1px solid #ccc;font-size:14px;}
+.main-search button{background:#1f3565;border:none;color:white;padding:8px 12px;border-radius:0 6px 6px 0;cursor:pointer;}
+
+/* SECCIONES */
+.seccion{padding:22px 20px;max-width:1100px;margin:auto;}
+.seccion h2{margin-bottom:10px;font-size:24px;}
+.seccion p{margin-bottom:15px;line-height:1.6;}
+
+/* GRID TARJETAS */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:10px;}
+.card{background:white;padding:18px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08);}
+.card h3{margin-bottom:4px;}
+
+/* LISTAS */
+ul{padding-left:20px;line-height:1.5;margin-top:6px;}
+li{margin-bottom:3px;}
+
+/* CTA */
+.cta{background:#1f3565;color:white;text-align:center;padding:60px 30px;}
+.cta h2{margin-bottom:15px;}
+.cta p{margin-bottom:25px;line-height:1.6;}
+.cta a.btn-principal{display:inline-block;margin-top:10px;padding:12px 28px;font-size:16px;text-decoration:none;}
+
+/* FOOTER */
+.footer{background:#1f3565;color:#cfd7ec;padding:50px 20px;}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;margin-bottom:20px;}
+.footer h4{color:white;margin-bottom:6px;}
+.footer p{font-size:14px;margin-bottom:4px;}
+.footer .social-icons{display:flex;gap:10px;margin-top:10px;}
+.footer .social-icons a{color:white;font-size:18px;text-decoration:none;}
+.copyright{text-align:center;font-size:13px;opacity:0.9;margin-top:10px;}
+
+/* WHATSAPP */
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  .menu-toggle{display:block;}
+  .navbar nav{display:none;flex-direction:column;width:100%;margin-top:10px;}
+  .navbar nav.active{display:flex;}
+  .navbar nav a, .btn-blanco{margin:10px 0;}
+  .hero {height:auto;padding:40px 20px;}
+  .grid {grid-template-columns:1fr;}
+  .main-search form{width:250px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+<div class="logo">Instituto Técnico Élite</div>
+<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+<nav>
+<a href="inicio.html">Inicio</a>
+<a href="oferta-academica.html">Oferta Académica</a>
+<a href="pagos-en-linea.html">Pagos en línea</a>
+<a href="quienes-somos.html">Quiénes somos</a>
+<a href="contacto.html">Contacto</a>
+<a href="certificados.html">Certificados</a>
+<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com">Campus Virtual</a>
+</nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+<div>
+<h1>Técnico Laboral en Análisis y Programación de Sistemas</h1>
+<p>Fortalece tus competencias en desarrollo de software, lógica de programación, bases de datos y creación de plataformas web dinámicas.</p>
+<a class="btn-principal" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirme</a>
+</div>
+</section>
+
+<!-- Buscador -->
+<div class="main-search">
+  <form action="#" method="GET">
+    <input type="text" placeholder="Buscar..." name="q">
+    <button type="submit"><i class="fas fa-search"></i></button>
+  </form>
+</div>
+
+<!-- Información general -->
+<section class="seccion">
+<h2>Información general del programa</h2>
+<div class="grid" style="margin-top:10px;">
+  <div class="card"><h3>Modalidad</h3><p>Presencial, A distancia y Virtual</p></div>
+  <div class="card"><h3>Tipo de programa</h3><p>Técnico Laboral</p></div>
+  <div class="card"><h3>Duración</h3><p>640 horas</p></div>
+  <div class="card"><h3>Certificación</h3><p>Técnico Laboral en Análisis y Programación de Sistemas</p></div>
+  <div class="card"><h3>Área de formación</h3><p>Ciencias naturales, aplicadas y relacionadas (Código CUOC: 35121)</p></div>
+</div>
+</section>
+
+<section class="seccion">
+<h2>¿A quién va dirigido?</h2>
+<p>Estudiantes, emprendedores, entusiastas de la tecnología y profesionales de diversas ramas que deseen adquirir competencias sólidas en la creación de software, análisis de sistemas y administración de bases de datos para el sector público y privado.</p>
+</section>
+
+<section class="seccion">
+<h2>Perfil del egresado</h2>
+<ul>
+<li>Diseñar y estructurar arquitecturas lógicas para aplicaciones comerciales.</li>
+<li>Codificar y dar soporte a plataformas de software web frontend y backend.</li>
+<li>Implementar, migrar y administrar bases de datos relacionales y no relacionales de manera segura.</li>
+<li>Automatizar procesos organizacionales mediante código limpio y eficiente.</li>
+<li>Aplicar metodologías ágiles de desarrollo para el trabajo eficaz en equipos tecnológicos.</li>
+</ul>
+</section>
+
+<section class="seccion">
+<h2>Competencias que desarrollarás</h2>
+<ul>
+<li>Dominio de lógica de programación y algoritmos computacionales.</li>
+<li>Desarrollo de interfaces de usuario modernas, interactivas y responsivas.</li>
+<li>Creación de arquitecturas de servidores y consumo de API REST de forma óptima.</li>
+<li>Gestión, seguridad y modelado de datos corporativos.</li>
+<li>Pruebas de software, control de versiones (Git) y despliegue en entornos web.</li>
+</ul>
+</section>
+
+<section class="seccion">
+<h2>Plan de estudios</h2>
+<ul>
+<li>Lógica de Programación y Estructuras de Datos (90 horas)</li>
+<li>Modelado y Administración de Bases de Datos (100 horas)</li>
+<li>Desarrollo Web Frontend (HTML, CSS, JavaScript) (120 horas)</li>
+<li>Desarrollo Backend y Arquitectura de Servidores (120 horas)</li>
+<li>Análisis de Requerimientos y Metodologías Ágiles (90 horas)</li>
+<li>Seguridad Informática y Despliegue de Aplicaciones (80 horas)</li>
+<li>Proyecto Final Integrador (40 horas)</li>
+</ul>
+<p><strong>Duración total:</strong> 640 horas</p>
+</section>
+
+<section class="seccion">
+<h2>Requisitos de ingreso</h2>
+<ul>
+<li>Básica secundaria aprobada</li>
+<li>Acceso a un computador y conectividad a internet</li>
+<li>Cumplir con las condiciones metodológicas institucionales</li>
+</ul>
+</section>
+
+<section class="seccion">
+<h2>Metodología de formación</h2>
+<p>Formación teórico-práctica centrada en proyectos del mundo real. El estudiante aprenderá mediante la resolución de problemas lógicos, el diseño directo de interfaces y la creación de un portafolio de software propio guiado por tutores expertos.</p>
+</section>
+
+<section class="seccion">
+<h2>Sistema de evaluación</h2>
+<ul>
+<li>Entregas periódicas de retos de programación por módulo</li>
+<li>Pruebas prácticas de despliegue y desarrollo técnico</li>
+<li>Sustentación del Proyecto Final Integrador</li>
+</ul>
+<p>Para aprobar, el estudiante debe cumplir mínimo con el 80 % de las actividades evaluativas y demostrar suficiencia práctica en los proyectos autónomos.</p>
+</section>
+
+<section class="seccion">
+<h2>Campo de desempeño</h2>
+<ul>
+<li>Desarrollador Full Stack Jr. en empresas de software o tecnología</li>
+<li>Analista o arquitecto técnico de sistemas de información corporativos</li>
+<li>Administrador junior de bases de datos e infraestructura digital</li>
+<li>Programador autónomo / Freelancer enfocado en desarrollo de plataformas SaaS</li>
+<li>Soporte técnico especializado en mantenimiento y actualización de aplicaciones</li>
+</ul>
+</section>
+
+<section class="cta">
+<h2>Inscripción</h2>
+<p>Construye el futuro digital y potencia tu perfil profesional en el sector con mayor demanda laboral del mundo. Inscríbete hoy.</p>
+<a class="btn-principal" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirme ahora</a>
+</section>
+
+<section class="seccion">
+<h2>Soporte Legal del Programa</h2>
+<p>El programa Técnico Laboral en Análisis y Programación de Sistemas cuenta con registro y aprobación oficial otorgados por la Secretaría de Educación, Cultura y Deporte del Municipio de Santa Cruz de Lorica.</p>
+<p>Resolución No. 426 del 12 de febrero de 2026, emitida conforme a la normativa vigente colombiana para la Educación para el Trabajo y el Desarrollo Humano.</p>
+<a class="btn-secundario" href="Resolucion_426_Analisis_y_Programacion_de_Sistemas.pdf">Descargar Resolución Oficial (PDF)</a>
+</section>
+
+<!-- Footer -->
+<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
+
+<!-- Botón WhatsApp flotante con icono real -->
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+// Toggle menú hamburguesa
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.navbar nav');
+menuToggle.addEventListener('click', () => { nav.classList.toggle('active'); });
+</script>
+
+</body>
+</html>
