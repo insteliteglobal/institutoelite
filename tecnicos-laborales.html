@@ -1,446 +1,451 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnicos Laborales | Instituto Técnico Élite</title>
+    
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- FUENTE PREMIUM -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RESET & VARIABLES */
+        :root {
+            --primary: #1f3565;
+            --primary-light: #2c4c91;
+            --accent: #ffd43b;
+            --text-main: #1f2a44;
+            --text-muted: #64748b;
+            --bg-body: #f3f5f8;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-<title>Técnicos Laborales | Instituto Técnico Élite</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+        }
 
-<!-- ICONOS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-<style>
+        /* NAVBAR PREMIUM */
+        .navbar {
+            background: rgba(31, 53, 101, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI, Arial;
-}
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            color: var(--white);
+        }
 
-body{
-background:#f3f5f8;
-color:#1f2a44;
-}
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--white);
+            transition: var(--transition);
+        }
 
-/* NAVBAR */
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-.navbar{
-background:#1f3565;
-color:white;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 60px;
-position:sticky;
-top:0;
-z-index:1000;
-}
+        .navbar nav a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
 
-.logo{
-font-weight:600;
-font-size:18px;
-}
+        .navbar nav a:hover {
+            color: var(--white);
+        }
 
-.navbar nav{
-display:flex;
-align-items:center;
-}
+        .navbar nav a:not(.btn-blanco)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
 
-.navbar nav a{
-color:white;
-text-decoration:none;
-margin-left:20px;
-font-size:15px;
-}
+        .navbar nav a:not(.btn-blanco):hover::after {
+            width: 100%;
+        }
 
-.btn-blanco{
-background:white;
-color:#1f3565 !important;
-padding:6px 14px;
-border-radius:6px;
-font-weight:600;
-}
+        .btn-blanco {
+            background: var(--white);
+            color: var(--primary) !important;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
 
-/* MENU HAMBURGUESA */
+        .btn-blanco:hover {
+            background: var(--accent);
+            color: #000 !important;
+            transform: translateY(-2px);
+        }
 
-.menu-toggle{
-display:none;
-font-size:26px;
-cursor:pointer;
-}
+        /* PORTADA / HERO REDISEÑADA */
+        .hero {
+            min-height: 380px;
+            background: linear-gradient(to right, rgba(31, 53, 101, 0.85), rgba(31, 53, 101, 0.6)), 
+                        url("https://images.unsplash.com/photo-1523580494863-6f3031224c94") center/cover fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--white);
+        }
 
-/* HERO */
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
 
-.hero{
-height:360px;
+        .hero p {
+            font-size: 18px;
+            font-weight: 300;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-background:
-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.80)),
-url("https://images.unsplash.com/photo-1523580494863-6f3031224c94");
+        /* SECCIÓN PROGRAMAS */
+        .seccion-programas {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-background-size:cover;
-background-position:center;
+        .titulo-programas {
+            text-align: center;
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
 
-display:flex;
-align-items:center;
-justify-content:center;
+        /* GRID AUTOAJUSTABLE (Optimizado PC y Celular) */
+        .grid-programas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
 
-text-align:center;
-color:white;
-}
+        /* TARJETAS CON DISEÑO FINO */
+        .card-programa {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
 
-.hero h1{
-font-size:38px;
-margin-bottom:10px;
-}
+        .card-programa:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(31, 53, 101, 0.1);
+        }
 
-.hero p{
-font-size:18px;
-}
+        .card-programa img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-/* SECCION */
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
-.seccion-programas{
-padding:60px;
-}
+        .card-content h3 {
+            font-size: 19px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
 
-.titulo-programas{
-text-align:center;
-font-size:30px;
-margin-bottom:40px;
-color:#1f3565;
-}
+        .card-content p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
 
-/* GRID */
+        /* CONTENEDOR DE BOTONES ALINEADOS */
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
 
-.grid-programas{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-max-width:1200px;
-margin:auto;
-}
+        .btn-programa, .btn-inscribirse {
+            flex: 1;
+            text-align: center;
+            padding: 11px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+        }
 
-/* TARJETAS */
+        .btn-programa {
+            background: var(--bg-body);
+            color: var(--primary);
+        }
 
-.card-programa{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 4px 14px rgba(0,0,0,0.08);
-text-align:center;
-display:flex;
-flex-direction:column;
-}
+        .btn-programa:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
 
-.card-programa img{
-width:100%;
-height:180px;
-object-fit:cover;
-}
+        .btn-inscribirse {
+            background: var(--primary);
+            color: var(--white);
+            border: 2px solid var(--primary);
+        }
 
-.card-content{
-padding:18px;
-display:flex;
-flex-direction:column;
-flex-grow:1;
-}
+        .btn-inscribirse:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
 
-.card-programa h3{
-color:#1f3565;
-margin-bottom:10px;
-}
+        /* AJUSTE IFRAME FOOTER */
+        iframe {
+            width: 100%;
+            height: 320px;
+            border: none;
+            display: block;
+        }
 
-.card-programa p{
-font-size:14px;
-line-height:1.5;
-margin-bottom:20px;
-flex-grow:1;
-}
+        /* WHATSAPP FLOTANTE */
+        .whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            transition: var(--transition);
+            z-index: 1000;
+        }
 
-/* BOTONES */
+        .whatsapp:hover {
+            transform: scale(1.1) translateY(-5px);
+        }
 
-.btn-programa{
-display:block;
-background:#1f3565;
-color:white;
-padding:10px;
-border-radius:6px;
-text-decoration:none;
-font-size:14px;
-margin-bottom:8px;
-}
+        /* MEDIA QUERIES PARA CELULAR */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
 
-.btn-programa:hover{
-background:#15284e;
-}
+            .menu-toggle {
+                display: block;
+            }
 
-.btn-inscribirse{
-display:block;
-background:white;
-color:#1f3565;
-border:2px solid #1f3565;
-padding:10px;
-border-radius:6px;
-text-decoration:none;
-font-size:14px;
-}
+            .navbar nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(31, 53, 101, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+            }
 
-/* FOOTER */
+            .navbar nav.active {
+                max-height: 500px;
+                padding: 20px 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
 
-.footer{
-background:#1f3565;
-color:#cfd7ec;
-padding:40px 60px;
-}
+            .navbar nav a, .btn-blanco {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 0;
+                border-radius: 0;
+            }
 
-.footer-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:25px;
-margin-bottom:20px;
-}
+            .navbar nav a:not(.btn-blanco)::after {
+                display: none;
+            }
 
-.footer h4{
-color:white;
-margin-bottom:6px;
-}
+            .hero h1 {
+                font-size: 32px;
+            }
 
-.footer p{
-font-size:14px;
-margin-bottom:4px;
-}
-
-.footer-links{
-text-align:center;
-margin-top:10px;
-}
-
-.footer-links a{
-color:#cfd7ec;
-text-decoration:none;
-margin:0 8px;
-font-size:13px;
-}
-
-.footer-links a:hover{
-text-decoration:underline;
-}
-
-.copyright{
-text-align:center;
-font-size:13px;
-opacity:0.9;
-margin-top:10px;
-}
-
-/* WHATSAPP */
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-width:55px;
-height:55px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:26px;
-text-decoration:none;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-z-index:999;
-}
-
-/* RESPONSIVE */
-
-@media (max-width:768px){
-
-.navbar{
-padding:15px 20px;
-}
-
-.menu-toggle{
-display:block;
-color:white;
-}
-
-.navbar nav{
-display:none;
-flex-direction:column;
-position:absolute;
-top:60px;
-left:0;
-width:100%;
-background:#1f3565;
-padding:20px;
-}
-
-.navbar nav a{
-display:block;
-margin:10px 0;
-}
-
-.navbar nav.active{
-display:flex;
-}
-
-.hero h1{
-font-size:30px;
-}
-
-.hero p{
-font-size:16px;
-}
-
-.seccion-programas{
-padding:40px 20px;
-}
-
-.grid-programas{
-grid-template-columns:1fr;
-}
-
-}
-
-</style>
-
+            .hero p {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
 <header class="navbar">
-
-<div class="logo">
-Instituto Técnico Élite
-</div>
-
-<div class="menu-toggle" onclick="toggleMenu()">
-<i class="fas fa-bars"></i>
-</div>
-
-<nav id="menu">
-
-<a href="inicio.html">Inicio</a>
-<a href="oferta-academica.html">Oferta Académica</a>
-<a href="pagos-en-linea.html">Pagos en línea</a>
-<a href="quienes-somos.html">Quiénes somos</a>
-<a href="contacto.html">Contacto</a>
-<a href="certificados.html">Certificados</a>
-
-<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">
-Inscribirse
-</a>
-
-<a class="btn-blanco" href="https://institutoelite.q10.com">
-Campus Virtual
-</a>
-
-</nav>
-
+    <div class="logo">Instituto Técnico Élite</div>
+    <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    <nav>
+        <a href="inicio.html">Inicio</a>
+        <a href="oferta-academica.html">Oferta Académica</a>
+        <a href="pagos-en-linea.html">Pagos en línea</a>
+        <a href="quienes-somos.html">Quiénes somos</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="certificados.html">Certificados</a>
+        <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+        <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+    </nav>
 </header>
 
-
+<!-- PORTADA INTEGRADA DE VUELTA -->
 <section class="hero">
-
-<div>
-
-<h1>Técnicos Laborales</h1>
-
-<p>
-Formación técnica orientada al desarrollo de competencias laborales
-</p>
-
-</div>
-
+    <div>
+        <h1>Técnicos Laborales</h1>
+        <p>Formación técnica orientada al desarrollo de competencias laborales</p>
+    </div>
 </section>
-
 
 <section class="seccion-programas">
+    <h2 class="titulo-programas">Nuestros Programas</h2>
+    <div class="grid-programas">
 
-<h2 class="titulo-programas">
-Nuestros Programas
-</h2>
+        <!-- PROGRAMA 1 -->
+        <div class="card-programa">
+            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c" alt="Auxiliar Contable">
+            <div class="card-content">
+                <h3>Auxiliar Contable</h3>
+                <p>Formación en procesos contables, registro de operaciones financieras y apoyo administrativo en organizaciones.</p>
+                <div class="card-buttons">
+                    <a href="TLauxiliar-contable.html" class="btn-programa">Ver programa</a>
+                    <a href="https://INSTITUTOELITE.q10.com/Preinscripcion" class="btn-inscribirse">Inscribirse</a>
+                </div>
+            </div>
+        </div>
 
-<div class="grid-programas">
+        <!-- PROGRAMA 2 -->
+        <div class="card-programa">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" alt="Belleza Integral">
+            <div class="card-content">
+                <h3>Belleza Integral</h3>
+                <p>Formación en estética, cuidado personal, maquillaje, tratamientos capilares y servicios de belleza.</p>
+                <div class="card-buttons">
+                    <a href="TLbelleza-integral.html" class="btn-programa">Ver programa</a>
+                    <a href="https://INSTITUTOELITE.q10.com/Preinscripcion" class="btn-inscribirse">Inscribirse</a>
+                </div>
+            </div>
+        </div>
 
-<!-- PROGRAMA 1 -->
+        <!-- PROGRAMA 3 (NUEVO) -->
+        <div class="card-programa">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" alt="Análisis y Programación de Sistemas">
+            <div class="card-content">
+                <h3>Análisis y Programación de Sistemas</h3>
+                <p>Formación técnica especializada en desarrollo de software, algoritmos, bases de datos y creación de soluciones web a nivel profesional.</p>
+                <div class="card-buttons">
+                    <a href="TLanalisis-programacion.html" class="btn-programa">Ver programa</a>
+                    <a href="https://INSTITUTOELITE.q10.com/Preinscripcion" class="btn-inscribirse">Inscribirse</a>
+                </div>
+            </div>
+        </div>
 
-<div class="card-programa">
+        <!-- PROGRAMA 4 (NUEVO) -->
+        <div class="card-programa">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" alt="Pedagogía Infantil">
+            <div class="card-content">
+                <h3>Pedagogía Infantil</h3>
+                <p>Formación orientada al cuidado integral, estimulación temprana, desarrollo cognitivo y metodologías lúdico-educativas para la primera infancia.</p>
+                <div class="card-buttons">
+                    <a href="TLpedagogia-infantil.html" class="btn-programa">Ver programa</a>
+                    <a href="https://INSTITUTOELITE.q10.com/Preinscripcion" class="btn-inscribirse">Inscribirse</a>
+                </div>
+            </div>
+        </div>
 
-<img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c">
-
-<div class="card-content">
-
-<h3>Auxiliar Contable</h3>
-
-<p>
-Formación en procesos contables, registro de operaciones financieras
-y apoyo administrativo en organizaciones.
-</p>
-
-<a href="TLauxiliar-contable.html" class="btn-programa">
-Ver programa
-</a>
-
-<a href="https://INSTITUTOELITE.q10.com/Preinscripcion" class="btn-inscribirse">
-Inscribirse
-</a>
-
-</div>
-
-</div>
-
-<!-- PROGRAMA 2 -->
-
-<div class="card-programa">
-
-<img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
-
-<div class="card-content">
-
-<h3>Belleza Integral</h3>
-
-<p>
-Formación en estética, cuidado personal, maquillaje,
-tratamientos capilares y servicios de belleza.
-</p>
-
-<a href="TLbelleza-integral.html" class="btn-programa">
-Ver programa
-</a>
-
-<a href="https://INSTITUTOELITE.q10.com/Preinscripcion" class="btn-inscribirse">
-Inscribirse
-</a>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
+<!-- El footer se enlaza correctamente por iframe -->
+<iframe src="footer.html"></iframe>
 
-<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
-
+<!-- Botón flotante -->
 <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
-<i class="fab fa-whatsapp"></i>
+    <i class="fab fa-whatsapp"></i>
 </a>
 
 <script>
+    // Script interactivo para despliegue fluido del menú hamburguesa
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.navbar nav');
 
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
-}
-
+    menuToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        const icon = menuToggle.querySelector('i');
+        if(nav.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
 </script>
 
 </body>
 </html>
-```
