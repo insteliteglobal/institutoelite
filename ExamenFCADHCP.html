@@ -909,105 +909,44 @@
     </a>
 
     <script>
-        document.getElementById('fechaActual').valueAsDate = new Date();
+    // Fecha automática
+    document.getElementById('fechaActual').valueAsDate = new Date();
 
-        function toggleMenu() {
-            document.getElementById("menu").classList.toggle("active");
+    function toggleMenu() {
+        document.getElementById("menu").classList.toggle("active");
+    }
+
+    // Navegación de pestañas
+    function openTab(evt, tabId) {
+        let tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = "none";
+            tabContents[i].classList.remove("active");
         }
-
-        // Lógica de Pestañas
-        function openTab(evt, tabId) {
-            let tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].style.display = "none";
-                tabContents[i].classList.remove("active");
-            }
-            let tabBtns = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabBtns.length; i++) {
-                tabBtns[i].className = tabBtns[i].className.replace(" active", "");
-            }
-            document.getElementById(tabId).style.display = "block";
-            document.getElementById(tabId).classList.add("active");
-            evt.currentTarget.className += " active";
-            
-            // Scroll hacia arriba al cambiar de pestaña
-            window.scrollTo({ top: document.querySelector('.form-evaluacion').offsetTop - 100, behavior: 'smooth' });
+        let tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].className = tabBtns[i].className.replace(" active", "");
         }
+        document.getElementById(tabId).style.display = "block";
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.className += " active";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        function abrirModal() {
-            document.getElementById("alertaModal").classList.add("active");
-        }
-
-        function cerrarModal() {
-            document.getElementById("alertaModal").classList.remove("active");
-        }
-
-        function procesarEvaluacion() {
-            const form = document.getElementById('evaluacionForm');
-            let formEsValido = true;
-            let primerCampoInvalido = null;
-
-            document.querySelectorAll('.error-highlight').forEach(el => {
-                el.classList.remove('error-highlight');
-            });
-
-            const camposRequeridos = form.querySelectorAll('[required]');
-            
-            camposRequeridos.forEach(campo => {
-                if (campo.type === 'radio') {
-                    const grupoRadios = form.querySelectorAll(`input[name="${campo.name}"]`);
-                    let seleccionado = false;
-                    grupoRadios.forEach(radio => { if (radio.checked) seleccionado = true; });
-                    
-                    if (!seleccionado) {
-                        formEsValido = false;
-                        const bloquePregunta = campo.closest('.question-block');
-                        bloquePregunta.classList.add('error-highlight');
-                        if (!primerCampoInvalido) primerCampoInvalido = bloquePregunta;
-                    }
-                } else {
-                    if (!campo.value.trim()) {
-                        formEsValido = false;
-                        campo.classList.add('error-highlight');
-                        if (!primerCampoInvalido) primerCampoInvalido = campo;
-                    }
-                }
-            });
-
-            if (!formEsValido) {
-                // Identificar en qué pestaña está el error y abrirla
-                const tabPadre = primerCampoInvalido.closest('.tab-content');
-                if(tabPadre && !tabPadre.classList.contains('active')) {
-                    const tabId = tabPadre.id;
-                    const index = tabId.replace('tab', '') - 1;
-                    document.querySelectorAll('.tab-btn')[index].click();
-                }
-
-                abrirModal();
-                setTimeout(() => {
-                    primerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 400);
-                return;
-            }
-
-            // Cambiar textos del loading para reflejar un envío estándar
-            document.getElementById('loadingPdf').querySelector('h3').innerText = "Enviando evaluación...";
-            document.getElementById('loadingPdf').querySelector('p').innerText = "Procesando respuestas, por favor espera.";
-            document.getElementById('loadingPdf').classList.add('active');
-            
-            // Enviar formulario directamente
-            form.submit();
-        }
+    // Validar y enviar
+    function procesarEvaluacion() {
+        const form = document.getElementById('evaluacionForm');
         
-        document.addEventListener('input', function(e) {
-            if(e.target.required) {
-                if(e.target.type === 'radio') {
-                    e.target.closest('.question-block').classList.remove('error-highlight');
-                } else {
-                    e.target.classList.remove('error-highlight');
-                }
-            }
-        });
-    </script>
+        // Validación simple de campos requeridos
+        if (!form.checkValidity()) {
+            alert("Por favor, completa todas las preguntas antes de enviar.");
+            form.reportValidity();
+            return;
+        }
+
+        // Si es válido, enviamos
+        form.submit();
+    }
+</script>
 </body>
 </html>
