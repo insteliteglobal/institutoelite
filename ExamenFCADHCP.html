@@ -423,7 +423,7 @@
 
     <section class="contenedor">
         <div class="form-evaluacion" id="pdf-content">
-            <form id="evaluacionForm" action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST" novalidate>
+            <form id="evaluacionForm" action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST">
                 
                 <input type="hidden" name="_subject" value="Examen Final: Derechos Humanos">
                 <input type="hidden" name="_captcha" value="false">
@@ -908,15 +908,14 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script>
-    // Fecha automática
+   <script>
     document.getElementById('fechaActual').valueAsDate = new Date();
 
     function toggleMenu() {
         document.getElementById("menu").classList.toggle("active");
     }
 
-    // Navegación de pestañas
+    // Lógica de Pestañas
     function openTab(evt, tabId) {
         let tabContents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < tabContents.length; i++) {
@@ -930,23 +929,84 @@
         document.getElementById(tabId).style.display = "block";
         document.getElementById(tabId).classList.add("active");
         evt.currentTarget.className += " active";
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        window.scrollTo({ top: document.querySelector('.form-evaluacion').offsetTop - 100, behavior: 'smooth' });
     }
 
-    // Validar y enviar
+    function abrirModal() {
+        document.getElementById("alertaModal").classList.add("active");
+    }
+
+    function cerrarModal() {
+        document.getElementById("alertaModal").classList.remove("active");
+    }
+
     function procesarEvaluacion() {
         const form = document.getElementById('evaluacionForm');
+        let formEsValido = true;
+        let primerCampoInvalido = null;
+
+        document.querySelectorAll('.error-highlight').forEach(el => {
+            el.classList.remove('error-highlight');
+        });
+
+        const camposRequeridos = form.querySelectorAll('[required]');
         
-        // Validación simple de campos requeridos
-        if (!form.checkValidity()) {
-            alert("Por favor, completa todas las preguntas antes de enviar.");
-            form.reportValidity();
+        camposRequeridos.forEach(campo => {
+            if (campo.type === 'radio') {
+                const grupoRadios = form.querySelectorAll(`input[name="${campo.name}"]`);
+                let seleccionado = false;
+                grupoRadios.forEach(radio => { if (radio.checked) seleccionado = true; });
+                
+                if (!seleccionado) {
+                    formEsValido = false;
+                    const bloquePregunta = campo.closest('.question-block');
+                    bloquePregunta.classList.add('error-highlight');
+                    if (!primerCampoInvalido) primerCampoInvalido = bloquePregunta;
+                }
+            } else {
+                if (!campo.value.trim()) {
+                    formEsValido = false;
+                    campo.classList.add('error-highlight');
+                    if (!primerCampoInvalido) primerCampoInvalido = campo;
+                }
+            }
+        });
+
+        if (!formEsValido) {
+            const tabPadre = primerCampoInvalido.closest('.tab-content');
+            if(tabPadre && !tabPadre.classList.contains('active')) {
+                const tabId = tabPadre.id;
+                const index = tabId.replace('tab', '') - 1;
+                document.querySelectorAll('.tab-btn')[index].click();
+            }
+
+            abrirModal();
+            setTimeout(() => {
+                primerCampoInvolucrado = primerCampoInvalido; // Corrección menor
+                primerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
             return;
         }
 
-        // Si es válido, enviamos
+        // Mostrar aviso de envío
+        document.getElementById('loadingPdf').querySelector('h3').innerText = "Enviando evaluación...";
+        document.getElementById('loadingPdf').querySelector('p').innerText = "Estamos procesando tus respuestas, por favor espera un momento.";
+        document.getElementById('loadingPdf').classList.add('active');
+        
+        // Enviar formulario (esto hará que el navegador procese el 'action' que pusimos arriba)
         form.submit();
     }
+    
+    document.addEventListener('input', function(e) {
+        if(e.target.required) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            } else {
+                e.target.classList.remove('error-highlight');
+            }
+        }
+    });
 </script>
 </body>
 </html>
