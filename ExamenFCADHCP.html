@@ -6,7 +6,6 @@
     <title>Examen Final: Derechos Humanos | Instituto Técnico Élite</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         * {
@@ -991,37 +990,13 @@
                 return;
             }
 
+            // Cambiar textos del loading para reflejar un envío estándar
+            document.getElementById('loadingPdf').querySelector('h3').innerText = "Enviando evaluación...";
+            document.getElementById('loadingPdf').querySelector('p').innerText = "Procesando respuestas, por favor espera.";
             document.getElementById('loadingPdf').classList.add('active');
             
-            // PREPARAR PARA PDF: Ocultar botones y expandir TODAS las pestañas
-            document.getElementById('tabControls').style.display = 'none';
-            document.querySelectorAll('.action-buttons').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.style.display = 'block'; 
-                tab.style.opacity = '1';
-            });
-
-            const nombreEstudiante = form.Nombre_Estudiante.value || 'Estudiante';
-            
-            const opt = {
-                margin:       10,
-                filename:     `Examen_Derechos_Humanos_${nombreEstudiante.replace(/ /g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, windowWidth: 1024 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(document.getElementById('pdf-content')).save().then(() => {
-                // Restaurar vista de pestañas después de crear el PDF
-                document.getElementById('tabControls').style.display = 'flex';
-                document.querySelectorAll('.action-buttons').forEach(el => el.style.display = 'flex');
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    if(!tab.classList.contains('active')) {
-                        tab.style.display = 'none';
-                    }
-                });
-                form.submit();
-            });
+            // Enviar formulario directamente
+            form.submit();
         }
         
         document.addEventListener('input', function(e) {
