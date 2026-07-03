@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Profesional | Instituto Técnico Élite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #1f3565;
+            --primary-hover: #152446;
+            --bg-body: #f3f5f8;
+            --bg-card: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #666666;
+            --border-color: #e0e6ed;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* NAVBAR */
+        .navbar { background: var(--primary-color); color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo { font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+        .btn-blanco { background: white; color: var(--primary-color) !important; padding: 8px 16px; border-radius: 6px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; }
+
+        /* DASHBOARD */
+        .dashboard-container { display: flex; max-width: 1200px; margin: 40px auto; width: 100%; padding: 0 20px; gap: 30px; flex: 1; }
+        .sidebar { width: 280px; background: var(--bg-card); border-radius: 12px; padding: 20px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.05); height: fit-content; position: sticky; top: 90px; }
+        .sidebar-header { padding: 0 20px 15px 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 15px; color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        .tab-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 15px 25px; background: none; border: none; text-align: left; font-size: 16px; font-weight: 600; color: var(--text-main); cursor: pointer; transition: all 0.3s ease; border-left: 4px solid transparent; }
+        .tab-btn.active { background: #f0f4f8; color: var(--primary-color); border-left: 4px solid var(--primary-color); }
+        
+        .content-area { flex: 1; background: var(--bg-card); border-radius: 12px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); min-height: 500px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* BUSCADOR */
+        .search-bar { margin-bottom: 30px; position: relative; }
+        .search-bar input { width: 100%; padding: 15px 15px 15px 45px; border: 1px solid var(--border-color); border-radius: 8px; }
+
+        /* TARJETAS */
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .link-card { background: white; border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; transition: all 0.3s; }
+        .link-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--primary-color); }
+        .link-icon { font-size: 24px; color: var(--primary-color); margin-bottom: 15px; }
+        .link-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .link-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+        
+        .btn-group { display: flex; gap: 8px; }
+        .btn-action { flex: 1; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; text-decoration: none; border: 1px solid var(--border-color); transition: 0.2s; }
+        .btn-open { background: var(--primary-color); color: white; border: none; }
+        .btn-share { background: #f8f9fa; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+        /* TOAST */
+        #toast { visibility: hidden; background: #25D366; color: white; padding: 15px 25px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); border-radius: 30px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        #toast.show { visibility: visible; animation: fadeIn 0.5s; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo"><i class="fas fa-graduation-cap"></i> Instituto Técnico Élite</div>
+        <a class="btn-blanco" href="https://institutoelite.edu.co">Ir al Sitio</a>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">Menú Principal</div>
+            <button class="tab-btn active" onclick="openTab(event, 'evaluaciones')"><i class="fas fa-file-signature"></i> Evaluaciones</button>
+            <button class="tab-btn" onclick="openTab(event, 'matriculas')"><i class="fas fa-user-plus"></i> Matrículas</button>
+            <button class="tab-btn" onclick="openTab(event, 'institucional')"><i class="fas fa-building"></i> Institucional</button>
+        </aside>
+
+        <main class="content-area">
+            <div class="search-bar">
+                <i class="fas fa-search" style="position:absolute; left:15px; top:17px; color:gray;"></i>
+                <input type="text" id="searchInput" placeholder="Buscar evaluación o trámite..." onkeyup="filterLinks()">
+            </div>
+
+            <!-- Evaluaciones -->
+            <div id="evaluaciones" class="tab-content active">
+                <div class="links-grid">
+                    <!-- Derechos Humanos -->
+                    <div class="link-card" data-title="Derechos Humanos Construcción Paz">
+                        <i class="fas fa-dove link-icon"></i>
+                        <h3 class="link-title">Derechos Humanos y Paz</h3>
+                        <p class="link-desc">Evaluación Final: Derechos Humanos y Construcción de Paz.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/ExamenFCADHCP.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Evaluación: Derechos Humanos y Construcción de Paz', 'https://www.institutoelite.edu.co/ExamenFCADHCP.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                    <!-- APS -->
+                    <div class="link-card" data-title="APS Atención Primaria">
+                        <i class="fas fa-heartbeat link-icon"></i>
+                        <h3 class="link-title">APS</h3>
+                        <p class="link-desc">Evaluación Final: Atención Primaria en Salud.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/ExamenAPS.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: APS', 'https://www.institutoelite.edu.co/ExamenAPS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                    <!-- ASIS -->
+                    <div class="link-card" data-title="ASIS Integrador">
+                        <i class="fas fa-microscope link-icon"></i>
+                        <h3 class="link-title">ASIS</h3>
+                        <p class="link-desc">Examen Integrador: Evaluación de Competencias ASIS.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/ExamenASIS.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Examen Integrador: ASIS', 'https://www.institutoelite.edu.co/ExamenASIS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                    <!-- FASS -->
+                    <div class="link-card" data-title="FASS Facturación">
+                        <i class="fas fa-file-invoice-dollar link-icon"></i>
+                        <h3 class="link-title">FASS</h3>
+                        <p class="link-desc">Evaluación Final: Facturación y Auditoría de Servicios en Salud.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/ExamenFASS.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: FASS', 'https://www.institutoelite.edu.co/ExamenFASS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                    <!-- SMC -->
+                    <div class="link-card" data-title="SMC Salud Mental">
+                        <i class="fas fa-brain link-icon"></i>
+                        <h3 class="link-title">SMC</h3>
+                        <p class="link-desc">Evaluación Final: Salud Mental Comunitaria y Apoyo Psicosocial.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/ExamenSMC.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: SMC', 'https://www.institutoelite.edu.co/ExamenSMC.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                    <!-- SPGB -->
+                    <div class="link-card" data-title="SPGB Salud Pública">
+                        <i class="fas fa-hands-holding-circle link-icon"></i>
+                        <h3 class="link-title">SPGB</h3>
+                        <p class="link-desc">Evaluación Final: Salud Pública y Gestión del Bienestar.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/ExamenSPGB.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: SPGB', 'https://www.institutoelite.edu.co/ExamenSPGB.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="matriculas" class="tab-content">
+                <div class="links-grid">
+                    <div class="link-card" data-title="Matrícula SIET">
+                        <i class="fas fa-id-badge link-icon"></i>
+                        <h3 class="link-title">Matrícula SIET</h3>
+                        <p class="link-desc">Formulario oficial para el proceso de matrícula SIET.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/matricula.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Matrícula SIET', 'https://www.institutoelite.edu.co/matricula.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                    <div class="link-card" data-title="Registro Estudiantes">
+                        <i class="fas fa-user-plus link-icon"></i>
+                        <h3 class="link-title">Registro Estudiantes</h3>
+                        <p class="link-desc">Portal de registro y captura de datos para estudiantes Élite.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/matriculaelite.html" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Registro de Estudiantes Élite', 'https://www.institutoelite.edu.co/matriculaelite.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="institucional" class="tab-content">
+                <div class="links-grid">
+                    <div class="link-card" data-title="Página Principal">
+                        <i class="fas fa-globe link-icon"></i>
+                        <h3 class="link-title">Portal Élite</h3>
+                        <p class="link-desc">Sitio web oficial del Instituto Técnico Élite.</p>
+                        <div class="btn-group">
+                            <a href="https://www.institutoelite.edu.co/" target="_blank" class="btn-action btn-open">Abrir</a>
+                            <button class="btn-action btn-share" onclick="compartir('Portal Instituto Técnico Élite', 'https://www.institutoelite.edu.co/')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="toast">Acción completada</div>
+
+    <script>
+        function openTab(evt, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        function filterLinks() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.link-card').forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                card.style.display = title.includes(input) ? 'flex' : 'none';
+            });
+        }
+
+        async function compartir(titulo, url) {
+            const hora = new Date().getHours();
+            let saludo = (hora < 12) ? "¡Buenos días!" : (hora < 19) ? "¡Buenas tardes!" : "¡Buenas noches!";
+            const mensaje = `${saludo} Te invitamos a realizar ${titulo} en el Instituto Técnico Élite. Es un gusto contar contigo. Accede aquí: ${url}`;
+            
+            // Intentar usar la API nativa de compartir
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Instituto Técnico Élite',
+                        text: mensaje,
+                        url: url
+                    });
+                } catch (err) {
+                    console.log("Error compartiendo:", err);
+                }
+            } else {
+                // Fallback si el navegador no soporta share
+                navigator.clipboard.writeText(mensaje).then(() => {
+                    const toast = document.getElementById("toast");
+                    toast.innerText = "Enlace copiado al portapapeles";
+                    toast.classList.add("show");
+                    setTimeout(() => toast.classList.remove("show"), 3000);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
