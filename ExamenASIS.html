@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final Integrador: ASIS | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 32px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE PREGUNTAS Y CAMPOS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; }
+        input[type="text"], input[type="date"], textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, textarea:focus { border-color: #1f3565; outline: none; }
+        textarea { min-height: 100px; resize: vertical; }
+
+        /* ESTILOS DE PREGUNTAS DE SELECCIÓN */
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 16px; }
+        .options-group label { display: flex; align-items: center; padding: 10px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-weight: normal; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; width: 18px; height: 18px; accent-color: #1f3565; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES DE ACCIÓN */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.9); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 24px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Faltan respuestas</h3>
+            <p class="modal-text">Por favor, revisa el cuestionario. Hemos cambiado a la sección correspondiente y resaltado en rojo las preguntas pendientes.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando evaluación...</h3>
+        <p style="color:#666;">Preparando documento completo, por favor espera.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Examen Final Integrador: Evaluación Final de Competencias ASIS</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="pdf-content">
+            <form id="evaluacionForm" action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST">
+                
+                <input type="hidden" name="_subject" value="Examen Final Integrador: ASIS">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://institutoelite.q10.com"> 
+                <input type="hidden" name="Calificacion_Preguntas_Cerradas" id="puntajeCalculado" value="Calculando...">
+
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante</h2>
+                    <div class="form-group">
+                        <label class="field-label">Nombre del estudiante:</label>
+                        <input type="text" name="Nombre_Estudiante" required placeholder="Nombres y Apellidos">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Documento de identidad:</label>
+                        <input type="text" name="Documento_Estudiante" required placeholder="Ej. 1000123456">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Fecha:</label>
+                        <input type="date" name="Fecha_Evaluacion" required id="fechaActual">
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Fundamentos e Indicadores</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Gestión, Promoción y Vigilancia</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Ética, Desarrollo y Caso Integrador</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-book-medical"></i> Sección 1: Fundamentos de APS, Indicadores Básicos y Caracterización</h2>
+                    
+                    <h3 style="margin-bottom:15px; color:#1f3565;">Fundamentos de APS y Salud Pública</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">1. La Atención Primaria en Salud (APS) busca principalmente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_1" value="A" required> a) Atender únicamente enfermedades graves.</label>
+                            <label><input type="radio" name="Pregunta_1" value="B" data-correct="true"> b) Garantizar atención integral centrada en las personas, familias y comunidades.</label>
+                            <label><input type="radio" name="Pregunta_1" value="C"> c) Incrementar la atención hospitalaria.</label>
+                            <label><input type="radio" name="Pregunta_1" value="D"> d) Reducir la participación comunitaria.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">2. Un principio fundamental de la APS es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_2" value="A" required> a) Exclusión.</label>
+                            <label><input type="radio" name="Pregunta_2" value="B" data-correct="true"> b) Equidad.</label>
+                            <label><input type="radio" name="Pregunta_2" value="C"> c) Competencia.</label>
+                            <label><input type="radio" name="Pregunta_2" value="D"> d) Centralización.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">3. Los determinantes sociales de la salud son:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_3" value="A" required> a) Factores exclusivamente biológicos.</label>
+                            <label><input type="radio" name="Pregunta_3" value="B" data-correct="true"> b) Condiciones sociales, económicas y ambientales que influyen en la salud.</label>
+                            <label><input type="radio" name="Pregunta_3" value="C"> c) Medicamentos.</label>
+                            <label><input type="radio" name="Pregunta_3" value="D"> d) Tratamientos médicos.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">4. Un factor protector es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_4" value="A" data-correct="true" required> a) Una condición que favorece la salud y reduce riesgos.</label>
+                            <label><input type="radio" name="Pregunta_4" value="B"> b) Una enfermedad.</label>
+                            <label><input type="radio" name="Pregunta_4" value="C"> c) Un accidente.</label>
+                            <label><input type="radio" name="Pregunta_4" value="D"> d) Un factor de riesgo.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Cuál es un factor de riesgo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_5" value="A" required> a) Actividad física.</label>
+                            <label><input type="radio" name="Pregunta_5" value="B"> b) Alimentación balanceada.</label>
+                            <label><input type="radio" name="Pregunta_5" value="C" data-correct="true"> c) Consumo de tabaco.</label>
+                            <label><input type="radio" name="Pregunta_5" value="D"> d) Vacunación.</label>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">Indicadores Básicos en Salud</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">6. La tasa de natalidad es un indicador:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_6" value="A" required> a) Económico.</label>
+                            <label><input type="radio" name="Pregunta_6" value="B" data-correct="true"> b) Demográfico.</label>
+                            <label><input type="radio" name="Pregunta_6" value="C"> c) Administrativo.</label>
+                            <label><input type="radio" name="Pregunta_6" value="D"> d) Ambiental.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">7. La incidencia mide:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_7" value="A" data-correct="true" required> a) Casos nuevos de una enfermedad.</label>
+                            <label><input type="radio" name="Pregunta_7" value="B"> b) Total de casos existentes.</label>
+                            <label><input type="radio" name="Pregunta_7" value="C"> c) Número de nacimientos.</label>
+                            <label><input type="radio" name="Pregunta_7" value="D"> d) Número de consultas.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">8. La prevalencia corresponde a:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_8" value="A" required> a) Casos nuevos únicamente.</label>
+                            <label><input type="radio" name="Pregunta_8" value="B" data-correct="true"> b) Casos existentes de una enfermedad en un período determinado.</label>
+                            <label><input type="radio" name="Pregunta_8" value="C"> c) Defunciones.</label>
+                            <label><input type="radio" name="Pregunta_8" value="D"> d) Hospitalizaciones.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">9. La tasa de mortalidad mide:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_9" value="A" required> a) Nacimientos.</label>
+                            <label><input type="radio" name="Pregunta_9" value="B"> b) Enfermedades.</label>
+                            <label><input type="radio" name="Pregunta_9" value="C" data-correct="true"> c) Defunciones.</label>
+                            <label><input type="radio" name="Pregunta_9" value="D"> d) Consultas médicas.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">10. Los indicadores en salud permiten:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_10" value="A" required> a) Analizar la situación de salud.</label>
+                            <label><input type="radio" name="Pregunta_10" value="B"> b) Tomar decisiones.</label>
+                            <label><input type="radio" name="Pregunta_10" value="C"> c) Planificar intervenciones.</label>
+                            <label><input type="radio" name="Pregunta_10" value="D" data-correct="true"> d) Todas las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">Caracterización Poblacional</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">11. La caracterización poblacional permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_11" value="A" data-correct="true" required> a) Conocer las características de una comunidad.</label>
+                            <label><input type="radio" name="Pregunta_11" value="B"> b) Realizar tratamientos médicos.</label>
+                            <label><input type="radio" name="Pregunta_11" value="C"> c) Crear hospitales.</label>
+                            <label><input type="radio" name="Pregunta_11" value="D"> d) Eliminar riesgos.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">12. El perfil poblacional incluye:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_12" value="A" required> a) Aspectos demográficos.</label>
+                            <label><input type="radio" name="Pregunta_12" value="B"> b) Aspectos sociales.</label>
+                            <label><input type="radio" name="Pregunta_12" value="C"> c) Aspectos de salud.</label>
+                            <label><input type="radio" name="Pregunta_12" value="D" data-correct="true"> d) Todas las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">13. Priorizar problemáticas significa:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_13" value="A" required> a) Ignorar algunos problemas.</label>
+                            <label><input type="radio" name="Pregunta_13" value="B" data-correct="true"> b) Organizar los problemas según importancia e impacto.</label>
+                            <label><input type="radio" name="Pregunta_13" value="C"> c) Eliminar información.</label>
+                            <label><input type="radio" name="Pregunta_13" value="D"> d) Suspender actividades.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">14. Una fuente de información para caracterizar una población es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_14" value="A" required> a) Encuestas.</label>
+                            <label><input type="radio" name="Pregunta_14" value="B"> b) Censos.</label>
+                            <label><input type="radio" name="Pregunta_14" value="C"> c) Registros de salud.</label>
+                            <label><input type="radio" name="Pregunta_14" value="D" data-correct="true"> d) Todas las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">15. La identificación de necesidades permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_15" value="A" data-correct="true" required> a) Planificar acciones.</label>
+                            <label><input type="radio" name="Pregunta_15" value="B"> b) Reducir la participación.</label>
+                            <label><input type="radio" name="Pregunta_15" value="C"> c) Evitar decisiones.</label>
+                            <label><input type="radio" name="Pregunta_15" value="D"> d) Incrementar riesgos.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="document.querySelector('.tab-buttons button:nth-child(2)').click();">Siguiente Sección <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-heartbeat"></i> Sección 2: Gestión, Promoción, Prevención y Vigilancia</h2>
+
+                    <h3 style="margin-bottom:15px; color:#1f3565;">Gestión Territorial y Comunitaria</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">16. La participación social consiste en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_16" value="A" data-correct="true" required> a) La intervención activa de la comunidad en temas de salud.</label>
+                            <label><input type="radio" name="Pregunta_16" value="B"> b) Actividades exclusivas del gobierno.</label>
+                            <label><input type="radio" name="Pregunta_16" value="C"> c) Procesos administrativos.</label>
+                            <label><input type="radio" name="Pregunta_16" value="D"> d) Atención hospitalaria.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">17. Las redes comunitarias son:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_17" value="A" data-correct="true" required> a) Organizaciones que trabajan juntas para lograr objetivos comunes.</label>
+                            <label><input type="radio" name="Pregunta_17" value="B"> b) Redes de internet.</label>
+                            <label><input type="radio" name="Pregunta_17" value="C"> c) Entidades financieras.</label>
+                            <label><input type="radio" name="Pregunta_17" value="D"> d) Empresas privadas.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">18. La articulación intersectorial significa:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_18" value="A" data-correct="true" required> a) Trabajo conjunto entre diferentes sectores.</label>
+                            <label><input type="radio" name="Pregunta_18" value="B"> b) Trabajo individual.</label>
+                            <label><input type="radio" name="Pregunta_18" value="C"> c) Competencia institucional.</label>
+                            <label><input type="radio" name="Pregunta_18" value="D"> d) Aislamiento organizacional.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">19. La gestión territorial busca:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_19" value="A" data-correct="true" required> a) Mejorar las condiciones de salud de la población.</label>
+                            <label><input type="radio" name="Pregunta_19" value="B"> b) Incrementar trámites.</label>
+                            <label><input type="radio" name="Pregunta_19" value="C"> c) Reducir participación.</label>
+                            <label><input type="radio" name="Pregunta_19" value="D"> d) Evitar la planificación.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">20. Un actor importante en la gestión comunitaria es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_20" value="A" required> a) Líder comunitario.</label>
+                            <label><input type="radio" name="Pregunta_20" value="B"> b) Docente.</label>
+                            <label><input type="radio" name="Pregunta_20" value="C"> c) Personal de salud.</label>
+                            <label><input type="radio" name="Pregunta_20" value="D" data-correct="true"> d) Todos los anteriores.</label>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">Promoción y Prevención</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">21. La promoción de la salud busca:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_21" value="A" data-correct="true" required> a) Fortalecer capacidades para mejorar la salud.</label>
+                            <label><input type="radio" name="Pregunta_21" value="B"> b) Tratar enfermedades únicamente.</label>
+                            <label><input type="radio" name="Pregunta_21" value="C"> c) Realizar cirugías.</label>
+                            <label><input type="radio" name="Pregunta_21" value="D"> d) Hospitalizar pacientes.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">22. La prevención primaria pretende:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_22" value="A" data-correct="true" required> a) Evitar la aparición de enfermedades.</label>
+                            <label><input type="radio" name="Pregunta_22" value="B"> b) Rehabilitar personas.</label>
+                            <label><input type="radio" name="Pregunta_22" value="C"> c) Diagnosticar enfermedades avanzadas.</label>
+                            <label><input type="radio" name="Pregunta_22" value="D"> d) Realizar tratamientos.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">23. Un ejemplo de prevención primaria es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_23" value="A" data-correct="true" required> a) Vacunación.</label>
+                            <label><input type="radio" name="Pregunta_23" value="B"> b) Cirugía.</label>
+                            <label><input type="radio" name="Pregunta_23" value="C"> c) Hospitalización.</label>
+                            <label><input type="radio" name="Pregunta_23" value="D"> d) Rehabilitación.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">24. ¿Cuál es un hábito saludable?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_24" value="A" required> a) Sedentarismo.</label>
+                            <label><input type="radio" name="Pregunta_24" value="B"> b) Tabaquismo.</label>
+                            <label><input type="radio" name="Pregunta_24" value="C" data-correct="true"> c) Actividad física regular.</label>
+                            <label><input type="radio" name="Pregunta_24" value="D"> d) Consumo excesivo de alcohol.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">25. La educación en salud permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_25" value="A" data-correct="true" required> a) Desarrollar conocimientos y habilidades para el autocuidado.</label>
+                            <label><input type="radio" name="Pregunta_25" value="B"> b) Incrementar riesgos.</label>
+                            <label><input type="radio" name="Pregunta_25" value="C"> c) Evitar la participación.</label>
+                            <label><input type="radio" name="Pregunta_25" value="D"> d) Eliminar programas de salud.</label>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">Vigilancia en Salud Pública</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">26. La vigilancia en salud pública consiste en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_26" value="A" data-correct="true" required> a) Recolección y análisis continuo de información en salud.</label>
+                            <label><input type="radio" name="Pregunta_26" value="B"> b) Atención hospitalaria.</label>
+                            <label><input type="radio" name="Pregunta_26" value="C"> c) Actividades financieras.</label>
+                            <label><input type="radio" name="Pregunta_26" value="D"> d) Procesos judiciales.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">27. Un evento de interés en salud pública es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_27" value="A" data-correct="true" required> a) Un brote de dengue.</label>
+                            <label><input type="radio" name="Pregunta_27" value="B"> b) Un partido de fútbol.</label>
+                            <label><input type="radio" name="Pregunta_27" value="C"> c) Una actividad recreativa.</label>
+                            <label><input type="radio" name="Pregunta_27" value="D"> d) Una reunión familiar.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">28. La notificación oportuna permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_28" value="A" data-correct="true" required> a) Actuar rápidamente frente a riesgos en salud.</label>
+                            <label><input type="radio" name="Pregunta_28" value="B"> b) Retrasar decisiones.</label>
+                            <label><input type="radio" name="Pregunta_28" value="C"> c) Eliminar información.</label>
+                            <label><input type="radio" name="Pregunta_28" value="D"> d) Aumentar problemas.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">29. La vigilancia epidemiológica ayuda a:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_29" value="A" required> a) Detectar brotes.</label>
+                            <label><input type="radio" name="Pregunta_29" value="B"> b) Identificar riesgos.</label>
+                            <label><input type="radio" name="Pregunta_29" value="C"> c) Implementar controles.</label>
+                            <label><input type="radio" name="Pregunta_29" value="D" data-correct="true"> d) Todas las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">30. La comunidad puede participar en la vigilancia en salud pública:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_30" value="A" data-correct="true" required> a) Sí.</label>
+                            <label><input type="radio" name="Pregunta_30" value="B"> b) No.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="document.querySelector('.tab-buttons button:nth-child(1)').click();"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="document.querySelector('.tab-buttons button:nth-child(3)').click();">Siguiente Sección <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-scale-balanced"></i> Sección 3: Herramientas, Ética y Evaluación de Desarrollo</h2>
+
+                    <h3 style="margin-bottom:15px; color:#1f3565;">Herramientas Digitales, Ética y Protección de Datos</h3>
+
+                    <div class="question-block">
+                        <div class="question-text">31. Una hoja de cálculo sirve para:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_31" value="A" data-correct="true" required> a) Organizar y analizar datos.</label>
+                            <label><input type="radio" name="Pregunta_31" value="B"> b) Realizar diagnósticos médicos.</label>
+                            <label><input type="radio" name="Pregunta_31" value="C"> c) Aplicar tratamientos.</label>
+                            <label><input type="radio" name="Pregunta_31" value="D"> d) Realizar cirugías.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">32. Una tabla permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_32" value="A" data-correct="true" required> a) Organizar información en filas y columnas.</label>
+                            <label><input type="radio" name="Pregunta_32" value="B"> b) Crear medicamentos.</label>
+                            <label><input type="radio" name="Pregunta_32" value="C"> c) Elaborar diagnósticos.</label>
+                            <label><input type="radio" name="Pregunta_32" value="D"> d) Generar vacunas.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">33. La confidencialidad significa:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_33" value="A" data-correct="true" required> a) Proteger la información de acceso no autorizado.</label>
+                            <label><input type="radio" name="Pregunta_33" value="B"> b) Compartir datos libremente.</label>
+                            <label><input type="radio" name="Pregunta_33" value="C"> c) Publicar información.</label>
+                            <label><input type="radio" name="Pregunta_33" value="D"> d) Eliminar registros.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">34. Un dato personal es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_34" value="A" required> a) Nombre completo.</label>
+                            <label><input type="radio" name="Pregunta_34" value="B"> b) Documento de identidad.</label>
+                            <label><input type="radio" name="Pregunta_34" value="C"> c) Dirección.</label>
+                            <label><input type="radio" name="Pregunta_34" value="D" data-correct="true"> d) Todas las anteriores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">35. La ética en salud promueve:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_35" value="A" data-correct="true" required> a) Respeto y dignidad humana.</label>
+                            <label><input type="radio" name="Pregunta_35" value="B"> b) Discriminación.</label>
+                            <label><input type="radio" name="Pregunta_35" value="C"> c) Exclusión.</label>
+                            <label><input type="radio" name="Pregunta_35" value="D"> d) Desigualdad.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">36. Una medida para proteger la información es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_36" value="A" data-correct="true" required> a) Uso de contraseñas seguras.</label>
+                            <label><input type="radio" name="Pregunta_36" value="B"> b) Compartir claves.</label>
+                            <label><input type="radio" name="Pregunta_36" value="C"> c) Dejar documentos abiertos.</label>
+                            <label><input type="radio" name="Pregunta_36" value="D"> d) Publicar información privada.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">37. El manejo responsable de datos fortalece:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_37" value="A" data-correct="true" required> a) La confianza de los usuarios.</label>
+                            <label><input type="radio" name="Pregunta_37" value="B"> b) Los riesgos.</label>
+                            <label><input type="radio" name="Pregunta_37" value="C"> c) Los errores.</label>
+                            <label><input type="radio" name="Pregunta_37" value="D"> d) La desinformación.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">38. La organización de información facilita:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_38" value="A" data-correct="true" required> a) La toma de decisiones.</label>
+                            <label><input type="radio" name="Pregunta_38" value="B"> b) La pérdida de datos.</label>
+                            <label><input type="radio" name="Pregunta_38" value="C"> c) La desorganización.</label>
+                            <label><input type="radio" name="Pregunta_38" value="D"> d) Los errores.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">39. La privacidad es un derecho que debe ser:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_39" value="A" data-correct="true" required> a) Respetado.</label>
+                            <label><input type="radio" name="Pregunta_39" value="B"> b) Ignorado.</label>
+                            <label><input type="radio" name="Pregunta_39" value="C"> c) Limitado.</label>
+                            <label><input type="radio" name="Pregunta_39" value="D"> d) Vulnerado.</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">40. El uso adecuado de herramientas digitales contribuye a:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="Pregunta_40" value="A" data-correct="true" required> a) Mejorar la gestión de información.</label>
+                            <label><input type="radio" name="Pregunta_40" value="B"> b) Incrementar errores.</label>
+                            <label><input type="radio" name="Pregunta_40" value="C"> c) Eliminar registros.</label>
+                            <label><input type="radio" name="Pregunta_40" value="D"> d) Reducir la productividad.</label>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">Parte II. Preguntas de Desarrollo</h3>
+
+                    <div class="form-group">
+                        <label class="field-label">41. Explique la importancia de la Atención Primaria en Salud para las comunidades.</label>
+                        <textarea name="Pregunta_41_Desarrollo" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">42. ¿Cómo influyen los determinantes sociales en la salud de las personas?</label>
+                        <textarea name="Pregunta_42_Desarrollo" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">43. ¿Por qué es importante la participación comunitaria en los procesos de salud?</label>
+                        <textarea name="Pregunta_43_Desarrollo" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">44. Explique la importancia de la promoción y prevención en la disminución de enfermedades.</label>
+                        <textarea name="Pregunta_44_Desarrollo" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">45. ¿Por qué la ética, la confidencialidad y la protección de datos son fundamentales en salud?</label>
+                        <textarea name="Pregunta_45_Desarrollo" required></textarea>
+                    </div>
+
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">Parte III. Caso Integrador</h3>
+                    <div style="background: #eef2f7; padding: 20px; border-left: 5px solid #1f3565; border-radius: 6px; margin-bottom: 25px; color: #333;">
+                        <strong>Contexto:</strong> En una comunidad de 5.000 habitantes se identificaron los siguientes problemas:<br><br>
+                        <ul>
+                            <li style="margin-left: 20px;">Aumento de casos de dengue.</li>
+                            <li style="margin-left: 20px;">Bajo nivel de vacunación infantil.</li>
+                            <li style="margin-left: 20px;">Incremento del consumo de tabaco en jóvenes.</li>
+                            <li style="margin-left: 20px;">Escasa participación comunitaria en actividades de salud.</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">46a. Identifique tres factores de riesgo presentes.</label>
+                        <textarea name="Pregunta_46a_Caso" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="field-label">46b. ¿Qué acciones de promoción y prevención propondría?</label>
+                        <textarea name="Pregunta_46b_Caso" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">46c. ¿Qué actores comunitarios deberían participar?</label>
+                        <textarea name="Pregunta_46c_Caso" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">46d. ¿Qué información debería reportarse a vigilancia en salud pública?</label>
+                        <textarea name="Pregunta_46d_Caso" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">46e. ¿Cómo utilizaría herramientas digitales para organizar la información recopilada?</label>
+                        <textarea name="Pregunta_46e_Caso" required></textarea>
+                    </div>
+
+                    <div class="action-buttons" id="areaBotonesFinal">
+                        <button type="button" class="btn-nav" onclick="document.querySelector('.tab-buttons button:nth-child(2)').click();"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarEvaluacion()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Enviar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+   <script>
+    document.getElementById('fechaActual').valueAsDate = new Date();
+
+    function toggleMenu() {
+        document.getElementById("menu").classList.toggle("active");
+    }
+
+    // Lógica de Pestañas fluidas
+    function openTab(evt, tabId) {
+        let tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = "none";
+            tabContents[i].classList.remove("active");
+        }
+        let tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].className = tabBtns[i].className.replace(" active", "");
+        }
+        document.getElementById(tabId).style.display = "block";
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.className += " active";
+        
+        window.scrollTo({ top: document.querySelector('.form-evaluacion').offsetTop - 100, behavior: 'smooth' });
+    }
+
+    function abrirModal() {
+        document.getElementById("alertaModal").classList.add("active");
+    }
+
+    function cerrarModal() {
+        document.getElementById("alertaModal").classList.remove("active");
+    }
+
+    function procesarEvaluacion() {
+        const form = document.getElementById('evaluacionForm');
+        let formEsValido = true;
+        let primerCampoInvalido = null;
+
+        document.querySelectorAll('.error-highlight').forEach(el => {
+            el.classList.remove('error-highlight');
+        });
+
+        const camposRequeridos = form.querySelectorAll('[required]');
+        
+        camposRequeridos.forEach(campo => {
+            if (campo.type === 'radio') {
+                const grupoRadios = form.querySelectorAll(`input[name="${campo.name}"]`);
+                let seleccionado = false;
+                grupoRadios.forEach(radio => { if (radio.checked) seleccionado = true; });
+                
+                if (!seleccionado) {
+                    formEsValido = false;
+                    const bloquePregunta = campo.closest('.question-block');
+                    bloquePregunta.classList.add('error-highlight');
+                    if (!primerCampoInvalido) primerCampoInvalido = bloquePregunta;
+                }
+            } else {
+                if (!campo.value.trim()) {
+                    formEsValido = false;
+                    campo.classList.add('error-highlight');
+                    if (!primerCampoInvalido) primerCampoInvalido = campo;
+                }
+            }
+        });
+
+        if (!formEsValido) {
+            const tabPadre = primerCampoInvalido.closest('.tab-content');
+            if(tabPadre && !tabPadre.classList.contains('active')) {
+                const tabId = tabPadre.id;
+                const index = tabId.replace('tab', '') - 1;
+                document.querySelectorAll('.tab-btn')[index].click();
+            }
+
+            abrirModal();
+            setTimeout(() => {
+                let primerCampoInvolucrado = primerCampoInvalido;
+                primerCampoInvolucrado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+            return;
+        }
+
+        // CÁLCULO DE CALIFICACIÓN (Ajustado a 40 preguntas múltiples del examen integrador)
+        let correctas = 0;
+        let radiosCorrectos = form.querySelectorAll('input[type="radio"][data-correct="true"]');
+        let totalCerradas = radiosCorrectos.length; // Deben ser 40
+        
+        radiosCorrectos.forEach(radio => {
+            if (radio.checked) {
+                correctas++;
+            }
+        });
+        
+        let porcentaje = Math.round((correctas / totalCerradas) * 100);
+        document.getElementById('puntajeCalculado').value = correctas + " de " + totalCerradas + " respuestas correctas (" + porcentaje + "% en Múltiple Opción). NOTA: Faltan por calificar las preguntas de desarrollo y el caso.";
+
+        // Mostrar aviso de envío
+        document.getElementById('loadingPdf').querySelector('h3').innerText = "Enviando evaluación...";
+        document.getElementById('loadingPdf').querySelector('p').innerText = "Estamos procesando tus respuestas, por favor espera un momento.";
+        document.getElementById('loadingPdf').classList.add('active');
+        
+        form.submit();
+    }
+    
+    document.addEventListener('input', function(e) {
+        if(e.target.required) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            } else {
+                e.target.classList.remove('error-highlight');
+            }
+        }
+    });
+</script>
+</body>
+</html>
