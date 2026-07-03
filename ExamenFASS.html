@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAP: Facturación y Auditoría de Servicios en Salud | Instituto Técnico Élite</title>
+    <title>Examen Final: Facturación y Auditoría en Salud | Instituto Técnico Élite</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -21,7 +21,7 @@
         .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
 
         /* PORTADA */
-        .hero { height: 180px; background: linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1554224155-8d04cb21cd6c"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero { height: 180px; background: linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
         .hero h1 { font-size: 32px; }
 
         /* CONTENEDOR PRINCIPAL */
@@ -44,8 +44,6 @@
         input[type="text"], input[type="date"], textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
         input[type="text"]:focus, textarea:focus { border-color: #1f3565; outline: none; }
         textarea { min-height: 100px; resize: vertical; }
-        
-        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
         /* ESTILOS DE PREGUNTAS DE SELECCIÓN */
         .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
@@ -57,12 +55,6 @@
         /* VALIDACIÓN VISUAL */
         .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
         .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
-
-        /* TABLA DE ESCALA */
-        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; background: white; }
-        .info-table th, .info-table td { border: 1px solid #e0e6ed; padding: 12px; text-align: left; }
-        .info-table th { background: #1f3565; color: white; }
-        .info-table tr:nth-child(even) { background-color: #f8fafc; }
 
         /* BOTONES DE ACCIÓN */
         .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
@@ -100,7 +92,6 @@
             .hero h1 { font-size: 24px; }
             .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
             .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
-            .grid-2-col { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -118,7 +109,7 @@
     <div class="loading-overlay" id="loadingPdf">
         <div class="spinner"></div>
         <h3 style="color:#1f3565;">Procesando evaluación...</h3>
-        <p style="color:#666;">Registrando respuestas del aprendiz, por favor espera.</p>
+        <p style="color:#666;">Preparando documento completo, por favor espera.</p>
     </div>
 
     <header class="navbar">
@@ -134,98 +125,84 @@
             <a href="contacto.html">Contacto</a>
             <a href="certificados.html">Certificados</a>
             <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Examen Final Integrador: Facturación y Auditoría de Servicios en Salud</h1>
+        <h1>Examen Final: Facturación y Auditoría de Servicios en Salud</h1>
     </section>
 
     <section class="contenedor">
         <div class="form-evaluacion" id="pdf-content">
             <form id="evaluacionForm" action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST">
                 
-                <input type="hidden" name="_subject" value="Examen Final RAP: Facturación y Auditoría">
+                <input type="hidden" name="_subject" value="Examen Final Integrador: Facturación y Auditoría">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_next" value="https://institutoelite.q10.com"> 
                 <input type="hidden" name="Calificacion_Preguntas_Cerradas" id="puntajeCalculado" value="Calculando...">
 
                 <div class="form-section">
-                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos Generales</h2>
-                    
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante</h2>
                     <div class="form-group">
                         <label class="field-label">Nombre del estudiante:</label>
-                        <input type="text" name="Nombre_Estudiante" required placeholder="Nombres y Apellidos completos">
+                        <input type="text" name="Nombre_Estudiante" required placeholder="Nombres y Apellidos">
                     </div>
-                    
-                    <div class="grid-2-col">
-                        <div class="form-group">
-                            <label class="field-label">Documento de identidad:</label>
-                            <input type="text" name="Documento_Estudiante" required placeholder="Ej. 1000123456">
-                        </div>
-                        <div class="form-group">
-                            <label class="field-label">Profesión:</label>
-                            <input type="text" name="Profesion_Estudiante" required placeholder="Ej. Auxiliar Administrativo">
-                        </div>
+                    <div class="form-group">
+                        <label class="field-label">Documento de identidad:</label>
+                        <input type="text" name="Documento_Estudiante" required placeholder="Ej. 1000123456">
                     </div>
-
-                    <div class="grid-2-col">
-                        <div class="form-group">
-                            <label class="field-label">Instructor encargado:</label>
-                            <input type="text" name="Nombre_Instructor" required placeholder="Nombre del docente evaluador">
-                        </div>
-                        <div class="form-group">
-                            <label class="field-label">Fecha de evaluación:</label>
-                            <input type="date" name="Fecha_Evaluacion" required id="fechaActual">
-                        </div>
+                    <div class="form-group">
+                        <label class="field-label">Fecha:</label>
+                        <input type="date" name="Fecha_Evaluacion" required id="fechaActual">
                     </div>
                 </div>
 
                 <!-- CONTROLES DE PESTAÑAS -->
                 <div class="tab-buttons" id="tabControls">
-                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Normatividad y SGSSS</button>
-                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Auditoría, RIPS y Glosas</button>
-                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Herramientas y Cierre</button>
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. SGSSS y Facturación</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. RIPS, Auditoría y Glosas</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Herramientas y Evaluación</button>
                 </div>
 
                 <!-- PESTAÑA 1 -->
                 <div id="tab1" class="tab-content active">
-                    <h2 class="section-title"><i class="fas fa-sitemap"></i> Sección 1: Sistema de Salud, Normatividad y Facturación</h2>
+                    <h2 class="section-title"><i class="fas fa-hospital-user"></i> Parte I: SGSSS, Normatividad y Facturación</h2>
                     
                     <h3 style="margin-bottom:15px; color:#1f3565;">MÓDULO 1. SISTEMA GENERAL DE SEGURIDAD SOCIAL EN SALUD</h3>
 
                     <div class="question-block">
                         <div class="question-text">1. El Sistema General de Seguridad Social en Salud tiene como objetivo principal:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M1_Q1" value="A" required> a) Incrementar los costos de atención.</label>
-                            <label><input type="radio" name="M1_Q1" value="B" data-correct="true"> b) Garantizar el acceso a los servicios de salud.</label>
-                            <label><input type="radio" name="M1_Q1" value="C"> c) Administrar únicamente hospitales públicos.</label>
-                            <label><input type="radio" name="M1_Q1" value="D"> d) Financiar empresas privadas.</label>
+                            <label><input type="radio" name="M1_P1" value="A" required> a) Incrementar los costos de atención.</label>
+                            <label><input type="radio" name="M1_P1" value="B" data-correct="true"> b) Garantizar el acceso a los servicios de salud.</label>
+                            <label><input type="radio" name="M1_P1" value="C"> c) Administrar únicamente hospitales públicos.</label>
+                            <label><input type="radio" name="M1_P1" value="D"> d) Financiar empresas privadas.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. ¿Cuál de los siguientes es un actor del SGSSS?</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M1_Q2" value="A" required> a) EPS.</label>
-                            <label><input type="radio" name="M1_Q2" value="B"> b) IPS.</label>
-                            <label><input type="radio" name="M1_Q2" value="C"> c) ADRES.</label>
-                            <label><input type="radio" name="M1_Q2" value="D" data-correct="true"> d) Todas las anteriores.</label>
+                            <label><input type="radio" name="M1_P2" value="A" required> a) EPS.</label>
+                            <label><input type="radio" name="M1_P2" value="B"> b) IPS.</label>
+                            <label><input type="radio" name="M1_P2" value="C"> c) ADRES.</label>
+                            <label><input type="radio" name="M1_P2" value="D" data-correct="true"> d) Todas las anteriores.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
-                        <div class="question-text">3. La ADRES administra directamente los hospitales públicos.</div>
+                        <div class="question-text">3. Verdadero o Falso: La ADRES administra directamente los hospitales públicos.</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M1_Q3" value="Verdadero" required> Verdadero</label>
-                            <label><input type="radio" name="M1_Q3" value="Falso" data-correct="true"> Falso</label>
+                            <label><input type="radio" name="M1_P3" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="M1_P3" value="Falso" data-correct="true"> Falso</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">4. Caso Práctico: Explique la diferencia entre una EPS y una IPS.</label>
-                        <textarea name="M1_Q4_Desarrollo" required placeholder="Redacta tu análisis detallado aquí..."></textarea>
+                        <label class="field-label">4. Caso práctico: Explique la diferencia entre una EPS y una IPS.</label>
+                        <textarea name="M1_P4_Desarrollo" required></textarea>
                     </div>
 
                     <h3 style="margin:30px 0 15px 0; color:#1f3565;">MÓDULO 2. NORMATIVIDAD EN FACTURACIÓN EN SALUD</h3>
@@ -233,34 +210,34 @@
                     <div class="question-block">
                         <div class="question-text">1. La facturación en salud debe cumplir principalmente con:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M2_Q1" value="A" required> a) Normas tributarias únicamente.</label>
-                            <label><input type="radio" name="M2_Q1" value="B" data-correct="true"> b) Normativa sanitaria y financiera.</label>
-                            <label><input type="radio" name="M2_Q1" value="C"> c) Reglamentos internos solamente.</label>
-                            <label><input type="radio" name="M2_Q1" value="D"> d) Ninguna.</label>
+                            <label><input type="radio" name="M2_P1" value="A" required> a) Normas tributarias únicamente.</label>
+                            <label><input type="radio" name="M2_P1" value="B" data-correct="true"> b) Normativa sanitaria y financiera.</label>
+                            <label><input type="radio" name="M2_P1" value="C"> c) Reglamentos internos solamente.</label>
+                            <label><input type="radio" name="M2_P1" value="D"> d) Ninguna.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. La historia clínica constituye:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M2_Q2" value="A" required> a) Un documento administrativo.</label>
-                            <label><input type="radio" name="M2_Q2" value="B" data-correct="true"> b) Un soporte legal y clínico.</label>
-                            <label><input type="radio" name="M2_Q2" value="C"> c) Una factura.</label>
-                            <label><input type="radio" name="M2_Q2" value="D"> d) Un recibo de pago.</label>
+                            <label><input type="radio" name="M2_P2" value="A" required> a) Un documento administrativo.</label>
+                            <label><input type="radio" name="M2_P2" value="B" data-correct="true"> b) Un soporte legal y clínico.</label>
+                            <label><input type="radio" name="M2_P2" value="C"> c) Una factura.</label>
+                            <label><input type="radio" name="M2_P2" value="D"> d) Un recibo de pago.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
-                        <div class="question-text">3. La facturación puede realizarse sin soportes clínicos.</div>
+                        <div class="question-text">3. Verdadero o Falso: La facturación puede realizarse sin soportes clínicos.</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M2_Q3" value="Verdadero" required> Verdadero</label>
-                            <label><input type="radio" name="M2_Q3" value="Falso" data-correct="true"> Falso</label>
+                            <label><input type="radio" name="M2_P3" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="M2_P3" value="Falso" data-correct="true"> Falso</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">4. Pregunta Abierta: ¿Por qué es importante conocer la normatividad vigente?</label>
-                        <textarea name="M2_Q4_Desarrollo" required></textarea>
+                        <label class="field-label">4. Pregunta abierta: ¿Por qué es importante conocer la normatividad vigente?</label>
+                        <textarea name="M2_P4_Desarrollo" required></textarea>
                     </div>
 
                     <h3 style="margin:30px 0 15px 0; color:#1f3565;">MÓDULO 3. FACTURACIÓN DE SERVICIOS DE SALUD</h3>
@@ -268,36 +245,36 @@
                     <div class="question-block">
                         <div class="question-text">1. El proceso de facturación inicia con:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M3_Q1" value="A" required> a) El pago.</label>
-                            <label><input type="radio" name="M3_Q1" value="B" data-correct="true"> b) La prestación del servicio.</label>
-                            <label><input type="radio" name="M3_Q1" value="C"> c) La auditoría.</label>
-                            <label><input type="radio" name="M3_Q1" value="D"> d) La glosa.</label>
+                            <label><input type="radio" name="M3_P1" value="A" required> a) El pago.</label>
+                            <label><input type="radio" name="M3_P1" value="B" data-correct="true"> b) La prestación del servicio.</label>
+                            <label><input type="radio" name="M3_P1" value="C"> c) La auditoría.</label>
+                            <label><input type="radio" name="M3_P1" value="D"> d) La glosa.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. Un error frecuente en la facturación es:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M3_Q2" value="A" data-correct="true" required> a) Identificación incorrecta del usuario.</label>
-                            <label><input type="radio" name="M3_Q2" value="B"> b) Historia clínica completa.</label>
-                            <label><input type="radio" name="M3_Q2" value="C"> c) Codificación correcta.</label>
-                            <label><input type="radio" name="M3_Q2" value="D"> d) Autorización vigente.</label>
+                            <label><input type="radio" name="M3_P2" value="A" data-correct="true" required> a) Identificación incorrecta del usuario.</label>
+                            <label><input type="radio" name="M3_P2" value="B"> b) Historia clínica completa.</label>
+                            <label><input type="radio" name="M3_P2" value="C"> c) Codificación correcta.</label>
+                            <label><input type="radio" name="M3_P2" value="D"> d) Autorización vigente.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">3. ¿Qué documento respalda el cobro de los servicios?</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M3_Q3" value="A" required> a) Historia clínica.</label>
-                            <label><input type="radio" name="M3_Q3" value="B" data-correct="true"> b) Factura.</label>
-                            <label><input type="radio" name="M3_Q3" value="C"> c) Contrato.</label>
-                            <label><input type="radio" name="M3_Q3" value="D"> d) Nómina.</label>
+                            <label><input type="radio" name="M3_P3" value="A" required> a) Historia clínica.</label>
+                            <label><input type="radio" name="M3_P3" value="B" data-correct="true"> b) Factura.</label>
+                            <label><input type="radio" name="M3_P3" value="C"> c) Contrato.</label>
+                            <label><input type="radio" name="M3_P3" value="D"> d) Nómina.</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">4. Caso Práctico: Analice una factura que presenta inconsistencias en la identificación del paciente. ¿Qué consecuencias tendría?</label>
-                        <textarea name="M3_Q4_Desarrollo" required></textarea>
+                        <label class="field-label">4. Caso práctico: Analice una factura que presenta inconsistencias en la identificación del paciente. ¿Qué consecuencias tendría?</label>
+                        <textarea name="M3_P4_Desarrollo" required></textarea>
                     </div>
 
                     <div class="action-buttons">
@@ -308,41 +285,41 @@
 
                 <!-- PESTAÑA 2 -->
                 <div id="tab2" class="tab-content">
-                    <h2 class="section-title"><i class="fas fa-file-invoice-dollar"></i> Sección 2: Auditoría, Soportes y Gestión de Cuentas</h2>
+                    <h2 class="section-title"><i class="fas fa-file-invoice-dollar"></i> Parte II: RIPS, Auditoría y Gestión de Glosas</h2>
 
                     <h3 style="margin-bottom:15px; color:#1f3565;">MÓDULO 4. RIPS Y SOPORTES DOCUMENTALES</h3>
 
                     <div class="question-block">
                         <div class="question-text">1. Los RIPS tienen como finalidad:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M4_Q1" value="A" data-correct="true" required> a) Registrar la prestación de servicios.</label>
-                            <label><input type="radio" name="M4_Q1" value="B"> b) Elaborar contratos.</label>
-                            <label><input type="radio" name="M4_Q1" value="C"> c) Generar impuestos.</label>
-                            <label><input type="radio" name="M4_Q1" value="D"> d) Controlar inventarios.</label>
+                            <label><input type="radio" name="M4_P1" value="A" data-correct="true" required> a) Registrar la prestación de servicios.</label>
+                            <label><input type="radio" name="M4_P1" value="B"> b) Elaborar contratos.</label>
+                            <label><input type="radio" name="M4_P1" value="C"> c) Generar impuestos.</label>
+                            <label><input type="radio" name="M4_P1" value="D"> d) Controlar inventarios.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. ¿Cuál documento constituye el principal soporte clínico?</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M4_Q2" value="A" required> a) Factura.</label>
-                            <label><input type="radio" name="M4_Q2" value="B" data-correct="true"> b) Historia clínica.</label>
-                            <label><input type="radio" name="M4_Q2" value="C"> c) Recibo.</label>
-                            <label><input type="radio" name="M4_Q2" value="D"> d) Cotización.</label>
+                            <label><input type="radio" name="M4_P2" value="A" required> a) Factura.</label>
+                            <label><input type="radio" name="M4_P2" value="B" data-correct="true"> b) Historia clínica.</label>
+                            <label><input type="radio" name="M4_P2" value="C"> c) Recibo.</label>
+                            <label><input type="radio" name="M4_P2" value="D"> d) Cotización.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
-                        <div class="question-text">3. Los soportes documentales reducen el riesgo de glosas.</div>
+                        <div class="question-text">3. Verdadero o Falso: Los soportes documentales reducen el riesgo de glosas.</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M4_Q3" value="Verdadero" data-correct="true" required> Verdadero</label>
-                            <label><input type="radio" name="M4_Q3" value="Falso"> Falso</label>
+                            <label><input type="radio" name="M4_P3" value="Verdadero" data-correct="true" required> Verdadero</label>
+                            <label><input type="radio" name="M4_P3" value="Falso"> Falso</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">4. Caso Práctico: ¿Qué soportes revisaría antes de radicar una factura?</label>
-                        <textarea name="M4_Q4_Desarrollo" required></textarea>
+                        <label class="field-label">4. Caso práctico: ¿Qué soportes revisaría antes de radicar una factura?</label>
+                        <textarea name="M4_P4_Desarrollo" required></textarea>
                     </div>
 
                     <h3 style="margin:30px 0 15px 0; color:#1f3565;">MÓDULO 5. AUDITORÍA DE CUENTAS MÉDICAS</h3>
@@ -350,34 +327,34 @@
                     <div class="question-block">
                         <div class="question-text">1. La auditoría médica busca:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M5_Q1" value="A" required> a) Incrementar costos.</label>
-                            <label><input type="radio" name="M5_Q1" value="B" data-correct="true"> b) Verificar la pertinencia y calidad.</label>
-                            <label><input type="radio" name="M5_Q1" value="C"> c) Contratar personal.</label>
-                            <label><input type="radio" name="M5_Q1" value="D"> d) Elaborar presupuestos.</label>
+                            <label><input type="radio" name="M5_P1" value="A" required> a) Incrementar costos.</label>
+                            <label><input type="radio" name="M5_P1" value="B" data-correct="true"> b) Verificar la pertinencia y calidad.</label>
+                            <label><input type="radio" name="M5_P1" value="C"> c) Contratar personal.</label>
+                            <label><input type="radio" name="M5_P1" value="D"> d) Elaborar presupuestos.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. ¿Cuál auditoría se realiza durante la atención?</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M5_Q2" value="A" required> a) Retrospectiva.</label>
-                            <label><input type="radio" name="M5_Q2" value="B" data-correct="true"> b) Concurrente.</label>
-                            <label><input type="radio" name="M5_Q2" value="C"> c) Financiera.</label>
-                            <label><input type="radio" name="M5_Q2" value="D"> d) Externa.</label>
+                            <label><input type="radio" name="M5_P2" value="A" required> a) Retrospectiva.</label>
+                            <label><input type="radio" name="M5_P2" value="B" data-correct="true"> b) Concurrente.</label>
+                            <label><input type="radio" name="M5_P2" value="C"> c) Financiera.</label>
+                            <label><input type="radio" name="M5_P2" value="D"> d) Externa.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
-                        <div class="question-text">3. La auditoría solo revisa valores económicos.</div>
+                        <div class="question-text">3. Verdadero o Falso: La auditoría solo revisa valores económicos.</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M5_Q3" value="Verdadero" required> Verdadero</label>
-                            <label><input type="radio" name="M5_Q3" value="Falso" data-correct="true"> Falso</label>
+                            <label><input type="radio" name="M5_P3" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="M5_P3" value="Falso" data-correct="true"> Falso</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">4. Caso Práctico: Explique cómo la auditoría puede disminuir las glosas.</label>
-                        <textarea name="M5_Q4_Desarrollo" required></textarea>
+                        <label class="field-label">4. Caso práctico: Explique cómo la auditoría puede disminuir las glosas.</label>
+                        <textarea name="M5_P4_Desarrollo" required></textarea>
                     </div>
 
                     <h3 style="margin:30px 0 15px 0; color:#1f3565;">MÓDULO 6. GLOSAS, DEVOLUCIONES Y CONCILIACIONES</h3>
@@ -385,34 +362,34 @@
                     <div class="question-block">
                         <div class="question-text">1. Una glosa corresponde a:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M6_Q1" value="A" required> a) Pago adicional.</label>
-                            <label><input type="radio" name="M6_Q1" value="B" data-correct="true"> b) Objeción parcial o total de una factura.</label>
-                            <label><input type="radio" name="M6_Q1" value="C"> c) Descuento tributario.</label>
-                            <label><input type="radio" name="M6_Q1" value="D"> d) Orden médica.</label>
+                            <label><input type="radio" name="M6_P1" value="A" required> a) Pago adicional.</label>
+                            <label><input type="radio" name="M6_P1" value="B" data-correct="true"> b) Objeción parcial o total de una factura.</label>
+                            <label><input type="radio" name="M6_P1" value="C"> c) Descuento tributario.</label>
+                            <label><input type="radio" name="M6_P1" value="D"> d) Orden médica.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. Las devoluciones ocurren cuando:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M6_Q2" value="A" data-correct="true" required> a) La factura presenta errores que impiden su trámite.</label>
-                            <label><input type="radio" name="M6_Q2" value="B"> b) El paciente mejora.</label>
-                            <label><input type="radio" name="M6_Q2" value="C"> c) El médico firma.</label>
-                            <label><input type="radio" name="M6_Q2" value="D"> d) La EPS paga.</label>
+                            <label><input type="radio" name="M6_P2" value="A" data-correct="true" required> a) La factura presenta errores que impiden su trámite.</label>
+                            <label><input type="radio" name="M6_P2" value="B"> b) El paciente mejora.</label>
+                            <label><input type="radio" name="M6_P2" value="C"> c) El médico firma.</label>
+                            <label><input type="radio" name="M6_P2" value="D"> d) La EPS paga.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
-                        <div class="question-text">3. Toda glosa implica pérdida definitiva del dinero.</div>
+                        <div class="question-text">3. Verdadero o Falso: Toda glosa implica pérdida definitiva del dinero.</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M6_Q3" value="Verdadero" required> Verdadero</label>
-                            <label><input type="radio" name="M6_Q3" value="Falso" data-correct="true"> Falso</label>
+                            <label><input type="radio" name="M6_P3" value="Verdadero" required> Verdadero</label>
+                            <label><input type="radio" name="M6_P3" value="Falso" data-correct="true"> Falso</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">4. Caso Práctico: Proponga tres acciones para disminuir las glosas en una IPS.</label>
-                        <textarea name="M6_Q4_Desarrollo" required></textarea>
+                        <label class="field-label">4. Caso práctico: Proponga tres acciones para disminuir las glosas en una IPS.</label>
+                        <textarea name="M6_P4_Desarrollo" required></textarea>
                     </div>
 
                     <div class="action-buttons">
@@ -423,89 +400,56 @@
 
                 <!-- PESTAÑA 3 -->
                 <div id="tab3" class="tab-content">
-                    <h2 class="section-title"><i class="fas fa-laptop-medical"></i> Sección 3: Tecnología y Cierre Integrador</h2>
+                    <h2 class="section-title"><i class="fas fa-laptop-medical"></i> Parte III: Herramientas y Evaluación Integradora</h2>
 
                     <h3 style="margin-bottom:15px; color:#1f3565;">MÓDULO 7. HERRAMIENTAS DIGITALES Y FACTURACIÓN ELECTRÓNICA</h3>
 
                     <div class="question-block">
                         <div class="question-text">1. La facturación electrónica permite:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M7_Q1" value="A" data-correct="true" required> a) Mayor trazabilidad.</label>
-                            <label><input type="radio" name="M7_Q1" value="B"> b) Mayor pérdida de información.</label>
-                            <label><input type="radio" name="M7_Q1" value="C"> c) Menor seguridad.</label>
-                            <label><input type="radio" name="M7_Q1" value="D"> d) Eliminar la historia clínica.</label>
+                            <label><input type="radio" name="M7_P1" value="A" data-correct="true" required> a) Mayor trazabilidad.</label>
+                            <label><input type="radio" name="M7_P1" value="B"> b) Mayor pérdida de información.</label>
+                            <label><input type="radio" name="M7_P1" value="C"> c) Menor seguridad.</label>
+                            <label><input type="radio" name="M7_P1" value="D"> d) Eliminar la historia clínica.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. Una ventaja del software de facturación es:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M7_Q2" value="A" data-correct="true" required> a) Automatizar procesos.</label>
-                            <label><input type="radio" name="M7_Q2" value="B"> b) Incrementar errores.</label>
-                            <label><input type="radio" name="M7_Q2" value="C"> c) Duplicar registros.</label>
-                            <label><input type="radio" name="M7_Q2" value="D"> d) Eliminar auditorías.</label>
+                            <label><input type="radio" name="M7_P2" value="A" data-correct="true" required> a) Automatizar procesos.</label>
+                            <label><input type="radio" name="M7_P2" value="B"> b) Incrementar errores.</label>
+                            <label><input type="radio" name="M7_P2" value="C"> c) Duplicar registros.</label>
+                            <label><input type="radio" name="M7_P2" value="D"> d) Eliminar auditorías.</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="field-label">3. Pregunta Abierta: Mencione tres beneficios de la transformación digital en la facturación en salud.</label>
-                        <textarea name="M7_Q3_Desarrollo" required></textarea>
+                        <label class="field-label">3. Pregunta abierta: Mencione tres beneficios de la transformación digital en la facturación en salud.</label>
+                        <textarea name="M7_P3_Desarrollo" required></textarea>
                     </div>
 
-                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">MÓDULO 8. RESUMEN Y EXAMEN FINAL</h3>
+                    <h3 style="margin:30px 0 15px 0; color:#1f3565;">MÓDULO 8. RESUMEN Y EXAMEN FINAL (Evaluación Integradora)</h3>
 
                     <div class="question-block">
                         <div class="question-text">1. La correcta codificación de procedimientos contribuye a:</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M8_Q1" value="A" required> a) Disminuir la calidad.</label>
-                            <label><input type="radio" name="M8_Q1" value="B" data-correct="true"> b) Reducir glosas.</label>
-                            <label><input type="radio" name="M8_Q1" value="C"> c) Eliminar auditorías.</label>
-                            <label><input type="radio" name="M8_Q1" value="D"> d) Incrementar devoluciones.</label>
+                            <label><input type="radio" name="M8_P1" value="A" required> a) Disminuir la calidad.</label>
+                            <label><input type="radio" name="M8_P1" value="B" data-correct="true"> b) Reducir glosas.</label>
+                            <label><input type="radio" name="M8_P1" value="C"> c) Eliminar auditorías.</label>
+                            <label><input type="radio" name="M8_P1" value="D"> d) Incrementar devoluciones.</label>
                         </div>
                     </div>
 
                     <div class="question-block">
                         <div class="question-text">2. ¿Cuál documento tiene mayor importancia jurídica?</div>
                         <div class="options-group">
-                            <label><input type="radio" name="M8_Q2" value="A" data-correct="true" required> a) Historia clínica.</label>
-                            <label><input type="radio" name="M8_Q2" value="B"> b) Factura.</label>
-                            <label><input type="radio" name="M8_Q2" value="C"> c) Cotización.</label>
-                            <label><input type="radio" name="M8_Q2" value="D"> d) Agenda.</label>
+                            <label><input type="radio" name="M8_P2" value="A" data-correct="true" required> a) Historia clínica.</label>
+                            <label><input type="radio" name="M8_P2" value="B"> b) Factura.</label>
+                            <label><input type="radio" name="M8_P2" value="C"> c) Cotización.</label>
+                            <label><input type="radio" name="M8_P2" value="D"> d) Agenda.</label>
                         </div>
                     </div>
-
-                    <!-- Escala de Valoración Informativa -->
-                    <h3 style="margin:40px 0 15px 0; color:#1f3565;">Escala de Valoración Institucional</h3>
-                    <table class="info-table">
-                        <thead>
-                            <tr>
-                                <th>Puntaje</th>
-                                <th>Desempeño</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>90 – 100</strong></td>
-                                <td>Excelente</td>
-                            </tr>
-                            <tr>
-                                <td><strong>80 – 89</strong></td>
-                                <td>Sobresaliente</td>
-                            </tr>
-                            <tr>
-                                <td><strong>70 – 79</strong></td>
-                                <td>Aceptable</td>
-                            </tr>
-                            <tr>
-                                <td><strong>60 – 69</strong></td>
-                                <td>En proceso de mejora</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Menor de 60</strong></td>
-                                <td>Requiere fortalecimiento</td>
-                            </tr>
-                        </tbody>
-                    </table>
 
                     <div class="action-buttons" id="areaBotonesFinal">
                         <button type="button" class="btn-nav" onclick="document.querySelector('.tab-buttons button:nth-child(2)').click();"><i class="fas fa-arrow-left"></i> Anterior</button>
@@ -524,6 +468,7 @@
     </a>
 
    <script>
+    // La fecha por defecto puede ajustarse si lo deseas, o tomará la del sistema
     document.getElementById('fechaActual').valueAsDate = new Date();
 
     function toggleMenu() {
@@ -604,10 +549,10 @@
             return;
         }
 
-        // CÁLCULO DE CALIFICACIÓN (Dinámico basado en los radios con data-correct)
+        // CÁLCULO DE CALIFICACIÓN (Ajustado dinámicamente a las preguntas de selección/falso-verdadero)
         let correctas = 0;
         let radiosCorrectos = form.querySelectorAll('input[type="radio"][data-correct="true"]');
-        let totalCerradas = radiosCorrectos.length;
+        let totalCerradas = radiosCorrectos.length; 
         
         radiosCorrectos.forEach(radio => {
             if (radio.checked) {
@@ -616,7 +561,7 @@
         });
         
         let porcentaje = Math.round((correctas / totalCerradas) * 100);
-        document.getElementById('puntajeCalculado').value = correctas + " de " + totalCerradas + " respuestas correctas (" + porcentaje + "% en Múltiple Opción). NOTA: Faltan por calificar las preguntas de desarrollo.";
+        document.getElementById('puntajeCalculado').value = correctas + " de " + totalCerradas + " respuestas correctas (" + porcentaje + "% en Múltiple Opción/V-F). NOTA: Faltan por calificar las preguntas de desarrollo y casos prácticos.";
 
         // Mostrar aviso de envío
         document.getElementById('loadingPdf').querySelector('h3').innerText = "Enviando evaluación...";
