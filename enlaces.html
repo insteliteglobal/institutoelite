@@ -230,22 +230,45 @@
         @keyframes slideUpToast { from { opacity: 0; bottom: 0; } to { opacity: 1; bottom: 30px; } }
         @keyframes fadeOutToast { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
 
-        /* ===== OPTIMIZACIÓN SUPERIOR PARA CELULARES ===== */
-        /* Cambié el breakpoint de 900px a 1100px para que el menú grande no se rompa en tablets y cambie a hamburguesa antes */
+        /* ===== OPTIMIZACIÓN SUPERIOR PARA CELULARES CORREGIDA ===== */
         @media (max-width: 1100px) {
             .dashboard-container { flex-direction: column; margin-top: 25px; padding: 0 15px; gap: 20px; }
             
-            /* Navbar Móvil (Menú Hamburguesa) */
+            /* Navbar Móvil Arreglada (Premium Dropdown) */
             .menu-toggle { display: block; }
             .navbar { padding: 15px 20px; }
+            
+            /* El menú ahora es una capa desplegable absoluta que no rompe la barra */
             .navbar nav { 
-                display: none; flex-direction: column; width: 100%; margin-top: 15px; 
-                padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); gap: 15px; align-items: stretch; text-align: center;
+                display: none; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: linear-gradient(180deg, var(--accent-color) 0%, var(--primary-color) 100%);
+                flex-direction: column; 
+                padding: 10px 20px 25px 20px; 
+                box-shadow: 0 15px 25px rgba(0,0,0,0.2); 
+                gap: 5px; 
+                align-items: center; 
+                border-top: 1px solid rgba(255,255,255,0.1);
             }
-            .navbar nav.active { display: flex; animation: fadeIn 0.3s; }
-            .navbar nav a { width: 100%; text-align: center; font-size: 16px; padding: 10px 0; }
+            .navbar nav.active { display: flex; animation: slideDownMenu 0.3s ease forwards; }
+            
+            @keyframes slideDownMenu {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .navbar nav a { 
+                width: 100%; 
+                text-align: center; 
+                font-size: 16px; 
+                padding: 12px 0; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+            }
             .navbar nav a:not(.btn-blanco)::after { display: none; }
-            .btn-blanco { margin: 5px 0; width: 100%; }
+            .btn-blanco { margin: 15px 0 0 0; width: 100%; max-width: 300px; padding: 12px; }
             
             /* Hero Móvil */
             .hero { height: 260px; padding: 40px 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
@@ -495,7 +518,7 @@
         async function compartir(titulo, url) {
             const hora = new Date().getHours();
             let saludo = (hora < 12) ? "¡Buenos días!" : (hora < 19) ? "¡Buenas tardes!" : "¡Buenas noches!";
-            // El mensaje ahora se adapta perfectamente al texto que pasamos en el botón (Ej: "el examen de Salud Pública...")
+            // El mensaje ahora se adapta perfectamente al texto que pasamos en el botón
             const mensaje = `${saludo} Te invitamos a realizar ${titulo} en el Instituto Técnico Élite. Es un gusto contar contigo. Accede aquí: ${url}`;
             
             if (navigator.share) {
@@ -526,5 +549,6 @@
             toast.classList.add("show");
         }
     </script>
+    
 </body>
 </html>
