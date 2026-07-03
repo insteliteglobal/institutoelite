@@ -66,20 +66,20 @@
             box-shadow: 0 4px 25px rgba(31,53,101,0.25);
             backdrop-filter: blur(10px);
         }
-        .logo { font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 12px; letter-spacing: 0.5px; }
+        .logo { font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 12px; letter-spacing: 0.5px; white-space: nowrap; }
         .logo i { font-size: 24px; color: #e2eaf4; }
         
         .menu-toggle { display: none; font-size: 24px; color: white; cursor: pointer; transition: 0.3s; }
         
-        .navbar nav { display: flex; align-items: center; gap: 25px; }
-        .navbar nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s; position: relative; }
+        .navbar nav { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+        .navbar nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14.5px; font-weight: 500; transition: all 0.3s; position: relative; white-space: nowrap; }
         .navbar nav a:hover { color: white; }
         .navbar nav a:not(.btn-blanco)::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background: white; transition: width 0.3s; }
         .navbar nav a:not(.btn-blanco):hover::after { width: 100%; }
         
         .btn-blanco { 
             background: white; color: var(--primary-color) !important; 
-            padding: 9px 22px; border-radius: 30px; 
+            padding: 8px 18px; border-radius: 30px; 
             font-weight: 700; transition: all 0.3s ease; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
         }
@@ -157,7 +157,6 @@
         .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 25px; }
         
         .link-card { 
-            /* Fondos suaves y profesionales */
             background: linear-gradient(135deg, var(--bg-1), var(--bg-2)); 
             border: 1px solid rgba(255, 255, 255, 0.8); 
             border-radius: 20px; padding: 30px; 
@@ -171,7 +170,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
         }
         
-        /* Ícono con base blanca para resaltar limpieza */
         .icon-wrapper { 
             width: 60px; height: 60px; 
             background: #ffffff;
@@ -185,7 +183,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
-        /* Textos oscuros legibles (Tomando el color fuerte de cada tarjeta) */
         .link-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; color: var(--accent-dark); }
         .link-desc { font-size: 14.5px; color: #475569; margin-bottom: 30px; flex-grow: 1; line-height: 1.6; font-weight: 500; }
         
@@ -197,7 +194,6 @@
             transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; 
         }
         
-        /* Botón principal (Toma el color fuerte de la temática) */
         .btn-open { 
             background: var(--accent-dark); 
             color: white; 
@@ -209,7 +205,6 @@
             filter: brightness(1.1);
         }
         
-        /* Botón secundario (Blanco con texto oscuro/temático) */
         .btn-share { 
             background: rgba(255, 255, 255, 0.7); 
             color: var(--accent-dark); 
@@ -236,15 +231,16 @@
         @keyframes fadeOutToast { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
 
         /* ===== OPTIMIZACIÓN SUPERIOR PARA CELULARES ===== */
-        @media (max-width: 900px) {
+        /* Cambié el breakpoint de 900px a 1100px para que el menú grande no se rompa en tablets y cambie a hamburguesa antes */
+        @media (max-width: 1100px) {
             .dashboard-container { flex-direction: column; margin-top: 25px; padding: 0 15px; gap: 20px; }
             
-            /* Navbar Móvil */
+            /* Navbar Móvil (Menú Hamburguesa) */
             .menu-toggle { display: block; }
             .navbar { padding: 15px 20px; }
             .navbar nav { 
                 display: none; flex-direction: column; width: 100%; margin-top: 15px; 
-                padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); gap: 15px;
+                padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); gap: 15px; align-items: stretch; text-align: center;
             }
             .navbar nav.active { display: flex; animation: fadeIn 0.3s; }
             .navbar nav a { width: 100%; text-align: center; font-size: 16px; padding: 10px 0; }
@@ -297,9 +293,14 @@
         </div>
         <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         <nav id="nav-menu">
-            <a href="https://institutoelite.edu.co">Inicio</a>
-            <a href="https://institutoelite.q10.com">Campus Virtual</a>
-            <a class="btn-blanco" href="https://institutoelite.edu.co">Ir al Sitio Oficial</a>
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
         </nav>
     </header>
 
@@ -347,8 +348,8 @@
                         <h3 class="link-title">Derechos Humanos y Paz</h3>
                         <p class="link-desc">Evaluación Final: Derechos Humanos y Construcción de Paz.</p>
                         <div class="btn-group">
-                            <a href="https://www.institutoelite.edu.co/ExamenFCADHCP.html" target="_blank" class="btn-action btn-open">Abrir Test</a>
-                            <button class="btn-action btn-share" onclick="compartir('Evaluación: Derechos Humanos y Construcción de Paz', 'https://www.institutoelite.edu.co/ExamenFCADHCP.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <a href="https://www.institutoelite.edu.co/ExamenFCADHCP.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
+                            <button class="btn-action btn-share" onclick="compartir('el examen de Derechos Humanos y Construcción de Paz', 'https://www.institutoelite.edu.co/ExamenFCADHCP.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                     
@@ -358,8 +359,8 @@
                         <h3 class="link-title">APS</h3>
                         <p class="link-desc">Evaluación Final: Atención Primaria en Salud.</p>
                         <div class="btn-group">
-                            <a href="https://www.institutoelite.edu.co/ExamenAPS.html" target="_blank" class="btn-action btn-open">Abrir Test</a>
-                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: APS', 'https://www.institutoelite.edu.co/ExamenAPS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <a href="https://www.institutoelite.edu.co/ExamenAPS.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
+                            <button class="btn-action btn-share" onclick="compartir('el examen de Conocimientos Académicos en Atención Primaria en Salud (APS)', 'https://www.institutoelite.edu.co/ExamenAPS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                     
@@ -369,8 +370,8 @@
                         <h3 class="link-title">ASIS</h3>
                         <p class="link-desc">Examen Integrador: Evaluación de Competencias ASIS.</p>
                         <div class="btn-group">
-                            <a href="https://www.institutoelite.edu.co/ExamenASIS.html" target="_blank" class="btn-action btn-open">Abrir Test</a>
-                            <button class="btn-action btn-share" onclick="compartir('Examen Integrador: ASIS', 'https://www.institutoelite.edu.co/ExamenASIS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <a href="https://www.institutoelite.edu.co/ExamenASIS.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
+                            <button class="btn-action btn-share" onclick="compartir('el Examen Final Integrador de Competencias ASIS', 'https://www.institutoelite.edu.co/ExamenASIS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                     
@@ -380,8 +381,8 @@
                         <h3 class="link-title">FASS</h3>
                         <p class="link-desc">Evaluación Final: Facturación y Auditoría de Servicios en Salud.</p>
                         <div class="btn-group">
-                            <a href="https://www.institutoelite.edu.co/ExamenFASS.html" target="_blank" class="btn-action btn-open">Abrir Test</a>
-                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: FASS', 'https://www.institutoelite.edu.co/ExamenFASS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <a href="https://www.institutoelite.edu.co/ExamenFASS.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
+                            <button class="btn-action btn-share" onclick="compartir('el examen de Facturación y Auditoría de Servicios en Salud', 'https://www.institutoelite.edu.co/ExamenFASS.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                     
@@ -391,8 +392,8 @@
                         <h3 class="link-title">SMC</h3>
                         <p class="link-desc">Evaluación Final: Salud Mental Comunitaria y Apoyo Psicosocial.</p>
                         <div class="btn-group">
-                            <a href="https://www.institutoelite.edu.co/ExamenSMC.html" target="_blank" class="btn-action btn-open">Abrir Test</a>
-                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: SMC', 'https://www.institutoelite.edu.co/ExamenSMC.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <a href="https://www.institutoelite.edu.co/ExamenSMC.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
+                            <button class="btn-action btn-share" onclick="compartir('el examen de Salud Mental Comunitaria y Apoyo Psicosocial', 'https://www.institutoelite.edu.co/ExamenSMC.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                     
@@ -402,8 +403,8 @@
                         <h3 class="link-title">SPGB</h3>
                         <p class="link-desc">Evaluación Final: Salud Pública y Gestión del Bienestar.</p>
                         <div class="btn-group">
-                            <a href="https://www.institutoelite.edu.co/ExamenSPGB.html" target="_blank" class="btn-action btn-open">Abrir Test</a>
-                            <button class="btn-action btn-share" onclick="compartir('Evaluación Final: SPGB', 'https://www.institutoelite.edu.co/ExamenSPGB.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <a href="https://www.institutoelite.edu.co/ExamenSPGB.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
+                            <button class="btn-action btn-share" onclick="compartir('el examen de Salud Pública y Gestión del Bienestar', 'https://www.institutoelite.edu.co/ExamenSPGB.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
 
@@ -420,7 +421,7 @@
                         <p class="link-desc">Formulario oficial para el proceso de matrícula SIET.</p>
                         <div class="btn-group">
                             <a href="https://www.institutoelite.edu.co/matricula.html" target="_blank" class="btn-action btn-open">Abrir Portal</a>
-                            <button class="btn-action btn-share" onclick="compartir('Matrícula SIET', 'https://www.institutoelite.edu.co/matricula.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <button class="btn-action btn-share" onclick="compartir('el proceso de Matrícula SIET', 'https://www.institutoelite.edu.co/matricula.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                     
@@ -431,7 +432,7 @@
                         <p class="link-desc">Portal de registro y captura de datos para estudiantes Élite.</p>
                         <div class="btn-group">
                             <a href="https://www.institutoelite.edu.co/matriculaelite.html" target="_blank" class="btn-action btn-open">Abrir Portal</a>
-                            <button class="btn-action btn-share" onclick="compartir('Registro de Estudiantes Élite', 'https://www.institutoelite.edu.co/matriculaelite.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <button class="btn-action btn-share" onclick="compartir('tu proceso en el Registro de Estudiantes', 'https://www.institutoelite.edu.co/matriculaelite.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                 </div>
@@ -447,7 +448,7 @@
                         <p class="link-desc">Sitio web oficial del Instituto Técnico Élite.</p>
                         <div class="btn-group">
                             <a href="https://www.institutoelite.edu.co/" target="_blank" class="btn-action btn-open">Visitar Web</a>
-                            <button class="btn-action btn-share" onclick="compartir('Portal Instituto Técnico Élite', 'https://www.institutoelite.edu.co/')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <button class="btn-action btn-share" onclick="compartir('una visita a nuestra Página Oficial', 'https://www.institutoelite.edu.co/')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
                 </div>
@@ -476,7 +477,7 @@
             evt.currentTarget.classList.add('active');
             
             // Auto scroll en móvil para centrar la pestaña clickeada
-            if(window.innerWidth <= 900) {
+            if(window.innerWidth <= 1100) {
                 evt.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
         }
@@ -490,10 +491,11 @@
             });
         }
 
-        // Lógica Compartir
+        // Lógica Compartir Actualizada
         async function compartir(titulo, url) {
             const hora = new Date().getHours();
             let saludo = (hora < 12) ? "¡Buenos días!" : (hora < 19) ? "¡Buenas tardes!" : "¡Buenas noches!";
+            // El mensaje ahora se adapta perfectamente al texto que pasamos en el botón (Ej: "el examen de Salud Pública...")
             const mensaje = `${saludo} Te invitamos a realizar ${titulo} en el Instituto Técnico Élite. Es un gusto contar contigo. Accede aquí: ${url}`;
             
             if (navigator.share) {
