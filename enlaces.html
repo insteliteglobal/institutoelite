@@ -47,7 +47,7 @@
             width: 400px; height: 400px;
             background: #2a5298;
             top: -100px; left: -100px;
-            opacity: 0.15;
+            opacity: 0.12;
         }
         body::after {
             width: 500px; height: 500px;
@@ -107,7 +107,7 @@
             width: 280px; 
             background: var(--bg-card); 
             border-radius: 16px; padding: 30px 0; 
-            box-shadow: 0 15px 35px rgba(31,53,101,0.05); 
+            box-shadow: 0 15px 35px rgba(31,53,101,0.04); 
             height: fit-content; position: sticky; top: 100px; 
             border: 1px solid rgba(255,255,255,0.6);
             backdrop-filter: blur(10px);
@@ -117,7 +117,7 @@
         .tab-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 16px 30px; background: transparent; border: none; text-align: left; font-size: 15px; font-weight: 600; color: var(--text-main); cursor: pointer; transition: all 0.3s ease; border-left: 4px solid transparent; }
         .tab-btn:hover { background: rgba(31,53,101,0.03); color: var(--accent-color); }
         .tab-btn.active { 
-            background: linear-gradient(90deg, rgba(31,53,101,0.08) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(31,53,101,0.06) 0%, transparent 100%);
             color: var(--primary-color); 
             border-left: 4px solid var(--primary-color); 
             font-weight: 700;
@@ -128,7 +128,7 @@
         /* AREA DE CONTENIDO */
         .content-area { 
             flex: 1; background: var(--bg-card); border-radius: 16px; padding: 40px; 
-            box-shadow: 0 15px 40px rgba(31,53,101,0.05); 
+            box-shadow: 0 15px 40px rgba(31,53,101,0.04); 
             min-height: 500px; border: 1px solid rgba(255,255,255,0.6);
             backdrop-filter: blur(10px);
         }
@@ -153,71 +153,73 @@
         }
         .search-bar input::placeholder { color: #a0aec0; }
 
-        /* TARJETAS MULTICOLOR PREMIUM */
+        /* TARJETAS COMPLETAMENTE A COLOR (SUAVES/PASTEL) */
         .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 25px; }
         
         .link-card { 
-            background: white; border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; 
+            /* Fondos suaves y profesionales */
+            background: linear-gradient(135deg, var(--bg-1), var(--bg-2)); 
+            border: 1px solid rgba(255, 255, 255, 0.8); 
+            border-radius: 20px; padding: 30px; 
             display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             position: relative; overflow: hidden; z-index: 1;
-            /* Variables por defecto si no se declaran */
-            --card-color: #1f3565;
-            --card-light: #e2eaf4;
-        }
-        
-        /* Borde superior que se expande al pasar el mouse */
-        .link-card::before { 
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; 
-            background: var(--card-color);
-            transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
         }
         
         .link-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06); 
-            border-color: transparent;
+            transform: translateY(-6px); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
         }
-        .link-card:hover::before { transform: scaleX(1); }
         
+        /* Ícono con base blanca para resaltar limpieza */
         .icon-wrapper { 
-            width: 55px; height: 55px; 
-            background: var(--card-light);
-            border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
-            color: var(--card-color); font-size: 26px; transition: 0.4s;
+            width: 60px; height: 60px; 
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;
+            color: var(--accent-dark); font-size: 26px; transition: 0.4s;
         }
         
         .link-card:hover .icon-wrapper { 
-            background: var(--card-color); 
-            color: white; 
-            transform: rotate(-10deg) scale(1.05); 
-            box-shadow: 0 10px 20px var(--card-light);
+            transform: scale(1.1) rotate(-8deg); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
-        .link-title { font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--text-main); }
-        .link-desc { font-size: 14.5px; color: var(--text-muted); margin-bottom: 30px; flex-grow: 1; line-height: 1.6; }
+        /* Textos oscuros legibles (Tomando el color fuerte de cada tarjeta) */
+        .link-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; color: var(--accent-dark); }
+        .link-desc { font-size: 14.5px; color: #475569; margin-bottom: 30px; flex-grow: 1; line-height: 1.6; font-weight: 500; }
         
-        /* BOTONES DE TARJETAS */
+        /* BOTONES DENTRO DE LAS TARJETAS */
         .btn-group { display: flex; gap: 12px; }
         .btn-action { 
-            flex: 1; padding: 12px 10px; border-radius: 10px; font-size: 13px; font-weight: 700; 
+            flex: 1; padding: 14px 10px; border-radius: 12px; font-size: 13.5px; font-weight: 700; 
             text-align: center; cursor: pointer; text-decoration: none; border: none; 
             transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; 
         }
         
+        /* Botón principal (Toma el color fuerte de la temática) */
         .btn-open { 
-            background: var(--card-color); 
+            background: var(--accent-dark); 
             color: white; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .btn-open:hover { 
             transform: translateY(-2px); 
-            box-shadow: 0 8px 20px var(--card-light); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
             filter: brightness(1.1);
         }
         
-        .btn-share { background: #f4f7fb; color: var(--text-main); border: 1px solid var(--border-color); }
-        .btn-share:hover { background: #e2eaf4; border-color: #cbd5e1; }
-        .btn-share i { color: var(--text-muted); transition: 0.3s; }
-        .link-card:hover .btn-share i { color: var(--card-color); }
+        /* Botón secundario (Blanco con texto oscuro/temático) */
+        .btn-share { 
+            background: rgba(255, 255, 255, 0.7); 
+            color: var(--accent-dark); 
+            border: 1px solid rgba(255, 255, 255, 0.9); 
+        }
+        .btn-share:hover { 
+            background: #ffffff; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .btn-share i { color: var(--accent-dark); }
 
         /* TOAST NOTIFICACIÓN */
         #toast { 
@@ -339,8 +341,8 @@
             <div id="evaluaciones" class="tab-content active">
                 <div class="links-grid">
                     
-                    <!-- Tarjeta Azul Celeste -->
-                    <div class="link-card" style="--card-color: #0284c7; --card-light: #e0f2fe;" data-title="Derechos Humanos Construcción Paz">
+                    <!-- Tarjeta Azul Suave -->
+                    <div class="link-card" style="--bg-1: #f0f9ff; --bg-2: #e0f2fe; --accent-dark: #0284c7;" data-title="Derechos Humanos Construcción Paz">
                         <div class="icon-wrapper"><i class="fas fa-dove"></i></div>
                         <h3 class="link-title">Derechos Humanos y Paz</h3>
                         <p class="link-desc">Evaluación Final: Derechos Humanos y Construcción de Paz.</p>
@@ -350,8 +352,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tarjeta Verde Esmeralda -->
-                    <div class="link-card" style="--card-color: #059669; --card-light: #d1fae5;" data-title="APS Atención Primaria">
+                    <!-- Tarjeta Verde Suave -->
+                    <div class="link-card" style="--bg-1: #ecfdf5; --bg-2: #d1fae5; --accent-dark: #059669;" data-title="APS Atención Primaria">
                         <div class="icon-wrapper"><i class="fas fa-heartbeat"></i></div>
                         <h3 class="link-title">APS</h3>
                         <p class="link-desc">Evaluación Final: Atención Primaria en Salud.</p>
@@ -361,8 +363,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tarjeta Morada -->
-                    <div class="link-card" style="--card-color: #7c3aed; --card-light: #ede9fe;" data-title="ASIS Integrador">
+                    <!-- Tarjeta Morada Suave -->
+                    <div class="link-card" style="--bg-1: #f5f3ff; --bg-2: #ede9fe; --accent-dark: #7c3aed;" data-title="ASIS Integrador">
                         <div class="icon-wrapper"><i class="fas fa-microscope"></i></div>
                         <h3 class="link-title">ASIS</h3>
                         <p class="link-desc">Examen Integrador: Evaluación de Competencias ASIS.</p>
@@ -372,8 +374,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tarjeta Naranja -->
-                    <div class="link-card" style="--card-color: #ea580c; --card-light: #ffedd5;" data-title="FASS Facturación">
+                    <!-- Tarjeta Naranja/Melocotón Suave -->
+                    <div class="link-card" style="--bg-1: #fff7ed; --bg-2: #ffedd5; --accent-dark: #ea580c;" data-title="FASS Facturación">
                         <div class="icon-wrapper"><i class="fas fa-file-invoice-dollar"></i></div>
                         <h3 class="link-title">FASS</h3>
                         <p class="link-desc">Evaluación Final: Facturación y Auditoría de Servicios en Salud.</p>
@@ -383,8 +385,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tarjeta Turquesa -->
-                    <div class="link-card" style="--card-color: #0d9488; --card-light: #ccfbf1;" data-title="SMC Salud Mental">
+                    <!-- Tarjeta Turquesa Suave -->
+                    <div class="link-card" style="--bg-1: #f0fdfa; --bg-2: #ccfbf1; --accent-dark: #0d9488;" data-title="SMC Salud Mental">
                         <div class="icon-wrapper"><i class="fas fa-brain"></i></div>
                         <h3 class="link-title">SMC</h3>
                         <p class="link-desc">Evaluación Final: Salud Mental Comunitaria y Apoyo Psicosocial.</p>
@@ -394,8 +396,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tarjeta Rojo Carmesí -->
-                    <div class="link-card" style="--card-color: #e11d48; --card-light: #ffe4e6;" data-title="SPGB Salud Pública">
+                    <!-- Tarjeta Rojo/Rosado Suave -->
+                    <div class="link-card" style="--bg-1: #fff1f2; --bg-2: #ffe4e6; --accent-dark: #e11d48;" data-title="SPGB Salud Pública">
                         <div class="icon-wrapper"><i class="fas fa-hands-holding-circle"></i></div>
                         <h3 class="link-title">SPGB</h3>
                         <p class="link-desc">Evaluación Final: Salud Pública y Gestión del Bienestar.</p>
@@ -411,8 +413,8 @@
             <!-- TAB: Matrículas -->
             <div id="matriculas" class="tab-content">
                 <div class="links-grid">
-                    <!-- Tarjeta Índigo -->
-                    <div class="link-card" style="--card-color: #4f46e5; --card-light: #e0e7ff;" data-title="Matrícula SIET">
+                    <!-- Tarjeta Índigo Suave -->
+                    <div class="link-card" style="--bg-1: #eef2ff; --bg-2: #e0e7ff; --accent-dark: #4f46e5;" data-title="Matrícula SIET">
                         <div class="icon-wrapper"><i class="fas fa-id-badge"></i></div>
                         <h3 class="link-title">Matrícula SIET</h3>
                         <p class="link-desc">Formulario oficial para el proceso de matrícula SIET.</p>
@@ -422,8 +424,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tarjeta Azul Clásico -->
-                    <div class="link-card" style="--card-color: #2563eb; --card-light: #dbeafe;" data-title="Registro Estudiantes">
+                    <!-- Tarjeta Azul Clásico Suave -->
+                    <div class="link-card" style="--bg-1: #eff6ff; --bg-2: #dbeafe; --accent-dark: #2563eb;" data-title="Registro Estudiantes">
                         <div class="icon-wrapper"><i class="fas fa-user-plus"></i></div>
                         <h3 class="link-title">Registro Estudiantes</h3>
                         <p class="link-desc">Portal de registro y captura de datos para estudiantes Élite.</p>
@@ -438,8 +440,8 @@
             <!-- TAB: Institucional -->
             <div id="institucional" class="tab-content">
                 <div class="links-grid">
-                    <!-- Tarjeta Azul Marino Corporativo -->
-                    <div class="link-card" style="--card-color: #1f3565; --card-light: #e2eaf4;" data-title="Página Principal">
+                    <!-- Tarjeta Gris Claro Corporativo -->
+                    <div class="link-card" style="--bg-1: #f8fafc; --bg-2: #f1f5f9; --accent-dark: #1e293b;" data-title="Página Principal">
                         <div class="icon-wrapper"><i class="fas fa-globe"></i></div>
                         <h3 class="link-title">Portal Élite</h3>
                         <p class="link-desc">Sitio web oficial del Instituto Técnico Élite.</p>
