@@ -219,16 +219,22 @@
                 urlDescarga = await getDownloadURL(snapshot.ref); 
             }
 
-            let consecutivoActual = 1;
+            // Lógica actualizada para iniciar en 2001
+            let consecutivoActual = 2001; 
             const docContador = doc(db, 'sistema', 'contador_matriculas');
             
             await runTransaction(db, async (transaction) => {
                 const contadorSnap = await transaction.get(docContador);
                 if (!contadorSnap.exists()) {
-                    transaction.set(docContador, { total: 1 });
-                    consecutivoActual = 1;
+                    transaction.set(docContador, { total: 2001 });
+                    consecutivoActual = 2001;
                 } else {
-                    consecutivoActual = contadorSnap.data().total + 1;
+                    let totalActual = contadorSnap.data().total;
+                    if (totalActual < 2001) {
+                        consecutivoActual = 2001;
+                    } else {
+                        consecutivoActual = totalActual + 1;
+                    }
                     transaction.update(docContador, { total: consecutivoActual });
                 }
             });
