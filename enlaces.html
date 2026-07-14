@@ -93,7 +93,6 @@
         .search-bar input:focus { outline: none; background: white; border-color: var(--accent-color); box-shadow: 0 10px 25px rgba(42,82,152,0.1); }
 
         .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 25px; }
-        
         .link-card { background: linear-gradient(135deg, var(--bg-1), var(--bg-2)); border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; transition: all 0.4s; position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.03); }
         .link-card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
         .icon-wrapper { width: 60px; height: 60px; background: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; color: var(--accent-dark); font-size: 26px; transition: 0.4s; }
@@ -108,7 +107,7 @@
         .btn-share { background: rgba(255, 255, 255, 0.7); color: var(--accent-dark); border: 1px solid rgba(255, 255, 255, 0.9); }
         .btn-share:hover { background: #ffffff; }
 
-        /* ====== NUEVOS ESTILOS PARA EL CRM (BANDEJAS) ====== */
+        /* ====== ESTILOS CRM (BANDEJAS) ====== */
         .filter-group { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .btn-filter { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border-color); background: white; color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .btn-filter.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
@@ -116,7 +115,7 @@
 
         .crm-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         .crm-card { background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: 0.3s; border-left: 5px solid gray;}
-        .crm-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+        .crm-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
         
         .crm-card.estado-pendiente { border-left-color: #f59e0b; }
         .crm-card.estado-enproceso { border-left-color: #3b82f6; }
@@ -124,7 +123,7 @@
 
         .crm-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px;}
         .crm-radicado { font-size: 18px; font-weight: 800; color: var(--primary-color); }
-        .crm-fecha { font-size: 12px; color: var(--text-muted); }
+        .crm-fecha { font-size: 12px; color: var(--text-muted); margin-top: 4px; display: block;}
         .crm-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .badge-pendiente { background: #fef3c7; color: #d97706; }
         .badge-enproceso { background: #dbeafe; color: #2563eb; }
@@ -134,19 +133,55 @@
         .crm-body strong { color: var(--text-main); }
         .crm-body p { margin-bottom: 5px; }
 
-        .crm-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-        .btn-crm { padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px; transition: 0.3s; text-decoration: none;}
-        .btn-doc { background: #f1f5f9; color: #475569; }
+        /* Botones de acción CRM */
+        .crm-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; border-top: 1px solid #f1f5f9; padding-top: 15px;}
+        .btn-crm { padding: 7px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px; transition: 0.3s; text-decoration: none;}
+        
+        .btn-doc { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
         .btn-doc:hover { background: #e2e8f0; }
+        
         .btn-proceso { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
         .btn-proceso:hover { background: #dbeafe; }
+        
         .btn-finalizar { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
         .btn-finalizar:hover { background: #d1fae5; }
         
+        .btn-editar { background: #fef9c3; color: #ca8a04; border: 1px solid #fde047; }
+        .btn-editar:hover { background: #fef08a; }
+
+        .btn-imprimir { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+        .btn-imprimir:hover { background: #e9d5ff; }
+
+        .btn-eliminar { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; margin-left: auto; }
+        .btn-eliminar:hover { background: #fee2e2; }
+
         .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 15px; }
         .empty-state i { font-size: 40px; color: #cbd5e1; margin-bottom: 15px; display: block; }
 
-        #toast { visibility: hidden; background: rgba(31,53,101,0.95); backdrop-filter: blur(10px); color: white; padding: 16px 30px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); border-radius: 50px; z-index: 9999; font-weight: 600; font-size: 14.5px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        /* ====== MODAL DE EDICIÓN ====== */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: 0.3s; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: white; width: 90%; max-width: 600px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px); transition: 0.3s; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-header { padding: 20px 25px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+        .modal-header h3 { font-size: 18px; color: var(--primary-color); }
+        .btn-close { background: none; border: none; font-size: 20px; color: #94a3b8; cursor: pointer; transition: 0.2s; }
+        .btn-close:hover { color: #ef4444; }
+        .modal-body { padding: 25px; overflow-y: auto; flex: 1; }
+        
+        /* Estilos del formulario dinámico dentro del modal */
+        .modal-form-group { margin-bottom: 15px; }
+        .modal-form-group label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 5px; text-transform: capitalize; }
+        .modal-form-group input { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; color: #334155; }
+        .modal-form-group input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 2px rgba(31, 53, 101, 0.1); }
+        
+        .modal-footer { padding: 15px 25px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 10px; background: #f8fafc; }
+        .btn-cancelar { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; border: 1px solid #cbd5e1; background: white; color: #475569; transition: 0.2s; }
+        .btn-cancelar:hover { background: #f1f5f9; }
+        .btn-guardar { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; background: var(--primary-color); color: white; transition: 0.2s; }
+        .btn-guardar:hover { background: var(--primary-hover); }
+
+        #toast { visibility: hidden; background: rgba(31,53,101,0.95); backdrop-filter: blur(10px); color: white; padding: 16px 30px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); border-radius: 50px; z-index: 10000; font-weight: 600; font-size: 14.5px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.1); }
         #toast i { color: #4ade80; font-size: 20px; }
         #toast.show { visibility: visible; animation: slideUpToast 0.5s, fadeOutToast 0.5s 2.5s forwards; }
         
@@ -167,8 +202,7 @@
             .tab-btn { flex: 0 0 auto; width: auto; padding: 14px 24px; border-left: none; border-radius: 12px; margin-right: 12px; background: #f8fafc; border: 1px solid transparent; }
             .tab-btn.active { background: white; border: 1px solid var(--primary-color); }
             .content-area { padding: 25px 20px; }
-            .crm-actions { flex-direction: column; }
-            .btn-crm { justify-content: center; }
+            .btn-eliminar { margin-left: 0; }
         }
     </style>
 </head>
@@ -235,7 +269,7 @@
                             <a href="https://www.institutoelite.edu.co/ExamenAPS.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
 
             <div id="matriculas" class="tab-content">
@@ -274,14 +308,12 @@
 
             <div id="bandeja-siet" class="tab-content">
                 <h2 style="color: var(--primary-color); margin-bottom: 20px;">Gestión Matrículas SIET</h2>
-                
                 <div class="filter-group">
                     <button class="btn-filter active" onclick="filtrarCRM('siet', 'Todos', this)">Todos</button>
                     <button class="btn-filter" onclick="filtrarCRM('siet', 'Pendiente', this)">Pendientes</button>
                     <button class="btn-filter" onclick="filtrarCRM('siet', 'En Proceso', this)">En Proceso</button>
                     <button class="btn-filter" onclick="filtrarCRM('siet', 'Finalizado', this)">Finalizados</button>
                 </div>
-
                 <div class="crm-grid" id="contenedor-siet">
                     <div class="empty-state"><i class="fas fa-spinner fa-spin"></i> Cargando datos...</div>
                 </div>
@@ -289,20 +321,33 @@
 
             <div id="bandeja-oficial" class="tab-content">
                 <h2 style="color: var(--primary-color); margin-bottom: 20px;">Gestión Registro Oficial</h2>
-                
                 <div class="filter-group">
                     <button class="btn-filter active" onclick="filtrarCRM('oficial', 'Todos', this)">Todos</button>
                     <button class="btn-filter" onclick="filtrarCRM('oficial', 'Pendiente', this)">Pendientes</button>
                     <button class="btn-filter" onclick="filtrarCRM('oficial', 'En Proceso', this)">En Proceso</button>
                     <button class="btn-filter" onclick="filtrarCRM('oficial', 'Finalizado', this)">Finalizados</button>
                 </div>
-
                 <div class="crm-grid" id="contenedor-oficial">
                     <div class="empty-state"><i class="fas fa-spinner fa-spin"></i> Cargando datos...</div>
                 </div>
             </div>
 
         </main>
+    </div>
+
+    <div class="modal-overlay" id="modalEditar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Registro</h3>
+                <button class="btn-close" onclick="cerrarModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalFormContainer">
+                </div>
+            <div class="modal-footer">
+                <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-guardar" onclick="guardarEdicion()">Guardar Cambios</button>
+            </div>
+        </div>
     </div>
 
     <div id="toast"><i class="fas fa-check-circle"></i> <span>Acción completada</span></div>
@@ -316,7 +361,6 @@
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
             
-            // Ocultar buscador si estamos en CRM
             const buscador = document.getElementById('barraBusqueda');
             if(tabId.includes('bandeja')) { buscador.style.display = 'none'; } 
             else { buscador.style.display = 'flex'; }
@@ -346,8 +390,9 @@
     </script>
     
     <script type="module">
+        // Importamos deleteDoc para la nueva función de borrar
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
@@ -361,13 +406,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Variables Globales para guardar los datos localmente y poder filtrarlos rápido
         window.datosSIET = [];
         window.datosOficial = [];
         window.filtroActualSIET = 'Todos';
         window.filtroActualOficial = 'Todos';
+        window.idDocEnEdicion = null; // Guarda el ID del documento que se está editando
 
-        // Escuchar la base de datos en tiempo real
         const q = query(collection(db, "matriculas"), orderBy("fechaRegistro", "desc"));
         
         onSnapshot(q, (snapshot) => {
@@ -376,7 +420,7 @@
             
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                data.id = doc.id; // Guardamos el ID del documento para poder actualizarlo luego
+                data.id = doc.id; 
                 
                 if (data.origen === 'Matrícula SIET') {
                     window.datosSIET.push(data);
@@ -385,14 +429,11 @@
                 }
             });
 
-            // Actualizar la vista
             renderizarCRM('siet', window.datosSIET, window.filtroActualSIET);
             renderizarCRM('oficial', window.datosOficial, window.filtroActualOficial);
         });
 
-        // Función para cambiar de filtro desde el HTML
         window.filtrarCRM = (bandeja, estado, btn) => {
-            // Actualizar estilo del botón activo
             const botones = btn.parentElement.querySelectorAll('.btn-filter');
             botones.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -406,7 +447,6 @@
             }
         };
 
-        // Renderizar las tarjetas
         function renderizarCRM(bandeja, datos, filtro) {
             const contenedor = document.getElementById(`contenedor-${bandeja}`);
             contenedor.innerHTML = '';
@@ -419,23 +459,17 @@
             }
 
             datosFiltrados.forEach(d => {
-                // Configurar colores según estado
                 let claseEstado = 'estado-pendiente';
                 let claseBadge = 'badge-pendiente';
                 if(d.estado === 'En Proceso') { claseEstado = 'estado-enproceso'; claseBadge = 'badge-enproceso'; }
                 if(d.estado === 'Finalizado') { claseEstado = 'estado-finalizado'; claseBadge = 'badge-finalizado'; }
 
-                // Formatear Fecha
                 let fechaTexto = 'Sin fecha';
-                if(d.fechaRegistro) {
-                    fechaTexto = d.fechaRegistro.toDate().toLocaleString('es-CO');
-                }
+                if(d.fechaRegistro) { fechaTexto = d.fechaRegistro.toDate().toLocaleString('es-CO'); }
 
-                // Generar HTML de la tarjeta
                 const card = document.createElement('div');
                 card.className = `crm-card ${claseEstado}`;
                 
-                // Nombre depende del formulario (algunos dicen "Nombres" y otros "Nombre")
                 const nombreCompleto = `${d.Nombre || d.Nombres || ''} ${d.Apellidos || ''}`;
 
                 card.innerHTML = `
@@ -455,31 +489,182 @@
                     </div>
 
                     <div class="crm-actions">
-                        ${d.urlDocumento ? `<a href="${d.urlDocumento}" target="_blank" class="btn-crm btn-doc"><i class="fas fa-file-pdf"></i> Ver Documento</a>` : ''}
+                        ${d.urlDocumento ? `<a href="${d.urlDocumento}" target="_blank" class="btn-crm btn-doc" title="Ver Documento"><i class="fas fa-file-pdf"></i> Archivo</a>` : ''}
                         
+                        <button class="btn-crm btn-imprimir" onclick="imprimirRegistro('${d.id}')" title="Generar PDF/Imprimir"><i class="fas fa-print"></i> Imprimir</button>
+                        <button class="btn-crm btn-editar" onclick="abrirModalEditar('${d.id}')" title="Editar Información"><i class="fas fa-edit"></i> Editar</button>
+
                         ${d.estado !== 'En Proceso' && d.estado !== 'Finalizado' ? 
                             `<button class="btn-crm btn-proceso" onclick="cambiarEstado('${d.id}', 'En Proceso')"><i class="fas fa-cog"></i> Procesar</button>` : ''}
                         
                         ${d.estado !== 'Finalizado' ? 
                             `<button class="btn-crm btn-finalizar" onclick="cambiarEstado('${d.id}', 'Finalizado')"><i class="fas fa-check-double"></i> Finalizar</button>` : ''}
+                        
+                        <button class="btn-crm btn-eliminar" onclick="eliminarRegistro('${d.id}')" title="Eliminar Permanentemente"><i class="fas fa-trash"></i></button>
                     </div>
                 `;
                 contenedor.appendChild(card);
             });
         }
 
-        // Función para actualizar estado en Firebase
+        // ==========================================
+        // NUEVAS FUNCIONES: ELIMINAR, EDITAR, IMPRIMIR
+        // ==========================================
+
+        // 1. Cambiar Estado
         window.cambiarEstado = async (idDocumento, nuevoEstado) => {
             try {
                 const docRef = doc(db, "matriculas", idDocumento);
-                await updateDoc(docRef, {
-                    estado: nuevoEstado
-                });
+                await updateDoc(docRef, { estado: nuevoEstado });
                 mostrarToast(`Estado actualizado a: ${nuevoEstado}`);
             } catch (error) {
-                console.error("Error al actualizar:", error);
                 alert("Hubo un error al actualizar el estado.");
             }
+        };
+
+        // 2. Eliminar Registro Real
+        window.eliminarRegistro = async (idDocumento) => {
+            // Confirmación de seguridad
+            if(confirm("⚠️ ¿Estás completamente seguro de que deseas eliminar este registro?\n\nEsta acción borrará los datos de Firebase y NO se puede deshacer.")) {
+                try {
+                    await deleteDoc(doc(db, "matriculas", idDocumento));
+                    mostrarToast("Registro eliminado permanentemente.");
+                } catch (error) {
+                    console.error("Error al eliminar:", error);
+                    alert("Error al intentar eliminar el registro.");
+                }
+            }
+        };
+
+        // 3. Editar Registro (Construcción dinámica del Formulario)
+        window.abrirModalEditar = (idDocumento) => {
+            // Buscar el registro en cualquiera de las dos listas
+            const registro = window.datosSIET.find(d => d.id === idDocumento) || window.datosOficial.find(d => d.id === idDocumento);
+            if(!registro) return;
+
+            window.idDocEnEdicion = idDocumento;
+            const container = document.getElementById('modalFormContainer');
+            container.innerHTML = ''; // Limpiar el modal anterior
+
+            // Campos internos que NO deben ser editables manualmente
+            const camposIgnorados = ['id', 'urlDocumento', 'fechaRegistro', 'estado', 'origen', 'consecutivo'];
+
+            // Crear un input por cada dato del estudiante
+            for (let clave in registro) {
+                if(!camposIgnorados.includes(clave)) {
+                    const labelTxt = clave.replace(/_/g, ' '); // Cambia Numero_Documento a Numero Documento
+                    container.innerHTML += `
+                        <div class="modal-form-group">
+                            <label>${labelTxt}</label>
+                            <input type="text" id="edit_${clave}" data-clave="${clave}" value="${registro[clave]}">
+                        </div>
+                    `;
+                }
+            }
+
+            document.getElementById('modalEditar').classList.add('active');
+        };
+
+        window.cerrarModal = () => {
+            document.getElementById('modalEditar').classList.remove('active');
+            window.idDocEnEdicion = null;
+        };
+
+        window.guardarEdicion = async () => {
+            if(!window.idDocEnEdicion) return;
+
+            // Recolectar todos los inputs dinámicos
+            const inputs = document.querySelectorAll('#modalFormContainer input');
+            const datosActualizados = {};
+            
+            inputs.forEach(input => {
+                const clave = input.getAttribute('data-clave');
+                datosActualizados[clave] = input.value;
+            });
+
+            try {
+                const docRef = doc(db, "matriculas", window.idDocEnEdicion);
+                await updateDoc(docRef, datosActualizados);
+                mostrarToast("Cambios guardados con éxito.");
+                cerrarModal();
+            } catch (error) {
+                console.error("Error al actualizar:", error);
+                alert("Hubo un error al guardar los cambios.");
+            }
+        };
+
+        // 4. Imprimir / Generar PDF Corporativo
+        window.imprimirRegistro = (idDocumento) => {
+            const registro = window.datosSIET.find(d => d.id === idDocumento) || window.datosOficial.find(d => d.id === idDocumento);
+            if(!registro) return;
+
+            const camposIgnorados = ['id', 'urlDocumento', 'fechaRegistro'];
+            let fechaTexto = registro.fechaRegistro ? registro.fechaRegistro.toDate().toLocaleString('es-CO') : 'Sin fecha';
+            
+            // Construir filas de la tabla dinámicamente
+            let filasTabla = '';
+            for (let clave in registro) {
+                if(!camposIgnorados.includes(clave)) {
+                    filasTabla += `
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: bold; width: 40%; text-transform: capitalize;">${clave.replace(/_/g, ' ')}</td>
+                            <td style="padding: 10px; border: 1px solid #cbd5e1; color: #1e293b;">${registro[clave] || 'N/A'}</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // HTML Estructurado para la impresión
+            const htmlImpresion = `
+                <html>
+                <head>
+                    <title>Matrícula #${registro.consecutivo} - Instituto Técnico Élite</title>
+                    <style>
+                        body { font-family: 'Arial', sans-serif; padding: 40px; color: #0f172a; }
+                        .header { text-align: center; border-bottom: 3px solid #1f3565; padding-bottom: 20px; margin-bottom: 30px; }
+                        .header h1 { margin: 0; color: #1f3565; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; }
+                        .header p { margin: 5px 0 0 0; color: #64748b; font-size: 14px; }
+                        .info-bar { display: flex; justify-content: space-between; background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e2e8f0; }
+                        .info-bar div strong { color: #1f3565; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px; }
+                        .footer { text-align: center; font-size: 12px; color: #94a3b8; margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 15px; }
+                        @media print { body { padding: 0; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>Instituto Técnico Élite</h1>
+                        <p>Documento Oficial de Registro Estudiantil</p>
+                    </div>
+                    
+                    <div class="info-bar">
+                        <div><strong>Radicado:</strong> #${registro.consecutivo}</div>
+                        <div><strong>Fecha de Registro:</strong> ${fechaTexto}</div>
+                        <div><strong>Estado:</strong> ${registro.estado.toUpperCase()}</div>
+                    </div>
+
+                    <table>
+                        <tbody>
+                            ${filasTabla}
+                        </tbody>
+                    </table>
+
+                    <div class="footer">
+                        <p>Este documento es generado automáticamente por el Sistema CRM del Instituto Técnico Élite.</p>
+                        <p>Impreso el: ${new Date().toLocaleString('es-CO')}</p>
+                    </div>
+                    <script>
+                        // Activa el diálogo de impresión automáticamente y cierra la ventana al terminar
+                        window.onload = function() { window.print(); window.close(); }
+                    <\/script>
+                </body>
+                </html>
+            `;
+
+            // Abrir una ventana nueva, escribir el HTML y ejecutar la impresión
+            const ventanaImpresion = window.open('', '_blank', 'width=800,height=900');
+            ventanaImpresion.document.write(htmlImpresion);
+            ventanaImpresion.document.close();
         };
 
     </script>
