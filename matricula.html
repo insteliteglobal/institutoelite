@@ -254,16 +254,24 @@ textarea{ min-height:70px; }
                 urlDescarga = await getDownloadURL(snapshot.ref); 
             }
 
-            let consecutivoActual = 1;
+            let consecutivoActual = 2001; // Ajustado a 2001
             const docContador = doc(db, 'sistema', 'contador_matriculas');
             
             await runTransaction(db, async (transaction) => {
                 const contadorSnap = await transaction.get(docContador);
                 if (!contadorSnap.exists()) {
-                    transaction.set(docContador, { total: 1 });
-                    consecutivoActual = 1;
+                    // Si no existe, iniciamos en 2001
+                    transaction.set(docContador, { total: 2001 });
+                    consecutivoActual = 2001;
                 } else {
-                    consecutivoActual = contadorSnap.data().total + 1;
+                    let totalActual = contadorSnap.data().total;
+                    // Si el contador actual es menor a 2001 (por las pruebas), forzamos el salto a 2001
+                    if (totalActual < 2001) {
+                        consecutivoActual = 2001;
+                    } else {
+                        // De lo contrario, suma 1 normalmente (2002, 2003...)
+                        consecutivoActual = totalActual + 1;
+                    }
                     transaction.update(docContador, { total: consecutivoActual });
                 }
             });
@@ -277,7 +285,7 @@ textarea{ min-height:70px; }
             datosMatricula.estado = 'Pendiente';
             datosMatricula.fechaRegistro = serverTimestamp(); 
             datosMatricula.consecutivo = consecutivoActual;
-            datosMatricula.origen = 'Matrícula SIET'; // Etiqueta clave para diferenciarlo
+            datosMatricula.origen = 'Matrícula SIET';
 
             await addDoc(collection(db, "matriculas"), datosMatricula);
 
