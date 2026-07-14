@@ -1,441 +1,297 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Matrícula Oficial | Instituto Técnico Élite</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI, Arial;
-}
-
-body{
-background:#f3f5f8;
-color:#1f2a44;
-}
+*{ margin:0; padding:0; box-sizing:border-box; font-family:Segoe UI, Arial; }
+body{ background:#f3f5f8; color:#1f2a44; }
 
 /* NAVBAR */
-
-.navbar{
-background:#1f3565;
-color:white;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 60px;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-.logo{
-font-weight:600;
-font-size:18px;
-}
-
-.navbar nav{
-display:flex;
-align-items:center;
-}
-
-.navbar nav a{
-color:white;
-text-decoration:none;
-margin-left:20px;
-font-size:15px;
-}
-
-.btn-blanco{
-background:white;
-color:#1f3565 !important;
-padding:6px 14px;
-border-radius:6px;
-font-weight:600;
-}
-
-.menu-toggle{
-display:none;
-font-size:26px;
-cursor:pointer;
-}
+.navbar{ background:#1f3565; color:white; display:flex; justify-content:space-between; align-items:center; padding:15px 60px; position:sticky; top:0; z-index:1000; }
+.logo{ font-weight:600; font-size:18px; }
+.navbar nav{ display:flex; align-items:center; }
+.navbar nav a{ color:white; text-decoration:none; margin-left:20px; font-size:15px; }
+.btn-blanco{ background:white; color:#1f3565 !important; padding:6px 14px; border-radius:6px; font-weight:600; }
+.menu-toggle{ display:none; font-size:26px; cursor:pointer; }
 
 /* PORTADA */
-
-.hero{
-height:300px;
-background:
-linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.85)),
-url("https://images.unsplash.com/photo-1523580494863-6f3031224c94");
-
-background-size:cover;
-background-position:center;
-
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-}
-
-.hero h1{
-font-size:36px;
-}
+.hero{ height:300px; background: linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94"); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; color:white; }
+.hero h1{ font-size:36px; }
 
 /* CONTENIDO */
-
-.contenedor{
-padding:60px 20px;
-}
+.contenedor{ padding:60px 20px; }
 
 /* FORMULARIO */
+.form-matricula{ max-width:720px; margin:auto; background:white; padding:30px; border-radius:12px; box-shadow:0 0 15px rgba(0,0,0,0.15); }
+.form-matricula h2{ text-align:center; color:#1f3565; margin-bottom:25px; }
+label{ font-weight:bold; color:#333; display:block; margin-top: 10px;}
+input,select,textarea{ width:100%; padding:10px; margin:6px 0 15px 0; border:1px solid #ccc; border-radius:6px; font-size:14px; }
+textarea{ min-height:70px; }
+.btn-enviar{ width:100%; background:#1f3565; color:white; padding:15px; border:none; border-radius:8px; font-size:17px; font-weight:bold; cursor:pointer; transition: background 0.3s; margin-top:10px; }
+.btn-enviar:hover{ opacity:0.9; }
+.btn-enviar:disabled { background: #718096; cursor: not-allowed; opacity: 1; }
 
-.form-matricula{
-max-width:720px;
-margin:auto;
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 0 15px rgba(0,0,0,0.15);
-}
+.btn-whatsapp{ display:block; margin-top:15px; text-align:center; background:#007bff; color:white; padding:13px; border-radius:8px; text-decoration:none; font-weight:bold; }
 
-.form-matricula h2{
-text-align:center;
-color:#1f3565;
-margin-bottom:25px;
-}
-
-label{
-font-weight:bold;
-color:#333;
-}
-
-input,select,textarea{
-width:100%;
-padding:10px;
-margin:6px 0 15px 0;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:14px;
-}
-
-textarea{
-min-height:70px;
-}
-
-.btn-enviar{
-width:100%;
-background:#1f3565;
-color:white;
-padding:15px;
-border:none;
-border-radius:8px;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.btn-enviar:hover{
-opacity:0.9;
-}
-
-.btn-whatsapp{
-display:block;
-margin-top:15px;
-text-align:center;
-background:#007bff;
-color:white;
-padding:13px;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
-}
-
-/* WHATSAPP */
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-width:55px;
-height:55px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:26px;
-text-decoration:none;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
+/* WHATSAPP FLOTANTE */
+.whatsapp{ position:fixed; bottom:20px; right:20px; background:#25D366; color:white; width:55px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index: 1000;}
 
 /* RESPONSIVE */
-
 @media(max-width:900px){
-
-.navbar{
-padding:15px 25px;
+    .navbar{ padding:15px 25px; }
+    .menu-toggle{ display:block; }
+    .navbar nav{ position:absolute; top:65px; left:0; width:100%; background:#1f3565; flex-direction:column; display:none; }
+    .navbar nav a{ margin:15px 0; }
+    .navbar nav.active{ display:flex; }
+    .hero h1{ font-size:26px; }
+    .contenedor{ padding:40px 15px; }
 }
-
-.menu-toggle{
-display:block;
-}
-
-.navbar nav{
-position:absolute;
-top:65px;
-left:0;
-width:100%;
-background:#1f3565;
-flex-direction:column;
-display:none;
-}
-
-.navbar nav a{
-margin:15px 0;
-}
-
-.navbar nav.active{
-display:flex;
-}
-
-.hero h1{
-font-size:26px;
-}
-
-.contenedor{
-padding:40px 15px;
-}
-
-}
-
 </style>
-
 </head>
-
 <body>
 
 <header class="navbar">
-
-<div class="logo">
-Instituto Técnico Élite
-</div>
-
-<div class="menu-toggle" onclick="toggleMenu()">
-<i class="fas fa-bars"></i>
-</div>
-
-<nav id="menu">
-
-<a href="inicio.html">Inicio</a>
-<a href="oferta-academica.html">Oferta Académica</a>
-<a href="pagos-en-linea.html">Pagos en línea</a>
-<a href="quienes-somos.html">Quiénes somos</a>
-<a href="contacto.html">Contacto</a>
-<a href="certificados.html">Certificados</a>
-
-<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
-<a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
-
-</nav>
-
+    <div class="logo">Instituto Técnico Élite</div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav id="menu">
+        <a href="inicio.html">Inicio</a>
+        <a href="oferta-academica.html">Oferta Académica</a>
+        <a href="pagos-en-linea.html">Pagos en línea</a>
+        <a href="quienes-somos.html">Quiénes somos</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="certificados.html">Certificados</a>
+        <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+        <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+    </nav>
 </header>
 
 <section class="hero">
-<h1>Matrícula Oficial</h1>
+    <h1>Matrícula Oficial</h1>
 </section>
 
 <section class="contenedor">
+    <div class="form-matricula">
+        <h2>Matrícula Oficial – Registro SIET - Instituto Técnico Élite</h2>
 
-<div class="form-matricula">
+        <form id="formularioMatriculaSIET">
 
-<h2>Matrícula Oficial – Registro SIET - Instituto Técnico Élite</h2>
+            <label>Nombres</label>
+            <input type="text" name="Nombre" required>
 
-<form action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST" enctype="multipart/form-data">
+            <label>Apellidos</label>
+            <input type="text" name="Apellidos" required>
 
-<input type="hidden" name="_subject" value="Matrícula Instituto Técnico Élite">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_template" value="table">
+            <label>Correo electrónico</label>
+            <input type="email" name="Correo" required>
 
-<label>Nombres</label>
-<input type="text" name="Nombre" required>
+            <label>Celular / WhatsApp</label>
+            <input type="tel" name="Celular" required>
 
-<label>Apellidos</label>
-<input type="text" name="Apellidos" required>
+            <label>Programa a matricular</label>
+            <input type="text" name="Programa" required>
 
-<label>Correo electrónico</label>
-<input type="email" name="Correo" required>
+            <label>Número de documento</label>
+            <input type="text" name="Documento" required>
 
-<label>Celular / WhatsApp</label>
-<input type="tel" name="Celular" required>
+            <label>Lugar de expedición del documento</label>
+            <input type="text" name="Lugar Expedición" required>
 
-<label>Programa a matricular</label>
-<input type="text" name="Programa" required>
+            <label>Zona</label>
+            <select name="Zona" required>
+                <option value="">Seleccione</option>
+                <option>Rural</option>
+                <option>Urbana</option>
+            </select>
 
-<label>Número de documento</label>
-<input type="text" name="Documento" required>
+            <label>Estrato</label>
+            <select name="Estrato" required>
+                <option value="">Seleccione</option>
+                <option>1</option><option>2</option><option>3</option>
+                <option>4</option><option>5</option><option>6</option>
+            </select>
 
-<label>Lugar de expedición del documento</label>
-<input type="text" name="Lugar Expedición" required>
+            <label>Grupo Sisbén</label>
+            <select name="Grupo Sisben" required>
+                <option value="">Seleccione</option>
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>No aplica</option>
+            </select>
 
-<label>Zona</label>
-<select name="Zona" required>
-<option value="">Seleccione</option>
-<option>Rural</option>
-<option>Urbana</option>
-</select>
+            <label>Subgrupo Sisbén</label>
+            <input type="text" name="Subgrupo Sisben" required>
 
-<label>Estrato</label>
-<select name="Estrato" required>
-<option value="">Seleccione</option>
-<option>1</option><option>2</option><option>3</option>
-<option>4</option><option>5</option><option>6</option>
-</select>
+            <label>Medio de Transporte</label>
+            <select name="Transporte" required>
+                <option value="">Seleccione</option>
+                <option>Bus / Buseta</option><option>Taxi</option><option>Metro</option>
+                <option>SITP / Masivo</option><option>TransMilenio</option><option>Ruta escolar</option>
+                <option>Automóvil</option><option>Motocicleta</option><option>Bicicleta</option>
+                <option>Peatón</option><option>Fluvial</option><option>MIO</option><option>Otro</option>
+            </select>
 
-<label>Grupo Sisbén</label>
-<select name="Grupo Sisben" required>
-<option value="">Seleccione</option>
-<option>A</option>
-<option>B</option>
-<option>C</option>
-<option>D</option>
-<option>No aplica</option>
-</select>
+            <label>Estado civil</label>
+            <select name="Estado Civil" required>
+                <option value="">Seleccione</option>
+                <option>Soltero(a)</option><option>Casado(a)</option><option>Unión libre</option>
+                <option>Separado(a)</option><option>Divorciado(a)</option><option>Viudo(a)</option>
+                <option>Religioso(a)</option>
+            </select>
 
-<label>Subgrupo Sisbén</label>
-<input type="text" name="Subgrupo Sisben" required>
+            <label>Nivel educativo</label>
+            <select name="Nivel Educativo" required>
+                <option value="">Seleccione</option>
+                <option>Preescolar</option><option>Básica primaria</option><option>Básica secundaria</option>
+                <option>Media</option><option>Pregrado</option><option>Posgrado</option>
+                <option>Sin estudios</option><option>Sin información</option>
+            </select>
 
-<label>Medio de Transporte</label>
-<select name="Transporte" required>
-<option value="">Seleccione</option>
-<option>Bus / Buseta</option>
-<option>Taxi</option>
-<option>Metro</option>
-<option>SITP / Masivo</option>
-<option>TransMilenio</option>
-<option>Ruta escolar</option>
-<option>Automóvil</option>
-<option>Motocicleta</option>
-<option>Bicicleta</option>
-<option>Peatón</option>
-<option>Fluvial</option>
-<option>MIO</option>
-<option>Otro</option>
-</select>
+            <label>Ocupación</label>
+            <select name="Ocupacion" required>
+                <option value="">Seleccione</option>
+                <option>Empleado</option><option>Estudiante básica</option><option>Estudiante superior</option>
+                <option>Independiente</option><option>Desempleado</option>
+            </select>
 
-<label>Estado civil</label>
-<select name="Estado Civil" required>
-<option value="">Seleccione</option>
-<option>Soltero(a)</option>
-<option>Casado(a)</option>
-<option>Unión libre</option>
-<option>Separado(a)</option>
-<option>Divorciado(a)</option>
-<option>Viudo(a)</option>
-<option>Religioso(a)</option>
-</select>
+            <label>EPS</label>
+            <input type="text" name="EPS" required>
 
-<label>Nivel educativo</label>
-<select name="Nivel Educativo" required>
-<option value="">Seleccione</option>
-<option>Preescolar</option>
-<option>Básica primaria</option>
-<option>Básica secundaria</option>
-<option>Media</option>
-<option>Pregrado</option>
-<option>Posgrado</option>
-<option>Sin estudios</option>
-<option>Sin información</option>
-</select>
+            <label>ARS</label>
+            <input type="text" name="ARS" required>
 
-<label>Ocupación</label>
-<select name="Ocupacion" required>
-<option value="">Seleccione</option>
-<option>Empleado</option>
-<option>Estudiante básica</option>
-<option>Estudiante superior</option>
-<option>Independiente</option>
-<option>Desempleado</option>
-</select>
+            <label>Aseguradora</label>
+            <input type="text" name="Aseguradora" required>
 
-<label>EPS</label>
-<input type="text" name="EPS" required>
+            <label>¿Presenta alguna discapacidad?</label>
+            <textarea name="Discapacidad" required></textarea>
 
-<label>ARS</label>
-<input type="text" name="ARS" required>
+            <label>Multiculturalidad</label>
+            <select name="Multiculturalidad" required>
+                <option value="">Seleccione</option>
+                <option>No aplica</option><option>Indígena</option><option>Afrodescendiente</option>
+                <option>Desplazado</option><option>Población frontera</option><option>Cabeza de familia</option>
+                <option>Reinsertado</option><option>Población ROM</option>
+            </select>
 
-<label>Aseguradora</label>
-<input type="text" name="Aseguradora" required>
+            <label>Tipo de sangre</label>
+            <select name="Sangre" required>
+                <option value="">Seleccione</option>
+                <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+            </select>
 
-<label>¿Presenta alguna discapacidad?</label>
-<textarea name="Discapacidad" required></textarea>
+            <label>Número de hijos</label>
+            <input type="number" min="0" name="Hijos" required>
 
-<label>Multiculturalidad</label>
-<select name="Multiculturalidad" required>
-<option value="">Seleccione</option>
-<option>No aplica</option>
-<option>Indígena</option>
-<option>Afrodescendiente</option>
-<option>Desplazado</option>
-<option>Población frontera</option>
-<option>Cabeza de familia</option>
-<option>Reinsertado</option>
-<option>Población ROM</option>
-</select>
+            <label>Número libreta militar</label>
+            <input type="text" name="Libreta Militar" required>
 
-<label>Tipo de sangre</label>
-<select name="Sangre" required>
-<option value="">Seleccione</option>
-<option>A+</option><option>A-</option>
-<option>B+</option><option>B-</option>
-<option>O+</option><option>O-</option>
-<option>AB+</option><option>AB-</option>
-</select>
+            <label>Adjuntar documento de identidad</label>
+            <input type="file" id="archivoDocumentoSIET" name="Documento_Adjunto" accept=".pdf, .jpg, .jpeg, .png" required>
 
-<label>Número de hijos</label>
-<input type="number" min="0" name="Hijos" required>
+            <button type="submit" id="btnEnviarSIET" class="btn-enviar">
+                <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Matrícula
+            </button>
 
-<label>Número libreta militar</label>
-<input type="text" name="Libreta Militar" required>
+            <a href="https://wa.me/573045778728" target="_blank" class="btn-whatsapp">
+                <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Continuar por WhatsApp
+            </a>
 
-<label>Adjuntar documento de identidad</label>
-<input type="file" name="Documento Adjuntado" required>
+        </form>
 
-<button type="submit" class="btn-enviar">
-Enviar Matrícula
-</button>
-
-<a href="https://wa.me/573045778728" target="_blank" class="btn-whatsapp">
-Continuar por WhatsApp
-</a>
-
-</form>
-
-</div>
-
+    </div>
 </section>
 
-<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
-
 <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
-<i class="fab fa-whatsapp"></i>
+    <i class="fab fa-whatsapp"></i>
 </a>
 
 <script>
+    function toggleMenu(){
+        document.getElementById("menu").classList.toggle("active");
+    }
+</script>
 
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
-}
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, doc, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+        authDomain: "elite-matriculas.firebaseapp.com",
+        projectId: "elite-matriculas",
+        storageBucket: "elite-matriculas.firebasestorage.app",
+        messagingSenderId: "836674120343",
+        appId: "1:836674120343:web:c4ae124456a764045b97d2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const form = document.getElementById('formularioMatriculaSIET');
+    const btnEnviar = document.getElementById('btnEnviarSIET');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); 
+
+        btnEnviar.disabled = true;
+        btnEnviar.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Procesando archivo y enviando...';
+
+        try {
+            const archivoInput = document.getElementById('archivoDocumentoSIET');
+            const archivo = archivoInput.files[0];
+            let urlDescarga = "";
+
+            if (archivo) {
+                const storageRef = ref(storage, `documentos_identidad/SIET_${Date.now()}_${archivo.name}`);
+                const snapshot = await uploadBytes(storageRef, archivo);
+                urlDescarga = await getDownloadURL(snapshot.ref); 
+            }
+
+            let consecutivoActual = 1;
+            const docContador = doc(db, 'sistema', 'contador_matriculas');
+            
+            await runTransaction(db, async (transaction) => {
+                const contadorSnap = await transaction.get(docContador);
+                if (!contadorSnap.exists()) {
+                    transaction.set(docContador, { total: 1 });
+                    consecutivoActual = 1;
+                } else {
+                    consecutivoActual = contadorSnap.data().total + 1;
+                    transaction.update(docContador, { total: consecutivoActual });
+                }
+            });
+
+            const formData = new FormData(form);
+            const datosMatricula = Object.fromEntries(formData.entries());
+
+            delete datosMatricula.Documento_Adjunto;
+
+            datosMatricula.urlDocumento = urlDescarga;
+            datosMatricula.estado = 'Pendiente';
+            datosMatricula.fechaRegistro = serverTimestamp(); 
+            datosMatricula.consecutivo = consecutivoActual;
+            datosMatricula.origen = 'Matrícula SIET'; // Etiqueta clave para diferenciarlo
+
+            await addDoc(collection(db, "matriculas"), datosMatricula);
+
+            alert(`¡Matrícula SIET enviada con éxito! Tu número de radicado es el #${consecutivoActual}.`);
+            form.reset(); 
+
+        } catch (error) {
+            console.error("Error en el envío: ", error);
+            alert("Hubo un problema al enviar la matrícula. Por favor, verifica tu conexión o intenta más tarde.");
+        } finally {
+            btnEnviar.disabled = false;
+            btnEnviar.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Matrícula';
+        }
+    });
 </script>
 
 </body>
