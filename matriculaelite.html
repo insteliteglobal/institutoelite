@@ -6,222 +6,53 @@
     <title>Matrícula Oficial | Instituto Técnico Élite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Segoe UI, Arial;
-        }
-
-        body {
-            background: #f3f5f8;
-            color: #1f2a44;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Segoe UI, Arial; }
+        body { background: #f3f5f8; color: #1f2a44; }
 
         /* NAVBAR */
-        .navbar {
-            background: #1f3565;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 60px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        .navbar nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 15px;
-        }
-
-        .btn-blanco {
-            background: white;
-            color: #1f3565 !important;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 26px;
-            cursor: pointer;
-        }
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
 
         /* PORTADA */
-        .hero {
-            height: 300px;
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)),
-                        url("https://images.unsplash.com/photo-1523580494863-6f3031224c94");
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 36px;
-        }
+        .hero { height: 300px; background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+        .hero h1 { font-size: 36px; }
 
         /* CONTENIDO */
-        .contenedor {
-            padding: 60px 20px;
-        }
+        .contenedor { padding: 60px 20px; }
 
         /* FORMULARIO */
-        .form-matricula {
-            max-width: 600px; /* Reducido para verse más compacto y amigable */
-            margin: auto;
-            background: white;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        }
+        .form-matricula { max-width: 600px; margin: auto; background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .form-matricula h2 { text-align: center; color: #1f3565; margin-bottom: 10px; font-size: 24px; }
+        .form-matricula p.instrucciones { text-align: center; color: #666; margin-bottom: 30px; font-size: 15px; }
+        .form-group { margin-bottom: 20px; }
+        label { font-weight: 600; color: #333; display: block; margin-bottom: 8px; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; transition: all 0.3s; background-color: #f9fafb; }
+        input:focus, select:focus { outline: none; border-color: #1f3565; background-color: #fff; box-shadow: 0 0 0 3px rgba(31, 53, 101, 0.1); }
+        input[type="file"] { padding: 10px; background-color: #fff; border: 1px dashed #1f3565; cursor: pointer; }
+        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .btn-enviar { width: 100%; background: #1f3565; color: white; padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+        .btn-enviar:hover { background: #2c4c91; }
+        .btn-enviar:disabled { background: #718096; cursor: not-allowed; } 
 
-        .form-matricula h2 {
-            text-align: center;
-            color: #1f3565;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-
-        .form-matricula p.instrucciones {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: 600;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background-color: #f9fafb;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #1f3565;
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(31, 53, 101, 0.1);
-        }
-
-        input[type="file"] {
-            padding: 10px;
-            background-color: #fff;
-            border: 1px dashed #1f3565;
-            cursor: pointer;
-        }
-
-        .grid-2-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .btn-enviar {
-            width: 100%;
-            background: #1f3565;
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-
-        .btn-enviar:hover {
-            background: #2c4c91;
-        }
-
-        .btn-whatsapp {
-            display: block;
-            margin-top: 15px;
-            text-align: center;
-            background: #25D366;
-            color: white;
-            padding: 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.3s;
-        }
-
-        .btn-whatsapp:hover {
-            opacity: 0.9;
-        }
+        .btn-whatsapp { display: block; margin-top: 15px; text-align: center; background: #25D366; color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: opacity 0.3s; }
+        .btn-whatsapp:hover { opacity: 0.9; }
 
         /* WHATSAPP FLOTANTE */
-        .whatsapp {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; }
 
         /* RESPONSIVE */
         @media(max-width: 900px) {
             .navbar { padding: 15px 25px; }
             .menu-toggle { display: block; }
-            .navbar nav {
-                position: absolute;
-                top: 65px;
-                left: 0;
-                width: 100%;
-                background: #1f3565;
-                flex-direction: column;
-                display: none;
-            }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
             .navbar nav a { margin: 15px 0; }
             .navbar nav.active { display: flex; }
         }
-
         @media(max-width: 600px) {
             .hero h1 { font-size: 28px; }
             .contenedor { padding: 40px 15px; }
@@ -258,13 +89,7 @@
         <h2>Inscripción a Programas Técnicos</h2>
         <p class="instrucciones">Completa tus datos básicos para iniciar tu proceso de matrícula de forma rápida y segura.</p>
 
-        <form action="https://formsubmit.co/insteliteglobal@gmail.com" method="POST" enctype="multipart/form-data">
-
-            <input type="hidden" name="_subject" value="Nueva Matrícula - Instituto Técnico Élite">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_autoresponse" value="Hemos recibido tu solicitud de matrícula. Un asesor se comunicará contigo pronto.">
-
+        <form id="formularioMatricula">
             <div class="grid-2-col">
                 <div class="form-group">
                     <label>Nombres completos</label>
@@ -304,19 +129,20 @@
                 </div>
             </div>
 
+            <!-- AQUÍ ESTÁ LA ACTUALIZACIÓN DE LOS PROGRAMAS -->
             <div class="form-group">
                 <label>Programa al que deseas matricularte</label>
                 <select name="Programa" required>
                     <option value="">Selecciona un programa...</option>
                     <option value="Auxiliar Contable">Técnico Laboral en Auxiliar Contable</option>
-<option value="Belleza Integral">Técnico Laboral en Belleza Integral</option>
-<option value="Analisis y Programacion">Técnico Laboral en Análisis y Programación de Sistemas</option>
-<option value="Pedagogia Infantil">Técnico Laboral en Pedagogía Infantil</option>
-<option value="Atencion Primaria en Salud">Conocimientos académicos en Atención Primaria en Salud (APS)</option>
-<option value="Facturacion y Auditoria">Conocimientos académicos en Facturación y Auditoria de Servicios en Salud</option>
-<option value="Salud Publica y Bienestar">Conocimientos académicos en Salud Pública y Gestión del Bienestar</option>
-<option value="Salud Mental">Conocimientos académicos en Salud Mental y Apoyo Psicosocial</option>
-<option value="Analisis de Situacion en Salud">Conocimientos académicos en Análisis de Situación en Salud (ASIS)</option>
+                    <option value="Belleza Integral">Técnico Laboral en Belleza Integral</option>
+                    <option value="Analisis y Programacion">Técnico Laboral en Análisis y Programación de Sistemas</option>
+                    <option value="Pedagogia Infantil">Técnico Laboral en Pedagogía Infantil</option>
+                    <option value="Atencion Primaria en Salud">Conocimientos académicos en Atención Primaria en Salud (APS)</option>
+                    <option value="Facturacion y Auditoria">Conocimientos académicos en Facturación y Auditoria de Servicios en Salud</option>
+                    <option value="Salud Publica y Bienestar">Conocimientos académicos en Salud Pública y Gestión del Bienestar</option>
+                    <option value="Salud Mental">Conocimientos académicos en Salud Mental y Apoyo Psicosocial</option>
+                    <option value="Analisis de Situacion en Salud">Conocimientos académicos en Análisis de Situación en Salud (ASIS)</option>
                 </select>
             </div>
 
@@ -330,10 +156,10 @@
 
             <div class="form-group">
                 <label>Adjuntar Documento de Identidad (PDF o Imagen)</label>
-                <input type="file" name="Documento_Adjunto" accept=".pdf, .jpg, .jpeg, .png" required>
+                <input type="file" id="archivoDocumento" name="Documento_Adjunto" accept=".pdf, .jpg, .jpeg, .png" required>
             </div>
 
-            <button type="submit" class="btn-enviar">
+            <button type="submit" id="btnEnviar" class="btn-enviar">
                 <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Solicitud de Matrícula
             </button>
 
@@ -353,6 +179,84 @@
     function toggleMenu(){
         document.getElementById("menu").classList.toggle("active");
     }
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, doc, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+        authDomain: "elite-matriculas.firebaseapp.com",
+        projectId: "elite-matriculas",
+        storageBucket: "elite-matriculas.firebasestorage.app",
+        messagingSenderId: "836674120343",
+        appId: "1:836674120343:web:c4ae124456a764045b97d2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const form = document.getElementById('formularioMatricula');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); 
+
+        btnEnviar.disabled = true;
+        btnEnviar.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Procesando archivo y enviando...';
+
+        try {
+            const archivoInput = document.getElementById('archivoDocumento');
+            const archivo = archivoInput.files[0];
+            let urlDescarga = "";
+
+            if (archivo) {
+                const storageRef = ref(storage, `documentos_identidad/${Date.now()}_${archivo.name}`);
+                const snapshot = await uploadBytes(storageRef, archivo);
+                urlDescarga = await getDownloadURL(snapshot.ref); 
+            }
+
+            let consecutivoActual = 1;
+            const docContador = doc(db, 'sistema', 'contador_matriculas');
+            
+            await runTransaction(db, async (transaction) => {
+                const contadorSnap = await transaction.get(docContador);
+                if (!contadorSnap.exists()) {
+                    transaction.set(docContador, { total: 1 });
+                    consecutivoActual = 1;
+                } else {
+                    consecutivoActual = contadorSnap.data().total + 1;
+                    transaction.update(docContador, { total: consecutivoActual });
+                }
+            });
+
+            const formData = new FormData(form);
+            const datosMatricula = Object.fromEntries(formData.entries());
+
+            delete datosMatricula.Documento_Adjunto;
+
+            datosMatricula.urlDocumento = urlDescarga;
+            datosMatricula.estado = 'Pendiente';
+            datosMatricula.fechaRegistro = serverTimestamp(); 
+            datosMatricula.consecutivo = consecutivoActual;
+            datosMatricula.origen = 'Registro Estudiantes'; 
+
+            await addDoc(collection(db, "matriculas"), datosMatricula);
+
+            alert(`¡Solicitud enviada con éxito! Tu número de radicado es el #${consecutivoActual}. Nos pondremos en contacto pronto.`);
+            form.reset(); 
+
+        } catch (error) {
+            console.error("Error en el envío: ", error);
+            alert("Hubo un problema al enviar la matrícula. Por favor, verifica tu conexión o intenta más tarde.");
+        } finally {
+            btnEnviar.disabled = false;
+            btnEnviar.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Solicitud de Matrícula';
+        }
+    });
 </script>
 
 </body>
