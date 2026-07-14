@@ -209,6 +209,7 @@ textarea{ min-height:70px; }
 <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function toggleMenu(){
@@ -289,12 +290,30 @@ textarea{ min-height:70px; }
 
             await addDoc(collection(db, "matriculas"), datosMatricula);
 
-            alert(`¡Matrícula SIET enviada con éxito! Tu número de radicado es el #${consecutivoActual}.`);
+            // ALERTA DE ÉXITO PREMIUM
+            Swal.fire({
+                title: '¡Matrícula Exitosa!',
+                html: `Tus datos se han enviado correctamente.<br><br>Tu número de radicado es el <b style="font-size: 18px; color: #1f3565;">#${consecutivoActual}</b>.<br>Nos pondremos en contacto pronto.`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#1f3565',
+                backdrop: `rgba(15, 23, 42, 0.7)`
+            });
+
             form.reset(); 
 
         } catch (error) {
             console.error("Error en el envío: ", error);
-            alert("Hubo un problema al enviar la matrícula. Por favor, verifica tu conexión o intenta más tarde.");
+            
+            // ALERTA DE ERROR PREMIUM
+            Swal.fire({
+                title: 'Error de conexión',
+                text: 'Hubo un problema al enviar la matrícula. Por favor, verifica tu conexión o intenta más tarde.',
+                icon: 'error',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#d33'
+            });
+            
         } finally {
             btnEnviar.disabled = false;
             btnEnviar.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Matrícula';
