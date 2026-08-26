@@ -308,7 +308,7 @@
                         <div class="btn-group">
                             <a href="ExamenPedagogia.html" target="_blank" class="btn-action btn-open">Abrir Examen</a>
                             <a href="RespuestasPedagogia.html" target="_blank" class="btn-action btn-respuestas"><i class="fas fa-file-lines"></i> Clave / Informe</a>
-                            <button class="btn-action btn-share" onclick="compartir('el examen de Pedagogía, Didáctica e Innovación', 'ExamenPedagogia.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
+                            <button class="btn-action btn-share" onclick="compartir('el examen de Pedagogía, Didáctica e Innovación Docente', 'ExamenPedagogia.html')"><i class="fas fa-share-nodes"></i> Compartir</button>
                         </div>
                     </div>
 
@@ -594,14 +594,22 @@
         async function compartir(titulo, url) {
             const hora = new Date().getHours();
             let saludo = (hora < 12) ? "¡Buenos días!" : (hora < 19) ? "¡Buenas tardes!" : "¡Buenas noches!";
-            const mensaje = `${saludo} Te invitamos a acceder a ${titulo} en el Instituto Técnico Élite. Accede aquí: ${url}`;
+            const mensaje = `${saludo} Te invitamos a realizar ${titulo} en el Instituto Técnico Élite. Es un gusto contar contigo. Accede aquí: ${url}`;
             
             if (navigator.share) {
                 try {
-                    await navigator.share({ title: 'Instituto Técnico Élite', text: mensaje, url: url });
-                } catch (err) { console.log(err); }
+                    await navigator.share({
+                        title: 'Instituto Técnico Élite',
+                        text: mensaje,
+                        url: url
+                    });
+                } catch (err) {
+                    console.log("Error al compartir:", err);
+                }
             } else {
-                navigator.clipboard.writeText(mensaje).then(() => { mostrarToast("Enlace copiado al portapapeles"); });
+                navigator.clipboard.writeText(mensaje).then(() => {
+                    mostrarToast("Mensaje copiado al portapapeles");
+                });
             }
         }
 
