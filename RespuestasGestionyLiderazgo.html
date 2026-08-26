@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Gestión Educativa y Liderazgo Escolar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Gestión Educativa y Liderazgo Escolar | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1 Y 2 -->
+    <div class="module-header">
+        <i class="fas fa-sitemap"></i> Módulos 1 y 2: Fundamentos de la Gestión y Liderazgo Escolar (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">¿Cuál es el propósito principal de la gestión educativa dentro de una institución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Articular y optimizar las condiciones pedagógicas, directivas, comunitarias y administrativas para garantizar la formación integral y el logro de aprendizajes de calidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gestión educativa integra todas las dimensiones institucionales con la finalidad suprema de respaldar y potenciar el acto pedagógico y formativo.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Qué diferencia existe entre administración educativa y gestión educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La administración se enfoca en el manejo eficiente de recursos y el cumplimiento de normas; la gestión trasciende lo administrativo liderando estratégicamente los procesos pedagógicos hacia metas institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Administrar es garantizar la operatividad de los recursos existentes; gestionar es liderar la transformación y movilización de personas hacia la calidad formativa.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">¿Qué elementos deben considerarse para realizar una gestión educativa integral?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La interacción coordinada de las cuatro áreas de gestión: directiva, pedagógica-académica, administrativa-financiera y comunitaria.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gestión integral aborda la institución como un sistema holístico donde la dimensión académica se nutre del soporte administrativo, el liderazgo directivo y el entorno social.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Por qué la planificación institucional es fundamental para alcanzar los objetivos educativos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque alinea la visión institucional con metas claras, estrategias y recursos, reduciendo la improvisación y orientando los esfuerzos colectivos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Planificar permite establecer un puente estructurado entre la misión institucional y las acciones cotidianas del colegio.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Qué relación existe entre la gestión educativa y la calidad del servicio educativo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Una gestión eficaz genera ambientes de aprendizaje pertinentes, soporte pedagógico, cultura de evaluación y liderazgo distribuido que impactan directamente en la calidad formativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El liderazgo y la organización institucional constituyen el segundo factor intraescolar de mayor peso en los aprendizajes, después de la labor del docente en el aula.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué papel desempeña el diagnóstico institucional dentro de la gestión escolar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Establecer la línea base objetiva sobre fortalezas, debilidades, oportunidades y brechas para diseñar planes de mejoramiento pertinentes y contextualizados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Todo plan estratégico riguroso parte del reconocimiento exhaustivo de la realidad situada de la institución.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Por qué las decisiones institucionales deben sustentarse en evidencias y no únicamente en percepciones?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque los datos cuantitativos y cualitativos sistemáticos permiten identificar las causas reales de los problemas y evaluar con precisión el impacto de las intervenciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gestión basada en evidencias disminuye el sesgo intuitivo y asegura que las intervenciones ataquen las causas raíz de las dificultades.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">¿Cuál de las siguientes situaciones representa una gestión educativa orientada al mejoramiento continuo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Evaluar periódicamente los procesos, analizar resultados de aprendizaje con los docentes y ajustar las estrategias institucionales sobre la base de hallazgos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El mejoramiento continuo se sustenta en el ciclo PHVA (Planear, Hacer, Verificar, Actuar) retroalimentado por evidencias de campo.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿Cuál es una característica fundamental de un liderazgo escolar efectivo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La construcción de una visión compartida, el liderazgo pedagógico distribuido y la capacidad de inspirar y movilizar a la comunidad hacia metas comunes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los directivos eficaces no concentran el poder; distribuyen responsabilidades y alinean a su equipo en torno a una visión pedagógica compartida.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Cuál es la diferencia entre ejercer autoridad y ejercer liderazgo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La autoridad se fundamenta en el poder formal derivado del cargo; el liderazgo se basa en la influencia legítima, la confianza, el ejemplo y la capacidad de movilización colectiva.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La autoridad exige acatamiento por norma; el liderazgo inspira compromiso y convicción profesional voluntaria.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Por qué un líder educativo debe promover la participación de los diferentes actores de la comunidad educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque fortalece el sentido de pertenencia, la corresponsabilidad en los procesos formativos y otorga legitimidad y sostenibilidad a las decisiones institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gobernanza escolar participativa consolida alianzas estratégicas entre escuela, familia y comunidad, asegurando la sostenibilidad de los proyectos.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Qué caracteriza principalmente al liderazgo transformacional en una institución educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Estimula intelectualmente al equipo docente, inspira altas expectativas, atiende el desarrollo individual y promueve cambios profundos en la cultura institucional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Según Bass y Leithwood, el liderazgo transformacional eleva la motivación intrínseca y las capacidades de los colaboradores más allá del cumplimiento rutinario.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">¿Cómo debería actuar un directivo ante la resistencia de un grupo de docentes frente a un cambio institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Generar espacios de diálogo reflexivo, escuchar temores, argumentar pedagógicamente el sentido del cambio y construir la transición de manera colaborativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La resistencia suele provenir de la incertidumbre; el liderazgo empático la canaliza a través de la formación, la escucha activa y la participación.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Qué importancia tiene la comunicación dentro del liderazgo escolar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Constituye el eje que alinea expectativas, fomenta la transparencia, construye confianza, previene conflictos y moviliza hacia el proyecto común.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La comunicación dialógica y asertiva asegura la cohesión del equipo y evita la dispersión de metas pedagógicas.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Por qué la capacidad de delegar es importante para un líder educativo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque empodera a los colaboradores, fomenta el liderazgo pedagógico distribuido y permite al directivo focalizarse en la conducción estratégica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La delegación planificada desarrolla autonomía y liderazgo intermedio en coordinadores y docentes líderes.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">¿Cuál de las siguientes actuaciones refleja un liderazgo centrado en el desarrollo de las personas?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Crear comunidades de aprendizaje profesional, promover la mentoría entre pares y respaldar la capacitación continua de los docentes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El desarrollo profesional situado y continuo es el motor principal del fortalecimiento de las prácticas pedagógicas de la institución.</div>
+    </article>
+
+    <!-- MÓDULOS 3 Y 4 -->
+    <div class="module-header">
+        <i class="fas fa-users-cog"></i> Módulos 3 y 4: Planeación Estratégica, Toma de Decisiones y Talento Humano (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Qué elementos debería contener una adecuada planificación institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diagnóstico situacional, objetivos estratégicos, metas medibles, indicadores de logro, responsables, recursos, cronograma y mecanismos de evaluación periódica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La planificación estructurada articula el diagnóstico con metas operativas e indicadores claros para asegurar su viabilidad.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Cuál es la importancia de establecer objetivos claros y medibles en la gestión escolar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Permiten orientar el trabajo institucional hacia logros verificables, focalizar el uso de recursos y evaluar con rigor el impacto de las acciones ejecutadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los objetivos SMART (específicos, medibles, alcanzables, relevantes y temporales) facilitan la rendición de cuentas y el seguimiento objetivo.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Qué función cumplen los indicadores dentro de la gestión educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Proveer parámetros cualitativos o cuantitativos verificables que permiten monitorear el progreso de los procesos y evaluar el cumplimiento de las metas institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los indicadores transforman metas abstractas en unidades observables que señalan si la gestión avanza en la dirección planificada.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿Por qué es importante priorizar los problemas institucionales antes de diseñar acciones de mejora?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque los recursos, tiempo y energía institucionales son limitados; abordar todo simultáneamente dispersa los esfuerzos y reduce el impacto de las soluciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La priorización estratégica concentra los esfuerzos en los nodos críticos que dinamizan el mejoramiento global del colegio.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Qué papel desempeña el análisis de datos en la toma de decisiones escolares?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Transforma la información cruda en conocimiento estratégico para sustentar decisiones pedagógicas, focalizar apoyos y optimizar la asignación de recursos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El análisis de datos escolares (asistencia, rendimiento, convivencia) orienta intervenciones focalizadas donde más se necesitan.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">Una institución identifica bajos resultados académicos, pero no analiza sus posibles causas antes de implementar acciones. ¿Cuál es el principal riesgo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Implementar medidas ineficaces o contraproducentes que ataquen síntomas superficiales sin incidir en las causas pedagógicas o estructurales de fondo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Actuar sin diagnóstico etiológico genera desgaste institucional y fracaso en el logro de las metas académicas.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Qué diferencia existe entre una meta, una estrategia y una actividad dentro de un plan de mejoramiento?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La meta expresa el resultado cuantitativo y cualitativo esperado; la estrategia define el camino metodológico global; la actividad concreta las acciones operativas específicas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La alineación estratégica exige distinguir con precisión el fin último (meta), el enfoque metodológico (estrategia) y los pasos diarios (actividades).</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">¿Cómo debería evaluarse la efectividad de un plan institucional implementado?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Contrastando los indicadores de logro contra la línea base y evidenciando mejoras verificables en los aprendizajes, la convivencia y los procesos escolares.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La efectividad se juzga por el impacto real transformador en la comunidad, no por la mera ejecución de actividades en papel.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Qué papel desempeña el trabajo colaborativo en el mejoramiento institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Supera el aislamiento docente, potencia comunidades de aprendizaje profesional, articula el currículo e incrementa la coherencia formativa del colegio.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El trabajo colegiado rompe el aislamiento del aula y homogeniza la calidad de las mediaciones didácticas en la institución.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">¿Cómo debería actuar un líder ante un conflicto interpersonal entre dos docentes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Abrir un espacio de mediación confidencial y neutral, enfocado en los hechos y el impacto institucional, orientando a las partes hacia acuerdos verificables.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La mediación profesional preserva el clima laboral y restablece la colaboración enfocándose en el interés superior formativo.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">¿Por qué la comunicación asertiva es fundamental para prevenir conflictos dentro de una institución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque disipa ambigüedades, clarifica funciones y expectativas, y brinda canales legítimos para tramitar discrepancias pedagógicas con respeto mutuo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La asertividad directiva previene malos entendidos y desactiva rumores antes de que escalen a tensiones organizacionales.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Qué estrategia favorece mejor el compromiso de los docentes con los objetivos institucionales?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Involucrarlos activamente en el diagnóstico, la toma de decisiones y el diseño colaborativo de los planes de mejoramiento institucional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La participación activa genera sentido de propiedad y compromiso genuino con los proyectos que los docentes mismos ayudaron a formular.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">¿Qué características debería tener una cultura organizacional orientada al aprendizaje y la mejora?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Confianza psicológica, apertura a la innovación reflexiva, diálogo pedagógico sistemático y valoración del aprendizaje a partir del análisis del error.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La seguridad psicológica permite al profesorado innovar y compartir dificultades sin temor a sanciones punitivas.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">¿Cómo puede un directivo reconocer y aprovechar las fortalezas de su equipo docente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificando talentos, competencias y liderazgos emergentes para delegar responsabilidades estratégicas acordes con sus capacidades profesionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gestión del talento humano maximiza el potencial colectivo ubicando a los líderes en los proyectos acordes con sus fortalezas.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Qué importancia tiene generar espacios de participación para docentes, estudiantes y familias?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Consolida la corresponsabilidad formativa, enriquece la gestión con diversas perspectivas y dota de legitimidad social a las decisiones del colegio.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La corresponsabilidad comunidad-escuela mejora el seguimiento familiar y fortalece la convivencia institucional.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">¿Cuál de las siguientes actuaciones contribuye mejor a construir un clima escolar positivo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Fomentar el respeto recíproco, reconocer los logros colectivos, garantizar equidad en el trato y mantener canales de comunicación abiertos y empáticos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El reconocimiento formativo y la justicia relacional constituyen los cimientos de un clima escolar armónico y productivo.</div>
+    </article>
+
+    <!-- MÓDULO 5 -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Módulo 5: Casos Prácticos de Liderazgo y Gestión Compleja (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Una institución presenta bajos resultados académicos durante tres períodos consecutivos. El equipo directivo propone aumentar de inmediato el número de evaluaciones semanales. ¿Qué debería hacer primero un líder educativo con enfoque de gestión basada en evidencias?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Liderar un análisis integral de datos para identificar si el problema radica en las metodologías docentes, el currículo, los instrumentos de evaluación o factores socioemocionales antes de intervenir.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Multiplicar exámenes sin revisar la mediación didáctica solo agrava la desmotivación; se requiere auditar las causas pedagógicas de fondo.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: Un grupo de docentes rechaza una nueva metodología propuesta por la dirección porque afirma que “siempre se ha trabajado bien de la misma manera”. ¿Cuál sería la estrategia de liderazgo más adecuada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Implementar un plan piloto con docentes voluntarios, socializar evidencias de impacto positivo, abrir espacios de reflexión pedagógica y acompañar la transición formativa sin imposiciones arbitrarias.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los proyectos piloto con docentes pioneros demuestran la viabilidad de la innovación y reducen el miedo al cambio en los sectores escépticos.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Dos coordinadores tienen un conflicto interpersonal que está afectando la comunicación entre sus equipos. El director decide ignorarlo esperando que el problema se resuelva solo con el tiempo. ¿Cuál es el principal riesgo de esta decisión?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El escalamiento del conflicto, la polarización del cuerpo docente, la fragmentación de la gestión institucional y el deterioro progresivo del clima escolar general.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los conflictos directivos no atendidos fracturan la coherencia institucional y descienden a los equipos docentes, dañando el clima general.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Una institución cuenta con excelentes planes institucionales escritos, pero las acciones programadas rara vez se ejecutan en la práctica. ¿Qué aspecto de la gestión debería analizarse prioritariamente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La alineación operativa: mecanismos de seguimiento y monitoreo, asignación real de tiempos y recursos, viabilidad de las metas y fortalecimiento de la cultura de corresponsabilidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La brecha entre planeación y ejecución se supera instaurando sistemas periódicos de monitoreo, rendición de cuentas y asignación realista de recursos.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Un directivo toma todas las decisiones importantes sin consultar a docentes ni coordinadores. Aunque las órdenes se ejecutan con rapidez, existe desmotivación generalizada en el equipo. ¿Qué dimensión del liderazgo está siendo afectada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La dimensión participativa, relacional y transformacional, deteriorando el sentido de pertenencia, la motivación intrínseca y la corresponsabilidad profesional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El liderazgo autoritario sacrifica la motivación intrínseca y la sostenibilidad del proyecto institucional a cambio de una eficacia aparente a corto plazo.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Una institución busca mejorar la convivencia escolar y propone únicamente incrementar las sanciones disciplinarias en el manual. Desde una perspectiva de liderazgo y gestión integral, ¿qué debería considerarse adicionalmente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Un enfoque formativo y restaurativo: desarrollo de competencias socioemocionales, programas de mediación escolar de pares y fortalecimiento del clima institucional positivo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La disciplina punitiva no enseña a convivir; la gestión moderna de la convivencia exige enfoques pedagógicos, formativos y restaurativos.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Un equipo docente presenta posturas divergentes sobre cómo solucionar un problema institucional grave. El directivo permite que cada grupo implemente su propia fórmula sin fijar metas comunes ni criterios de evaluación compartidos. ¿Qué debilidad presenta esta actuación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Un estilo de liderazgo "laissez-faire" (dejar hacer) o negligente, que propicia desarticulación institucional, anarquía pedagógica y ausencia de dirección estratégica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La autonomía sin alineación estratégica deriva en desgobierno y fragmentación de los estándares institucionales.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Una institución ejecuta un plan de mejoramiento durante un año. Al finalizar, el equipo directivo afirma que fue exitoso porque se cumplieron todas las actividades programadas en el cronograma. ¿Es suficiente este criterio para determinar el éxito del plan? ¿Qué debería analizarse además?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No es suficiente; deben evaluarse los indicadores de impacto: si mejoraron los aprendizajes, si se redujeron brechas diagnósticas y si los cambios son sostenibles en la cultura escolar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El cumplimiento del cronograma mide esfuerzo operativo; la efectividad directiva se mide por el impacto real en los aprendizajes y la cultura escolar.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

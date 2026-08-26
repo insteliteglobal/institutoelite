@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Facturación y Auditoría en Salud (FASS)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Facturación y Auditoría de Servicios en Salud (FASS) | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-hospital-user"></i> Módulos 1, 2 y 3: SGSSS, Modelos de Pago y Manuales Tarifarios (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">En el marco del SGSSS en Colombia, la Administradora de los Recursos del Sistema General de Seguridad Social en Salud (ADRES) cumple la función principal de:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Administrar, recaudar y girar de manera unificada y transparente las fuentes de financiamiento del sistema, gestionando giros directos, UPC, presupuestos máximos y reclamaciones SOAT/catástrofes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La ADRES centraliza el manejo de los recursos financieros del SGSSS para garantizar el flujo eficiente hacia la red de prestadores mediante mecanismos como el giro directo.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">Según el Decreto 441 de 2022, ¿qué caracteriza al acuerdo de voluntades bajo la modalidad de Pago por Capitación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Es un mecanismo de pago prospectivo donde se pacta un valor fijo por persona durante un periodo, cubriendo un conjunto predeterminado de servicios de baja complejidad para una población identificada, asumiendo la IPS el riesgo primario de frecuencia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El pago por capitación transfiere el riesgo de frecuencia de uso básico al prestador y se calcula de forma anticipada y fija por usuario afiliado.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">La modalidad de contratación por Paquete Integral o Grupo Relacionado por Diagnóstico (GRD) consiste en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un valor integral pactado previamente que cubre la totalidad de actividades, insumos, medicamentos, honorarios e internación requeridos para la atención completa de una patología o procedimiento quirúrgico delimitado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El pago empaquetado o por GRD mitiga el incentivo a la sobreutilización de insumos en el evento y transfiere el riesgo técnico-quirúrgico al prestador.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Cuál es la estructura de liquidación de procedimientos incruentos e intervencionistas en el Manual Tarifario SOAT (Decreto 2423 de 1996)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se expresan en salarios mínimos legales diarios vigentes (SMLDV) o Unidades de Valor Básico (UVB) correspondientes a cada código específico del manual.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El manual SOAT tarifa los procedimientos clínicos e incruentos de forma directa en salarios diarios legales o unidades de valor oficiales equivalentes.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">En el Manual Tarifario ISS (Acuerdo 256/2001 - 312/2004), los procedimientos quirúrgicos se encuentran agrupados y valorados mediante:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Unidades de Valor Relativo (UVR), donde cada componente del acto quirúrgico (cirujano, anestesiólogo, ayudantía, sala y derechos de materiales) tiene un factor multiplicador específico en pesos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El manual ISS utiliza el sistema de UVR para ponderar la complejidad de cada procedimiento y desglosar los honorarios y derechos de sala por separado.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">Al liquidar un acto quirúrgico bilateral bajo el Manual Tarifario SOAT, ¿cuál es la regla de liquidación correcta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El procedimiento en el primer órgano o lado se liquida al 100 % y el mismo procedimiento en el órgano contralateral al 75 % del valor estipulado en el manual.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El artículo 69 del Decreto 2423/96 establece que en intervenciones bilaterales en órganos pares, el segundo procedimiento se factura al 75% del valor fijado.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">Al liquidar cirugías múltiples realizadas por el mismo cirujano, por igual vía de acceso en el Manual SOAT, ¿qué porcentaje corresponde a los honorarios de la segunda cirugía?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) 50 % del valor de la tarifa establecida para dicho procedimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Conforme al artículo 70 del manual SOAT, cuando se realizan múltiples cirugías por la misma vía de incisión, la segunda y siguientes se liquidan al 50% de sus honorarios.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">En la liquidación de derechos de sala de cirugía bajo Manual SOAT, ¿a partir de qué grupo quirúrgico se incluye la canasta básica de suturas y curaciones?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) En los Grupos 02 al 13 los derechos de sala cubren materiales básicos de sutura y curación; en cirugías de Grupo 20 a 23 y procedimientos específicos descritos en el artículo 55 se facturan adicionalmente según consumo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El manual SOAT incluye la canasta básica de suturas hasta el grupo 13; los grupos especiales de alta complejidad (20 a 23) liquidan materiales al consumo documentado.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿Cuál es la diferencia entre Copago y Cuota Moderadora en el Régimen Contributivo del SGSSS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La cuota moderadora regula la utilización de servicios ambulatorios de consulta y medicamentos (aplicable a cotizantes y beneficiarios); el copago es un aporte porcentual al valor del servicio aplicable exclusivamente a los beneficiarios en procedimientos hospitalarios y diagnósticos complejos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El cotizante nunca paga copagos en el régimen contributivo; solo abona cuotas moderadoras para regular el acceso a servicios ambulatorios.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Cuáles de los siguientes servicios están totalmente exentos del cobro de copagos y cuotas moderadoras por norma legal?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Programas de Promoción y Prevención (RIAS), control prenatal, atención del parto, control del recién nacido, enfermedades transmisibles sujetas a control de salud pública y víctimas de violencia o conflicto armado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Acuerdo 260 del CNSSS y normas reglamentarias exoneran del cobro a programas de salud pública preventivos y a poblaciones con protección constitucional reforzada.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">En la atención de víctimas de Accidentes de Tránsito (SOAT), ¿cuál es la cobertura inicial en SMDLV que asume la aseguradora de la póliza antes de agotar tope y pasar a la ADRES?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Hasta 500 Salarios Mínimos Diarios Legales Vigentes para gastos médicos y quirúrgicos por víctima (pudiendo asumir ADRES hasta 300 adicionales si se agota el tope en vehículos específicos).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El tope de cobertura para gastos médicos y quirúrgicos con cargo directo a la aseguradora SOAT está fijado en 500 SMLDV conforme al Decreto 780 de 2016 y decretos reglamentarios.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">Para reclamar gastos médicos ante la ADRES por accidentes causados por vehículos No Identificados (Fantasmas) o No Asegurados, ¿qué documento es soporte obligatorio e insustituible?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El Formulario Único de Reclamación de Entidades Hospitalarias (FURIPS) debidamente diligenciado, firmado y acompañado de la epicrisis y certificado médico de atención.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El FURIPS es el formato oficial estandarizado obligatorio para que las IPS reclamen a la ADRES los costos de atención de víctimas de vehículos no asegurados.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">El Catálogo Único de Procedimientos en Salud (CUPS) tiene como propósito técnico y asistencial:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Estandarizar la identificación y denominación codificada de los procedimientos quirúrgicos, no quirúrgicos, diagnósticos y de laboratorio clínico en todo el territorio nacional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El código CUPS es el lenguaje técnico común que homogeniza la facturación, los RIPS y la auditoría médica en todas las instituciones de salud del país.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">En la codificación diagnóstica mediante CIE-10 / CIE-11, el diagnóstico principal en la factura debe corresponder a:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La condición patológica diagnosticada al final del proceso de atención que fue la causa primordial que motivó la solicitud de consulta, internación o tratamiento médico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El diagnóstico principal fundamenta la justificación médica del cobro y debe coincidir con la patología motriz del egreso hospitalario.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">Al liquidar un procedimiento quirúrgico bilateral bajo Manual ISS 2001, ¿cuál es la regla de liquidación de las UVR del cirujano?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se liquida al 100 % las UVR del procedimiento en el primer lado y al 75 % las UVR del procedimiento en el segundo lado (salvo que el código del manual ya exprese explícitamente bilateralidad).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El artículo 49 del Manual ISS 2001 estipula el reconocimiento del 100% de UVR para el primer lado y el 75% para el órgano contralateral.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">En la liquidación de estancias hospitalarias, la diferencia tarifaria entre Habitación Unipersonal y Habitación Compartida (bipersonal o de 3 o más camas) radica en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El número de salarios diarios o UVR asignadas según la dotación hotelera, la privacidad y el aislamiento epidemiológico o de inmunosupresión médicamente justificado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La habitación unipersonal tiene mayor tarifa reconocida siempre que esté respaldada por indicación médica estricta de aislamiento o requerimiento asistencial.</div>
+    </article>
+
+    <!-- MÓDULOS 4, 5 Y 6 -->
+    <div class="module-header">
+        <i class="fas fa-file-invoice-dollar"></i> Módulos 4, 5 y 6: RIPS, Factura Electrónica, Auditoría Médica y Glosas (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">De acuerdo con la Resolución 2275 de 2023 del Ministerio de Salud, la Factura Electrónica de Venta en Salud (FEVP) se valida articuladamente con:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El archivo digital de RIPS en formato JSON estructurado, el cual debe superar la validación técnica en la plataforma del Ministerio de Salud y contar con Código Único de Validación (CUV) como soporte obligatorio de radicación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Resolución 2275/2023 unifica la factura electrónica con los RIPS en formato JSON, exigiendo el CUV como requisito habilitante de radicación.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Qué representa el Código Único de Validación (CUV) generado por el mecanismo web del Ministerio de Salud?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El identificador alfanumérico que certifica que los RIPS en formato JSON asociados a la factura electrónica cumplieron con todas las reglas de consistencia, estructura y validación normativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El CUV prueba formalmente ante las EPS que los soportes digitales de los RIPS fueron validados sin errores técnicos por el Ministerio de Salud.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Cuál de los siguientes documentos constituye el soporte legal, clínico y probatorio primordial para respaldar la facturación de servicios de salud?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La Historia Clínica completa, fidedigna, cronológica y legible (epicrisis, notas médicas, hoja de administración de medicamentos, descripción quirúrgica y registro de enfermería) según la Resolución 1995 de 1999.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Todo cobro en salud debe estar estrictamente justificado y documentado en la historia clínica del paciente conforme a la Resolución 1995/99.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">La Auditoría Concurrente de Cuentas Médicas se diferencia de la Auditoría Retrospectiva en que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se ejecuta en tiempo real durante la estancia del paciente en el hospital, evaluando la pertinencia médica, la racionalidad técnico-científica de las conductas y la completitud de soportes clínicos in situ.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La auditoría concurrente interviene durante el proceso asistencial activo, previniendo estancias prolongadas innecesarias y fallas en los soportes.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Cuál es el objeto de evaluación de la Auditoría de Pertinencia Médica?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Verificar la justificación clínica y correspondencia de las órdenes, procedimientos, estancias y medicamentos con el cuadro diagnóstico del paciente, las guías de práctica clínica y la lex artis ad hoc.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Audita que los servicios facturados hayan sido clínicamente necesarios, oportunos y adecuados para la condición del paciente.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">En el marco del Manual Único de Glosas, Devoluciones y Respuestas, una "Glosa" se define formalmente como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Una no conformidad o reparo justificado, de carácter técnico, médico, administrativo o tarifario, que afecta parcial o totalmente el valor de una factura, requiriendo trámite de subsanación o respuesta por parte del prestador.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La glosa es una objeción temporal que suspende el pago del valor controvertido hasta que la IPS responda o se allane a la no conformidad.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Cuándo procede legalmente la "Devolución" de una factura de servicios de salud en lugar de una glosa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Cuando la factura presenta causales insubsanables en la radicación taxativamente consagradas por ley (ej. usuario no asegurado en la entidad pagadora, cuenta no corresponde a la entidad, o no superar validación previa FEVP/RIPS).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La devolución rechaza la cuenta de entrada por vicios de forma o falta de legitimación pasiva, impidiendo su radicación formal.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Según el Decreto 441 de 2022 y la normativa vigente, ¿cuál es el plazo que tiene la entidad pagadora (EPS) para formular y notificar glosas tras la radicación de la factura?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Dentro de los 20 días hábiles siguientes a la presentación y radicación válida de la factura con sus soportes completos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Decreto 441/22 fija en 20 días hábiles el término perentorio para que la EPS formule y comunique sus objeciones a las cuentas radicadas.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Cuál es el término legal del que dispone la IPS para dar respuesta y subsanar las glosas notificadas por la EPS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) 15 días hábiles siguientes a la notificación de la glosa para subsanar, justificar o allanarse a la misma.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La IPS cuenta con 15 días hábiles legales para enviar los soportes complementarios o aceptar la objeción formulada.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">En la codificación del Manual Único de Glosas, la causal clasificada bajo el código "Tarifas (Código 2)" corresponde a:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Discrepancias en el valor liquidado de los procedimientos, estancias o insumos respecto a las tarifas expresamente pactadas en el contrato o manual tarifario aplicable.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Agrupa las no conformidades por cobro indebido de valores superiores a las tarifas pactadas o liquidación errónea de porcentajes quirúrgicos.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">¿Qué causal de glosa se configura cuando la IPS factura un procedimiento médico sin contar con la autorización previa requerida en el contrato de prestación de servicios?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Glosa por Autorización (Código 3), salvo que se trate de atención inicial de urgencias vitales exenta de autorización previa por mandato legal.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Se aplica cuando los servicios electivos programados carecen del soporte de autorización contractual emitido por la EPS.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Cuál es el estatus legal de la Atención Inicial de Urgencias (Triage I y II) frente al requisito de autorización previa de la EPS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Es de obligatoria atención por cualquier IPS sin requerir convenio ni autorización previa de la entidad pagadora; no puede ser objeto de glosa ni devolución por este concepto según la Ley Estatutaria de Salud (Ley 1751 de 2015).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Ley Estatutaria 1751 prohíbe condicionar la atención médica de urgencias vitales a trámites administrativos o autorizaciones previas.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">¿Qué efecto jurídico y financiero tiene la suscripción de un Acta de Conciliación de Glosas entre una EPS y una IPS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Presta mérito ejecutivo y hace tránsito a cosa juzgada, fijando de manera clara, expresa y exigible los valores definitivos aceptados que la EPS se obliga a pagar en los plazos acordados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El acta de conciliación firmada extingue la controversia y se convierte en título ejecutivo exigible ante la jurisdicción coactiva o civil.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">En la gestión de facturación hospitalaria, la "Auditoría Preventiva o Pre-Facturación" consiste en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La revisión técnica, médica y documental interna antes de radicar la cuenta ante la entidad pagadora, verificando soportes completos, consistencia de RIPS y correcta codificación para evitar glosas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La auditoría previa actúa como filtro de calidad que previene la radicación de cuentas con errores tarifarios o historias clínicas incompletas.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Qué es el mecanismo de "Giro Directo" administrado por la ADRES en el régimen subsidiado y contributivo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El giro mensual directo de los recursos de la Unidad de Pago por Capitación (UPC) desde la ADRES a las cuentas de las IPS prestadoras de servicios, en nombre de las EPS, para garantizar flujo de recursos en la red.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El giro directo asegura liquidez a los hospitales públicos y privados transfiriendo fondos directamente desde la tesorería central del Estado.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">La prescripción de tecnologías en salud no financiadas con cargo a la UPC en el régimen contributivo y subsidiado se realiza a través de:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La plataforma MIPRES (Mi Prescripción) del Ministerio de Salud, mediante la cual el profesional de la salud prescribe directamente servicios, medicamentos o insumos complementarios no incluidos en el plan de beneficios básico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> MIPRES es el aplicativo oficial para prescribir tecnologías No UPC sin necesidad de autorización previa por comité técnico-científico (CTC).</div>
+    </article>
+
+    <!-- MÓDULOS 7 Y 8 -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Módulos 7 y 8: Casos Prácticos de Liquidación Quirúrgica, Auditoría y Conciliación (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Un cirujano general realiza una Apendicectomía por Laparotomía (Grupo Quirúrgico 07) y en el mismo acto quirúrgico por la misma incisión efectúa una Colecistectomía Abierta (Grupo Quirúrgico 08). Bajo el Manual Tarifario SOAT (Decreto 2423 de 1996), ¿cómo deben liquidarse los honorarios del cirujano?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se liquida la cirugía de mayor valor (Colecistectomía - Grupo 08) al 100 % de los honorarios de cirujano y la cirugía de menor valor (Apendicectomía - Grupo 07) al 50 % por tratarse de la misma vía de acceso quirúrgico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El artículo 70 del SOAT establece que por igual vía de incisión la cirugía mayor se liquida al 100% y la segunda al 50% de los honorarios correspondientes.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: En una misma sesión quirúrgica bajo anestesia general, un ortopedista realiza reducción abierta de fractura de fémur derecho (140 UVR) y por vía de acceso totalmente diferente realiza reducción abierta de fractura de radio izquierdo (90 UVR), bajo Manual ISS 2001. ¿Cómo se liquidan los honorarios del cirujano?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se liquida la cirugía principal de mayor complejidad al 100 % de sus UVR (140 UVR) y la segunda cirugía practicada por distinta vía de acceso al 75 % de sus UVR (67.5 UVR).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Según el Manual ISS 2001, en cirugías múltiples por diferente vía de acceso, el procedimiento de mayor UVR se liquida al 100% y el segundo al 75% de sus UVR.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Una paciente en estado de gestación ingresa por Urgencias con dolor abdominal agudo, sangrado genital profuso y signos de choque hipovolémico por embarazo ectópico roto (Triage I). La IPS atiende de inmediato y practica salpingectomía de urgencia. La EPS glosa el 100 % de la cuenta aduciendo "Falta de autorización previa del servicio". Desde el marco legal del SGSSS, ¿cómo debe responder la IPS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La IPS debe rechazar totalmente la glosa sustentando la Ley Estatutaria 1751 de 2015 y la Resolución 3047 de 2008, adjuntando la historia clínica con Triage I y notas de ingreso que demuestran urgencia vital que prohíbe la exigencia de autorización previa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las urgencias vitales están blindadas por la Ley Estatutaria de Salud; ninguna entidad pagadora puede objetar el cobro alegando falta de autorización previa.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Un auditor médico de una EPS glosa 10 días de estancia hospitalaria en sala general a un paciente postquirúrgico de resección de tumor de colon, argumentando que "en las notas de evolución médica del día 4 al 8 no se registraron cambios en la conducta terapéutica ni justificación de la necesidad de internación continua". ¿Cuál es el análisis de pertinencia médica y administrativa que aplica?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La glosa es técnicamente fundada por Estancia Injustificada/Falta de Pertinencia Clínica en soportes (Código de Glosa 4), ya que la historia clínica debe documentar diariamente la necesidad médica de internación; la IPS solo podrá salvar el cobro si anexa reportes de paraclínicos pendientes o justificación médica documentada de riesgo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La pertinencia médica de cada día de estancia hospitalaria debe constar de manera fehaciente y explícita en las notas médicas de evolución diaria.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Una IPS radica una factura electrónica de venta en salud acompañada de un archivo de RIPS en formato JSON. Al procesarse en la plataforma de validación del Ministerio de Salud, el sistema rechaza el archivo indicando: "Error: El código CUPS facturado no corresponde con la edad ni el sexo biológico del usuario registrado en el bloque de datos". ¿Cuál es la consecuencia operativa y legal inmediata?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No se genera el Código Único de Validación (CUV); la factura electrónica no puede ser válidamente radicada ante la EPS y la IPS debe corregir la inconsistencia de datos en su software y retransmitir los RIPS para obtener el CUV exitoso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Con la Resolución 2275/2023, la superación de las mallas de validación y la obtención del CUV constituyen requisito obligatorio para radicar la factura ante la EPS.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: En la atención de un paciente víctima de accidente de tránsito, la IPS emite factura por valor de 650 SMLDV con cargo a la póliza SOAT de la aseguradora del vehículo. La aseguradora liquida y paga 500 SMLDV (tope máximo de cobertura) y glosa los 150 SMLDV restantes indicando "Agotamiento de cobertura de póliza". ¿Cuál es el conducto de facturación correcto que debe seguir la IPS para recuperar el saldo insoluto?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Aceptar la glosa de la aseguradora por agotamiento de tope y radicar una nueva cuenta médica de reclamación por el excedente (150 SMLDV) ante la ADRES, adjuntando el FURIPS, el certificado de agotamiento de cobertura expedido por la aseguradora y la epicrisis completa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Una vez agotado el tope legal de 500 SMLDV de la póliza SOAT, los gastos excedentes deben reclamarse directamente ante la subcuenta de eventos catastróficos y accidentes de tránsito de la ADRES.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Durante una mesa de conciliación de cartera y glosas, la EPS propone a la IPS aplicar un descuento ciego del 30 % sobre el valor total de $500 millones de pesos en facturas pendientes de pago, sin revisar las respuestas técnicas y médicas enviadas por el prestador. ¿Qué principio de auditoría médica y financiera se vulnera y cuál es la postura correcta de la IPS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se vulnera el debido proceso y la trazabilidad técnica del trámite de glosas; la IPS debe exigir la conciliación factura por factura basada en los soportes y respuestas radicadas, admitiendo únicamente las glosas técnicamente allanables y formalizando en el acta acuerdos de pago verificables con fechas fijas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las conciliaciones deben sustentarse en auditorías de cuentas basadas en evidencia documental y no en descuentos unilaterales arbitrarios.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Una IPS de mediana complejidad implementa un programa integral de auditoría concurrente y pre-facturación sistemática antes del envío de cuentas electrónicas. Tras 6 meses de ejecución, ¿qué indicador de gestión demuestra con mayor contundencia la efectividad del proceso de facturación y auditoría?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La reducción significativa del índice de glosas iniciales sobre el valor total radicado, la disminución de días de rotación de cartera (Periodo Promedio de Cobro) y una tasa cercana a cero de devoluciones por inconsistencias en RIPS/CUV.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El éxito en la gestión de cuentas médicas se valida mediante la reducción del porcentaje de glosas y la agilización del flujo de caja efectivo para la institución.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

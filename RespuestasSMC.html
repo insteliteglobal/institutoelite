@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Salud Mental Comunitaria y Apoyo Psicosocial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Salud Mental Comunitaria y Apoyo Psicosocial | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-brain"></i> Módulos 1, 2 y 3: Fundamentos, Determinantes y Promoción del Bienestar Emocional (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">Según la Ley 1616 de 2013 y la OMS, la Salud Mental se define integralmente como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un estado dinámico expresado en la vida cotidiana que permite a individuos y colectivos desplegar sus capacidades emocionales, cognitivas y relacionales, trabajar productivamente y aportar a su comunidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La salud mental trasciende la ausencia de psicopatología; es un recurso vital para el bienestar subjetivo, la productividad y la convivencia democrática.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Cuál es el cambio de paradigma fundamental que introduce el Modelo de Salud Mental Comunitaria frente al modelo psiquiátrico manicomial tradicional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Desinstitucionalizar y desestigmatizar la atención, integrándola en el primer nivel de APS, en el tejido social comunitario y con enfoque de derechos humanos y redes de apoyo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Sitúa el cuidado en los entornos naturales de vida, desmontando el aislamiento asilar y promoviendo la inclusión social activa.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">En el marco de los Determinantes Sociales de la Salud Mental, ¿cuál de los siguientes constituye un factor estructural de riesgo psicosocial?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La desigualdad socioeconómica extrema, la exclusión social, la pobreza estructural, la violencia armada y la falta de oportunidades educativas y laborales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las condiciones materiales y de justicia social definen los niveles basales de estrés crónico y vulnerabilidad psíquica de las comunidades.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">El concepto de "Resiliencia Comunitaria" en salud mental se refiere a:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La capacidad colectiva de un grupo o comunidad para sobreponerse a la adversidad, catástrofes o violencia, reconstruyendo el tejido social y transformando positivamente su realidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La resiliencia no es solo un atributo individual; es una cualidad comunitaria de solidaridad y adaptación activa ante el trauma.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">De acuerdo con la OMS, el programa de "Habilidades para la Vida" fortalece competencias psicosociales indispensables para la salud mental, entre las cuales destacan:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Autoconocimiento, empatía, comunicación asertiva, pensamiento crítico, toma de decisiones, resolución de problemas y manejo de emociones y del estrés.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Estas 10 destrezas psicosociales protegen a niños y jóvenes frente a conductas de riesgo, fortaleciendo el autocuidado y la toma de decisiones responsable.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué caracteriza a los "Factores Protectores" de la salud mental en el ámbito comunitario?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Recursos individuales, familiares y comunitarios (redes de apoyo, vínculos afectivos seguros, cohesión social, acceso a recreación) que reducen el impacto del estrés y amortiguan el riesgo de trastornos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los factores protectores amortiguan el impacto de los estresores vitales e incrementan la capacidad de afrontamiento adaptativo.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">El "Estigma Social" en salud mental actúa como una barrera crítica porque:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Genera discriminación, culpa, aislamiento social y vergüenza, impidiendo que las personas reconozcan su sufrimiento y busquen ayuda profesional u orientación oportuna.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El miedo al rechazo y a la rotulación negativa demora el acceso a la atención primaria hasta etapas avanzadas de sufrimiento.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">En el enfoque de Curso de Vida, la promoción de la salud mental en la Primera Infancia se fundamenta prioritariamente en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El apego seguro, la pauta de crianza amorosa, la nutrición adecuada, el juego y la protección contra entornos adversos y negligencia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La calidad de los vínculos tempranos y la crianza protectora estructuran la arquitectura cerebral y la seguridad emocional a largo plazo.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">La Prevención Primaria en Salud Mental Comunitaria tiene como finalidad esencial:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Disminuir la incidencia de problemas y trastornos mentales mediante la modificación de factores de riesgo ambientales y el fortalecimiento de habilidades psicosociales en la población sana.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Actúa antes de que aparezca el trastorno, incidiendo en los factores protectores de la comunidad y la familia.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Cuál de las siguientes acciones corresponde a una estrategia de Prevención Secundaria en salud mental?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La detección temprana de sintomatología depresiva o ansiosa mediante tamizajes comunitarios validados (ej. SRQ, PHQ-9) e intervención psicosocial breve oportuna.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El tamizaje temprano permite diagnosticar e intervenir en fases incipientes, evitando la cronicidad o el agravamiento del malestar.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">La Rehabilitación Basada en la Comunidad (RBC) en salud mental persigue como meta primordial:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Maximizar la autonomía, la inclusión social, educativa y laboral, y la participación activa de las personas con discapacidad psicosocial en su propio entorno comunitario.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Integra a la persona en sus redes naturales de vida, combatiendo la exclusión y promoviendo el ejercicio pleno de su ciudadanía.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">En la Ley 1616 de 2013, el Enfoque de Derechos en salud mental garantiza expresamente que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Las personas con trastornos mentales tienen derecho a recibir atención integral, integrada y humanizada, a no ser discriminadas ni sometidas a tratos crueles, y a ser informadas sobre su diagnóstico y tratamiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Ley 1616 blinda la dignidad y autonomía de los usuarios frente a prácticas estigmatizantes o intervenciones involuntarias no justificadas.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">El concepto de "Cuidado de la Salud Mental de los Equipos de Apoyo y Cuidadores" es vital porque:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La exposición continua al sufrimiento ajeno y al trauma puede generar fatiga por compasión, trauma vicario y síndrome de Burnout, requiriendo espacios de desahogo emocional, contención y supervisión reflexiva.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Cuidar al cuidador previene el agotamiento profesional y asegura la calidad y calidez del acompañamiento psicosocial en el terreno.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">En la promoción del bienestar en el entorno escolar, el clima institucional positivo se caracteriza por:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ambientes seguros, libres de acoso escolar (bullying), donde se validan las emociones, se fomenta el respeto a la diversidad y existen canales pacíficos de resolución de conflictos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La seguridad psicológica en el aula es el pilar fundamental para el aprendizaje significativo y la salud mental infantil y juvenil.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Cómo influye el Duelo Colectivo en comunidades afectadas por desastres o violencia sociopolítica?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Es una experiencia compartida de pérdida del tejido social y territorial que requiere rituales comunitarios, espacios de memoria, validación colectiva del dolor y dignificación simbólica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La elaboración compartida del dolor a través de rituales comunitarios restablece los vínculos de solidaridad y facilita la recuperación colectiva.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">La "Intersectorialidad" en las políticas de salud mental comunitaria exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La articulación sinérgica entre salud, educación, cultura, deporte, justicia, protección social y empleo para intervenir sobre los determinantes psicosociales de la población.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La salud mental no se produce en el hospital; requiere políticas coordinadas de vivienda, educación, recreación y trabajo digno.</div>
+    </article>
+
+    <!-- MÓDULOS 4 A 9 -->
+    <div class="module-header">
+        <i class="fas fa-hands-helping"></i> Módulos 4 a 9: Primeros Auxilios Psicológicos (PAP), Prevención de SPA, Suicidio y Redes (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">Los Primeros Auxilios Psicológicos (PAP) se definen técnicamente como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Una respuesta humana, solidaria, práctica y no invasiva de apoyo a personas en sufrimiento agudo, orientada a evaluar necesidades, estabilizar emociones y conectar con redes de ayuda.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los PAP no son terapia clínica; son una intervención de primera respuesta orientada al alivio del estrés agudo y la conexión con recursos básicos.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Cuáles son los tres principios básicos de acción de los Primeros Auxilios Psicológicos según la OMS/Guía IASC?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Observar (seguridad, personas con necesidades urgentes), Escuchar (acercarse, indagar necesidades, calmar) y Conectar (ayudar a satisfacer necesidades básicas y redes de apoyo).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Sintetizan la secuencia operativa universal para intervenir de manera segura, respetuosa y eficaz en situaciones de crisis.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Cuál de las siguientes conductas está TERMINANTEMENTE PROHIBIDA durante la aplicación de Primeros Auxilios Psicológicos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Forzar a la persona a contar su historia detalladamente, hacer falsas promesas de solución ("todo saldrá bien"), juzgar sus emociones o prescribir medicamentos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Forzar el relato del trauma puede revictimizar o retraumatizar al usuario; se debe respetar el ritmo de la persona sin falsas promesas.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">La "Escucha Activa" en el acompañamiento psicosocial implica:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Prestar atención plena, mantener contacto visual empático, asentir, no juzgar, parafrasear para verificar comprensión y validar los sentimientos expresados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Comunica respeto incondicional y crea un espacio seguro donde el usuario se siente comprendido y respaldado.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">El Programa de Acción para Superar las Brechas en Salud Mental (mhGAP) de la OMS tiene como objetivo:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Capacitar al personal no especializado de atención primaria (médicos generales, enfermeros, promotores) para identificar, tratar y manejar trastornos mentales prioritarios.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Descentraliza la atención psiquiátrica hacia el primer nivel de salud, cerrando la brecha de tratamiento en zonas vulnerables.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">El Enfoque de Reducción de Daños en el abordaje del consumo de Sustancias Psicoactivas (SPA) se fundamenta en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Políticas y prácticas pragmáticas dirigidas a minimizar los impactos negativos en salud, sociales y económicos del consumo en personas que no pueden o no desean suspenderlo inmediatamente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Prioriza la vida, la dignidad y la disminución de riesgos biológicos y sociales por encima de la exigencia inmediata de abstinencia.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">En la prevención comunitaria del consumo problemático de SPA, ¿cuál es la estrategia con mayor evidencia de efectividad?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El fortalecimiento de habilidades para la vida, pautas de crianza positiva, espacios comunitarios de arte/deporte, permanencia escolar y proyectos de vida juveniles significativos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La prevención ambiental y el desarrollo de factores protectores tienen base científica comprobada, a diferencia de las charlas intimidatorias.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Frente a la conducta suicida, ¿cuál de las siguientes afirmaciones corresponde a un MITO peligroso desmentido por la evidencia científica?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) "El que se va a suicidar no lo dice; los que amenazan solo quieren llamar la atención y manipular".</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gran mayoría de personas que cometen suicidio expresan señales de advertencia previas; desestimarlas como "llamados de atención" cuesta vidas.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">Al identificar a una persona con ideación suicida activa y plan estructurado, la actuación inmediata en APS debe ser:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No dejarla sola en ningún momento, validar su dolor sin juzgar, retirar cualquier medio letal a su alcance, activar la red familiar protectora y remitir a valoración médica urgente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La presencia continua y la activación de la ruta de urgencia hospitalaria constituyen el protocolo de protección vital inaplazable.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">El Enfoque Psicosocial en la atención a víctimas del conflicto armado y de violencia sociopolítica (PAPSIVI en Colombia) busca:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Reconocer el impacto integral del daño en la dignidad, subjetividad y tejido social, facilitando procesos de elaboración del duelo, dignificación y reconstrucción de proyectos de vida.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aborda las secuelas emocionales y relacionales de la violencia sin patologizar a las víctimas, promoviendo su dignidad y autonomía.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">Los Grupos de Apoyo Mutuo (GAM) en el entorno comunitario se caracterizan por:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Espacios horizontales y seguros donde personas con vivencias o problemáticas similares comparten experiencias, apoyo emocional y estrategias de afrontamiento entre pares.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La ayuda mutua entre pares disminuye el aislamiento, valida el sufrimiento y genera empoderamiento comunitario.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Qué es el "Mapeo de Actores y Redes Comunitarias" en la gestión de la salud mental territorial?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La identificación y caracterización de personas, organizaciones, instituciones y recursos presentes en el territorio para tejer rutas de derivación, apoyo y trabajo intersectorial.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Permite construir redes de derivación efectivas y coordinar respuestas integradas ante emergencias psicosociales.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">La Confidencialidad y el Secreto Profesional en los programas de salud mental y apoyo psicosocial implican:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La obligación ética y legal estricta de proteger la privacidad de la información conocida, rompiendo la reserva únicamente ante riesgo inminente para la vida del usuario o de terceros.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La confidencialidad es el pilar de la confianza terapéutica; solo cede ante el deber superior de salvaguardar la vida humana ante riesgo inminente.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">En intervenciones psicosociales con niños, niñas y adolescentes, el Consentimiento y Asentimiento Informado exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El consentimiento legal de los padres o representantes legales junto con el asentimiento libre e informado del menor, adaptando la explicación a su etapa evolutiva.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Respeta la autonomía progresiva del menor reconociéndolo como sujeto de derechos en las decisiones sobre su salud mental.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Qué papel cumple la "Comunicación No Violenta" (CNV) en la mediación de conflictos comunitarios?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Expresar observaciones sin juzgar, identificar sentimientos, reconocer necesidades subyacentes y formular peticiones claras y concretas para concertar acuerdos pacíficos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La CNV desarma la hostilidad defensiva y orienta el diálogo hacia la satisfacción recíproca de necesidades humanas básicas.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">La "Fatiga por Compasión" y el "Trauma Vicario" en agentes comunitarios se manifiestan típicamente por:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Agotamiento emocional profundo, cinismo, despersonalización, insomnio, intrusión de imágenes traumáticas y pérdida de empatía hacia los usuarios atendidos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Son cuadros de desgaste por absorción del trauma ajeno que requieren protocolos institucionales de autocuidado y descanso reparador.</div>
+    </article>
+
+    <!-- MÓDULO 10 -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Módulo 10: Casos Prácticos de Toma de Decisiones en Salud Mental Comunitaria (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Tras un deslizamiento de tierra en un barrio ribereño que destruyó varias viviendas, una madre se encuentra en shock agudo: hiperventila, llora desconsoladamente y repite que lo perdió todo. Un voluntario intenta calmarla diciéndole: "No llore más, debe ser fuerte por sus hijos y dar gracias de que está viva". Desde los Primeros Auxilios Psicológicos (PAP), ¿por qué es inadecuada la intervención del voluntario y cuál es la correcta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Es inadecuada porque invalida y reprime sus emociones; la conducta correcta es llevarla a un lugar seguro, acompañarla en silencio empático, normalizar su llanto, ayudarla a regular su respiración y apoyarla en ubicar a sus hijos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Reprimir el llanto y forzar el optimismo agrava la angustia; los PAP exigen presencia calmada, escucha activa y contención práctica de las necesidades inmediatas.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: Un adolescente de 15 años acude a un centro comunitario y confiesa a un docente/profesional que desde hace un mes siente un vacío insoportable, se ha realizado cortes superficiales en los brazos y anoche escribió una carta de despedida porque planea ingerir un veneno. Le pide al profesional que "le jure por Dios que no le contará a nadie porque sus padres lo van a golpear". ¿Cuál es el deber ético y legal prioritario?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Explicarle con calidez que no puede guardar un secreto que pone en riesgo su vida; activar de inmediato la ruta de urgencia por riesgo suicida inminente, no dejarlo solo y articular con equipo psicosocial/defensoría para mediar con la familia garantizando su protección.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El deber de protección de la vida prevalece sobre la confidencialidad absoluta cuando existe riesgo suicida inminente estructurado.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: En un barrio urbano, la comunidad estigmatiza y expulsa a un grupo de jóvenes con consumo problemático de bazuco en un parque, exigiendo su encarcelamiento inmediato. Desde la perspectiva de Salud Mental Comunitaria y Reducción de Daños, ¿cuál es la propuesta más integral y efectiva?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Desplegar un equipo interdisciplinario de base comunitaria: acercamiento sin juzgar, oferta de servicios básicos de salud e higiene, reducción de riesgos/daños, talleres de habilidades y articulación con redes de apoyo social y familiar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La intervención comunitaria y la reducción de daños acogen a la persona en su contexto, disminuyendo la marginalidad y abriendo puertas al tratamiento voluntario.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Una mujer acude a un taller de salud mental comunitaria y en privado relata que sufre maltrato físico, verbal y sexual continuo por parte de su pareja, pero teme denunciar porque depende económicamente de él y ha sido amenazada de muerte. ¿Cómo debe proceder el orientador psicosocial?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Brindar contención empática y confidencial, evaluar el nivel de riesgo vital inminente, construir un plan de seguridad personalizado y activar la Ruta Intersectorial de Violencias de Género (Comisaría/Salud/Casas Refugio) respetando su consentimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La mediación o confrontación con el agresor pone en riesgo la vida de la mujer; se debe diseñar un plan de protección y activar las rutas intersectoriales de género.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Una comunidad rural víctima de desplazamiento forzado y masacre en el pasado muestra desconfianza severa, desesperanza aprendida y desarticulación social frente a las brigadas de salud. ¿Qué estrategia de acompañamiento psicosocial se debe implementar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un proceso continuo de presencia territorial respetuosa, concertado con sus líderes tradicionales, enfocado en reconstruir la confianza, validar la memoria colectiva, reactivar prácticas culturales comunitarias y fortalecer redes de autoayuda.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las heridas del trauma colectivo sanan mediante el restablecimiento de la confianza relacional y la reactivación de los vínculos culturales de la comunidad.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: En un sector periférico se identifica a una mujer de 78 años viviendo sola en extrema pobreza, con llanto frecuente, deterioro del autocuidado e ideación de muerte pasiva ("desearía dormirme y no despertar jamás"). Los vecinos consideran que "es normal por su edad". ¿Cuál es la lectura y acción desde la APS en Salud Mental?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Desmitificar la creencia errónea: la depresión en el adulto mayor no es normal; se debe valorar de inmediato su riesgo clínico, activar la red comunitaria de vecinos/voluntarios para combatir el aislamiento y vincularla a programas de protección social y centro día.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La depresión en la vejez es una patología tratable; normalizarla como "propia de la edad" es una forma de discriminación por edad (viejismo) que incrementa el riesgo suicida.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Un líder comunal influyente exige al equipo de apoyo psicosocial que le entregue el listado con nombres y motivos de consulta de las personas que asisten al programa de salud mental del barrio, argumentando que necesita la información para "distribuir mercados de la alcaldía". ¿Cuál debe ser la respuesta del equipo profesional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Negar rotundamente la entrega de datos personales o diagnósticos amparándose en la Ley de Habeas Data, el secreto profesional y la Ley 1616 de 2013, ofreciendo únicamente cifras estadísticas consolidadas y anonimizadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La información sobre salud mental es dato sensible de reserva legal absoluta; su entrega no autorizada constituye una grave vulneración de derechos fundamentales.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Un equipo interdisciplinario diseña un Plan de Salud Mental Comunitaria para un municipio con altos índices de violencia intrafamiliar y suicidio juvenil. Al finalizar el año, se evidencia que se realizaron 100 talleres, pero los índices de eventos adversos siguen en aumento. ¿Qué fallo de gestión y enfoque se evidencia prioritariamente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Existió un activismo superficial centrado en el cumplimiento formal de actividades sin articulación intersectorial, sin diagnóstico participativo de causas estructurales y sin seguimiento continuo a los casos de alto riesgo en sus entornos cotidianos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Realizar talleres informativos sin intervenir los determinantes sociales, sin articulación intersectorial ni seguimiento estrecho a personas vulnerables carece de impacto en salud pública.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

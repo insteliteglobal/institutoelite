@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Planeación Institucional y Calidad Educativa | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación: Planeación Institucional y Calidad Educativa</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Docente</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Planeación y Calidad Educativa (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Estrategia, Indicadores y Evaluación (17-28)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos de Calidad (29-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Módulos I y II: Fundamentos de Planeación y Gestión de la Calidad</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Cuál es el propósito principal de la planeación institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) Registrar las actividades que realizará la institución durante el año.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) Orientar de manera organizada las acciones institucionales hacia objetivos previamente definidos.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Controlar exclusivamente el trabajo de los docentes.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Elaborar documentos para cumplir requisitos administrativos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. ¿Por qué el diagnóstico institucional constituye un punto de partida para la planeación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A" data-correct="true"> A) Porque permite identificar necesidades, fortalezas, dificultades y oportunidades antes de definir acciones.</label>
+                            <label><input type="radio" name="P2" value="B"> B) Porque permite determinar automáticamente el presupuesto institucional.</label>
+                            <label><input type="radio" name="P2" value="C"> C) Porque reemplaza la evaluación institucional.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Porque permite establecer únicamente los problemas disciplinarios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. Una planeación institucional pertinente debe considerar principalmente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A" data-correct="true"> A) Las necesidades y características del contexto, los objetivos institucionales, los recursos disponibles y los resultados esperados.</label>
+                            <label><input type="radio" name="P3" value="B"> B) Únicamente las decisiones del equipo directivo.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Las actividades realizadas durante años anteriores.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Los recursos tecnológicos disponibles.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. ¿Qué característica debe tener un objetivo institucional bien formulado?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Ser general y difícil de medir.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Ser claro, pertinente y susceptible de seguimiento y evaluación.</label>
+                            <label><input type="radio" name="P4" value="C"> C) Depender exclusivamente de la disponibilidad presupuestal.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Ser definido únicamente por los docentes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Cuál es la diferencia fundamental entre planificación y ejecución?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A" data-correct="true"> A) La planificación establece objetivos y estrategias; la ejecución pone en práctica las acciones previstas.</label>
+                            <label><input type="radio" name="P5" value="B"> B) Son exactamente el mismo proceso.</label>
+                            <label><input type="radio" name="P5" value="C"> C) La ejecución ocurre antes de la planificación.</label>
+                            <label><input type="radio" name="P5" value="D"> D) La planificación solamente corresponde al área administrativa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Por qué una institución debe priorizar sus necesidades antes de elaborar un plan de acción?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) Porque todos los problemas institucionales pueden solucionarse simultáneamente.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Porque permite concentrar recursos y esfuerzos en las situaciones que generan mayor impacto.</label>
+                            <label><input type="radio" name="P6" value="C"> C) Porque evita establecer indicadores.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Porque permite eliminar la evaluación institucional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Qué función cumple un cronograma dentro de un plan institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A" data-correct="true"> A) Establecer responsables, tiempos y secuencia de las acciones previstas.</label>
+                            <label><input type="radio" name="P7" value="B"> B) Sustituir los objetivos.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Determinar automáticamente el presupuesto.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Evaluar exclusivamente a los docentes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. Una institución tiene numerosos proyectos, pero estos no están articulados entre sí. ¿Cuál es el principal riesgo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) Mayor innovación institucional.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) Duplicación de esfuerzos, dispersión de recursos y dificultad para alcanzar objetivos comunes.</label>
+                            <label><input type="radio" name="P8" value="C"> C) Mayor participación de la comunidad.</label>
+                            <label><input type="radio" name="P8" value="D"> D) Incremento automático de la calidad educativa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. ¿Qué significa gestionar la calidad educativa desde una perspectiva de mejoramiento continuo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Mantener las mismas estrategias cuando los resultados sean aceptables.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Analizar resultados, identificar oportunidades de mejora, implementar acciones y evaluar nuevamente sus efectos.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Concentrarse exclusivamente en los resultados de las pruebas externas.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Aumentar la cantidad de actividades académicas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. La calidad educativa debe entenderse principalmente como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) El resultado de un único examen académico.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Un proceso integral que involucra aprendizajes, prácticas pedagógicas, gestión, convivencia, participación y otros factores institucionales.</label>
+                            <label><input type="radio" name="P10" value="C"> C) La cantidad de estudiantes matriculados.</label>
+                            <label><input type="radio" name="P10" value="D"> D) La infraestructura física de la institución.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Por qué los procesos de autoevaluación institucional son importantes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A" data-correct="true"> A) Porque permiten identificar fortalezas y oportunidades de mejora desde la propia institución.</label>
+                            <label><input type="radio" name="P11" value="B"> B) Porque reemplazan todas las evaluaciones externas.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Porque sirven exclusivamente para calificar docentes.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Porque determinan automáticamente el presupuesto.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. ¿Cuál es la función de los indicadores de calidad?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A" data-correct="true"> A) Permitir medir o valorar avances respecto de objetivos y resultados esperados.</label>
+                            <label><input type="radio" name="P12" value="B"> B) Sustituir los objetivos institucionales.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Determinar por sí solos las estrategias pedagógicas.</label>
+                            <label><input type="radio" name="P12" value="D"> D) Servir únicamente para elaborar informes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. ¿Cuál de los siguientes sería un indicador más útil para evaluar una estrategia de mejoramiento académico?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Número de reuniones realizadas.</label>
+                            <label><input type="radio" name="P13" value="B"> B) Número de documentos elaborados.</label>
+                            <label><input type="radio" name="P13" value="C" data-correct="true"> C) Porcentaje de estudiantes que alcanzan el aprendizaje o competencia definida como objetivo.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Número de docentes que participaron en la reunión.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Por qué una institución no debería evaluar su calidad únicamente mediante resultados académicos?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Porque los resultados académicos no tienen importancia.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) Porque la calidad educativa comprende múltiples dimensiones que deben analizarse de manera integral.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Porque las evaluaciones académicas siempre son incorrectas.</label>
+                            <label><input type="radio" name="P14" value="D"> D) Porque solamente debe evaluarse la satisfacción de las familias.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. ¿Qué relación existe entre calidad educativa y mejoramiento continuo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A" data-correct="true"> A) El mejoramiento continuo permite revisar y ajustar sistemáticamente los procesos para alcanzar mejores resultados.</label>
+                            <label><input type="radio" name="P15" value="B"> B) La calidad se alcanza una sola vez y no requiere seguimiento.</label>
+                            <label><input type="radio" name="P15" value="C"> C) Son procesos independientes.</label>
+                            <label><input type="radio" name="P15" value="D"> D) La calidad depende exclusivamente de la infraestructura.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. Una institución alcanza buenos resultados académicos, pero presenta problemas graves de convivencia y alta deserción. ¿Qué debería concluirse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Que la institución tiene una gestión de calidad excelente.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Que es necesario realizar una evaluación integral de la calidad institucional.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Que los problemas de convivencia no afectan la calidad educativa.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Que solamente debe aumentar las pruebas académicas.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Estrategia e Indicadores <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> Módulos III y IV: Planeación Estratégica, Indicadores y Evaluación</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. ¿Cuál es la función de una meta dentro de un proceso de planeación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A" data-correct="true"> A) Convertir un propósito general en un resultado concreto que pueda ser monitoreado.</label>
+                            <label><input type="radio" name="P17" value="B"> B) Describir únicamente las actividades del docente.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Reemplazar el diagnóstico institucional.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Establecer exclusivamente el presupuesto.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. ¿Qué característica debería tener un buen indicador?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Ser ambiguo para permitir diferentes interpretaciones.</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) Ser pertinente, medible y relacionado directamente con el objetivo que se pretende evaluar.</label>
+                            <label><input type="radio" name="P18" value="C"> C) Ser lo más complejo posible.</label>
+                            <label><input type="radio" name="P18" value="D"> D) Medir únicamente actividades.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. Una institución establece como objetivo “mejorar significativamente el desempeño académico”. ¿Qué debería hacer para poder realizar seguimiento?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Mantener el objetivo sin modificaciones.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) Definir indicadores, línea base, meta y período de medición.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Aumentar el número de reuniones.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Elaborar un nuevo PEI.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. ¿Qué es una línea base en un proceso de planeación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A" data-correct="true"> A) El resultado o situación inicial que sirve como referencia para medir cambios posteriores.</label>
+                            <label><input type="radio" name="P20" value="B"> B) La meta final del proyecto.</label>
+                            <label><input type="radio" name="P20" value="C"> C) El presupuesto inicial.</label>
+                            <label><input type="radio" name="P20" value="D"> D) El cronograma de actividades.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. ¿Por qué es importante definir responsables dentro de un plan institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A" data-correct="true"> A) Para identificar quién debe liderar o ejecutar cada acción y facilitar el seguimiento.</label>
+                            <label><input type="radio" name="P21" value="B"> B) Para concentrar todas las funciones en el rector.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Para evitar el trabajo colaborativo.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Para sustituir los indicadores.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. Una institución establece 20 indicadores para un único proyecto, muchos de ellos sin relación directa con los objetivos. ¿Cuál es el principal problema?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A" data-correct="true"> A) Tiene demasiados indicadores sin suficiente pertinencia, lo que puede dificultar el seguimiento y el análisis.</label>
+                            <label><input type="radio" name="P22" value="B"> B) Los indicadores siempre deben ser numerosos.</label>
+                            <label><input type="radio" name="P22" value="C"> C) Los indicadores no deberían utilizarse.</label>
+                            <label><input type="radio" name="P22" value="D"> D) La institución necesita únicamente indicadores financieros.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. ¿Qué debería hacerse cuando un indicador muestra que una estrategia no está produciendo los resultados esperados?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Ignorar el resultado hasta finalizar el año.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Analizar las causas y realizar los ajustes necesarios.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Modificar el indicador para que muestre mejores resultados.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Eliminar la estrategia sin analizarla.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. ¿Cuál es la diferencia entre eficacia y eficiencia en la gestión institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A" data-correct="true"> A) La eficacia se relaciona con alcanzar los resultados previstos y la eficiencia con hacerlo utilizando adecuadamente los recursos disponibles.</label>
+                            <label><input type="radio" name="P24" value="B"> B) Son exactamente lo mismo.</label>
+                            <label><input type="radio" name="P24" value="C"> C) La eficiencia solamente se refiere a los docentes.</label>
+                            <label><input type="radio" name="P24" value="D"> D) La eficacia solamente se refiere al presupuesto.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. ¿Qué función cumple el seguimiento dentro de un plan institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A" data-correct="true"> A) Permitir verificar avances, dificultades y cumplimiento durante la ejecución.</label>
+                            <label><input type="radio" name="P25" value="B"> B) Realizarse únicamente al final del proyecto.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Sustituir la planificación.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Determinar automáticamente la calidad educativa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. ¿Cuál es el principal riesgo de elaborar un plan institucional sin mecanismos de seguimiento?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A" data-correct="true"> A) Que las acciones se ejecuten sin posibilidad de identificar oportunamente desviaciones o dificultades.</label>
+                            <label><input type="radio" name="P26" value="B"> B) Que aumente la participación.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Que mejoren automáticamente los resultados.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Que se reduzcan los indicadores.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. Una institución evalúa un proyecto y descubre que cumplió el 100 % de las actividades, pero no logró el resultado esperado. ¿Qué debería analizar?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Únicamente si las actividades se realizaron.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) La relación entre las acciones implementadas y los resultados obtenidos, incluyendo la pertinencia de la estrategia.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Solamente el número de reuniones realizadas.</label>
+                            <label><input type="radio" name="P27" value="D"> D) La cantidad de documentos generados.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. ¿Qué importancia tiene la retroalimentación en la gestión institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A" data-correct="true"> A) Permite utilizar los resultados obtenidos para ajustar decisiones y mejorar procesos.</label>
+                            <label><input type="radio" name="P28" value="B"> B) Sirve únicamente para elaborar informes.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Reemplaza los indicadores.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Solamente debe realizarse cuando existen problemas graves.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Módulo V: Casos Prácticos de Toma de Decisiones y Calidad</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio gerencial y pedagógico cada situación institucional y elija la alternativa más fundamentada.</p>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. CASO 1: Una institución identifica bajos resultados en matemáticas. El equipo directivo decide inmediatamente comprar nuevos libros de texto. ¿Cuál debería ser el primer paso?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Comprar más materiales.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) Analizar las causas del bajo desempeño y las evidencias disponibles antes de seleccionar una intervención.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Aumentar las horas de clase.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Cambiar al docente responsable.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. CASO 2: Una institución formula un plan de mejoramiento con excelentes objetivos, pero no establece indicadores ni responsables. ¿Cuál es la principal debilidad?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) El plan tiene demasiados objetivos.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) No existen mecanismos suficientes para realizar seguimiento y determinar el cumplimiento de los resultados.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Los indicadores no son necesarios.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Los responsables deben definirse después de ejecutar el plan.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. CASO 3: Una institución logra aumentar la asistencia de los estudiantes del 85 % al 95 %, pero los resultados de aprendizaje permanecen prácticamente iguales. ¿Cuál es la interpretación más adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) La estrategia fue completamente exitosa.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) La mejora en asistencia es positiva, pero debe analizarse por qué no produjo el impacto esperado en los aprendizajes.</label>
+                            <label><input type="radio" name="P31" value="C"> C) La asistencia no tiene importancia.</label>
+                            <label><input type="radio" name="P31" value="D"> D) El indicador de asistencia debe eliminarse.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. CASO 4: Un colegio decide implementar un proyecto de innovación porque otra institución obtuvo buenos resultados con él. Sin embargo, no realiza un diagnóstico de sus propias necesidades. ¿Cuál es el principal problema?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) La innovación siempre debe copiarse de instituciones exitosas.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) La estrategia puede no responder a las características y necesidades específicas de la institución.</label>
+                            <label><input type="radio" name="P32" value="C"> C) El diagnóstico solamente es necesario para proyectos financieros.</label>
+                            <label><input type="radio" name="P32" value="D"> D) La innovación no requiere planificación.</label>
+                        </div>
+                    </div>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 5: Durante la evaluación anual, una institución descubre que una estrategia alcanzó solamente el 40 % de la meta propuesta. El equipo directivo propone eliminarla inmediatamente. ¿Cuál sería una respuesta más adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Eliminarla sin análisis.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Analizar las causas del resultado, determinar qué funcionó y qué debe ajustarse antes de decidir su continuidad o modificación.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Mantenerla exactamente igual.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Modificar la meta para alcanzar el 100 %.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 6: Un rector presenta como evidencia de éxito de un plan institucional el hecho de que se realizaron todas las reuniones previstas. ¿Por qué esta evidencia es insuficiente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) Porque las reuniones nunca deben formar parte de un plan.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Porque el cumplimiento de actividades no demuestra necesariamente el logro de los resultados esperados.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Porque los planes no necesitan reuniones.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Porque solamente los estudiantes pueden evaluar un plan.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 7: Una institución quiere mejorar la calidad educativa y decide establecer 50 indicadores para controlar prácticamente todos sus procesos. ¿Qué riesgo existe?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A" data-correct="true"> A) Tener demasiada información poco útil puede dificultar el análisis y desviar la atención de los indicadores realmente estratégicos.</label>
+                            <label><input type="radio" name="P35" value="B"> B) Cuantos más indicadores existan, mejor será siempre la gestión.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Los indicadores solamente deben medir aspectos financieros.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Los indicadores impiden realizar seguimiento.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 8: Un equipo docente identifica que los estudiantes tienen dificultades para comprender textos. Decide realizar nuevamente las mismas actividades utilizadas anteriormente, pero aumentando su cantidad. ¿Cuál sería una alternativa más coherente con el mejoramiento continuo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Repetir indefinidamente las mismas actividades.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Analizar las dificultades específicas y diseñar estrategias diferentes y pertinentes a las causas identificadas.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Eliminar la lectura del currículo.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Aumentar exclusivamente las evaluaciones.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 9: Una institución tiene como meta reducir la deserción escolar. Después de un año, la deserción disminuye, pero únicamente en los grados superiores. ¿Qué debería hacer el equipo de gestión?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Declarar cumplida la meta para toda la institución.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Analizar los resultados desagregados y determinar por qué la estrategia tuvo diferente impacto según los grados.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Eliminar los datos de los grados restantes.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Cambiar inmediatamente el indicador.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 10: Un plan institucional cuenta con presupuesto suficiente y todas las actividades fueron ejecutadas, pero los resultados no mejoraron. ¿Qué conclusión es más adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) La institución gestionó correctamente porque gastó todo el presupuesto.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) La ejecución de recursos y actividades no garantiza por sí sola la eficacia del plan; deben analizarse los resultados y el impacto.</label>
+                            <label><input type="radio" name="P38" value="C"> C) El presupuesto debe aumentar.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Los indicadores son innecesarios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 11: Durante la autoevaluación institucional, los docentes identifican una fortaleza importante en trabajo colaborativo y una debilidad en seguimiento de los aprendizajes. ¿Cuál sería una estrategia coherente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Concentrarse únicamente en la fortaleza.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Utilizar las fortalezas existentes para diseñar acciones que permitan mejorar la debilidad identificada.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Ignorar la autoevaluación.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Cambiar todo el modelo institucional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 12: Una institución desea implementar un sistema de gestión de calidad educativa sostenible. ¿Cuál de las siguientes alternativas representa un enfoque más integral?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) Realizar una evaluación anual y archivar los resultados.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) Diagnosticar, planear, ejecutar, medir resultados, retroalimentar, ajustar estrategias y repetir el ciclo de mejoramiento.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Concentrarse exclusivamente en las pruebas externas.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Aumentar el número de documentos institucionales.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Planeación Institucional y Gestión de la Calidad Educativa",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

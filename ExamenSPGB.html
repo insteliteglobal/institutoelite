@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Salud Pública y Gestión del Bienestar | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación Final: Salud Pública y Gestión del Bienestar</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Profesional</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión / Área:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Fundamentos, FESP y Determinantes (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Vigilancia, Estilos de Vida y Bienestar (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos y Gestión Territorial (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-heartbeat"></i> Módulos 1, 2 y 3: Fundamentos de Salud Pública, FESP y Determinantes Sociales</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Cuál es el propósito central de la Salud Pública contemporánea frente a la práctica médica asistencial individual?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) Tratar exclusivamente patologías quirúrgicas de alta complejidad en hospitales monovalentes.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) Proteger, promover y restaurar la salud de las poblaciones mediante el esfuerzo organizado de la sociedad, incidiendo en los determinantes sociales y garantizando la equidad.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Administrar los cobros de cuotas moderadoras y copagos en la red hospitalaria.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Atender de forma aislada a personas enfermas sin intervenir el entorno comunitario.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. Las Funciones Esenciales de la Salud Pública (FESP renovadas de la OPS/OMS) se estructuran en torno a cuatro pilares de acción institucional, que son:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) Facturación, Auditoría, Contratación y Glosas.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) Evaluación (monitoreo y vigilancia), Desarrollo de políticas, Asignación de recursos (financiamiento y talento) y Acceso (prestación de servicios, promoción e intersectorialidad).</label>
+                            <label><input type="radio" name="P2" value="C"> C) Diagnóstico individual, Cirugía, Hospitalización y Farmacoterapia.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Censos poblacionales, Cobro de impuestos, Sanciones penales y Militarización sanitaria.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. En el marco de los Determinantes Sociales de la Salud (Modelo OMS / Dahlgren y Whitehead), ¿cuál de los siguientes factores constituye un determinante intermedio?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) El modelo macroeconómico neoliberal y la distribución de la riqueza nacional.</label>
+                            <label><input type="radio" name="P3" value="B" data-correct="true"> B) Las condiciones de vida materiales: calidad de la vivienda, acceso a agua potable, disponibilidad de alimentos, entorno laboral y acceso a servicios de salud.</label>
+                            <label><input type="radio" name="P3" value="C"> C) La edad y la carga genética no modificable del individuo.</label>
+                            <label><input type="radio" name="P3" value="D"> D) El marco constitucional y las leyes generales de la república.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. La Carta de Ottawa (1986) estableció cinco líneas de acción estratégicas para la Promoción de la Salud, entre las cuales destacan:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Construcción de megahospitales, compra de antibióticos y aumento de seguros privados.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Elaboración de políticas públicas saludables, creación de ambientes favorables, fortalecimiento de la acción comunitaria, desarrollo de aptitudes personales y reorientación de los servicios de salud.</label>
+                            <label><input type="radio" name="P4" value="C"> C) Aislamiento de pacientes con enfermedades infecciosas y suspensión de clases escolares.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Comercialización libre de medicamentos sin prescripción médica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. De acuerdo con el modelo de Historia Natural de la Enfermedad (Leavell y Clark), la Prevención Primaria actúa en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) El periodo patogénico clínico avanzado para evitar secuelas mayores.</label>
+                            <label><input type="radio" name="P5" value="B" data-correct="true"> B) El periodo prepatogénico, mediante la promoción de la salud y la protección específica (ej. vacunación) para evitar la interacción del agente con el huésped susceptible.</label>
+                            <label><input type="radio" name="P5" value="C"> C) La fase terminal para ofrecer cuidados paliativos exclusivos.</label>
+                            <label><input type="radio" name="P5" value="D"> D) El proceso de rehabilitación funcional tras una cirugía correctiva.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Qué fenómeno epidemiológico define la "Doble Carga de la Enfermedad" en los países en desarrollo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) La duplicación del costo de los tratamientos de cáncer e hipertensión.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) La coexistencia simultánea de enfermedades infecciosas, desnutrición y problemas materno-infantiles con el rápido incremento de enfermedades crónicas no transmisibles y violencia.</label>
+                            <label><input type="radio" name="P6" value="C"> C) El nacimiento del doble de niños respecto al número de adultos mayores.</label>
+                            <label><input type="radio" name="P6" value="D"> D) El cobro simultáneo de impuestos y cuotas moderadoras en la salud.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. El principio de "Salud en Todas las Políticas" (Health in All Policies - HiAP) sostiene que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) El Ministerio de Salud debe asumir el control administrativo de todas las empresas del Estado.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Las decisiones de políticas públicas en sectores como transporte, vivienda, agricultura, educación y medio ambiente deben considerar sistemáticamente su impacto en la salud y la equidad poblacional.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Todas las leyes deben incluir la obligatoriedad de comprar seguros médicos privados.</label>
+                            <label><input type="radio" name="P7" value="D"> D) La salud solo debe gestionarse mediante decretos de emergencia económica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. La "Triada Ecológica" en epidemiología tradicional analiza la interacción dinámica entre tres componentes:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) Hospital, Médico y Paciente.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) Agente causal (biológico, físico, químico), Huésped susceptible y Medio ambiente facilitador.</label>
+                            <label><input type="radio" name="P8" value="C"> C) Presupuesto, Factura y Glosa.</label>
+                            <label><input type="radio" name="P8" value="D"> D) Diagnóstico, Tratamiento y Pronóstico clínico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. ¿Cómo se define el concepto de "Inequidad en Salud" en salud pública?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Cualquier diferencia biológica natural entre grupos de diferente edad o sexo.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Aquellas desigualdades en el estado de salud o en el acceso a servicios que son sistemáticas, producidas socialmente, evitables e injustas.</label>
+                            <label><input type="radio" name="P9" value="C"> C) La variabilidad genética individual frente a enfermedades infecciosas.</label>
+                            <label><input type="radio" name="P9" value="D"> D) La diferencia en la esperanza de vida entre hombres y mujeres debida a factores cromosómicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. La Seguridad Alimentaria y Nutricional (SAN) comprende cuatro dimensiones interrelacionadas indispensables para el bienestar:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Importación masiva, empaque industrial, publicidad comercial y precios libres.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Disponibilidad de alimentos, Acceso físico y económico, Consumo adecuado/culturalmente aceptable y Aprovechamiento biológico de los nutrientes.</label>
+                            <label><input type="radio" name="P10" value="C"> C) Cultivo exclusivo de transgénicos, congelación, enlatado y venta en supermercados.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Dietas hiperproteicas obligatorias para la población trabajadora.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. El concepto de "Inmunidad Colectiva o de Rebaño" en salud pública implica que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Todas las personas deben enfermarse simultáneamente para crear anticuerpos naturales.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Cuando una alta proporción de la población está inmunizada (vacunada), se interrumpe la cadena de transmisión del agente patógeno, protegiendo indirectamente a quienes no pueden vacunarse.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Las vacunas solo protegen a la persona que las recibe sin beneficio para su entorno.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Los programas de vacunación deben limitarse a las zonas urbanas de altos ingresos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. En Salud Ambiental, la contaminación del aire por Material Particulado menor a 2.5 micras (PM2.5) es crítica porque:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Solo produce irritación leve y transitoria en los ojos.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) Penetra profundamente en los alvéolos pulmonares e ingresa al torrente sanguíneo, incrementando el riesgo de infarto agudo de miocardio, accidente cerebrovascular, EPOC y cáncer pulmonar.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Es eliminado completamente por el vello nasal sin llegar a los pulmones.</label>
+                            <label><input type="radio" name="P12" value="D"> D) No representa ningún riesgo comprobado para la salud humana según la OMS.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. El Plan Decenal de Salud Pública (PDSP) en Colombia constituye:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Un contrato de prestación de servicios entre las EPS y el Ministerio de Hacienda.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) La política de Estado que orienta las acciones sectoriales e intersectoriales durante una década para alcanzar la equidad en salud, la afectación positiva de determinantes y la mitigación del impacto de las enfermedades.</label>
+                            <label><input type="radio" name="P13" value="C"> C) Un manual de tarifas fijas para el cobro de cirugías plásticas.</label>
+                            <label><input type="radio" name="P13" value="D"> D) El reglamento de trabajo interno de los hospitales públicos del país.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Cuál es el objeto de estudio de la Epidemiología Social?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Aislar bacterias en laboratorios de bioseguridad nivel 4.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) Investigar cómo la estructura de la sociedad, las relaciones de poder, las instituciones y las desigualdades económicas influyen directamente en la distribución y patrones de salud-enfermedad poblacionales.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Analizar las interacciones en redes sociales digitales de los pacientes.</label>
+                            <label><input type="radio" name="P14" value="D"> D) Diseñar campañas publicitarias para productos farmacéuticos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. En el enfoque de Curso de Vida, la "Ventana Crítica o Sensible" se refiere a:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) El periodo de jubilación y retiro laboral obligatorio.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) Periodos específicos del desarrollo biológico (como la gestación o primeros años de vida) donde estímulos ambientales o carencias nutricionales generan efectos irreversibles a largo plazo en la salud.</label>
+                            <label><input type="radio" name="P15" value="C"> C) El tiempo límite que tiene una EPS para responder una glosa administrativa.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Las horas del día con mayor radiación solar ultravioleta.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. El principio de "Gobernanza en Salud Pública" exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) La imposición autocrática de medidas sanitarias sin rendición de cuentas.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Procesos participativos, transparentes, colaborativos e intersectoriales de toma de decisiones entre el Estado, la sociedad civil y la academia para orientar el bienestar colectivo.</label>
+                            <label><input type="radio" name="P16" value="C"> C) La privatización total de los centros de atención primaria.</label>
+                            <label><input type="radio" name="P16" value="D"> D) La supresión de los comités de participación comunitaria en salud.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Vigilancia y Bienestar <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-microscope"></i> Módulos 4 a 8: Vigilancia Epidemiológica, Estilos de Vida, Salud Mental y TIC</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. El Sistema de Vigilancia en Salud Pública (SIVIGILA) clasifica la vigilancia en tres modalidades operativas principales:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Financiera, Contable y Tributaria.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) Pasiva (recolección rutinaria de reportes de IPS), Activa (búsqueda intencionada en campo/historias) y Centinela (monitoreo intensivo en sitios o grupos seleccionados).</label>
+                            <label><input type="radio" name="P17" value="C"> C) Militar, Policial y Judicial.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Preventiva, Quirúrgica y Rehabilitadora.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. En el Canal Endémico, ¿cuándo se declara formalmente que una enfermedad transmisible ha entrado en "Zona de Epidemia"?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Cuando los casos observados se sitúan por debajo del primer cuartil (Q1).</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) Cuando el número de casos observados en una semana epidemiológica supera el límite superior del canal (tercer cuartil o percentil 75) del comportamiento histórico esperado.</label>
+                            <label><input type="radio" name="P18" value="C"> C) Cuando los casos se mantienen exactamente sobre la mediana histórica (Q2).</label>
+                            <label><input type="radio" name="P18" value="D"> D) Cuando no se registra ningún caso durante dos meses consecutivos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. En la investigación de campo de un brote epidémico, la "Curva Epidémica" permite identificar primordialmente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) El costo financiero de los medicamentos utilizados.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) El patrón de propagación (fuente común puntual o propagada), la magnitud del brote, el periodo de incubación probable y la tendencia temporal del evento.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Los nombres completos y direcciones de las personas afectadas.</label>
+                            <label><input type="radio" name="P19" value="D"> D) La calificación de desempeño de los médicos del hospital.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. La Estrategia 4x4 de la OMS para la prevención de Enfermedades Crónicas No Transmisibles (ECNT) articula cuatro factores de riesgo comportamentales compartidos:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Virus, Bacterias, Hongos y Parásitos.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Tabaquismo, Inactividad física, Alimentación no saludable (alta en sodio/azúcar/grasas) y Consumo nocivo de alcohol, que originan enfermedades cardiovasculares, cáncer, diabetes y respiratorias crónicas.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Agua contaminada, basuras, radiación y ruido ambiental.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Estrés laboral, insomnio, migraña y gastritis.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. En el control integrado de Enfermedades Transmitidas por Vectores (ETV) como Dengue, Zika y Chikungunya, la estrategia de mayor impacto y sostenibilidad es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) La fumigación espacial química indiscriminada como única medida.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) El ordenamiento y saneamiento ambiental del entorno, eliminación física de criaderos del vector (Aedes aegypti) en tanques y depósitos, y la movilización social comunitaria.</label>
+                            <label><input type="radio" name="P21" value="C"> C) La prescripción profiláctica masiva de antibióticos a toda la comunidad.</label>
+                            <label><input type="radio" name="P21" value="D"> D) El cierre temporal de los centros educativos durante el verano.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. La Salud Mental Comunitaria en salud pública se diferencia del enfoque psiquiátrico tradicional porque:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) Recluye obligatoriamente a los pacientes en hospitales psiquiátricos asilares.</label>
+                            <label><input type="radio" name="P22" value="B" data-correct="true"> B) Desinstitucionaliza el cuidado, interviene sobre determinantes psicosociales en el territorio, fortalece redes comunitarias y promueve la inclusión y derechos de las personas con sufrimiento psíquico.</label>
+                            <label><input type="radio" name="P22" value="C"> C) Utiliza únicamente psicofármacos sin acompañamiento psicosocial.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Excluye a la familia de los procesos de rehabilitación.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. En el marco de la salud pública, la política de "Reducción de Daños" frente al consumo problemático de Sustancias Psicoactivas (SPA) se orienta a:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Sancionar penalmente y criminalizar al usuario que solicita ayuda médica.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Minimizar los impactos negativos en salud física, mental y social (ej. prevención de sobredosis, VIH/Hepatitis), facilitando el acceso a servicios sin exigir la abstinencia inmediata como condición previa.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Fomentar el consumo masivo de sustancias en espacios escolares.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Prohibir el ingreso de personas consumidoras a los centros de salud primaria.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. La Educación para la Salud con enfoque dialógico y participativo (inspirada en la pedagogía crítica) busca:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Imponer directrices médicas autoritarias que la comunidad debe obedecer ciegamente.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) Desarrollar el pensamiento crítico y la conciencia colectiva mediante el intercambio horizontal de saberes entre profesionales y comunidad, promoviendo el empoderamiento y el autocuidado.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Repartir volantes impresos sin propiciar ningún espacio de diálogo.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Dictar clases magistrales memorísticas de terminología médica compleja.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. La Participación Social en Salud es un derecho ciudadano y un mecanismo de gobernanza que permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Transferir la responsabilidad de financiar los hospitales públicos a las familias.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) La intervención activa, organizada y deliberativa de la comunidad en la planeación, ejecución y control social de las políticas y servicios de salud territorial.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Prohibir que los médicos tomen decisiones basadas en evidencia científica.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Eliminar los controles institucionales de los entes reguladores de salud.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. Las Tecnologías de la Información y Comunicación (TIC) y la Salud Digital (eSalud) aportan a la salud pública porque:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) Reemplazan completamente el examen físico y la presencia humana en el primer nivel.</label>
+                            <label><input type="radio" name="P26" value="B" data-correct="true"> B) Optimizan la vigilancia en tiempo real, amplían el acceso en zonas rurales dispersas mediante telemedicina/teleorientación y mejoran la educación en salud comunitaria.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Tienen como único propósito incrementar el cobro de consultas virtuales privadas.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Eliminan la necesidad de proteger la confidencialidad de la historia clínica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. En Salud Laboral Comunitaria y Salud Ocupacional, la prevención del riesgo biomecánico y psicosocial exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Aumentar la jornada laboral a 14 horas continuas sin descansos.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) La intervención ergonómica de los puestos de trabajo, pausas activas programadas, ambientes libres de acoso laboral y fortalecimiento del clima organizacional.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Eliminar la afiliación al Sistema de Riesgos Laborales (ARL).</label>
+                            <label><input type="radio" name="P27" value="D"> D) Exigir que los trabajadores asuman el costo de los elementos de protección personal.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. El principio bioético de "Justicia Distributiva" en salud pública implica que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) Los recursos de salud deben entregarse prioritariamente a quienes puedan pagarlos en clínicas privadas.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Los recursos sanitarios, vacunas y tratamientos escasos deben asignarse equitativamente priorizando a las poblaciones con mayor vulnerabilidad y necesidad clínica.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Cada municipio debe financiar su salud exclusivamente con donaciones voluntarias.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Las poblaciones rurales deben recibir menos presupuesto por tener menor densidad poblacional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. La Gestión Integral de Residuos Hospitalarios y Similares (GIRHS) busca proteger la salud pública mediante:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Arrojar los desechos cortopunzantes en basureros a cielo abierto.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) La segregación en la fuente (código de colores), inactivación, almacenamiento seguro y disposición final controlada de residuos biosanitarios, químicos y radiactivos.</label>
+                            <label><input type="radio" name="P29" value="C"> C) La mezcla de gasas con sangre en bolsas comunes de basura biodegradable.</label>
+                            <label><input type="radio" name="P29" value="D"> D) El lavado manual de agujas descartables para reutilizarlas en brigadas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. La estrategia AIEPI (Atención Integrada a las Enfermedades Prevalentes de la Infancia) en el ámbito comunitario promueve:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) La automedicación antibiótica en el hogar ante cualquier cuadro gripal.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Prácticas clave familiares: lactancia materna exclusiva, vacunación oportuna, saneamiento del agua, prevención de accidentes y reconocimiento temprano de signos de alarma de neumonía y deshidratación.</label>
+                            <label><input type="radio" name="P30" value="C"> C) La suspensión de la lactancia cuando el niño presenta diarrea aguda.</label>
+                            <label><input type="radio" name="P30" value="D"> D) La hospitalización rutinaria de todos los niños menores de cinco años.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. En la Gestión del Riesgo de Desastres en Salud, la fase de "Preparación y Mitigación" comprende:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) Responder únicamente cuando el desastre ya ocurrió y causó pérdidas masivas.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) El análisis de vulnerabilidades territoriales, planes de emergencia hospitalaria (Hospitales Seguros), simulacros comunitarios y dotación anticipada de suministros críticos.</label>
+                            <label><input type="radio" name="P31" value="C"> C) La reconstrucción de viviendas en zonas de alto riesgo de deslizamiento.</label>
+                            <label><input type="radio" name="P31" value="D"> D) La suspensión de los sistemas de alerta temprana meteorológica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. La "Comunicación del Riesgo" en emergencias de salud pública y brotes epidemiológicos exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Ocultar la información a la población para no generar pánico ni alarma.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Transmitir mensajes claros, transparentes, oportunos y basados en evidencia científica a través de voceros oficiales, promoviendo conductas protectoras y combatiendo la infodemia.</label>
+                            <label><input type="radio" name="P32" value="C"> C) Difundir rumores sin verificar a través de redes sociales no oficiales.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Delegar la vocería oficial en líderes comerciales sin formación sanitaria.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Módulo 9 y 10: Casos Prácticos de Toma de Decisiones y Gestión Territorial del Bienestar</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio epidemiológico y directivo cada dilema de salud pública y elija la decisión profesional más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: En un comedor comunitario escolar de jornada única, 45 niños presentan vómito incoercible, dolor abdominal tipo cólico y diarrea acuosa profusa 3 horas después del almuerzo. ¿Cuál es la conducta epidemiológica y asistencial inmediata que debe liderar el equipo de salud pública?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Clausurar la escuela indefinidamente sin tomar muestras biológicas ni de alimentos.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Activar de inmediato la red de urgencias para rehidratación y triaje, notificar al SIVIGILA el brote de ETA (Enfermedad Transmitida por Alimentos), custodiar muestras testigo de alimentos y realizar la investigación de campo para identificar el agente causal y la fuente de contaminación.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Administrar antibióticos de amplio espectro a todos los estudiantes del colegio de manera profiláctica.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Esperar 48 horas para verificar si los síntomas desaparecen espontáneamente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: El canal endémico de Dengue en un municipio tropical muestra que durante tres semanas consecutivas el número de casos notificados superó el tercer cuartil (Q3), ingresando en zona de epidemia. Se registran 3 fallecimientos por dengue grave. ¿Cuál es el plan de contingencia prioritario que debe ordenar la autoridad sanitaria?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) Emitir un comunicado de prensa pidiendo calma sin realizar intervenciones en terreno.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Declarar la alerta epidemiológica municipal, activar el Centro de Operaciones de Emergencia (COE), fortalecer la red de triaje hospitalario para hidratación intravenosa temprana según protocolo, y desplegar control larvario físico y químico focalizado junto a movilización comunitaria.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Suspender las consultas de control prenatal para atender únicamente los casos febriles.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Prohibir el ingreso de viajeros al municipio durante todo el semestre.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: En un corregimiento rural no interconectado se registra una tasa de mortalidad por Enfermedad Diarreica Aguda (EDA) y desnutrición infantil que triplica el promedio departamental. El diagnóstico muestra que el 90 % de los hogares consume agua cruda de pozo contaminada con coliformes fecales. Desde la Salud Pública y la Afectación Positiva de Determinantes, ¿cuál es la solución estructural?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Donar suero oral en polvo mensualmente sin intervenir la fuente de agua.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Una respuesta intersectorial urgente entre salud, acueducto y alcaldía: instalación de sistemas comunitarios de potabilización/filtración de agua, entrega de métodos intradomiciliarios de desinfección, saneamiento básico de excretas y educación sanitaria familiar.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Recomendar a las familias campesinas que compren agua embotellada comercial.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Cerrar el puesto de salud veredal por falta de presupuesto de mantenimiento.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: Un municipio urbano registra un incremento alarmante del 40 % en muertes prematuras por Infarto Agudo de Miocardio y ACV en población de 35 a 55 años. El perfil epidemiológico revela alto consumo de alimentos ultraprocesados, sedentarismo masivo y tabaquismo. ¿Qué política territorial de Promoción de la Salud debe formularse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Construir una sala de hemodinamia y cateterismo de cuarto nivel en cada barrio.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Una estrategia de Entornos Saludables: regulación de espacios libres de humo de tabaco, ciclovías y parques activos comunitarios, tamizaje poblacional de riesgo cardiovascular (escala FINDRISC/Framingham) y fomento de tiendas escolares saludables.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Prescribir estatinas y antihipertensivos a toda la población mayor de 30 años sin tamizaje.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Aumentar el cobro de copagos a los pacientes que sufran infartos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: En un territorio ancestral indígena se detecta una caída de coberturas del PAI al 45 % en menores de 5 años por desconfianza en el personal de salud institucional tras incidentes de trato despectivo. ¿Cuál es la estrategia de gestión pública con enfoque diferencial que debe aplicarse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Condicionar la entrega de subsidios estatales al carné de vacunas sellado.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Concertar con las autoridades tradicionales y médicos ancestrales un diálogo intercultural en salud, capacitar a promotores indígenas bilingües de la propia comunidad para la vacunación y adaptar los mensajes formativos respetando su cosmovisión.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Suspender las brigadas de vacunación en el resguardo por falta de interés comunitario.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Denunciar a los padres de familia ante el juzgado de familia por negligencia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: El ASIS municipal revela que los intentos de suicidio en jóvenes escolarizados de 12 a 18 años aumentaron un 65 %, vinculados a matoneo escolar, violencia intrafamiliar y desesperanza. ¿Qué intervención integral de salud pública intersectorial debe desplegarse de inmediato?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Realizar una única conferencia masiva de dos horas sobre suicidio en el coliseo municipal.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) Implementar una red integrada: capacitación en detección de alertas mediante protocolo mhGAP a docentes y orientadores, fortalecimiento de habilidades para la vida y manejo de emociones en el aula, activación de líneas de teleorientación 24/7 y ruta prioritaria de urgencia psicosocial sin barreras.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Expulsar de las instituciones educativas a los estudiantes que manifiesten ideación suicida.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Medicar con ansiolíticos a todos los estudiantes con bajo rendimiento académico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Una zona industrial urbana presenta altos niveles de emisiones de material particulado que superan las normas de calidad del aire. Se evidencia un aumento del 50 % en consultas por crisis asmáticas y bronquiolitis en salas de urgencias infantiles de los barrios vecinos. Desde la Salud Ambiental y la Gobernanza, ¿cuál es la determinación correcta?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Comprar más nebulizadores e inhaladores para el hospital local sin intervenir a las industrias.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Declarar la alerta ambiental en salud pública, coordinar con la autoridad ambiental el control y sanción a emisiones industriales contaminantes, restringir temporalmente fuentes móviles de alta emisión y reforzar la red de atención pediátrica extramural.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Indicar a los habitantes que cierren las ventanas de sus casas permanentemente.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Reubicar el hospital fuera del municipio para evitar atender a los pacientes intoxicados.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: Al evaluar el cierre de un Plan Territorial de Salud (PTS) de 4 años, el equipo de gobierno afirma que la gestión fue "100 % exitosa" porque se realizaron todas las 200 jornadas de salud programadas y se gastó todo el presupuesto asignado. Sin embargo, los indicadores de mortalidad materna, desnutrición infantil y cobertura de vacunación empeoraron. ¿Qué conclusión analítica de calidad y gestión pública corresponde?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) La gestión fue plenamente exitosa porque la ejecución presupuestal y de actividades es la única medida válida en la administración pública.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) La gestión fue ineficaz; existió un activismo operativo formal desconectado del impacto sanitario real: la calidad en salud pública se evalúa por la transformación favorable de los indicadores de morbimortalidad y la reducción de inequidades, no por el cumplimiento ciego de cronogramas de gasto.</label>
+                            <label><input type="radio" name="P40" value="C"> C) El fracaso se debió a que los ciudadanos se negaron a participar en las jornadas.</label>
+                            <label><input type="radio" name="P40" value="D"> D) La evaluación debe anularse porque no se pueden medir los resultados en salud en periodos de 4 años.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión/Área y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Salud Pública y Gestión del Bienestar (SPGB)",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

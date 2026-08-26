@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Planeación Institucional y Calidad Educativa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Planeación Institucional y Gestión de la Calidad Educativa | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1 Y 2 -->
+    <div class="module-header">
+        <i class="fas fa-chart-line"></i> Módulos I y II: Fundamentos de Planeación y Gestión de la Calidad (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">¿Cuál es el propósito principal de la planeación institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Orientar de manera organizada las acciones institucionales hacia objetivos previamente definidos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La planeación dota de intencionalidad, coherencia y estructura a los esfuerzos de la comunidad escolar, guiándolos hacia metas estratégicas claras.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Por qué el diagnóstico institucional constituye un punto de partida para la planeación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque permite identificar necesidades, fortalezas, dificultades y oportunidades antes de definir acciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un plan pertinente se fundamenta en la realidad contextualizada; el diagnóstico evita formular intervenciones a ciegas.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">Una planeación institucional pertinente debe considerar principalmente:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Las necesidades y características del contexto, los objetivos institucionales, los recursos disponibles y los resultados esperados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La pertinencia estratégica exige alinear armónicamente la realidad del entorno con las capacidades operativas y las metas formativas.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Qué característica debe tener un objetivo institucional bien formulado?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ser claro, pertinente y susceptible de seguimiento y evaluación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los objetivos deben ser formulados bajo criterios SMART para permitir la verificación objetiva de su avance durante el ciclo escolar.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Cuál es la diferencia fundamental entre planificación y ejecución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La planificación establece objetivos y estrategias; la ejecución pone en práctica las acciones previstas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La planificación concibe y estructura la ruta metodológica; la ejecución concreta las acciones en la vida cotidiana de la institución.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Por qué una institución debe priorizar sus necesidades antes de elaborar un plan de acción?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque permite concentrar recursos y esfuerzos en las situaciones que generan mayor impacto.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Dado que el tiempo y los recursos son limitados, la priorización estratégica maximiza el impacto sobre los factores críticos del aprendizaje.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Qué función cumple un cronograma dentro de un plan institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Establecer responsables, tiempos y secuencia de las acciones previstas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El cronograma ordena temporalmente la ejecución operativa, previniendo sobrecargas de trabajo y facilitando el seguimiento.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">Una institución tiene numerosos proyectos, pero estos no están articulados entre sí. ¿Cuál es el principal riesgo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Duplicación de esfuerzos, dispersión de recursos y dificultad para alcanzar objetivos comunes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La desarticulación genera islas de trabajo que desgastan al equipo docente y diluyen la efectividad de las metas institucionales.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿Qué significa gestionar la calidad educativa desde una perspectiva de mejoramiento continuo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar resultados, identificar oportunidades de mejora, implementar acciones y evaluar nuevamente sus efectos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La calidad no es un estado estático; es un ciclo permanente de diagnóstico, intervención reflexiva y evaluación constante.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">La calidad educativa debe entenderse principalmente como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un proceso integral que involucra aprendizajes, prácticas pedagógicas, gestión, convivencia, participación y otros factores institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La calidad es un constructo multidimensional que abarca tanto el rendimiento académico como el bienestar, la equidad y el clima escolar.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Por qué los procesos de autoevaluación institucional son importantes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque permiten identificar fortalezas y oportunidades de mejora desde la propia institución.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La autoevaluación empodera a la comunidad para mirarse críticamente y construir soluciones autónomas y contextualizadas.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Cuál es la función de los indicadores de calidad?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Permitir medir o valorar avances respecto de objetivos y resultados esperados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los indicadores operacionalizan los objetivos en variables observables y verificables para monitorear el progreso real.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">¿Cuál de los siguientes sería un indicador más útil para evaluar una estrategia de mejoramiento académico?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Porcentaje de estudiantes que alcanzan el aprendizaje o competencia definida como objetivo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Es un indicador de impacto y resultado directo en el aprendizaje, a diferencia de los indicadores de proceso o asistencia.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Por qué una institución no debería evaluar su calidad únicamente mediante resultados académicos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque la calidad educativa comprende múltiples dimensiones que deben analizarse de manera integral.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Reducir la calidad a pruebas cuantitativas invisibiliza variables críticas como la formación ciudadana, la convivencia y la permanencia.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Qué relación existe entre calidad educativa y mejoramiento continuo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) El mejoramiento continuo permite revisar y ajustar sistemáticamente los procesos para alcanzar mejores resultados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La gestión de calidad requiere procesos dinámicos de autoevaluación y ajuste permanente para responder a los cambios del entorno.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">Una institución alcanza buenos resultados académicos, pero presenta problemas graves de convivencia y alta deserción. ¿Qué debería concluirse?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Que es necesario realizar una evaluación integral de la calidad institucional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las fracturas en convivencia y retención demuestran que la calidad integral está comprometida a pesar del éxito en exámenes estandarizados.</div>
+    </article>
+
+    <!-- MÓDULOS 3 Y 4 -->
+    <div class="module-header">
+        <i class="fas fa-bullseye"></i> Módulos III y IV: Planeación Estratégica, Indicadores y Evaluación (Preguntas 17 a 28)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Cuál es la función de una meta dentro de un proceso de planeación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Convertir un propósito general en un resultado concreto que pueda ser monitoreado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La meta temporaliza y cuantifica el objetivo cualitativo, otorgando un horizonte específico para la rendición de cuentas.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Qué característica debería tener un buen indicador?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ser pertinente, medible y relacionado directamente con el objetivo que se pretende evaluar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un indicador eficaz debe contar con validez metodológica y reflejar con fidelidad la dimensión del objetivo evaluado.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">Una institución establece como objetivo “mejorar significativamente el desempeño académico”. ¿Qué debería hacer para poder realizar seguimiento?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Definir indicadores, línea base, meta y período de medición.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La ambigüedad de "mejorar significativamente" se supera delimitando parámetros numéricos y cronológicos verificables.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿Qué es una línea base en un proceso de planeación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) El resultado o situación inicial que sirve como referencia para medir cambios posteriores.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La línea base representa el punto de partida diagnóstico frente al cual se calcula el progreso alcanzado tras la intervención.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Por qué es importante definir responsables dentro de un plan institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Para identificar quién debe liderar o ejecutar cada acción y facilitar el seguimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Asignar líderes directos asegura la rendición de cuentas e impide que las tareas se diluyan en responsabilidades difusas.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">Una institución establece 20 indicadores para un único proyecto, muchos de ellos sin relación directa con los objetivos. ¿Cuál es el principal problema?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Tiene demasiados indicadores sin suficiente pertinencia, lo que puede dificultar el seguimiento y el análisis.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La sobrecarga de métricas irrelevantes dispersa el análisis directivo y entorpece la toma de decisiones oportunas.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Qué debería hacerse cuando un indicador muestra que una estrategia no está produciendo los resultados esperados?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar las causas y realizar los ajustes necesarios.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El indicador cumple una función de alerta temprana para reorientar la metodología antes del cierre del ciclo institucional.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">¿Cuál es la diferencia entre eficacia y eficiencia en la gestión institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La eficacia se relaciona con alcanzar los resultados previstos y la eficiencia con hacerlo utilizando adecuadamente los recursos disponibles.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La eficacia mide el logro de metas formativas; la eficiencia valora la optimización racional de los recursos empleados para alcanzarlas.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Qué función cumple el seguimiento dentro de un plan institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Permitir verificar avances, dificultades y cumplimiento durante la ejecución.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El seguimiento procesual asegura que las desviaciones operativas sean corregidas a tiempo durante la marcha del plan.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">¿Cuál es el principal riesgo de elaborar un plan institucional sin mecanismos de seguimiento?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Que las acciones se ejecuten sin posibilidad de identificar oportunamente desviaciones o dificultades.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La falta de control intermedio conduce al fracaso del plan al imposibilitar ajustes pedagógicos oportunos.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">Una institución evalúa un proyecto y descubre que cumplió el 100 % de las actividades, pero no logró el resultado esperado. ¿Qué debería analizar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La relación entre las acciones implementadas y los resultados obtenidos, incluyendo la pertinencia de la estrategia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Evidencia una falla en la teoría de cambio del proyecto: las actividades no fueron pedagógicamente pertinentes para generar el impacto deseado.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Qué importancia tiene la retroalimentación en la gestión institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Permite utilizar los resultados obtenidos para ajustar decisiones y mejorar procesos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La retroalimentación cierra el ciclo de mejora continua, transformando los datos evaluativos en aprendizaje institucional.</div>
+    </article>
+
+    <!-- MÓDULO 5 -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Módulo V: Casos Prácticos de Toma de Decisiones y Calidad (Preguntas 29 a 40)
+    </div>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">CASO 1: Una institución identifica bajos resultados en matemáticas. El equipo directivo decide inmediatamente comprar nuevos libros de texto. ¿Cuál debería ser el primer paso?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar las causas del bajo desempeño y las evidencias disponibles antes de seleccionar una intervención.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Adquirir materiales sin diagnosticar las causas didácticas o curriculares genera gastos ineficaces que no resuelven el problema.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">CASO 2: Una institución formula un plan de mejoramiento con excelentes objetivos, pero no establece indicadores ni responsables. ¿Cuál es la principal debilidad?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No existen mecanismos suficientes para realizar seguimiento y determinar el cumplimiento de los resultados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un plan sin responsables ni métricas se convierte en una lista de buenas intenciones sin viabilidad de gestión real.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">CASO 3: Una institución logra aumentar la asistencia de los estudiantes del 85 % al 95 %, pero los resultados de aprendizaje permanecen prácticamente iguales. ¿Cuál es la interpretación más adecuada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La mejora en asistencia es positiva, pero debe analizarse por qué no produjo el impacto esperado en los aprendizajes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La asistencia es una condición necesaria pero no suficiente; se debe auditar la calidad y pertinencia de la mediación pedagógica en el aula.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">CASO 4: Un colegio decide implementar un proyecto de innovación porque otra institución obtuvo buenos resultados con él. Sin embargo, no realiza un diagnóstico de sus propias necesidades. ¿Cuál es el principal problema?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La estrategia puede no responder a las características y necesidades específicas de la institución.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Replicar soluciones foráneas sin análisis del contexto local suele derivar en rechazo y fracaso en la implementación.</div>
+    </article>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 5: Durante la evaluación anual, una institución descubre que una estrategia alcanzó solamente el 40 % de la meta propuesta. El equipo directivo propone eliminarla inmediatamente. ¿Cuál sería una respuesta más adecuada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar las causas del resultado, determinar qué funcionó y qué debe ajustarse antes de decidir su continuidad o modificación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La toma de decisiones reflexiva analiza los factores obstaculizadores antes de descartar prematuramente una iniciativa pedagógica.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 6: Un rector presenta como evidencia de éxito de un plan institucional el hecho de que se realizaron todas las reuniones previstas. ¿Por qué esta evidencia es insuficiente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque el cumplimiento de actividades no demuestra necesariamente el logro de los resultados esperados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Realizar reuniones mide esfuerzo operativo, no impacto pedagógico transformador en las competencias de los educandos.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 7: Una institución quiere mejorar la calidad educativa y decide establecer 50 indicadores para controlar prácticamente todos sus procesos. ¿Qué riesgo existe?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Tener demasiada información poco útil puede dificultar el análisis y desviar la atención de los indicadores realmente estratégicos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El exceso de indicadores satura la capacidad de análisis y diluye la atención sobre los focos críticos del mejoramiento.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 8: Un equipo docente identifica que los estudiantes tienen dificultades para comprender textos. Decide realizar nuevamente las mismas actividades utilizadas anteriormente, pero aumentando su cantidad. ¿Cuál sería una alternativa más coherente con el mejoramiento continuo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar las dificultades específicas y diseñar estrategias diferentes y pertinentes a las causas identificadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aumentar el volumen de una práctica pedagógica ineficaz reproduce los mismos vacíos de comprensión en los alumnos.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 9: Una institución tiene como meta reducir la deserción escolar. Después de un año, la deserción disminuye, pero únicamente en los grados superiores. ¿Qué debería hacer el equipo de gestión?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar los resultados desagregados y determinar por qué la estrategia tuvo diferente impacto según los grados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Desagregar los datos permite comprender la efectividad diferencial de las acciones y rediseñar intervenciones focalizadas por nivel.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 10: Un plan institucional cuenta con presupuesto suficiente y todas las actividades fueron ejecutadas, pero los resultados no mejoraron. ¿Qué conclusión es más adecuada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La ejecución de recursos y actividades no garantiza por sí sola la eficacia del plan; deben analizarse los resultados y el impacto.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La ejecución financiera y formal no es sinónimo de calidad; el éxito directivo se valida únicamente por el impacto formativo logrado.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 11: Durante la autoevaluación institucional, los docentes identifican una fortaleza importante en trabajo colaborativo y una debilidad en seguimiento de los aprendizajes. ¿Cuál sería una estrategia coherente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Utilizar las fortalezas existentes para diseñar acciones que permitan mejorar la debilidad identificada.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La planeación estratégica apalanca las capacidades consolidadas (colegialidad) para superar los procesos deficitarios (evaluación y seguimiento).</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 12: Una institución desea implementar un sistema de gestión de calidad educativa sostenible. ¿Cuál de las siguientes alternativas representa un enfoque más integral?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diagnosticar, planear, ejecutar, medir resultados, retroalimentar, ajustar estrategias y repetir el ciclo de mejoramiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Representa la aplicación completa del ciclo Deming (PHVA), garantizando un sistema de calidad dinámico, participativo y sostenible.</div>
+    </article>
+
+</div>
+
+</body>
+</html>
