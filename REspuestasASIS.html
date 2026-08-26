@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Análisis de Situación de Salud (ASIS)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Análisis de Situación de Salud (ASIS) | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-microscope"></i> Módulos 1, 2 y 3: Fundamentos de APS, Indicadores Epidemiológicos y Demográficos (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">¿Cuál es el propósito fundamental del Análisis de Situación de Salud (ASIS) en los sistemas de salud pública?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Caracterizar, medir y explicar el perfil de salud-enfermedad y sus determinantes sociales para priorizar problemas y orientar planes y políticas territoriales basadas en evidencia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El ASIS es el proceso científico e institucional que fundamenta la toma de decisiones, la planeación en salud y la asignación eficiente de recursos en el territorio.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Qué principio rector de la Atención Primaria en Salud (APS) orienta el desarrollo metodológico del ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Equidad y universalidad, identificando desigualdades evitables e injustas (inequidades) en salud entre subgrupos poblacionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El ASIS busca visibilizar las brechas de salud para focalizar acciones afirmativas que garanticen el derecho fundamental a la salud a los grupos más vulnerables.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">En el marco de los Determinantes Sociales de la Salud (OMS), ¿cuál de los siguientes factores constituye un determinante estructural?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La estratificación socioeconómica, las políticas macroeconómicas, el mercado de empleo y los niveles de escolaridad formal.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los determinantes estructurales son aquellos mecanismos sociales, económicos y políticos que generan estratificación y determinan la posición social de los individuos.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Cuál es la diferencia epidemiológica fundamental entre la Tasa de Incidencia y la Tasa de Prevalencia?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La incidencia cuantifica el número de casos nuevos de una enfermedad en un periodo en población a riesgo; la prevalencia mide la proporción total de casos existentes (antiguos y nuevos) en un momento dado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La incidencia evalúa la velocidad de propagación y riesgo de enfermar; la prevalencia estima la carga acumulada de la enfermedad en la población.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Por qué la Tasa de Mortalidad Infantil (TMI) es considerada uno de los indicadores trazadores más sensibles de la calidad de vida y salud de un territorio?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque refleja de manera directa el nivel de saneamiento básico, nutrición, escolaridad materna, acceso y oportunidad de los servicios de salud y desarrollo socioeconómico general.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La supervivencia en el primer año de vida es extremadamente vulnerable a las condiciones del entorno y a la efectividad de las políticas de salud primaria.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué miden los Años de Vida Potencialmente Perdidos (AVPP) dentro del perfil epidemiológico de un ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El impacto de la mortalidad prematura, cuantificando los años que una persona deja de vivir si fallece antes de la esperanza de vida teórica fijada.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los AVPP dan mayor peso relativo a las muertes ocurridas en edades tempranas (violencia, accidentes, patologías prevenibles), orientando prioridades de prevención.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Cómo se define y calcula técnicamente la Razón de Mortalidad Materna (RMM)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Número de defunciones maternas ocurridas durante el embarazo, parto o puerperio por cada 100.000 nacidos vivos en un periodo y área determinados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Es el estándar internacional que relaciona las muertes maternas con los nacidos vivos como aproximación a la población expuesta al riesgo obstétrico.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">¿Qué fenómenos caracterizan la Transición Demográfica y Epidemiológica que experimentan las poblaciones en el ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El descenso sostenido de la fecundidad y mortalidad, el envejecimiento poblacional progresivo y el cambio de predominio de patologías infecciosas hacia enfermedades crónicas no transmisibles y causas externas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La transición demográfica modifica la estructura de edades de la pirámide y la epidemiológica transforma las causas principales de morbimortalidad.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">Una pirámide poblacional de tipo regresivo o constrictivo (con base estrecha y ensanchamiento en edades medias y adultas) indica:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Disminución sostenida de la natalidad, envejecimiento demográfico paulatino y aumento futuro de la demanda de servicios de salud para enfermedades degenerativas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La base estrecha señala baja tasa de natalidad y el ensanchamiento superior anticipa una mayor carga de enfermedades crónicas asociadas a la vejez.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">Los Años de Vida Ajustados por Discapacidad (AVAD / DALYs) combinan en un solo indicador:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La carga de la enfermedad, sumando los años perdidos por muerte prematura (AVPP) y los años vividos con discapacidad o pérdida de salud (AVD).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los DALYs cuantifican tanto la mortalidad prematura como la morbilidad no fatal que deteriora la calidad de vida de las personas.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Cuál es la diferencia entre fuentes de información primarias y secundarias para la construcción de un ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Las primarias se recolectan directamente en el terreno (encuestas comunitarias, grupos focales, cartografía social); las secundarias provienen de registros existentes (RIPS, RUAF, SIVIGILA, Censos DANE).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las fuentes secundarias aportan datos cuantitativos consolidados y las primarias capturan la vivencia comunitaria y llenan vacíos de información.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Qué impacto genera el "subregistro epidemiológico" en el análisis diagnóstico de un ASIS territorial?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Invisibiliza la magnitud real de eventos de salud, introduce sesgos en las tasas calculadas y conduce a una asignación inadecuada e ineficiente de recursos públicos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La omisión de datos produce una falsa sensación de seguridad sanitaria y distorsiona las prioridades de intervención territorial.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">El indicador de Necesidades Básicas Insatisfechas (NBI) evalúa la pobreza estructural a través de cinco componentes, entre los cuales se incluyen:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Vivienda precaria, servicios públicos inadecuados, hacinamiento crítico, alta dependencia económica y presencia de niños no escolarizados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El método de NBI captura carencias estructurales directas en infraestructura y capital humano independientes del ingreso coyuntural.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Qué evalúa el Índice de Vulnerabilidad Territorial en la caracterización de un territorio?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La susceptibilidad de las comunidades ante riesgos sanitarios y ambientales, ponderando factores socioeconómicos, amenazas biológicas y barreras de acceso a servicios.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Permite jerarquizar microterritorios que requieren atención prioritaria debido a la convergencia de amenazas y baja capacidad de respuesta.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Cuál es la diferencia técnica entre la Tasa de Letalidad y la Tasa de Mortalidad por una patología específica?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La letalidad mide la gravedad de la enfermedad (proporción de personas enfermas que mueren por esa causa); la mortalidad mide el riesgo de morir por esa patología en la población general.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El denominador de la letalidad son exclusivamente los pacientes diagnosticados; el denominador de la mortalidad es la población total expuesta.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">Los atributos de calidad del dato en salud (completitud, consistencia, oportunidad y validez) aseguran que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Las estadísticas epidemiológicas reflejen fielmente la realidad sanitaria, permitiendo tomar decisiones seguras y diseñar políticas públicas efectivas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La confiabilidad de un ASIS depende de la calidad técnica y la veracidad de los registros que alimentan los sistemas de información.</div>
+    </article>
+
+    <!-- MÓDULOS 4, 5 Y 6 -->
+    <div class="module-header">
+        <i class="fas fa-chart-pie"></i> Módulos 4, 5 y 6: Metodología ASIS, Priorización, Vigilancia y Gestión Territorial (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Cuál es el orden metodológico secuencial correcto para elaborar un ASIS territorial institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Planificación y definición del alcance, recolección y análisis de datos demográficos/epidemiológicos, priorización participativa de problemas y formulación de líneas de acción.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La metodología estandarizada del ASIS exige un proceso lógico que va desde la planificación y el análisis analítico hasta la priorización y formulación estratégica.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">En la metodología de Hanlon para la priorización de problemas en salud, ¿cuáles son los cuatro componentes de la fórmula de puntuación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Magnitud del problema (A), Severidad/Gravedad (B), Eficacia de la intervención (C) y Factibilidad del programa PEARL (D).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La fórmula $(A+B) \times C \times D$ pondera el tamaño y gravedad del evento con la capacidad técnica y viabilidad política/económica de resolverlo.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Cuál es la utilidad de la Matriz de Vester en el análisis de problemáticas del ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificar relaciones de causa-efecto entre problemas, clasificándolos en problemas críticos (alta influencia/alta dependencia), pasivos, activos e indiferentes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Permite distinguir las causas raíz generadoras de la morbilidad de aquellos problemas que son meras consecuencias o efectos secundarios.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">El Sistema de Vigilancia en Salud Pública (SIVIGILA) cumple la función de:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Proveer información sistemática, continua y oportuna sobre eventos de interés en salud pública para orientar la toma de decisiones y medidas de prevención y control.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El SIVIGILA monitoriza en tiempo real la dinámica de las enfermedades transmisibles y crónicas sujetas a reporte obligatorio en el país.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">En vigilancia epidemiológica, ¿qué distingue a un "Caso Probable" de un "Caso Confirmado"?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El caso probable cumple criterios clínicos y nexo epidemiológico; el confirmado cuenta con evidencia definitiva mediante pruebas de laboratorio o criterios diagnósticos validados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La clasificación gradual de casos permite activar medidas preventivas inmediatas ante sospecha sin esperar el resultado final confirmatorio.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">¿Cómo se articula directamente el diagnóstico del ASIS con el Plan Territorial de Salud (PTS)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El ASIS constituye la fase diagnóstica estratégica obligatoria que fundamenta la definición de metas, ejes estratégicos y asignación de recursos del Plan de Salud Territorial.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La normatividad en salud exige que todo plan territorial se desprenda rigurosamente del perfil epidemiológico consolidado en el ASIS.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Por qué es fundamental la participación social y comunitaria en el componente deliberativo del ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque aporta la perspectiva cualitativa vivencial, valida las prioridades territoriales, dota de legitimidad a los hallazgos y compromete a la comunidad en las soluciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La participación social convierte a los ciudadanos de objetos de estudio en sujetos activos del diagnóstico y la gestión de su propia salud.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">¿Qué ventaja aporta la Georreferenciación y el Mapeo Comunitario en el análisis de salud pública?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Permite visualizar la distribución espacial de eventos, identificar conglomerados (clusters) de riesgo, microterritorios vulnerables y barreras geográficas de acceso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los Sistemas de Información Geográfica (SIG) permiten focalizar intervenciones en puntos calientes (*hotspots*) donde se concentran los brotes o inequidades.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">La Intersectorialidad en la respuesta a los problemas identificados por el ASIS exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La concurrencia y articulación coordinada de sectores como educación, agua potable, vivienda, ambiente y desarrollo social para incidir en los determinantes de la salud.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Dado que la salud se produce en los entornos cotidianos, resolver los problemas priorizados exige alianzas interinstitucionales más allá de la red hospitalaria.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">En la caracterización extramural de APS, la "Ficha Familiar" es una herramienta que permite:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Caracterizar la estructura familiar, ciclo vital, riesgos ambientales del entorno, estado vacunal y patologías crónicas de todos los convivientes para planificar el cuidado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La ficha familiar integra datos bio-psicosociales del núcleo familiar para estratificar riesgos y programar visitas domiciliarias integrales.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">¿Qué caracteriza a la Vigilancia Comunitaria y los Sistemas de Alerta Temprana en el nivel local?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La detección y reporte oportuno y simplificado de signos de alarma o eventos inusuales en el territorio por parte de líderes comunitarios capacitados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Acorta los tiempos de respuesta epidemiológica aprovechando la presencia cotidiana de los líderes y agentes comunitarios.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">En epidemiología, el "Canal Endémico" permite:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Monitorear el comportamiento histórico de una enfermedad para identificar precozmente si el número de casos actuales se sitúa en zona de éxito, seguridad, alarma o epidemia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Al comparar la incidencia observada con las frecuencias esperadas (cuartiles históricos), detecta desviaciones que alertan sobre brotes epidémicos.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">Las pruebas de cribado o tamizaje masivo recomendadas a partir del ASIS deben aplicarse cuando:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La enfermedad representa un problema relevante de salud pública, cuenta con fase presintomática detectable y existe tratamiento eficaz disponible (ej. citología, mamografía).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Cumplen con los criterios clásicos de Wilson y Jungner para garantizar beneficio clínico y costo-efectividad poblacional.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">El "Enfoque de Curso de Vida" en el ASIS analiza la salud poblacional considerando:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Que los resultados en salud en cada etapa vital se construyen acumulativamente a partir de experiencias, exposiciones, transiciones y riesgos vividos desde la gestación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Supera la visión fragmentada por grupos de edad y comprende la salud como un proceso acumulativo a lo largo de toda la existencia.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Cuáles son las cuatro tipologías principales de barreras de acceso a los servicios de salud que identifica un ASIS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Barreras geográficas/territoriales, económicas, culturales/lingüísticas y administrativas/institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Analizar estas cuatro dimensiones permite desmontar los obstáculos que impiden el uso efectivo y oportuno de la atención sanitaria.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">La evaluación del impacto de las intervenciones derivadas del ASIS debe medirse mediante:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Cambios verificables y sostenibles en los indicadores trazadores de morbimortalidad, reducción de brechas de inequidad y mejoría de los determinantes de la comunidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La efectividad de las políticas de salud pública se juzga por la transformación tangible en la calidad de vida y supervivencia de la población.</div>
+    </article>
+
+    <!-- MÓDULOS 7 Y 8 -->
+    <div class="module-header">
+        <i class="fas fa-user-md"></i> Módulos 7 y 8: Ética, Sistemas de Información y Casos Aplicados de ASIS (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">En el procesamiento de bases de datos poblacionales para el ASIS, la Ley de Protección de Datos Personales (Habeas Data) exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Anonimizar o disociar los microdatos personales, garantizando estricta confidencialidad y usando la información con fines exclusivamente estadísticos y epidemiológicos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La información clínica es sensible y confidencial; su explotación analítica exige resguardar la identidad e intimidad de los titulares.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">El Consentimiento Informado en la recolección de información primaria comunitaria en salud implica:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Explicar de manera clara y comprensible los objetivos del estudio, el uso de los datos y el carácter voluntario de la participación, respetando la autonomía individual.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Es un imperativo bioético que respeta el principio de autonomía y asegura la transparencia en la recolección de datos en terreno.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 1: Tras una temporada de inundaciones en un municipio ribereño, el ASIS detecta un aumento del 300 % en la incidencia de Enfermedad Diarreica Aguda (EDA) en menores de 5 años. Se evidencia colapso del alcantarillado y consumo de agua no tratada. ¿Cuál es la intervención inmediata prioritaria?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Desplegar respuesta de emergencia intersectorial: distribución masiva de métodos de desinfección de agua (cloración/filtros), vigilancia activa comunitaria de signos de deshidratación con sales de rehidratación oral y educación en manejo del agua segura en el hogar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Corta la fuente de transmisión biológica mediante el saneamiento del agua y previene la mortalidad por choque hipovolémico mediante hidratación oral oportuna.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 2: El ASIS institucional registra una tasa de notificación de Tuberculosis Pulmonar cercana a cero en una zona rural dispersa. Sin embargo, en visitas extramurales se detectan adultos con tos crónica de más de 15 días, hemoptisis y pérdida de peso severa. ¿Qué problema epidemiológico existe y qué acción procede?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Existe un grave subregistro por barreras geográficas de acceso; se debe activar de inmediato la búsqueda activa comunitaria de sintomáticos respiratorios, toma de baciloscopias en terreno e inicio de esquema TAES/DOTS.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las barreras de acceso enmascaran la circulación bacilar; la búsqueda activa extramural diagnostica los casos y frena la cadena de transmisión comunitaria.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 3: Un municipio cuenta con recursos financieros limitados y el ASIS identifica tres problemáticas: alta prevalencia de caries dental leve, aumento de mortalidad materna por hemorragia obstétrica e incremento moderado de lumbalgias en adultos. Aplicando criterios de priorización en salud pública, ¿dónde deben focalizarse los recursos prioritarios?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) En la mortalidad materna, debido a su extrema severidad, trascendencia social, impacto en años de vida perdidos y existencia de intervenciones altamente costo-efectivas (código rojo obstétrico y control prenatal de calidad).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La mortalidad materna es inaceptable y prevenible; su gravedad y trascendencia ética y demográfica la sitúan como máxima prioridad de salud pública.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 4: En una comuna urbana de estrato bajo se reporta un brote epidémico de Dengue. La georreferenciación muestra que el 80 % de los casos se concentran en cuatro manzanas aledañas a un lote con acumulación de llantas y tanques abiertos. ¿Cuál es la estrategia integral que debe liderar el equipo de salud territorial?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Focalización microterritorial: intervención intersectorial para retiro de llantas, control físico y biológico de larvas casa a casa, movilización comunitaria en lavado de tanques y refuerzo de la red de triaje para detección precoz de signos de alarma.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aplica el análisis espacial para intervenir con precisión el foco ambiental del vector y fortalece la red asistencial para evitar muertes por dengue grave.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 5: El ASIS territorial revela una tasa de embarazo adolescente del 28 % en población escolarizada de 14 a 17 años, asociada a deserción escolar y perpetuación de la pobreza. ¿Qué intervención estratégica intersectorial debe implementarse?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Articulación salud-educación: implementación de Servicios de Salud Amigables para Adolescentes, educación integral en sexualidad, asesoría en anticoncepción de larga duración sin barreras y programas de permanencia escolar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aborda la problemática de manera integral garantizando derechos sexuales y reproductivos en entornos educativos sin barreras burocráticas.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 6: En una comunidad indígena dispersa se registra una muerte materna por retraso en el reconocimiento del riesgo y falta de transporte fluvial nocturno. Los líderes manifiestan desconfianza en el hospital por maltrato cultural previo. ¿Cuál es la respuesta de gestión de APS más sólida y sostenible?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Concertar con las autoridades indígenas un modelo de parto intercultural humanizado, capacitar y articular a las parteras tradicionales como agentes de detección temprana de alarmas, e instaurar un sistema de transporte de emergencia veredal y casas de paso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El diálogo intercultural y la alianza con la medicina tradicional eliminan barreras de confianza y salvan vidas articulando saberes ancestrales con la red hospitalaria.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

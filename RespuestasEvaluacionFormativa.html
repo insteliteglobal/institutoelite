@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Evaluación Formativa y Estrategias de Mejora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Evaluación Formativa y Estrategias para el Mejoramiento | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 1 Y 2 -->
+    <div class="module-header">
+        <i class="fas fa-clipboard-check"></i> Módulos 1 y 2: Fundamentos e Instrumentos de Evaluación (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">¿Cuál es la finalidad principal de la evaluación formativa dentro del proceso de enseñanza-aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Monitorear y regular el proceso de aprendizaje continuo, ofreciendo retroalimentación para ajustar la enseñanza y potenciar los logros del estudiante.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La evaluación formativa se orienta al acompañamiento y ajuste procesual pedagógico, distanciándose de la simple acreditación o sanción terminal.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Qué diferencia existe entre evaluar para calificar y evaluar para aprender?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Evaluar para calificar busca acreditar o certificar un resultado terminal, mientras que evaluar para aprender recopila evidencias para orientar la mejora durante el proceso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Evaluar para calificar cumple una función sumativa y acreditativa; evaluar para aprender coloca la evidencia al servicio de la retroalimentación y la regulación didáctica.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">¿Por qué la evaluación formativa debe desarrollarse durante todo el proceso educativo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque permite identificar a tiempo las brechas cognitivas y reajustar las estrategias antes de que los vacíos se consoliden.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La continuidad evaluativa asegura la detección temprana de errores para intervenir oportunamente antes de que se produzca el fracaso escolar.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Qué papel desempeña el estudiante dentro de un proceso de evaluación formativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Agente activo y reflexivo capaz de autorregular su aprendizaje mediante la autoevaluación y coevaluación fundamentada.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La evaluación formativa empodera al estudiante, convirtiéndolo en partícipe crítico de su propio progreso cognitivo mediante la autorregulación.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Cuál de las siguientes situaciones representa mejor una evaluación orientada al aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La revisión de borradores de un proyecto con retroalimentación descriptiva y criterios claros antes de la entrega final.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Analizar versiones intermedias permite al estudiante incorporar las sugerencias y transformar el error en aprendizaje efectivo antes de la valoración terminal.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué relación existe entre evaluación formativa y toma de decisiones pedagógicas?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Los datos de la evaluación proporcionan evidencia directa para adaptar el ritmo, diversificar metodologías y replantear actividades didácticas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La evaluación formativa carece de sentido si sus resultados no retroalimentan y modifican la práctica del propio docente en el aula.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Por qué los resultados de una evaluación no deberían utilizarse únicamente para asignar una calificación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque una nota aísla el resultado e invisibiliza las causas del error, impidiendo al alumno comprender cómo superar sus dificultades.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La nota numérica cuantifica pero no explica; sin retroalimentación cualitativa, el estudiante desconoce cómo avanzar hacia el dominio de la competencia.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">¿Qué característica distingue a una evaluación formativa de una evaluación exclusivamente sumativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Su intencionalidad procesual orientada a la retroalimentación constructiva, en contraste con el carácter certificador y terminal de la sumativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La diferencia radica en el propósito pedagógico: una acompaña y orienta la mejora en curso; la otra juzga y certifica un estado final concluido.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿En qué situación resulta más apropiado utilizar una rúbrica?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Al valorar tareas complejas, desempeños auténticos o proyectos que involucran múltiples criterios y niveles progresivos de calidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las rúbricas son idóneas para desempeños abiertos y complejos porque desglosan niveles cualitativos de logro, reduciendo la subjetividad.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Qué ventajas ofrece una lista de cotejo frente a una evaluación exclusivamente basada en preguntas de selección múltiple?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Permite verificar sistemáticamente la presencia o ausencia de acciones procedimentales y evidencias observables durante la ejecución de una tarea.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La lista de cotejo es un instrumento directo para evaluar secuencias de desempeño práctico y habilidades procedimentales in situ.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Qué elementos debería contener un instrumento de evaluación para garantizar mayor claridad y objetividad?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Criterios explícitos alineados con los objetivos, descriptores de desempeño observables y escalas de valoración comprensibles.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La objetividad y confiabilidad de un instrumento dependen de la precisión operativa de sus descriptores y su alineación con el aprendizaje esperado.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Cuál es la utilidad de los criterios de evaluación previamente comunicados a los estudiantes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Transparentan las metas de aprendizaje, orientan el esfuerzo del estudiante y le permiten autorregular su desempeño durante la actividad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Compartir criterios transparenta las expectativas formativas, reduce la ambigüedad y facilita la autoevaluación del alumno durante su trabajo.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">¿Cuándo sería pertinente utilizar una escala de valoración?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Cuando se necesita evaluar el grado de intensidad, frecuencia o calidad con que se manifiesta un determinado desempeño o habilidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> A diferencia de las listas dicotómicas, las escalas estimativas permiten graduar niveles de logro o frecuencias de conductas observables.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Qué diferencia existe entre un criterio de evaluación y un indicador de desempeño?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) El criterio define la dimensión o estándar general que se valora; el indicador describe la señal, conducta o evidencia concreta observable.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El criterio establece el "qué valorar" a nivel conceptual amplio; el indicador operacionaliza "cómo se evidencia" esa competencia en la práctica.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Por qué es importante seleccionar el instrumento de evaluación de acuerdo con el aprendizaje que se pretende valorar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque asegura la validez de la evaluación, garantizando coherencia constructiva entre lo que se enseña y la evidencia requerida.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La validez evaluativa exige que el instrumento capture con fidelidad la naturaleza del aprendizaje (conceptual, procedimental o actitudinal).</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">Un docente utiliza el mismo instrumento de opción múltiple para evaluar conocimientos teóricos, habilidades prácticas en taller y actitudes. ¿Qué problema presenta esta decisión?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Falta de validez de constructo, pues las competencias procedimentales y actitudinales requieren observación y ejecución real, no pruebas escritas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Evaluar habilidades prácticas con pruebas teóricas desnaturaliza la competencia; el desempeño técnico requiere valoración auténtica en contexto.</div>
+    </article>
+
+    <!-- MÓDULO 3 Y 4 -->
+    <div class="module-header">
+        <i class="fas fa-comments"></i> Módulos 3 y 4: Retroalimentación y Estrategias de Mejora (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Qué características debe tener una retroalimentación efectiva?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Ser específica, oportuna, comprensible, orientada a criterios y enfocada en orientar los siguientes pasos de mejora (feedforward).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> De acuerdo con Hattie y Timperley, la retroalimentación de alto impacto aclara metas, describe el desempeño actual y guía la acción futura.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Cuál de las siguientes situaciones representa una retroalimentación orientada a la mejora?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) "Tus argumentos iniciales son sólidos, pero en la sección 3 falta contrastar con datos empíricos; revisa el autor propuesto para fundamentar".</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Reconoce el acierto, delimita con precisión el vacío y entrega una recomendación metodológica concreta para resolverlo.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Por qué decirle a un estudiante únicamente “bien” o “mal” tiene un valor limitado desde la perspectiva formativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque no proporciona información descriptiva sobre las causas del logro ni pautas para corregir las deficiencias identificadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los juicios valorativos escuetos no aportan información cognitiva; el estudiante no aprende cómo replicar el éxito ni cómo enmendar la falla.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿En qué momento debe realizarse la retroalimentación para que tenga mayor impacto en el aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) De manera continua durante el desarrollo de la tarea, permitiendo al estudiante aplicar los ajustes en tiempo real.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La retroalimentación es más potente cuando ocurre durante la fase de elaboración, antes de que el trabajo esté cerrado y calificado.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Cómo debería actuar un docente cuando un estudiante comete errores durante una actividad de aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Asumir el error como una oportunidad pedagógica, formulando preguntas guía para que el alumno analice su razonamiento y encuentre la solución.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El error es una ventana a la estructura cognitiva del alumno; abordarlo con andamiaje reflexivo genera aprendizaje profundo.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">¿Qué diferencia existe entre retroalimentar el resultado y retroalimentar el proceso?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Retroalimentar el resultado valora el producto final concluido; retroalimentar el proceso analiza las estrategias cognitivas, pasos y métodos empleados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Focalizarse en el proceso fortalece las habilidades de autorregulación y permite al estudiante transferir métodos eficaces a nuevas tareas.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Cómo puede la retroalimentación promover la autonomía del estudiante?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Formulando preguntas reflexivas y andamiajes que estimulen el pensamiento crítico y la toma de decisiones sobre su propio trabajo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Guiar mediante preguntas estimula el pensamiento divergente y evita la dependencia pasiva de las correcciones del docente.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Un docente devuelve una actividad con una calificación de 3,5/5, pero sin comentarios ni observaciones. ¿Qué oportunidad de aprendizaje se está perdiendo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El diálogo formativo donde el estudiante comprende qué competencias consolidó y cuáles aspectos específicos debe reestructurar para mejorar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Una calificación aislada clausura el ciclo formativo sin dejar aprendizajes sobre cómo superar las brechas evidenciadas.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Qué debería hacer un docente después de identificar dificultades recurrentes en los resultados de sus estudiantes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar las causas didácticas del obstáculo, diversificar las estrategias metodológicas y diseñar actividades de nivelación contextualizadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las dificultades generalizadas del grupo exigen una revisión autocrítica de la mediación didáctica y una intervención diferenciada oportuna.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">¿Por qué es importante utilizar los resultados de evaluación para ajustar las estrategias de enseñanza?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque convierte la evaluación en un insumo autorregulador de la docencia, garantizando que la enseñanza responda a las necesidades reales del grupo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La evaluación formativa fundamenta la toma de decisiones informada, evitando la rigidez de planes de estudio descontextualizados.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">¿Qué estrategia sería más adecuada para atender estudiantes que presentan diferentes ritmos de aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Aplicar los principios del DUA mediante rutas de trabajo multinivel, recursos diversificados y andamiajes de apoyo flexibles.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El DUA y la diferenciación pedagógica permiten que cada estudiante progrese desde su nivel sin renunciar a las metas formativas altas.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Cómo puede utilizarse la evaluación diagnóstica para mejorar posteriormente los aprendizajes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificando esquemas previos y vacíos conceptuales para diseñar la ruta curricular a partir del estado cognitivo real del grupo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El diagnóstico inicial establece la línea base real sobre la cual anclar significativamente los nuevos contenidos del curso.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">¿Qué papel tiene la metacognición en el mejoramiento del aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Permite al estudiante monitorear, reflexionar y regular sus propias estrategias de procesamiento mental para aprender con mayor eficacia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El aprendizaje permanente y autónomo depende de la capacidad del estudiante para pensar sobre su propio pensamiento y corregirse.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">¿Cómo puede el aprendizaje colaborativo contribuir a superar dificultades identificadas mediante la evaluación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Fomentando la mediación entre pares y la co-construcción, donde el intercambio dialógico aclara dudas desde perspectivas cercanas al alumno.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La interacción entre pares activa la Zona de Desarrollo Próximo, facilitando explicaciones alternativas que destraban obstáculos cognitivos.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Por qué la recuperación de aprendizajes no debería limitarse simplemente a repetir la misma explicación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque si una mediación didáctica no funcionó inicialmente, reiterarla de modo idéntico reproducirá las mismas barreras cognitivas en el estudiante.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Superar un obstáculo requiere cambiar el enfoque, ofrecer representaciones diversas y emplear metodologías complementarias.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">Un grupo presenta dificultades persistentes en una competencia. ¿Cuál debería ser el primer paso del docente antes de implementar una nueva estrategia?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Indagar en profundidad sobre las concepciones erróneas y la naturaleza específica del obstáculo cognitivo mediante entrevistas o preguntas clave.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Antes de diseñar una solución es imperativo diagnosticar con exactitud el origen conceptual del error o la barrera de aprendizaje.</div>
+    </article>
+
+    <!-- MÓDULO 5 -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Módulo 5: Casos Prácticos de Toma de Decisiones Docentes (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Un docente aplica una evaluación y descubre que el 70 % del grupo no alcanzó el aprendizaje esperado. ¿Cuál sería la respuesta más coherente con un enfoque formativo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Asumir la evidencia como una alerta sobre la eficacia de la mediación docente, reestructurar la secuencia didáctica y rediseñar nuevas experiencias antes de reevaluar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un índice de reprobación masivo evidencia una falla en el diseño de la mediación docente que debe ser subsanada antes de evaluar nuevamente.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: Un estudiante recibe una calificación baja y pregunta al profesor qué debe hacer para mejorar. El profesor responde tajantemente: “Debes estudiar más”. ¿Por qué esta respuesta resulta insuficiente desde la evaluación formativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque carece de valor orientador: no clarifica cuáles fueron los errores conceptuales, qué estrategias debe modificar ni qué criterios específicos debe alcanzar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> "Estudiar más" es una consigna vacía; la retroalimentación formativa debe indicar qué estudiar, con qué método y bajo qué criterios de calidad.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Un profesor detecta que un subgrupo domina la competencia con soltura mientras otros presentan vacíos estructurales severos. ¿Qué estrategia sería más adecuada para atender esta diversidad?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Implementar estaciones de trabajo diversificadas: actividades de profundización para los avanzados y talleres guiados con andamiajes específicos para quienes presentan dificultades.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La diversificación y las estaciones multinivel responden simultáneamente a las necesidades de refuerzo y enriquecimiento del aula heterogénea.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Un docente modifica una actividad planificada después de analizar los errores más frecuentes cometidos por sus estudiantes en una tarea diagnóstica. ¿Qué principio de la evaluación formativa está aplicando?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La regulación pedagógica retroactiva y el uso formativo de la evidencia para la toma de decisiones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La regulación retroactiva consiste en reorientar la enseñanza inmediata basándose en los datos arrojados por las evaluaciones procesuales.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Dos estudiantes obtienen la misma calificación (3,8) en una actividad, pero uno demuestra avances significativos respecto a su nivel inicial muy bajo y el otro se estancó respecto a su rendimiento excelente previo. ¿Qué aspecto debería considerar el docente además de la calificación estática?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La trayectoria de progreso individual y el valor formativo del esfuerzo y la superación personal (evaluación ipsativa/progresiva).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La evaluación formativa valora el progreso individual (ipsativo) reconociendo el crecimiento personal más allá de un promedio estático.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Un docente realiza pruebas semanales durante todo el periodo académico, pero nunca modifica sus clases magistrales a partir de los resultados obtenidos. ¿Puede afirmarse que está aplicando evaluación formativa? ¿Por qué?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No, porque evaluar con frecuencia sin retroalimentar ni ajustar la enseñanza solo constituye una secuencia de exámenes sumativos fragmentados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La frecuencia no convierte una evaluación en formativa; lo que la define es el uso regulador de los resultados para transformar la enseñanza.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Un estudiante realiza una autoevaluación con base en una rúbrica y reconoce con precisión cuáles fueron sus fortalezas y en qué aspectos procedimentales falló. ¿Qué competencia está consolidando principalmente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Metacognición, autorregulación del aprendizaje y capacidad autocrítica informada.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El reconocimiento consciente de las propias fortalezas y brechas mediante criterios objetivos es el pilar de la competencia autorreguladora.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Después de una evaluación, un docente analiza las fallas grupales, ofrece retroalimentación detallada, ajusta la mediación en clase y finalmente vuelve a evaluar el desempeño. ¿Por qué este ciclo representa una aplicación ejemplar de la evaluación formativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque cumple el ciclo completo de mejora continua: diagnostica la dificultad, orienta la rectificación, reestructura la enseñanza y valida el logro de la competencia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Integra armónicamente los cuatro momentos del ciclo formativo: recolección de evidencia, feedback dialogado, ajuste didáctico y validación formativa.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

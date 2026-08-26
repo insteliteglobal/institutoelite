@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Derechos Humanos y Construcción de Paz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Derechos Humanos y Construcción de Paz | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1 Y 2 -->
+    <div class="module-header">
+        <i class="fas fa-dove"></i> Módulos I y II: Fundamentos de DD.HH. y Mecanismos de Protección (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">¿Cuál es el fundamento ontológico y ético principal de los Derechos Humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La dignidad intrínseca e inalienable inherente a todos los miembros de la familia humana, sin distinción alguna.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La dignidad humana es la base preexistente de todo el marco normativo internacional y constitucional de los derechos fundamentales.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Qué implica jurídicamente el principio de indivisibilidad e interdependencia de los Derechos Humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Que el goce efectivo de cualquier derecho depende del cumplimiento de los demás; no pueden jerarquizarse ni garantizarse de forma aislada.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La privación de los derechos económicos y sociales lesiona directamente el ejercicio pleno de los derechos civiles y políticos, y viceversa.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">¿Qué instrumentos internacionales conforman la llamada "Carta Internacional de Derechos Humanos"?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La Declaración Universal de 1948, el Pacto Internacional de Derechos Civiles y Políticos (PIDCP) y el Pacto Internacional de Derechos Económicos, Sociales y Culturales (PIDESC).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Esta tríada documental constituye el núcleo universal vinculante del sistema de protección de derechos de las Naciones Unidas.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Cuál es la diferencia fundamental entre el Derecho Internacional de los Derechos Humanos (DIDH) y el Derecho Internacional Humanitario (DIH)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) El DIDH rige en todo tiempo (paz y conflicto) protegiendo a la persona frente al Estado; el DIH aplica exclusivamente en conflictos armados limitando métodos de combate y protegiendo a los no combatientes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El DIH (Convenios de Ginebra) es un derecho de excepción aplicable únicamente en hostilidades armadas, mientras que el DIDH es de observancia permanente.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Qué significa la figura del "Bloque de Constitucionalidad" en el ordenamiento jurídico colombiano?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La integración de tratados internacionales de DD.HH. y DIH ratificados por Colombia con rango constitucional prevalente en el orden interno.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Conforme al artículo 93 de la Constitución Política, los tratados de DD.HH. ratificados prevalecen en el orden interno y sirven para interpretar los derechos constitucionales.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué caracteriza a los derechos de segunda generación (Derechos Económicos, Sociales y Culturales - DESC)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Demandan obligaciones prestacionales activas y asignación progresiva de recursos del Estado para garantizar salud, educación, trabajo y vivienda digna.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los DESC exigen políticas públicas presupuestales y acciones afirmativas del Estado para asegurar condiciones materiales de vida digna.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Cuál es el alcance del principio de progresividad y no regresividad en materia de derechos humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Los Estados tienen el deber de avanzar continuamente hacia el pleno goce de los derechos y tienen prohibido adoptar medidas que desmejoren los niveles de protección ya alcanzados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El principio de no regresividad impide a los gobiernos reducir garantías sociales o recortar derechos consolidados sin estricta justificación constitucional.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">¿Qué diferencia sustancial existe entre la igualdad formal y la igualdad material ante la ley?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La formal establece que todos son iguales ante la norma; la material exige acciones afirmativas estatales para equiparar condiciones a poblaciones históricamente discriminadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La igualdad material (Art. 13 C.P.) promueve la equidad real mediante tratos diferenciados positivos hacia grupos vulnerables.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿Cuál es la naturaleza jurídica de la Acción de Tutela consagrada en el Artículo 86 de la Constitución Política de Colombia?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un mecanismo judicial preferente y sumario para la protección inmediata de los derechos constitucionales fundamentales cuando resulten vulnerados o amenazados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La tutela es el instrumento judicial más ágil y directo del ciudadano colombiano para salvaguardar sus derechos fundamentales sin dilaciones burocráticas.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿En qué escenario resulta procedente la Acción Popular en el contexto constitucional colombiano?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Para proteger derechos e intereses colectivos como el medio ambiente sano, el espacio público, la moral administrativa y la seguridad pública.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Acción Popular (Ley 472 de 1998) defiende derechos difusos y colectivos que pertenecen a toda la comunidad.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Cuál es la función primordial de la Defensoría del Pueblo en Colombia dentro del Ministerio Público?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Velar por la promoción, el ejercicio, la divulgación y la defensa de los Derechos Humanos mediante asesoría, alertas tempranas e interposición de acciones legales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Defensoría ejerce la magistratura moral y la defensa jurídica de la población ante riesgos y vulneraciones de derechos.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Cuál es la diferencia entre la Comisión Interamericana de Derechos Humanos (CIDH) y la Corte Interamericana de Derechos Humanos (Corte IDH)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La CIDH es un órgano cuasi-judicial que tramita peticiones y dicta medidas cautelares; la Corte IDH es el tribunal judicial que emite sentencias vinculantes y condenatorias contra Estados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La CIDH investiga y formula recomendaciones; la Corte IDH juzga en última instancia internacional a los Estados miembros que aceptaron su competencia contenciosa.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">¿Bajo qué competencia actúa la Corte Penal Internacional (CPI) según el Estatuto de Roma?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) De forma complementaria y subsidiaria para juzgar a individuos responsables de crímenes de guerra, lesa humanidad, genocidio y agresión cuando los Estados no puedan o no quieran hacerlo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La CPI persigue la responsabilidad penal individual de los máximos responsables de crímenes atroces bajo el principio de complementariedad.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Qué requisito procesal fundamental se exige para acudir al Sistema Interamericano de Derechos Humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Haber interpuesto y agotado previamente los recursos de la jurisdicción judicial interna del Estado, salvo excepciones de denegación de justicia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El principio de subsidiariedad internacional exige dar primero al Estado la oportunidad de reparar la vulneración en sus propios tribunales.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Cuál es el propósito del mecanismo constitucional de Hábeas Corpus?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Proteger la libertad personal cuando alguien es privado de ella con violación de las garantías constitucionales o se prolongue ilegalmente la privación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Es un derecho fundamental y acción constitucional que debe resolverse en un término perentorio e improrrogable de 36 horas.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">¿Cuándo se configura la responsabilidad patrimonial y extracontractual del Estado por violación de Derechos Humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Por acción directa (abuso de la fuerza, detenciones ilegales) o por omisión y falla en el servicio al no garantizar la protección y seguridad debida a los ciudadanos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Estado es responsable tanto por los daños antijurídicos causados por sus agentes como por la omisión en su deber de garantía y protección ciudadana.</div>
+    </article>
+
+    <!-- MÓDULOS 3 Y 4 -->
+    <div class="module-header">
+        <i class="fas fa-hands-holding-circle"></i> Módulos III y IV: Contexto Colombiano, Memoria Histórica y Cultura de Paz (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Qué principio rige la Ley de Víctimas y Restitución de Tierras (Ley 1448 de 2011) en Colombia?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El reconocimiento integral de las víctimas del conflicto armado y la garantía de sus derechos a la verdad, justicia, reparación transformadora y garantías de no repetición con enfoque diferencial.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Ley 1448 sitúa a la víctima en el centro de las políticas públicas y promueve medidas de restitución material y simbólica.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Qué órganos conforman el Sistema Integral para la Paz creado tras el Acuerdo de 2016?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La Jurisdicción Especial para la Paz (JEP), la Comisión de la Verdad (CEV) y la Unidad de Búsqueda de Personas dadas por Desaparecidas (UBPD).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El sistema combina mecanismos judiciales (JEP) y extrajudiciales (CEV y UBPD) para satisfacer los derechos de las víctimas y consolidar la paz.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Por qué la Sentencia T-025 de 2004 de la Corte Constitucional declaró el "Estado de Cosas Inconstitucional" frente al desplazamiento forzado?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Debido a la vulneración masiva, sistemática y continua de derechos fundamentales y a la insuficiencia estructural de capacidad institucional y presupuestal para atender a la población víctima.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Obligó a todas las entidades del Estado a reasignar presupuestos y coordinar políticas públicas efectivas de atención integral a la población desplazada.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿Cuáles son los cinco componentes de la Reparación Integral a las víctimas según los estándares internacionales?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Restitución, indemnización, rehabilitación (física y psicosocial), satisfacción (actos de dignificación y memoria) y garantías de no repetición.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La reparación integral trasciende la entrega de dinero; busca restablecer el proyecto de vida y dignificar la memoria de las víctimas.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Cuál es el propósito central de la Justicia Transicional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Facilitar la transición de un conflicto armado o régimen autoritario hacia la paz y la democracia, armonizando la rendición de cuentas con la verdad, la reparación y la reconciliación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Modula las penas ordinarias a cambio de aporte pleno y exhaustivo a la verdad y reparación directa a las víctimas.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">¿Por qué el enfoque diferencial es indispensable en las políticas de Derechos Humanos en Colombia?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque reconoce que la violencia y la discriminación impactan con mayor rigor a grupos en condición de vulnerabilidad (mujeres, niñez, etnias, personas con discapacidad, LGBTIQ+), exigiendo medidas de protección ajustadas a sus realidades.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El enfoque diferencial visibiliza las desigualdades históricas para diseñar rutas de atención pertinentes y transformadoras.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Cuál es el estatus jurídico de los niños, niñas y adolescentes reclutados ilícitamente en el marco del DIH y la jurisprudencia colombiana?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Son primordialmente víctimas de una grave violación a los DD.HH. y al DIH, siendo acreedores de protección reforzada, desvinculación y restablecimiento integral de sus derechos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La doctrina constitucional e internacional prohíbe criminalizar a los menores reclutados forzosamente, reconociéndolos como sujetos de protección prioritaria.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">¿Qué función cumple la Memoria Histórica en la construcción de una paz duradera?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Dignificar a las víctimas, esclarecer las causas estructurales de la violencia, generar pedagogía social y constituir una base sólida como garantía de no repetición.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Recordar críticamente el pasado previene el negacionismo y promueve una cultura de respeto irrestricto por los derechos humanos.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Cuál es la diferencia conceptual entre Paz Negativa y Paz Positiva según Johan Galtung?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La Paz Negativa es la mera ausencia de guerra o violencia directa; la Paz Positiva implica la superación de la violencia estructural y cultural mediante justicia social, equidad y vigencia de los DD.HH.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La paz duradera exige erradicar las causas estructurales de exclusión y pobreza que originan las confrontaciones violentas.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">¿Qué caracteriza a la Mediación como Método Alternativo de Solución de Conflictos (MASC)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un tercero neutral e imparcial facilita la comunicación entre las partes para que ellas mismas construyan de forma autónoma una solución concertada y mutuamente aceptable.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El mediador no juzga ni impone la solución; empodera a las partes para restablecer el diálogo y alcanzar acuerdos sostenibles.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">¿Cuál es el enfoque de la Justicia Restaurativa frente a la Justicia Retributiva tradicional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La retributiva se centra en el castigo proporcional al infractor por violar una norma; la restaurativa se enfoca en reparar el daño a la víctima, responsabilizar activamente al ofensor y recomponer el tejido comunitario.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La justicia restaurativa transforma el conflicto en oportunidad pedagógica y comunitaria, superando el esquema meramente carcelario.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Qué objetivo persigue la Cátedra de la Paz (Ley 1732 de 2014) en las instituciones educativas?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Fomentar el aprendizaje, la reflexión y el diálogo sobre cultura de paz, DD.HH., memoria histórica, resolución pacífica de conflictos y desarrollo sostenible de manera transversal.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Promueve competencias ciudadanas y ciudadanías activas comprometidas con la no violencia y la convivencia democrática.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">¿Qué papel desempeña la escucha activa y la asertividad en la resolución pacífica de controversias?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Facilita la comprensión de las necesidades e intereses subyacentes del otro, expresando ideas con claridad y firmeza sin recurrir a la agresividad ni a la sumisión.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La comunicación asertiva y dialógica desescala hostilidades y enfoca el debate en la resolución del problema y no en el ataque personal.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">¿Por qué la prevención de violencias basadas en género es un pilar de la convivencia y la cultura de paz?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque desarticula patrones culturales de dominación y discriminación, garantizando entornos seguros, libres de violencias y con equidad para todas las personas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Erradicar el machismo y las violencias de género es indispensable para construir espacios escolares y sociales verdaderamente pacíficos.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Qué se entiende por Diálogo Social en el marco de la gestión comunitaria e institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un proceso estructurado de consulta, deliberación, concertación y negociación entre diversos actores para construir consensos sobre el bien común.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El diálogo social canaliza pacíficamente las demandas y previene el desbordamiento de la conflictividad comunitaria.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">¿Cómo se concibe la reconciliación comunitaria desde una perspectiva de Derechos Humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Como un proceso cívico de reconstrucción de la confianza ciudadana, restauración del tejido social e imperio del Estado de derecho basado en la verdad y el respeto recíproco.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La reconciliación requiere verdad, justicia y garantías de no repetición; no puede imponerse como una renuncia forzada a la memoria.</div>
+    </article>
+
+    <!-- MÓDULO 5 -->
+    <div class="module-header">
+        <i class="fas fa-scale-balanced"></i> Módulo V: Casos Prácticos de Toma de Decisiones y Derechos Humanos (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Un estudiante solicita el reconocimiento de su identidad de género diversa en el colegio. La dirección decide prohibirle el ingreso hasta que no adapte su presentación al manual tradicional. Desde la jurisprudencia constitucional colombiana (T-562/13 y T-478/15), ¿cuál es la actuación correcta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Garantizar inmediatamente el acceso a la educación y el libre desarrollo de la personalidad, ajustando el manual para eliminar barreras discriminatorias y promoviendo pedagogía de respeto.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Corte Constitucional ha reiterado que el derecho a la identidad y al libre desarrollo de la personalidad prevalece sobre las normas disciplinarias de presentación física de los manuales escolares.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: Una familia víctima de desplazamiento forzado llega a un municipio y solicita cupo escolar para sus hijos a mitad de año, pero no cuenta con certificados de calificaciones previas ni documentos de identidad actualizados. ¿Cómo debe proceder la institución educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Efectuar la matrícula inmediata prioritaria sin barreras burocráticas, realizar una prueba diagnóstica de ubicación y articular con la Personería o Registraduría la regularización documental.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El derecho a la educación de niños y niñas víctimas de desplazamiento forzado es de aplicación preferente e inmediata y no puede supeditarse a requisitos formales documentales.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: En un colegio se presenta una riña física recurrente entre dos grupos de estudiantes. El comité de convivencia propone como única salida expulsar a los involucrados de forma inmediata. Desde la perspectiva de la Ley 1620 y la Justicia Restaurativa, ¿cuál es la alternativa más adecuada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar la ruta de atención integral: garantizar el debido proceso, abrir espacios de mediación escolar, responsabilizar a los agresores mediante acciones pedagógico-restaurativas y brindar apoyo psicosocial.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Ley 1620 de Convivencia Escolar prioriza la ruta pedagógica, la mediación y el restablecimiento del tejido institucional sobre la exclusión punitiva automática.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Un docente somete a un estudiante a castigos humillantes y escarnio público frente a sus compañeros como método correctivo por bajo rendimiento. ¿Qué derechos fundamentales están siendo vulnerados y cómo debe actuar el directivo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se vulnera la dignidad humana, la integridad psicológica, la intimidad y el buen nombre; el directivo debe cesar la práctica, abrir proceso disciplinario docente y brindar restablecimiento al estudiante.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El escarnio y los tratos crueles o degradantes están tajantemente prohibidos en el entorno escolar y constituyen falta disciplinaria grave.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Un grupo de padres de familia manifiesta inconformidad y exige que no se admitan estudiantes migrantes o de comunidades étnicas en el aula. ¿Cuál debe ser la postura institucional fundamentada en Derechos Humanos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Rechazar categóricamente cualquier acto de xenofobia o racismo, ratificar el principio de universalidad del derecho a la educación y liderar talleres de interculturalidad y no discriminación con las familias.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La escuela es un territorio de inclusión y no discriminación; ninguna mayoría comunitaria puede restringir derechos fundamentales de poblaciones vulnerables.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Tras un acto de daño a los bienes del colegio y agresión verbal entre pares, la comunidad exige sanciones ejemplarizantes de aislamiento. ¿Cómo se aplicaría eficazmente la justicia restaurativa en este escenario?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Desarrollando un círculo restaurativo donde los infractores comprendan el impacto del daño, pidan disculpas sinceras y realicen labores formativas de reparación material y simbólica del bien escolar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La responsabilización activa y la reparación comunitaria del daño educan al estudiante en ciudadanía y previenen la reincidencia.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Una institución educativa cumple con la Cátedra de la Paz programando únicamente un acto cívico al año, pero mantiene prácticas autoritarias y punitivas en el aula cotidiana. ¿Qué debilidad formativa presenta esta decisión?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Reduce la cultura de paz a un evento protocolario cosmético, careciendo de transversalidad curricular, vivencia democrática del gobierno escolar y transformación de las relaciones de poder.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La educación para la paz no es un evento aislado; exige coherencia pedagógica y vivencia democrática en la cotidianidad de la institución.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Un docente identifica que un estudiante presenta signos evidentes de maltrato físico o negligencia severa en su entorno familiar. ¿Cuál es el deber legal y ético prioritario del docente y la institución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar de inmediato la ruta institucional de protección, reportando el caso ante el ICBF, Comisaría de Familia o Policía de Infancia bajo el principio de corresponsabilidad y prevalencia de los derechos del menor.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Código de Infancia y Adolescencia (Ley 1098 de 2006) obliga a todo educador a denunciar y activar rutas de protección inmediata ante sospechas fundadas de maltrato infantil.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

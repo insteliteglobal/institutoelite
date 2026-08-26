@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Evaluación Formativa y Mejora de Aprendizajes | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE PREGUNTAS Y CAMPOS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        /* ESTILOS DE PREGUNTAS DE SELECCIÓN */
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES DE ACCIÓN */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación: Evaluación Formativa y Estrategias de Mejora</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Docente</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Fundamentos e Instrumentos (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Retroalimentación y Mejora (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Módulos 1 y 2: Fundamentos e Instrumentos de Evaluación</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Cuál es la finalidad principal de la evaluación formativa dentro del proceso de enseñanza-aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A" data-correct="true"> A) Monitorear y regular el proceso de aprendizaje continuo, ofreciendo retroalimentación para ajustar la enseñanza y potenciar los logros del estudiante.</label>
+                            <label><input type="radio" name="P1" value="B"> B) Asignar una calificación cuantitativa final que determine la promoción escolar.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Clasificar y ordenar a los estudiantes según su rendimiento memorístico.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Generar reportes estadísticos administrativos para auditorías institucionales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. ¿Qué diferencia existe entre evaluar para calificar y evaluar para aprender?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) No existe diferencia real; toda evaluación debe conducir obligatoriamente a una nota numérica.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) Evaluar para calificar busca acreditar o certificar un resultado terminal, mientras que evaluar para aprender recopila evidencias para orientar la mejora durante el proceso.</label>
+                            <label><input type="radio" name="P2" value="C"> C) Evaluar para aprender solo se aplica al inicio del curso escolar mediante pruebas diagnósticas.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Evaluar para calificar promueve la autonomía y evaluar para aprender fomenta la competencia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. ¿Por qué la evaluación formativa debe desarrollarse durante todo el proceso educativo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) Para mantener una presión constante sobre los estudiantes mediante exámenes diarios.</label>
+                            <label><input type="radio" name="P3" value="B" data-correct="true"> B) Porque permite identificar a tiempo las brechas cognitivas y reajustar las estrategias antes de que los vacíos se consoliden.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Exclusivamente para promediar un mayor número de calificaciones al final del periodo.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Para evitar que el docente tenga que preparar explicaciones detalladas en clase.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. ¿Qué papel desempeña el estudiante dentro de un proceso de evaluación formativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Receptor pasivo de notas y correcciones unidireccionales del docente.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Agente activo y reflexivo capaz de autorregular su aprendizaje mediante la autoevaluación y coevaluación fundamentada.</label>
+                            <label><input type="radio" name="P4" value="C"> C) Evaluador sancionatorio del desempeño de sus propios compañeros.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Observador que únicamente responde cuestionarios cerrados sin emitir juicios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Cuál de las siguientes situaciones representa mejor una evaluación orientada al aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Un examen final acumulativo sorpresa sin posibilidad de revisión posterior.</label>
+                            <label><input type="radio" name="P5" value="B" data-correct="true"> B) La revisión de borradores de un proyecto con retroalimentación descriptiva y criterios claros antes de la entrega final.</label>
+                            <label><input type="radio" name="P5" value="C"> C) Publicar un listado de calificaciones en el tablero sin comentarios explicativos.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Penalizar con nota reprobatoria el primer intento de resolución de un ejercicio práctico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Qué relación existe entre evaluación formativa y toma de decisiones pedagógicas?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) La evaluación es un trámite posterior independiente que no influye en las decisiones de enseñanza.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Los datos de la evaluación proporcionan evidencia directa para adaptar el ritmo, diversificar metodologías y replantear actividades didácticas.</label>
+                            <label><input type="radio" name="P6" value="C"> C) Las decisiones pedagógicas se limitan únicamente a determinar quién aprueba o reprueba.</label>
+                            <label><input type="radio" name="P6" value="D"> D) La evaluación sirve únicamente para justificar sanciones académicas formales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Por qué los resultados de una evaluación no deberían utilizarse únicamente para asignar una calificación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A" data-correct="true"> A) Porque una nota aísla el resultado e invisibiliza las causas del error, impidiendo al alumno comprender cómo superar sus dificultades.</label>
+                            <label><input type="radio" name="P7" value="B"> B) Porque las calificaciones numéricas no tienen validez dentro de las instituciones educativas.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Porque los docentes deben evitar registrar notas para no generar comparaciones.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Porque calificar exige demasiado tiempo administrativo en el aula.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. ¿Qué característica distingue a una evaluación formativa de una evaluación exclusivamente sumativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) La cantidad de preguntas de opción múltiple que contiene la prueba.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) Su intencionalidad procesual orientada a la retroalimentación constructiva, en contraste con el carácter certificador y terminal de la sumativa.</label>
+                            <label><input type="radio" name="P8" value="C"> C) Que la evaluación formativa nunca puede ser registrada por el docente.</label>
+                            <label><input type="radio" name="P8" value="D"> D) Que la sumativa se aplica de forma individual y la formativa solo en grupos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. ¿En qué situación resulta más apropiado utilizar una rúbrica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Al calificar una prueba de 20 preguntas cerradas de verdadero o falso.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Al valorar tareas complejas, desempeños auténticos o proyectos que involucran múltiples criterios y niveles progresivos de calidad.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Para registrar de forma binaria si el estudiante asistió puntualmente a clase.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Exclusivamente al finalizar el año escolar para emitir el boletín final.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. ¿Qué ventajas ofrece una lista de cotejo frente a una evaluación exclusivamente basada en preguntas de selección múltiple?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Permite evaluar la memorización de conceptos teóricos abstractos con mayor rapidez.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Permite verificar sistemáticamente la presencia o ausencia de acciones procedimentales y evidencias observables durante la ejecución de una tarea.</label>
+                            <label><input type="radio" name="P10" value="C"> C) Elimina por completo la necesidad de establecer criterios de evaluación previos.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Garantiza que todos los estudiantes obtengan la máxima calificación.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Qué elementos debería contener un instrumento de evaluación para garantizar mayor claridad y objetividad?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Preguntas abiertas ambiguas y escalas subjetivas de juicio docente.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Criterios explícitos alineados con los objetivos, descriptores de desempeño observables y escalas de valoración comprensibles.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Únicamente el puntaje asignado a cada ejercicio sin describir el nivel de logro esperado.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Instrucciones breves sin socialización previa con los estudiantes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. ¿Cuál es la utilidad de los criterios de evaluación previamente comunicados a los estudiantes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A" data-correct="true"> A) Transparentan las metas de aprendizaje, orientan el esfuerzo del estudiante y le permiten autorregular su desempeño durante la actividad.</label>
+                            <label><input type="radio" name="P12" value="B"> B) Facilitan que los estudiantes memoricen las respuestas exactas de los exámenes.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Cumplir un requisito burocrático exigido por la coordinación institucional.</label>
+                            <label><input type="radio" name="P12" value="D"> D) Limitar la creatividad del estudiante obligándolo a seguir un pensamiento único.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. ¿Cuándo sería pertinente utilizar una escala de valoración?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Cuando la respuesta solo admite una condición dicotómica (correcto o incorrecto).</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) Cuando se necesita evaluar el grado de intensidad, frecuencia o calidad con que se manifiesta un determinado desempeño o habilidad.</label>
+                            <label><input type="radio" name="P13" value="C"> C) Para calificar la caligrafía de los estudiantes de manera subjetiva.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Únicamente en pruebas estandarizadas nacionales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Qué diferencia existe entre un criterio de evaluación y un indicador de desempeño?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A" data-correct="true"> A) El criterio define la dimensión o estándar general que se valora; el indicador describe la señal, conducta o evidencia concreta observable.</label>
+                            <label><input type="radio" name="P14" value="B"> B) El criterio es cuantitativo y el indicador es siempre una descripción cualitativa.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Son términos equivalentes que se pueden intercambiar sin distinción pedagógica.</label>
+                            <label><input type="radio" name="P14" value="D"> D) El criterio lo define el estudiante y el indicador lo formula el docente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. ¿Por qué es importante seleccionar el instrumento de evaluación de acuerdo con el aprendizaje que se pretende valorar?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) Para que las pruebas sean siempre breves y fáciles de revisar.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) Porque asegura la validez de la evaluación, garantizando coherencia constructiva entre lo que se enseña y la evidencia requerida.</label>
+                            <label><input type="radio" name="P15" value="C"> C) Para evitar que los estudiantes utilicen material bibliográfico durante las sesiones.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Para emplear siempre los formatos estandarizados del periodo anterior.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. Un docente utiliza el mismo instrumento de opción múltiple para evaluar conocimientos teóricos, habilidades prácticas en taller y actitudes. ¿Qué problema presenta esta decisión?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Ninguno, ya que simplifica el proceso de calificación docente.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Falta de validez de constructo, pues las competencias procedimentales y actitudinales requieren observación y ejecución real, no pruebas escritas.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Que los estudiantes resolverán el examen demasiado rápido.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Que las preguntas teóricas resultan más complejas que las prácticas.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Retroalimentación y Mejora <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-comments"></i> Módulos 3 y 4: Retroalimentación y Estrategias de Mejora</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. ¿Qué características debe tener una retroalimentación efectiva?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A" data-correct="true"> A) Ser específica, oportuna, comprensible, orientada a criterios y enfocada en orientar los siguientes pasos de mejora (feedforward).</label>
+                            <label><input type="radio" name="P17" value="B"> B) Ser general, emitida semanas después y basada en juicios de valor sobre la persona.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Limitarse a señalar los errores gramaticales con tinta roja.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Consistir exclusivamente en una nota numérica acompañada de un sello de felicitación.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. ¿Cuál de las siguientes situaciones representa una retroalimentación orientada a la mejora?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) "Tu trabajo está regular, debes esforzarte más la próxima vez".</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) "Tus argumentos iniciales son sólidos, pero en la sección 3 falta contrastar con datos empíricos; revisa el autor propuesto para fundamentar".</label>
+                            <label><input type="radio" name="P18" value="C"> C) "Excelente trabajo como siempre, nota 5.0".</label>
+                            <label><input type="radio" name="P18" value="D"> D) "Este documento no cumple los estándares mínimos del área".</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Por qué decirle a un estudiante únicamente “bien” o “mal” tiene un valor limitado desde la perspectiva formativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A" data-correct="true"> A) Porque no proporciona información descriptiva sobre las causas del logro ni pautas para corregir las deficiencias identificadas.</label>
+                            <label><input type="radio" name="P19" value="B"> B) Porque los estudiantes prefieren que se les califique únicamente con porcentajes.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Porque los elogios están prohibidos en la evaluación formativa.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Porque genera desorden durante la entrega de evaluaciones en el aula.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. ¿En qué momento debe realizarse la retroalimentación para que tenga mayor impacto en el aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Al finalizar el año académico cuando ya se cerraron los registros oficiales.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) De manera continua durante el desarrollo de la tarea, permitiendo al estudiante aplicar los ajustes en tiempo real.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Solamente cuando el alumno reprueba una prueba sumativa.</label>
+                            <label><input type="radio" name="P20" value="D"> D) En las reuniones periódicas de padres de familia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. ¿Cómo debería actuar un docente cuando un estudiante comete errores durante una actividad de aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) Sancionar inmediatamente la equivocación reduciendo la calificación del día.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) Asumir el error como una oportunidad pedagógica, formulando preguntas guía para que el alumno analice su razonamiento y encuentre la solución.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Ignorar la falla para no afectar la autoestima del estudiante.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Dar la respuesta correcta de inmediato sin permitir que el estudiante reflexione.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. ¿Qué diferencia existe entre retroalimentar el resultado y retroalimentar el proceso?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A" data-correct="true"> A) Retroalimentar el resultado valora el producto final concluido; retroalimentar el proceso analiza las estrategias cognitivas, pasos y métodos empleados.</label>
+                            <label><input type="radio" name="P22" value="B"> B) Retroalimentar el proceso solo sirve en áreas artísticas y el resultado en ciencias exactas.</label>
+                            <label><input type="radio" name="P22" value="C"> C) No hay diferencia; ambos se enfocan exclusivamente en señalar los errores gramaticales.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Retroalimentar el resultado siempre genera mayor autonomía en el alumno.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. ¿Cómo puede la retroalimentación promover la autonomía del estudiante?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Dictando paso a paso lo que debe hacer sin dejar margen de decisión.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Formulando preguntas reflexivas y andamiajes que estimulen el pensamiento crítico y la toma de decisiones sobre su propio trabajo.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Evitando corregir las actividades para que el alumno aprenda por sí solo.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Asignando notas altas para motivar la confianza superficial del grupo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. Un docente devuelve una actividad con una calificación de 3,5/5, pero sin comentarios ni observaciones. ¿Qué oportunidad de aprendizaje se está perdiendo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) La oportunidad de justificar administrativamente el promedio ante la rectoría.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) El diálogo formativo donde el estudiante comprende qué competencias consolidó y cuáles aspectos específicos debe reestructurar para mejorar.</label>
+                            <label><input type="radio" name="P24" value="C"> C) La posibilidad de penalizar al alumno con trabajos extracurriculares obligatorios.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Ninguna, porque el número 3,5 expresa con exactitud el nivel alcanzado.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. ¿Qué debería hacer un docente después de identificar dificultades recurrentes en los resultados de sus estudiantes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Continuar con el temario planificado para no retrasar el cronograma institucional.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) Analizar las causas didácticas del obstáculo, diversificar las estrategias metodológicas y diseñar actividades de nivelación contextualizadas.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Repetir el mismo examen la semana siguiente sin realizar intervenciones previas.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Atribuir el resultado exclusivamente al desinterés o falta de estudio de los alumnos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. ¿Por qué es importante utilizar los resultados de evaluación para ajustar las estrategias de enseñanza?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A" data-correct="true"> A) Porque convierte la evaluación en un insumo autorregulador de la docencia, garantizando que la enseñanza responda a las necesidades reales del grupo.</label>
+                            <label><input type="radio" name="P26" value="B"> B) Para cumplir con los informes de gestión exigidos por la institución.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Para que las clases sean más fáciles y menos exigentes cognitivamente.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Porque las planificaciones docentes no deben mantenerse por más de un mes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. ¿Qué estrategia sería más adecuada para atender estudiantes que presentan diferentes ritmos de aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Establecer un único ritmo rígido para que los rezagados se esfuercen más.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) Aplicar los principios del DUA mediante rutas de trabajo multinivel, recursos diversificados y andamiajes de apoyo flexibles.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Separar físicamente a los estudiantes en salones distintos de manera permanente.</label>
+                            <label><input type="radio" name="P27" value="D"> D) Reducir los contenidos formativos para todo el grupo al nivel más bajo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. ¿Cómo puede utilizarse la evaluación diagnóstica para mejorar posteriormente los aprendizajes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) Asignando la primera nota del boletín para incentivar la competencia.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Identificando esquemas previos y vacíos conceptuales para diseñar la ruta curricular a partir del estado cognitivo real del grupo.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Archivando los resultados para consultarlos únicamente al finalizar el curso.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Exonerando de clase a los estudiantes que demuestren conocimientos previos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. ¿Qué papel tiene la metacognición en el mejoramiento del aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A" data-correct="true"> A) Permite al estudiante monitorear, reflexionar y regular sus propias estrategias de procesamiento mental para aprender con mayor eficacia.</label>
+                            <label><input type="radio" name="P29" value="B"> B) Permite memorizar mayor cantidad de datos teóricos en menor tiempo.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Garantiza que el docente no tenga que intervenir en las evaluaciones.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Se limita únicamente a la capacidad de resumir lecturas extensas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. ¿Cómo puede el aprendizaje colaborativo contribuir a superar dificultades identificadas mediante la evaluación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Permitiendo que el estudiante más avanzado realice el trabajo del resto del grupo.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Fomentando la mediación entre pares y la co-construcción, donde el intercambio dialógico aclara dudas desde perspectivas cercanas al alumno.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Reduciendo el tiempo de clase dedicado a las explicaciones del docente.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Evitando que los estudiantes tengan que sustentar de forma individual.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. ¿Por qué la recuperación de aprendizajes no debería limitarse simplemente a repetir la misma explicación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A" data-correct="true"> A) Porque si una mediación didáctica no funcionó inicialmente, reiterarla de modo idéntico reproducirá las mismas barreras cognitivas en el estudiante.</label>
+                            <label><input type="radio" name="P31" value="B"> B) Porque los docentes deben cambiar de tema en cada clase sin detenerse.</label>
+                            <label><input type="radio" name="P31" value="C"> C) Porque la repetición siempre genera aburrimiento en los estudiantes avanzados.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Porque las normas educativas prohíben repetir explicaciones teóricas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. Un grupo presenta dificultades persistentes en una competencia. ¿Cuál debería ser el primer paso del docente antes de implementar una nueva estrategia?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Diseñar una prueba más compleja para identificar a los alumnos con bajo rendimiento.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Indagar en profundidad sobre las concepciones erróneas y la naturaleza específica del obstáculo cognitivo mediante entrevistas o preguntas clave.</label>
+                            <label><input type="radio" name="P32" value="C"> C) Solicitar una sanción disciplinaria colectiva ante el consejo académico.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Cambiar de libro de texto sin analizar las producciones previas.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Módulo 5: Casos Prácticos de Toma de Decisiones Docentes</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio pedagógico cada situación real y determine la decisión más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: Un docente aplica una evaluación y descubre que el 70 % del grupo no alcanzó el aprendizaje esperado. ¿Cuál sería la respuesta más coherente con un enfoque formativo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Publicar las notas reprobatorias y continuar con el siguiente tema del currículo.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Asumir la evidencia como una alerta sobre la eficacia de la mediación docente, reestructurar la secuencia didáctica y rediseñar nuevas experiencias antes de reevaluar.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Culpabilizar al grupo por falta de compromiso y aplicar un examen de recuperación idéntico.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Modificar la escala de calificación para que todos aprueben artificialmente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: Un estudiante recibe una calificación baja y pregunta al profesor qué debe hacer para mejorar. El profesor responde tajantemente: “Debes estudiar más”. ¿Por qué esta respuesta resulta insuficiente desde la evaluación formativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A" data-correct="true"> A) Porque carece de valor orientador: no clarifica cuáles fueron los errores conceptuales, qué estrategias debe modificar ni qué criterios específicos debe alcanzar.</label>
+                            <label><input type="radio" name="P34" value="B"> B) Porque los docentes no deben dar explicaciones individuales a los estudiantes.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Porque el estudiante debió revisar sus apuntes sin consultar al docente.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Porque la frase debió comunicarse por escrito en el cuaderno de notas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Un profesor detecta que un subgrupo domina la competencia con soltura mientras otros presentan vacíos estructurales severos. ¿Qué estrategia sería más adecuada para atender esta diversidad?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Mantener la clase magistral al nivel intermedio esperando que los rezagados alcancen al resto.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Implementar estaciones de trabajo diversificadas: actividades de profundización para los avanzados y talleres guiados con andamiajes específicos para quienes presentan dificultades.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Exonerar de clase a los avanzados y dejar que los rezagados trabajen solos en la biblioteca.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Repetir los conceptos básicos para todo el salón anulando el avance de los primeros.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: Un docente modifica una actividad planificada después de analizar los errores más frecuentes cometidos por sus estudiantes en una tarea diagnóstica. ¿Qué principio de la evaluación formativa está aplicando?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A" data-correct="true"> A) La regulación pedagógica retroactiva y el uso formativo de la evidencia para la toma de decisiones.</label>
+                            <label><input type="radio" name="P36" value="B"> B) La improvisación curricular por falta de planificación adecuada.</label>
+                            <label><input type="radio" name="P36" value="C"> C) El debilitamiento del rigor académico institucional.</label>
+                            <label><input type="radio" name="P36" value="D"> D) La evaluación sumativa basada en normas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: Dos estudiantes obtienen la misma calificación (3,8) en una actividad, pero uno demuestra avances significativos respecto a su nivel inicial muy bajo y el otro se estancó respecto a su rendimiento excelente previo. ¿Qué aspecto debería considerar el docente además de la calificación estática?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A" data-correct="true"> A) La trayectoria de progreso individual y el valor formativo del esfuerzo y la superación personal (evaluación ipsativa/progresiva).</label>
+                            <label><input type="radio" name="P37" value="B"> B) Únicamente el promedio numérico final que registra el sistema informático.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Asignar la misma retroalimentación estandarizada a ambos sin distinción.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Ignorar el avance individual para no generar desigualdades en el grupo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Un docente realiza pruebas semanales durante todo el periodo académico, pero nunca modifica sus clases magistrales a partir de los resultados obtenidos. ¿Puede afirmarse que está aplicando evaluación formativa? ¿Por qué?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Sí, porque la frecuencia constante de evaluaciones define la naturaleza formativa.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) No, porque evaluar con frecuencia sin retroalimentar ni ajustar la enseñanza solo constituye una secuencia de exámenes sumativos fragmentados.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Sí, porque acumula muchas evidencias para el promedio final.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Sí, siempre y cuando los estudiantes conozcan sus notas al día siguiente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Un estudiante realiza una autoevaluación con base en una rúbrica y reconoce con precisión cuáles fueron sus fortalezas y en qué aspectos procedimentales falló. ¿Qué competencia está consolidando principalmente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A" data-correct="true"> A) Metacognición, autorregulación del aprendizaje y capacidad autocrítica informada.</label>
+                            <label><input type="radio" name="P39" value="B"> B) Memorización mecánica de los descriptores de la prueba.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Dependencia absoluta del criterio del profesor.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Habilidad para negociar calificaciones cuantitativas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: Después de una evaluación, un docente analiza las fallas grupales, ofrece retroalimentación detallada, ajusta la mediación en clase y finalmente vuelve a evaluar el desempeño. ¿Por qué este ciclo representa una aplicación ejemplar de la evaluación formativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A" data-correct="true"> A) Porque cumple el ciclo completo de mejora continua: diagnostica la dificultad, orienta la rectificación, reestructura la enseñanza y valida el logro de la competencia.</label>
+                            <label><input type="radio" name="P40" value="B"> B) Porque garantiza que el docente duplique el número de notas registradas en el sistema.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Porque elimina la necesidad de evaluar al finalizar el periodo escolar.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Porque evita que los estudiantes presenten reclamaciones formales.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Evaluación Formativa y Estrategias para el Mejoramiento",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

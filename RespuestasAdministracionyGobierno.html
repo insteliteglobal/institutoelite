@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Administración Educativa y Gobierno Escolar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Administración Educativa, Gobierno Escolar y Gestión Institucional | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1 Y 2 -->
+    <div class="module-header">
+        <i class="fas fa-landmark"></i> Módulos 1 y 2: Administración Educativa, Gobierno Escolar y Participación (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">¿Cuál es el propósito fundamental de la administración educativa dentro de una institución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Planificar, organizar, dirigir y controlar los recursos institucionales para crear las condiciones óptimas que hagan viable y exitoso el proyecto pedagógico formativo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La administración escolar no es un fin en sí misma; es la estructura de soporte operativo y estratégico que garantiza las condiciones materiales y organizativas para el aprendizaje.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Qué diferencia existe entre administrar recursos y gestionar estratégicamente una institución educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Administrar recursos asegura la custodia y operatividad eficiente de los bienes; gestionar estratégicamente articula dichos recursos con la visión, el PEI y las metas de transformación pedagógica a largo plazo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Administrar resuelve la logística inmediata; la gestión estratégica orienta el uso de los recursos hacia la consecución del horizonte formativo institucional.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">¿Cuáles son los principales recursos que debe administrar una institución educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Los recursos humanos (talento pedagógico y administrativo), físicos, tecnológicos, temporales, curriculares y financieros.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Una visión integral de la administración abarca tanto los activos tangibles como los recursos humanos, temporales e intangibles de la comunidad escolar.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">¿Por qué la planificación es una función esencial de la administración educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque anticipa necesidades, optimiza la distribución de recursos, reduce la improvisación y alinea las acciones institucionales con los objetivos del PEI.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La planificación dota de intencionalidad y coherencia a los procesos, asegurando que los recursos respondan a prioridades diagnosticadas.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Qué importancia tiene la organización de funciones y responsabilidades dentro de una institución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Delimita con claridad los roles, evita duplicidad de esfuerzos, previene vacíos operativos y fortalece la rendición de cuentas y la eficacia del equipo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La estructura organizativa y los manuales de funciones otorgan certidumbre jurídica y operativa a todos los estamentos.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Cómo contribuye una adecuada gestión de recursos al cumplimiento de los objetivos institucionales?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Garantizando que el talento docente, los materiales didácticos, la tecnología y los espacios físicos estén disponibles oportunamente donde el acto pedagógico lo demanda.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La eficiencia administrativa se evidencia cuando los insumos didácticos y humanos llegan con oportunidad al aula para potenciar el aprendizaje.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Por qué la administración educativa debe estar articulada con el Proyecto Educativo Institucional (PEI)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque la administración no es un fin en sí misma, sino el soporte operativo y logístico que hace posible materializar el horizonte y modelo pedagógico institucional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un sistema administrativo desarticulado del PEI se convierte en una estructura burocrática vacía que no aporta valor a la formación.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">Una institución cuenta con suficientes recursos físicos y financieros, pero presenta desorganización y bajo cumplimiento de objetivos. ¿Cuál podría ser la principal debilidad de su administración?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Carencia de planificación estratégica, desarticulación entre procesos, ausencia de liderazgo orientador y fallas en el seguimiento y control de responsabilidades.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La abundancia de recursos sin alineación estratégica, control de procesos ni liderazgo distribuido genera ineficiencia y dispersión.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿Cuál es la finalidad del gobierno escolar dentro de una institución educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Garantizar la participación democrática, la representatividad de la comunidad, la toma de decisiones colegiada y la transparencia en la orientación del establecimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El gobierno escolar institucionaliza la democracia participativa, otorgando voz y voto formal a todos los estamentos escolares.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Por qué la participación de diferentes miembros de la comunidad educativa fortalece la gestión institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque aporta miradas diversas sobre las necesidades reales, fomenta el sentido de pertenencia, democratiza las decisiones y dota de legitimidad y corresponsabilidad a los planes institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La corresponsabilidad social generada en espacios de participación incrementa el compromiso colectivo con los proyectos institucionales.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Qué importancia tiene la representación de los diferentes estamentos en los órganos de participación institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Asegura que las perspectivas de docentes, estudiantes, directivos, egresados y familias sean escuchadas e integradas en la construcción de políticas y proyectos escolares.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La pluralidad de estamentos equilibra el poder decisorio y asegura que las políticas institucionales respondan al bien común.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Cuál es la diferencia entre participación democrática y participación meramente consultiva o formal?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La participación democrática otorga poder real de deliberación e incidencia en las decisiones colegiadas; la formal se limita a informar o validar decisiones ya tomadas unilateralmente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La auténtica participación incide de forma vinculante en las resoluciones y acuerdos de los órganos de gobierno.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">¿Por qué las decisiones institucionales deben respetar los mecanismos y conductos establecidos de participación?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque garantiza el debido proceso, previene arbitrariedades directivas, promueve la transparencia y fortalece la confianza y cohesión institucional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El respeto a los conductos normativos previene la arbitrariedad y asegura la validez jurídica y ética de las determinaciones del colegio.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Cómo puede el gobierno escolar contribuir a mejorar la convivencia institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Construyendo acuerdos y manuales legítimos de forma participativa, activando comités de convivencia formativos y ofreciendo canales pacíficos para tramitar diferencias.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las normas construidas colectivamente adquieren legitimidad y son respetadas con mayor convicción por los estudiantes y docentes.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">¿Qué papel tiene la comunidad educativa en los procesos de construcción y mejoramiento institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Co-diseñar, evaluar y validar continuamente el PEI, aportando corresponsabilidad ética y social en el desarrollo del proyecto formativo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La comunidad escolar es sujeto activo del desarrollo curricular e institucional, no un mero usuario pasivo del servicio educativo.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">Un directivo toma todas las decisiones institucionales sin consultar los órganos de participación establecidos por ley. ¿Qué principio de la gestión escolar estaría debilitando principalmente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El principio de gobernanza democrática, legitimidad institucional, colegialidad y debido proceso del gobierno escolar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Eludir al Consejo Directivo y Académico deslegitima las decisiones e incurre en vicios de procedimiento que fracturan el gobierno escolar.</div>
+    </article>
+
+    <!-- MÓDULOS 3 Y 4 -->
+    <div class="module-header">
+        <i class="fas fa-tasks"></i> Módulos 3 y 4: Gestión Institucional, Planeación, Recursos y Control (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Qué finalidad tiene el Proyecto Educativo Institucional (PEI) dentro de la gestión de una institución?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ser la carta de navegación estratégica y pedagógica que orienta el horizonte, principios, modelo pedagógico, estructura y metas de la comunidad educativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El PEI articula todas las dimensiones de la vida institucional y establece la identidad y propósitos de la escuela.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">¿Por qué los objetivos institucionales deben estar relacionados con las necesidades reales de la comunidad educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque garantiza la pertinencia social y pedagógica de la oferta formativa, asegurando que los esfuerzos resuelvan problemáticas contextuales concretas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los objetivos descontextualizados conducen a planes irrelevantes que no transforman la realidad de los estudiantes.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Qué función cumplen los Planes de Mejoramiento Institucional (PMI)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Operacionalizar de forma sistemática y priorizada las acciones, metas, responsables y recursos necesarios para superar las debilidades halladas en la autoevaluación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El PMI es la herramienta técnica que traduce el diagnóstico de la autoevaluación en metas concretas de mejoramiento continuo.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿Cuál es la importancia de establecer indicadores para evaluar la gestión institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Medir objetivamente el avance de las metas, verificar la efectividad de las estrategias y tomar decisiones sustentadas en datos empíricos y no en conjeturas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los indicadores permiten el monitoreo objetivo del rendimiento institucional y sustentan la toma de decisiones basada en evidencias.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Qué diferencia existe entre una actividad, una meta y un objetivo institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) El objetivo orienta el propósito cualitativo amplio; la meta cuantifica el resultado esperado con tiempo y magnitud; la actividad concreta la tarea operativa para lograrlo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La coherencia en la planificación exige distinguir entre la aspiración estratégica (objetivo), el resultado cuantificable (meta) y las tareas de ejecución (actividades).</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">¿Por qué el diagnóstico institucional debe preceder a la formulación de estrategias de mejoramiento?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque evita implementar soluciones estandarizadas a ciegas y permite enfocar los recursos en las causas estructurales y brechas reales de la institución.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Sin diagnóstico riguroso, las intervenciones directivas atacan síntomas superficiales y desperdician recursos institucionales.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">¿Qué elementos deberían analizarse para determinar si una estrategia institucional está produciendo resultados?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El progreso en los indicadores de aprendizaje, permanencia escolar, clima de convivencia, uso eficaz de recursos y satisfacción de los estamentos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La eficacia directiva se evalúa de manera multidimensional, integrando resultados académicos, clima escolar y eficiencia operativa.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Una institución formula excelentes planes, pero no realiza seguimiento a su ejecución. ¿Qué componente de la gestión está siendo descuidado?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La función de monitoreo, control, evaluación formativa de procesos y rendición de cuentas operativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La falta de seguimiento operativo convierte los planes institucionales en ejercicios teóricos sin impacto real en la vida escolar.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Por qué es importante definir claramente funciones y responsabilidades dentro de una institución educativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Otorga certidumbre al personal, agiliza la toma de decisiones, evita la sobrecarga laboral y clarifica las expectativas de desempeño de cada cargo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La claridad de roles previene conflictos interpersonales y asegura que cada proceso cuente con un doliente responsable.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">¿Qué importancia tiene la gestión eficiente de los recursos humanos, físicos y tecnológicos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Maximiza la equidad en el acceso a herramientas pedagógicas, dignifica los espacios de trabajo y potencia el logro de los aprendizajes de los estudiantes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La optimización de recursos asegura condiciones de trabajo dignas y entornos enriquecidos para la formación integral.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">¿Por qué el seguimiento y control institucional no debe entenderse únicamente como una actividad de supervisión punitiva?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque su valor formativo radica en identificar dificultades a tiempo para ofrecer acompañamiento, asesoría y reorientar procesos antes de que fallen.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El control moderno es preventivo y formativo; busca apoyar la mejora antes que sancionar el incumplimiento.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">¿Qué relación existe entre transparencia y gestión institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) La transparencia y la rendición de cuentas periódica generan confianza comunitaria, previenen actos indebidos y fortalecen la legitimidad de las decisiones directivas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La rendición de cuentas sistemática afianza la credibilidad del equipo directivo ante la comunidad escolar.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">¿Por qué la toma de decisiones administrativas debe estar respaldada por información confiable?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Porque reduce el margen de error, asegura que las inversiones respondan a prioridades reales y permite defender objetivamente las determinaciones institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los datos válidos y confiables protegen a la institución de decisiones arbitrarias o ineficaces.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">Una institución dispone de un presupuesto limitado. ¿Cuál debería ser el criterio principal para establecer prioridades de inversión?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Priorizar aquellas áreas y recursos que impacten de manera directa y demostrable en la calidad pedagógica, el aprendizaje de los alumnos y la seguridad institucional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> En escenarios de escasez presupuestal, el criterio central debe ser el impacto directo en el bienestar y aprendizaje del educando.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Qué riesgo existe cuando una institución concentra la información y las decisiones en pocas personas?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Cuellos de botella operativos, desinformación, desconfianza del equipo, pérdida de visión compartida y parálisis institucional ante la ausencia de los líderes formales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El centralismo decisorio asfixia la iniciativa docente y vuelve vulnerable la operatividad del colegio ante ausencias del directivo.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">¿Cómo puede una institución evaluar si está utilizando adecuadamente sus recursos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Evaluando indicadores de costo-beneficio formativo: nivel de aprovechamiento pedagógico, mantenimiento preventivo, satisfacción comunitaria e impacto en el aprendizaje.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El uso eficaz de recursos se mide por el valor pedagógico agregado que generan en la experiencia formativa de los estudiantes.</div>
+    </article>
+
+    <!-- MÓDULO 5 -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Módulo 5: Casos Prácticos de Gestión y Gobierno Escolar (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Una institución tiene un PEI formalmente actualizado y aprobado, pero los docentes en el aula desconocen sus objetivos estratégicos y trabajan de forma aislada e independiente. ¿Cuál es el principal problema de gestión que se evidencia?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ruptura en la comunicación y apropiación institucional: el PEI fue elaborado como un documento de cumplimiento burocrático y no como un proyecto colectivo vivido y gestionado en el aula.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un PEI sin apropiación docente es letra muerta; la labor directiva consiste en alinear la práctica pedagógica cotidiana con el horizonte institucional.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: El consejo directivo analiza una problemática institucional compleja y algunos integrantes sustentan una propuesta colegiada. El director, en desacuerdo, decide desestimar el debate e implementar de inmediato su propia fórmula unilateral. ¿Qué principio de gobierno escolar está vulnerando gravemente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El principio de colegialidad, soberanía de los órganos del gobierno escolar, legitimidad democrática y respeto al debido proceso en la toma de decisiones institucionales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Consejo Directivo es la máxima autoridad decisoria; el rector preside y ejecuta, pero no puede usurpar las facultades deliberativas del órgano colegiado.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Una institución presenta problemas crónicos de convivencia y acoso escolar. La dirección propone como única salida endurecer las sanciones disciplinarias en el manual sin indagar en las dinámicas relacionales. ¿Por qué esta estrategia resulta insuficiente desde la gestión integral?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque aborda los síntomas de forma puramente punitiva sin atacar las causas formativas, desconociendo la prevención, las competencias socioemocionales, la mediación escolar y la corresponsabilidad familiar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La convivencia no se decreta mediante castigos; requiere un enfoque formativo, restaurativo y participativo que involucre a toda la comunidad.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Un colegio invierte en recursos tecnológicos suficientes, pero los docentes prácticamente no los utilizan en sus clases. La administración concluye que su gestión fue exitosa porque los equipos fueron comprados e inventariados. ¿Qué error fundamental de gestión está cometiendo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Asumir que la administración educativa se limita al aprovisionamiento físico y la compra de bienes, desatendiendo la mediación pedagógica, la capacitación docente y la integración curricular efectiva del recurso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La dotación material debe ir acompañada de desarrollo profesional docente y rediseño didáctico para que el recurso impacte en los aprendizajes.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Durante la elaboración del plan de mejoramiento institucional (PMI), el equipo directivo establece diez objetivos ambiciosos, pero no define responsables específicos, indicadores verificables ni fechas de seguimiento periódico. ¿Cuál es la principal debilidad de este plan?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Inviabilidad operativa por carecer de estructura de gestión: sin responsables no hay rendición de cuentas, sin indicadores no hay medición de avance y sin cronograma las metas quedan en meras intenciones abstractas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La viabilidad de un plan radica en la precisión operativa de sus metas, responsables e indicadores de verificación periódica.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Una institución requiere reducir gastos de funcionamiento y la rectoría decide eliminar unilateralmente las jornadas de capacitación docente sin evaluar el impacto pedagógico. ¿Qué debería considerar la administración antes de tomar esta decisión?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Que el desarrollo profesional continuo del talento humano es el principal motor de la calidad educativa; recortarlo deteriora las prácticas de aula, la motivación y los resultados de aprendizaje a mediano y largo plazo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El talento docente es el activo pedagógico más valioso; desinvertir en su formación compromete la calidad futura de la institución.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Los representantes de estudiantes, familias y docentes asisten puntualmente a las sesiones del consejo directivo, pero sus propuestas y reparos nunca son debatidos ni considerados en las decisiones finales del colegio. ¿Puede afirmarse que existe participación efectiva? ¿Por qué?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No, se trata de una participación meramente cosmética o simulada, donde se instrumentaliza la presencia de los estamentos para legitimar formalmente decisiones autocráticas ya tomadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La participación auténtica implica capacidad real de incidencia y codecisión, no solo asistencia pasiva para llenar actas formales.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Una institución educativa cumple el 100% de las actividades previstas en su plan anual operativo, pero al evaluar el cierre, los indicadores de aprendizaje, permanencia, convivencia y satisfacción comunitaria no muestran ninguna mejoría respecto a la línea base. ¿Puede considerarse exitosa la gestión institucional? ¿Qué debería concluirse?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No fue exitosa; existió un activismo operativo formal desconectado del impacto real: la gestión escolar se mide por la mejora sustantiva de la calidad y el bienestar formativo, no por la acumulación mecánica de eventos realizados.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El activismo ciego sin impacto en indicadores clave no es gestión efectiva; la calidad se evalúa por la transformación real de los resultados escolares.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

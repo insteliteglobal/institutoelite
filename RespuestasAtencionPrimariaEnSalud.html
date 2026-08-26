@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Atención Primaria en Salud (APS)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Atención Primaria en Salud (APS) | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-heartbeat"></i> Módulos 1, 2 y 3: Fundamentos de APS, Prevención y Salud Pública (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">Según la Declaración de Alma-Ata y su renovación en Astaná, la Atención Primaria en Salud (APS) se define primordialmente como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La asistencia sanitaria esencial, basada en métodos y tecnologías prácticos, científicamente fundados y socialmente aceptables, al alcance de todos y como eje central del sistema de salud.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La APS constituye la base angular de los sistemas de salud modernos, garantizando acceso universal con equidad, participación y base científica.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Cuál es la diferencia conceptual entre la APS Selectiva y la APS Integral o Renovada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La selectiva se enfoca en un paquete restringido de intervenciones costo-efectivas para enfermedades específicas; la integral aborda los determinantes sociales, la equidad, la intersectorialidad y el derecho humano a la salud.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La APS integral supera el enfoque asistencialista estrecho y concibe la salud como un derecho fundamental vinculado al desarrollo humano.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">En el modelo de Determinantes Sociales de la Salud (Dahlgren y Whitehead / OMS), ¿cuál de los siguientes factores constituye un determinante estructural?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La estratificación socioeconómica, las políticas macroeconómicas, el mercado laboral y el nivel educativo formal.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los determinantes estructurales moldean la distribución del poder, el dinero y los recursos en la sociedad, generando inequidades sanitarias sistemáticas.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">De acuerdo con el modelo de Leavell y Clark, ¿cuál de las siguientes acciones corresponde a una Prevención Secundaria?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El tamizaje poblacional mediante citología cervicouterina y mamografía para diagnóstico precoz y tratamiento oportuno.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La prevención secundaria interviene en la fase presintomática mediante pruebas de cribado para frenar la progresión del daño.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">¿Qué propósito tiene la Prevención Cuaternaria en la práctica clínica y comunitaria de la APS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificar a pacientes en riesgo de sobremedicalización o sobrediagnóstico, protegiéndolos de intervenciones médicas innecesarias o iatrogénicas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aplica el principio bioético de "Primum non nocere" frente al exceso intervencionista en pacientes asintomáticos o sobretratados.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué caracteriza al Enfoque de Salud Familiar y Comunitaria dentro de la APS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Reconocer a la familia como la unidad básica de cuidado, analizando su estructura, dinámica relacional, ciclo vital y riesgos ambientales compartidos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La salud del individuo está íntimamente vinculada a los patrones de convivencia, hábitos y riesgos compartidos en el núcleo familiar y comunitario.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Por qué la Intersectorialidad es una condición indispensable para el éxito de la Atención Primaria en Salud?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque la mayoría de los determinantes de la salud (agua potable, saneamiento básico, vivienda, educación, empleo) escapan al control exclusivo del sector sanitario.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Mejorar la salud exige acciones articuladas entre educación, saneamiento ambiental, agricultura y desarrollo social.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">La Carta de Ottawa define la Promoción de la Salud como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El proceso que proporciona a las poblaciones los medios necesarios para ejercer un mayor control sobre su propia salud y mejorarla.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La promoción capacita y empodera a las personas para intervenir sobre los factores que determinan su bienestar integral.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">¿Cuál es la finalidad metodológica del Análisis de Situación de Salud (ASIS) en el ámbito local?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Caracterizar, medir y explicar el perfil de salud-enfermedad y los determinantes sociales de una población para priorizar problemas y orientar planes de salud territorial.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El ASIS proporciona la línea base epidemiológica y social para formular planes territoriales de salud contextualizados y pertinentes.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">En el marco de la vigilancia epidemiológica en salud pública, ¿qué constituye un Evento de Interés en Salud Pública (EISP)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Aquel suceso o enfermedad que por su transmisibilidad, gravedad, letalidad o impacto colectivo requiere notificación obligatoria y seguimiento por el SIVIGILA.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los EISP exigen vigilancia constante para activar medidas de control y prevención oportunas ante brotes o epidemias.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Cuál es la regla fundamental de la Cadena de Frío para la conservación de biológicos del PAI en el primer nivel de atención?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Garantizar un rango térmico estricto y continuo entre +2 °C y +8 °C en el refrigerador, con control y registro de temperatura dos veces al día.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Romper la cadena térmica inactiva la potencia inmunológica de los biológicos, dejando a la población desprotegida.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">En la atención materno-infantil, la ventana de oportunidad de los "Primeros 1.000 Días de Vida" comprende:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El periodo desde la concepción (270 días de gestación) hasta los dos primeros años de vida del niño (730 días).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Es la etapa crítica de mayor neurodesarrollo y plasticidad cerebral; la nutrición y el cuidado en esta fase determinan la salud futura.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">En el control comunitario de Enfermedades Transmitidas por Vectores (ETV) como el Dengue, ¿cuál es la medida más sostenible y de mayor impacto?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El ordenamiento ambiental, lavado y tapado hermético de tanques, y la eliminación sistemática de criaderos de Aedes aegypti con participación social activa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El control físico de criaderos elimina la fase larvaria del vector de manera sostenible, superando la transitoriedad de los insecticidas.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Cuál es el enfoque fundamental de la Salud Sexual y Reproductiva dentro del modelo de APS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Garantizar el ejercicio libre, informado, seguro y sin discriminación de los derechos sexuales y reproductivos a lo largo de todo el curso de vida.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Se fundamenta en la autonomía personal, la equidad de género y el acceso oportuno a asesoría y métodos basados en evidencia.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">En el abordaje de las Enfermedades No Transmisibles (ENT) como Hipertensión y Diabetes, la APS prioriza:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La estratificación del riesgo cardiovascular, la adopción de estilos de vida saludables, el autocuidado guiado y el seguimiento continuo para prevenir complicaciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La adherencia a cambios de conducta y el automonitoreo en el primer nivel previenen eventos cardio y cerebrovasculares mayores.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">¿Qué condición técnica debe cumplir una prueba de tamizaje poblacional en atención primaria en salud?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ser sencilla, segura, de bajo costo, socialmente aceptable, con alta sensibilidad para detectar la condición en fase presintomática en población asintomática.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El cribado poblacional requiere alta sensibilidad para captar a los potenciales afectados sin someterlos a riesgos o costos excesivos.</div>
+    </article>
+
+    <!-- MÓDULOS 4 A 9 -->
+    <div class="module-header">
+        <i class="fas fa-people-carry"></i> Módulos 4 a 9: RIAS, Participación Comunitaria, Salud Mental y Humanización (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">¿Qué son las Rutas Integrales de Atención en Salud (RIAS) en el marco de la política de salud colombiana?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Herramientas operativas que definen las condiciones necesarias para asegurar la integralidad en la atención a partir de acciones de promoción, prevención, diagnóstico, tratamiento y rehabilitación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las RIAS articulan a todos los actores del sistema para brindar atenciones continuas centradas en las personas y sus entornos.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">La Ruta Integral de Atención para la Promoción y Mantenimiento de la Salud tiene como población objetivo:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) A todas las personas, familias y comunidades a lo largo de su curso de vida (primera infancia, infancia, adolescencia, juventud, adultez y vejez).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Acompaña a la persona sana o en riesgo a lo largo de sus momentos vitales para preservar la salud y potenciar capacidades.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Cuál es el propósito central de la RIAS del Grupo de Riesgo Materno-Perinatal?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Garantizar la atención integral antes, durante y después del embarazo, el parto y el puerperio, reduciendo la morbimortalidad materna y neonatal evitable.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Establece intervenciones obligatorias desde la consulta preconcepcional hasta el seguimiento puerperal y del recién nacido.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">La Vigilancia Epidemiológica de Base Comunitaria (VEBC) se caracteriza por:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Empoderar a líderes y agentes comunitarios para detectar, alertar y notificar tempranamente eventos o riesgos sanitarios inusuales en su territorio.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Extiende el alcance del sistema de vigilancia epidemiológica formal gracias al conocimiento situado de la propia comunidad.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Cómo se articula el sistema de Referencia y Contrarreferencia con los principios de la APS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Garantizando la continuidad asistencial y complementariedad, trasladando al paciente al nivel adecuado y reintegrándolo a su comunidad con plan de seguimiento en el primer nivel.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Asegura que el usuario reciba la atención especializada requerida sin perder su anclaje y seguimiento continuo en su centro de salud local.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">En el marco de la Salud Mental Comunitaria, los Primeros Auxilios Psicológicos (PAP) consisten en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Una intervención de apoyo humano, compasivo y práctico orientada a brindar contención emocional, alivio del estrés agudo y enlace con redes de apoyo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los PAP estabilizan a personas en crisis aguda y pueden ser aplicados por personal capacitado sin requerir psicofármacos de entrada.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">Frente a la detección de un caso de Violencia Basada en Género (VBG) o maltrato infantil en el primer nivel, ¿cuál es el deber del equipo de salud?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Brindar atención integral en salud sin juzgar, activar de forma inmediata la ruta intersectorial obligatoria (justicia, protección, ICBF/Comisaría) y garantizar la confidencialidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El sector salud tiene la obligación legal y ética de atender el daño físico/emocional y activar la protección institucional prioritaria.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">La estrategia AIEPI (Atención Integrada a las Enfermedades Prevalentes de la Infancia) en su componente comunitario busca:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Fortalecer 18 prácticas clave en las familias y comunidades para el crecimiento saludable, prevención, cuidado en el hogar y búsqueda oportuna de ayuda médica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El componente comunitario de AIEPI capacita a cuidadores para prevenir y manejar adecuadamente diarreas, infecciones respiratorias y desnutrición.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">¿Cómo debe integrarse el Enfoque Diferencial e Intercultural en la atención en salud a comunidades indígenas y afrodescendientes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Mediante el diálogo intercultural, el respeto a la cosmovisión y saberes de la medicina tradicional, y la concertación de planes de cuidado adecuados culturalmente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La interculturalidad en salud valida las prácticas ancestrales y construye puentes de confianza con el sistema de salud oficial.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">En el seguimiento de pacientes con patologías crónicas, el Programa de Adherencia Terapéutica en APS prioriza:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificar barreras socioculturales y económicas, simplificar esquemas posológicos, educar al paciente y su familia, y pactar metas realistas de automonitoreo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La adherencia no se impone; se negocia empáticamente identificando dificultades económicas, efectos secundarios o creencias erróneas.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">El abordaje del consumo de Sustancias Psicoactivas (SPA) con Enfoque de Reducción de Daños en APS implica:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Implementar estrategias pragmáticas orientadas a minimizar los riesgos e impactos negativos sobre la salud física, psíquica y social del usuario y su entorno.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La reducción de daños acoge al usuario sin estigmatizarlo, disminuyendo infecciones, sobredosis y marginalidad.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">En la Educación para la Salud comunitaria, ¿cuál metodología resulta pedagógicamente más efectiva?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Talleres participativos dialógicos, basados en problemas reales, intercambio de experiencias, demostraciones prácticas y construcción colectiva de alternativas de cuidado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El aprendizaje dialógico basado en la pedagogía crítica de Freire genera apropiación y cambios duraderos de comportamiento en la comunidad.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">La Comunicación Asertiva en la relación profesional de salud-paciente en APS exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Escucha activa, empatía, lenguaje claro y comprensible (sin tecnicismos innecesarios), validación de emociones y verificación de la comprensión del plan de manejo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La asertividad y la empatía aumentan la satisfacción del usuario y mejoran significativamente el cumplimiento terapéutico.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">En las brigadas de salud extramurales, el manejo seguro de Residuos Cortopunzantes exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Depositar agujas y lancetas inmediatamente en recipientes rígidos tipo 'Guardián', sin reenfundar las agujas, llenándolos máximo hasta 3/4 de su capacidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Evita accidentes biológicos laborales por pinchazos accidentales durante la atención extramural.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">El Consentimiento Informado en la atención primaria es éticamente válido cuando:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Es un proceso de diálogo continuo donde se explica en lenguaje comprensible la naturaleza, beneficios, riesgos y alternativas del procedimiento, y el usuario decide libremente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El consentimiento es un acto de comunicación y respeto a la autonomía del paciente, no un simple trámite en papel.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">El Secreto Profesional y la Confidencialidad de la Historia Clínica en los programas de salud comunitaria implican:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La obligación legal y ética de custodiar la reserva de toda la información clínica y personal conocida durante el acto de cuidado, accesible solo al paciente o por orden judicial.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La confidencialidad protege el derecho a la intimidad y sustenta la confianza de la comunidad en los equipos de salud.</div>
+    </article>
+
+    <!-- MÓDULO 10 -->
+    <div class="module-header">
+        <i class="fas fa-user-md"></i> Módulo 10: Casos Prácticos de Toma de Decisiones en APS (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: En una vereda se registra un incremento acelerado de casos febriles compatibles con Dengue con signos de alarma. Se evidencia que la población almacena agua en tanques descubiertos por desabastecimiento hídrico. ¿Cuál es la decisión prioritaria del equipo de APS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Realizar búsqueda activa comunitaria de casos, triaje para remisión oportuna de signos de alarma, y jornada de control físico/biológico de criaderos con educación en tapado de reservorios.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Articula la atención clínica oportuna para evitar muertes por choque con el control ambiental de la fuente del brote.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: En un resguardo indígena se identifica renuencia a vacunar a los recién nacidos con BCG y Hepatitis B por desconfianza en la medicina occidental. ¿Qué estrategia de liderazgo en APS debe implementarse?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Convocar a las autoridades tradicionales, sabedores ancestrales y parteras a un círculo de diálogo intercultural para explicar beneficios, acordar protocolos conjuntos y vacunar con consentimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La concertación con autoridades ancestrales legitima la intervención y garantiza coberturas vacunales respetando los derechos étnicos.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Un grupo de adultos mayores hipertensos y diabéticos presenta descompensación metabólica frecuente. Manifiestan que no entienden las dosis y que no pueden costear dietas comerciales complejas. ¿Cuál es la mejor intervención del equipo interdisciplinario?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diseñar un plan de educación alimentaria adaptado a los productos locales económicos de la región, implementar pastilleros visuales con colores y crear un club comunitario de actividad física y automonitoreo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Adapta las metas terapéuticas a la realidad económica y nivel de alfabetización de los usuarios, promoviendo el apoyo de pares.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: En una visita extramural a un asentamiento informal se identifica a un niño de 18 meses con emaciación visible, edema en miembros inferiores, apatía e inapetencia. ¿Cuál es la conducta inmediata que debe adoptar el profesional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar de inmediato la Ruta de Atención Integral para la Desnutrición Aguda Severa (Resolución 2350), remitir a centro de recuperación nutricional/hospitalario e iniciar manejo médico protocolizado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El edema y la emaciación indican desnutrición aguda severa (Kwashiorkor/Marasmo), una emergencia médica que exige hospitalización y rescate nutricional inmediato.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Durante una brigada en zona rural se capta a una gestante de 34 semanas sin ningún control prenatal previo, quien refiere cefalea intensa, visión borrosa (fosfenos) y se le detecta tensión arterial de 150/100 mmHg. ¿Cuál es la decisión clínica y logística correcta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificar emergencia obstétrica por preeclampsia con criterios de severidad, activar Código Rojo/Materno, estabilizar inmediatamente y coordinar traslado prioritario medicalizado a nivel hospitalario.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La combinación de hipertensión y síntomas vasomotores en el tercer trimestre alerta sobre riesgo inminente de eclampsia, demandando activación de la red de urgencias.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Un joven de 17 años acude al centro de salud de primer nivel manifestando llanto incontrolable, desesperanza profunda, aislamiento y un plan estructurado para terminar con su vida esa misma noche. ¿Cómo debe proceder el equipo asistencial?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) No dejarlo solo en ningún momento, brindar contención emocional empática, activar la Ruta de Urgencia en Salud Mental por Riesgo Suicida Inminente, involucrar a la red familiar y remitir a interconsulta especializada.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La ideación suicida con plan estructurado e inmediatez constituye una urgencia médica que exige acompañamiento continuo y remisión prioritaria.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Un paciente con Tuberculosis Pulmonar con baciloscopia positiva abandona el tratamiento farmacológico a las tres semanas porque "ya no siente tos ni fiebre". ¿Cuál es la estrategia prioritaria del programa de APS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Realizar visita domiciliaria urgente de rescate, educar sobre el riesgo de tuberculosis farmacorresistente y muerte, reiniciar esquema bajo Tratamiento Directamente Observado (DOTS/TAES) y tamizar a todos sus contactos intradomiciliarios.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El abandono precoz induce multirresistencia bacilar y mantiene la cadena de contagio comunitaria; la estrategia DOTS asegura la toma supervisada de cada dosis.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Una comunidad rural dispersa sufre barreras geográficas severas que le impiden acceder al centro de salud de la cabecera municipal, registrando bajas coberturas en citologías, vacunación y control de crónicos. Desde la gestión de APS, ¿cuál es la solución integral más adecuada?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Conformar y desplegar Equipos Básicos de Salud Extramurales permanentes, que realicen atención primaria domiciliaria, jornadas de salud periódicas, teleorientación y articulación con líderes comunitarios locales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los equipos extramurales trasladan la capacidad resolutiva primaria directamente al territorio, superando las barreras de dispersión geográfica.</div>
+    </article>
+
+</div>
+
+</body>
+</html>
