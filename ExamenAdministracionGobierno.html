@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Administración Educativa, Gobierno Escolar y Gestión Institucional | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación: Administración Educativa y Gobierno Escolar</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Docente</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Administración y Gobierno Escolar (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Gestión, Recursos y Control (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos de Gestión (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-landmark"></i> Módulos 1 y 2: Administración Educativa, Gobierno Escolar y Participación</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Cuál es el propósito fundamental de la administración educativa dentro de una institución?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A" data-correct="true"> A) Planificar, organizar, dirigir y controlar los recursos institucionales para crear las condiciones óptimas que hagan viable y exitoso el proyecto pedagógico formativo.</label>
+                            <label><input type="radio" name="P1" value="B"> B) Fiscalizar y sancionar el cumplimiento estricto de las normas laborales del profesorado.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Maximizar el superávit financiero mediante el recorte de recursos didácticos.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Elaborar actas y trámites burocráticos de forma exclusiva para entes de supervisión.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. ¿Qué diferencia existe entre administrar recursos y gestionar estratégicamente una institución educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) No existe diferencia sustancial; ambos conceptos se centran exclusivamente en el inventario físico y contable.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) Administrar recursos asegura la custodia y operatividad eficiente de los bienes; gestionar estratégicamente articula dichos recursos con la visión, el PEI y las metas de transformación pedagógica a largo plazo.</label>
+                            <label><input type="radio" name="P2" value="C"> C) La administración la realiza el cuerpo docente y la gestión estratégica corresponde a la secretaría académica.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Gestionar estratégicamente se limita a formular presupuestos financieros anuales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. ¿Cuáles son los principales recursos que debe administrar una institución educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) Únicamente los recursos financieros procedentes de matrículas o transferencias públicas.</label>
+                            <label><input type="radio" name="P3" value="B" data-correct="true"> B) Los recursos humanos (talento pedagógico y administrativo), físicos, tecnológicos, temporales, curriculares y financieros.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Exclusivamente los laboratorios y el mobiliario de las aulas de clase.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Los registros de notas y los archivos físicos históricos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. ¿Por qué la planificación es una función esencial de la administración educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Para establecer un cronograma inmodificable que impida cualquier ajuste durante el año lectivo.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Porque anticipa necesidades, optimiza la distribución de recursos, reduce la improvisación y alinea las acciones institucionales con los objetivos del PEI.</label>
+                            <label><input type="radio" name="P4" value="C"> C) Para cumplir un requisito formal que se archiva ante la secretaría de educación.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Para centralizar todas las decisiones pedagógicas en el despacho directivo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Qué importancia tiene la organización de funciones y responsabilidades dentro de una institución?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A" data-correct="true"> A) Delimita con claridad los roles, evita duplicidad de esfuerzos, previene vacíos operativos y fortalece la rendición de cuentas y la eficacia del equipo.</label>
+                            <label><input type="radio" name="P5" value="B"> B) Permite imponer sanciones inmediatas ante cualquier retraso administrativo.</label>
+                            <label><input type="radio" name="P5" value="C"> C) Garantiza que los docentes asuman tareas administrativas fuera de su jornada formativa.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Reduce los espacios de trabajo colaborativo entre diferentes áreas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Cómo contribuye una adecuada gestión de recursos al cumplimiento de los objetivos institucionales?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A" data-correct="true"> A) Garantizando que el talento docente, los materiales didácticos, la tecnología y los espacios físicos estén disponibles oportunamente donde el acto pedagógico lo demanda.</label>
+                            <label><input type="radio" name="P6" value="B"> B) Manteniendo los recursos guardados bajo inventario cerrado para evitar su deterioro.</label>
+                            <label><input type="radio" name="P6" value="C"> C) Destinando la totalidad de los fondos a eventos de publicidad institucional.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Sustituyendo la necesidad de contar con un Proyecto Educativo Institucional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Por qué la administración educativa debe estar articulada con el Proyecto Educativo Institucional (PEI)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Para que los gastos financieros coincidan exactamente con el número de estudiantes matriculados.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Porque la administración no es un fin en sí misma, sino el soporte operativo y logístico que hace posible materializar el horizonte y modelo pedagógico institucional.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Porque el PEI es un documento puramente contable y administrativo.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Para impedir la actualización periódica de los manuales de funciones.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. Una institución cuenta con suficientes recursos físicos y financieros, pero presenta desorganización y bajo cumplimiento de objetivos. ¿Cuál podría ser la principal debilidad de su administración?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) Insuficiencia de presupuesto para contratar auditorías externas permanentes.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) Carencia de planificación estratégica, desarticulación entre procesos, ausencia de liderazgo orientador y fallas en el seguimiento y control de responsabilidades.</label>
+                            <label><input type="radio" name="P8" value="C"> C) Exceso de participación democrática de los docentes en los comités.</label>
+                            <label><input type="radio" name="P8" value="D"> D) La antigüedad del mobiliario en las salas de profesores.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. ¿Cuál es la finalidad del gobierno escolar dentro de una institución educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Funcionar como órgano consultivo no vinculante que respalda sin objeción las decisiones del rector.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Garantizar la participación democrática, la representatividad de la comunidad, la toma de decisiones colegiada y la transparencia en la orientación del establecimiento.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Administrar exclusivamente los contratos de arrendamiento de la cafetería escolar.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Sustituir las funciones técnicas y pedagógicas de los consejos académicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. ¿Por qué la participación de diferentes miembros de la comunidad educativa fortalece la gestión institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A" data-correct="true"> A) Porque aporta miradas diversas sobre las necesidades reales, fomenta el sentido de pertenencia, democratiza las decisiones y dota de legitimidad y corresponsabilidad a los planes institucionales.</label>
+                            <label><input type="radio" name="P10" value="B"> B) Porque traslada la responsabilidad jurídica del rector hacia los padres de familia.</label>
+                            <label><input type="radio" name="P10" value="C"> C) Porque permite resolver conflictos disciplinarios mediante votaciones públicas.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Porque acelera la toma de decisiones al eliminar los debates pedagógicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Qué importancia tiene la representación de los diferentes estamentos en los órganos de participación institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Es una formalidad exigida por la norma que carece de impacto en el clima escolar.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Asegura que las perspectivas de docentes, estudiantes, directivos, egresados y familias sean escuchadas e integradas en la construcción de políticas y proyectos escolares.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Evita que el consejo académico deba reunirse periódicamente.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Garantiza que todos los estamentos reciban compensaciones económicas por su asistencia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. ¿Cuál es la diferencia entre participación democrática y participación meramente consultiva o formal?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A" data-correct="true"> A) La participación democrática otorga poder real de deliberación e incidencia en las decisiones colegiadas; la formal se limita a informar o validar decisiones ya tomadas unilateralmente.</label>
+                            <label><input type="radio" name="P12" value="B"> B) La consultiva permite a los estudiantes redactar el manual de convivencia y la democrática no.</label>
+                            <label><input type="radio" name="P12" value="C"> C) No hay diferencia; cualquier convocatoria a reunión constituye participación democrática plena.</label>
+                            <label><input type="radio" name="P12" value="D"> D) La democrática solo aplica para docentes y la consultiva para padres de familia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. ¿Por qué las decisiones institucionales deben respetar los mecanismos y conductos establecidos de participación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Para alargar los trámites burocráticos y retrasar la implementación de cambios.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) Porque garantiza el debido proceso, previene arbitrariedades directivas, promueve la transparencia y fortalece la confianza y cohesión institucional.</label>
+                            <label><input type="radio" name="P13" value="C"> C) Para que las decisiones dependan exclusivamente de la aprobación del personero estudiantil.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Porque las normas prohíben al equipo directivo formular propuestas de mejora.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Cómo puede el gobierno escolar contribuir a mejorar la convivencia institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A" data-correct="true"> A) Construyendo acuerdos y manuales legítimos de forma participativa, activando comités de convivencia formativos y ofreciendo canales pacíficos para tramitar diferencias.</label>
+                            <label><input type="radio" name="P14" value="B"> B) Decretando la expulsión inmediata de estudiantes que incurran en faltas leves.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Suprimiendo los espacios de recreo y descanso en las jornadas extensas.</label>
+                            <label><input type="radio" name="P14" value="D"> D) Prohibiendo las asambleas estudiantiles para evitar confrontaciones de ideas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. ¿Qué papel tiene la comunidad educativa en los procesos de construcción y mejoramiento institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) Financiar privadamente las obras de infraestructura física no cubiertas por el Estado.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) Co-diseñar, evaluar y validar continuamente el PEI, aportando corresponsabilidad ética y social en el desarrollo del proyecto formativo.</label>
+                            <label><input type="radio" name="P15" value="C"> C) Supervisar y calificar diariamente la planeación de clase de cada docente.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Limitarse a recibir los reportes de calificaciones al final de cada periodo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. Un directivo toma todas las decisiones institucionales sin consultar los órganos de participación establecidos por ley. ¿Qué principio de la gestión escolar estaría debilitando principalmente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) El principio de eficiencia financiera presupuestal.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) El principio de gobernanza democrática, legitimidad institucional, colegialidad y debido proceso del gobierno escolar.</label>
+                            <label><input type="radio" name="P16" value="C"> C) La autonomía técnica y de cátedra del docente en su aula.</label>
+                            <label><input type="radio" name="P16" value="D"> D) La jerarquía formal de los manuales de secretaría académica.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Gestión y Recursos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-tasks"></i> Módulos 3 y 4: Gestión Institucional, Planeación, Recursos y Control</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. ¿Qué finalidad tiene el Proyecto Educativo Institucional (PEI) dentro de la gestión de una institución?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Constituir un archivo documental estático para responder a requerimientos normativos.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) Ser la carta de navegación estratégica y pedagógica que orienta el horizonte, principios, modelo pedagógico, estructura y metas de la comunidad educativa.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Establecer el reglamento exclusivo del personal de servicios generales.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Definir únicamente los costos de matrícula y pensiones del año lectivo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. ¿Por qué los objetivos institucionales deben estar relacionados con las necesidades reales de la comunidad educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A" data-correct="true"> A) Porque garantiza la pertinencia social y pedagógica de la oferta formativa, asegurando que los esfuerzos resuelvan problemáticas contextuales concretas.</label>
+                            <label><input type="radio" name="P18" value="B"> B) Para que todos los colegios de una región adopten exactamente el mismo plan de estudios.</label>
+                            <label><input type="radio" name="P18" value="C"> C) Porque los objetivos institucionales no deben modificarse independientemente del entorno.</label>
+                            <label><input type="radio" name="P18" value="D"> D) Para reducir la cantidad de áreas curriculares en el plan de estudios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Qué función cumplen los Planes de Mejoramiento Institucional (PMI)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A" data-correct="true"> A) Operacionalizar de forma sistemática y priorizada las acciones, metas, responsables y recursos necesarios para superar las debilidades halladas en la autoevaluación.</label>
+                            <label><input type="radio" name="P19" value="B"> B) Reemplazar por completo el contenido del Proyecto Educativo Institucional.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Registrar sanciones disciplinarias acumuladas por el cuerpo docente.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Servir como informe contable de cierre fiscal anual.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. ¿Cuál es la importancia de establecer indicadores para evaluar la gestión institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Comparar públicamente a los docentes para fomentar la competencia individual.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Medir objetivamente el avance de las metas, verificar la efectividad de las estrategias y tomar decisiones sustentadas en datos empíricos y no en conjeturas.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Aumentar la cantidad de reportes físicos que archiva la secretaría.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Eliminar la necesidad de realizar autoevaluaciones anuales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. ¿Qué diferencia existe entre una actividad, una meta y un objetivo institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A" data-correct="true"> A) El objetivo orienta el propósito cualitativo amplio; la meta cuantifica el resultado esperado con tiempo y magnitud; la actividad concreta la tarea operativa para lograrlo.</label>
+                            <label><input type="radio" name="P21" value="B"> B) La meta es una intención no medible, el objetivo es una orden rectoral y la actividad es un taller.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Son términos equivalentes que expresan exactamente el mismo nivel de planeación.</label>
+                            <label><input type="radio" name="P21" value="D"> D) La actividad la formula el ministerio y los objetivos los formula el estudiante.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. ¿Por qué el diagnóstico institucional debe preceder a la formulación de estrategias de mejoramiento?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) Para postergar la aplicación de cambios hasta el siguiente ciclo lectivo.</label>
+                            <label><input type="radio" name="P22" value="B" data-correct="true"> B) Porque evita implementar soluciones estandarizadas a ciegas y permite enfocar los recursos en las causas estructurales y brechas reales de la institución.</label>
+                            <label><input type="radio" name="P22" value="C"> C) Porque los diagnósticos sustituyen la formulación de planes de acción.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Para elaborar un listado de culpables individuales frente al bajo rendimiento.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. ¿Qué elementos deberían analizarse para determinar si una estrategia institucional está produciendo resultados?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Únicamente el grado de puntualidad en el inicio de los actos cívicos.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) El progreso en los indicadores de aprendizaje, permanencia escolar, clima de convivencia, uso eficaz de recursos y satisfacción de los estamentos.</label>
+                            <label><input type="radio" name="P23" value="C"> C) La cantidad de circulares emitidas por el equipo de coordinación.</label>
+                            <label><input type="radio" name="P23" value="D"> D) La opinión no contrastada del personal administrativo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. Una institución formula excelentes planes, pero no realiza seguimiento a su ejecución. ¿Qué componente de la gestión está siendo descuidado?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) La fase de diseño y diagnóstico situacional.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) La función de monitoreo, control, evaluación formativa de procesos y rendición de cuentas operativa.</label>
+                            <label><input type="radio" name="P24" value="C"> C) El protocolo de admisiones y matrículas escolares.</label>
+                            <label><input type="radio" name="P24" value="D"> D) La redacción formal de la misión y visión institucionales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. ¿Por qué es importante definir claramente funciones y responsabilidades dentro de una institución educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A" data-correct="true"> A) Otorga certidumbre al personal, agiliza la toma de decisiones, evita la sobrecarga laboral y clarifica las expectativas de desempeño de cada cargo.</label>
+                            <label><input type="radio" name="P25" value="B"> B) Impide que los docentes colaboren en proyectos interdisciplinarios.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Asegura que las responsabilidades directivas no puedan delegarse bajo ninguna condición.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Facilita la aplicación de sanciones disciplinarias sin mediar diálogo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. ¿Qué importancia tiene la gestión eficiente de los recursos humanos, físicos y tecnológicos?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A" data-correct="true"> A) Maximiza la equidad en el acceso a herramientas pedagógicas, dignifica los espacios de trabajo y potencia el logro de los aprendizajes de los estudiantes.</label>
+                            <label><input type="radio" name="P26" value="B"> B) Permite reducir el número de docentes contratados por la institución.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Se limita a mantener los equipos tecnológicos bajo llave para evitar su desgaste.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Su único objetivo es obtener certificaciones contables externas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. ¿Por qué el seguimiento y control institucional no debe entenderse únicamente como una actividad de supervisión punitiva?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A" data-correct="true"> A) Porque su valor formativo radica en identificar dificultades a tiempo para ofrecer acompañamiento, asesoría y reorientar procesos antes de que fallen.</label>
+                            <label><input type="radio" name="P27" value="B"> B) Porque el control directivo debe omitir cualquier tipo de observación a los docentes.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Porque los docentes no deben someter su práctica a ningún tipo de verificación.</label>
+                            <label><input type="radio" name="P27" value="D"> D) Porque la supervisión administrativa solo corresponde a los entes de control fiscal.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. ¿Qué relación existe entre transparencia y gestión institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A" data-correct="true"> A) La transparencia y la rendición de cuentas periódica generan confianza comunitaria, previenen actos indebidos y fortalecen la legitimidad de las decisiones directivas.</label>
+                            <label><input type="radio" name="P28" value="B"> B) La transparencia exige divulgar públicamente datos privados y confidenciales de los estudiantes.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Es un concepto exclusivamente financiero que no tiene relación con los procesos pedagógicos.</label>
+                            <label><input type="radio" name="P28" value="D"> D) La transparencia debilita el principio de autoridad del consejo directivo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. ¿Por qué la toma de decisiones administrativas debe estar respaldada por información confiable?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A" data-correct="true"> A) Porque reduce el margen de error, asegura que las inversiones respondan a prioridades reales y permite defender objetivamente las determinaciones institucionales.</label>
+                            <label><input type="radio" name="P29" value="B"> B) Para que las decisiones se tomen de forma automática mediante algoritmos informáticos.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Porque las decisiones basadas en diálogo pedagógico carecen de validez administrativa.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Para justificar la compra de recursos no solicitados por el equipo docente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. Una institución dispone de un presupuesto limitado. ¿Cuál debería ser el criterio principal para establecer prioridades de inversión?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Gastar equitativamente en todas las áreas sin importar las necesidades diagnosticadas.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Priorizar aquellas áreas y recursos que impacten de manera directa y demostrable en la calidad pedagógica, el aprendizaje de los alumnos y la seguridad institucional.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Priorizar la remodelación estética de las oficinas de rectoría.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Conservar los fondos en cuentas bancarias sin ejecutar el presupuesto programado.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. ¿Qué riesgo existe cuando una institución concentra la información y las decisiones en pocas personas?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A" data-correct="true"> A) Cuellos de botella operativos, desinformación, desconfianza del equipo, pérdida de visión compartida y parálisis institucional ante la ausencia de los líderes formales.</label>
+                            <label><input type="radio" name="P31" value="B"> B) Que los docentes tomen iniciativas pedagógicas autónomas en sus clases.</label>
+                            <label><input type="radio" name="P31" value="C"> C) Incremento excesivo de la participación de los padres de familia en comités.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Que los procesos administrativos se ejecuten con demasiada rapidez.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. ¿Cómo puede una institución evaluar si está utilizando adecuadamente sus recursos?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Verificando únicamente que no existan deudas financieras al cierre del periodo.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Evaluando indicadores de costo-beneficio formativo: nivel de aprovechamiento pedagógico, mantenimiento preventivo, satisfacción comunitaria e impacto en el aprendizaje.</label>
+                            <label><input type="radio" name="P32" value="C"> C) Contando la cantidad de bienes almacenados en inventario sin usar.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Asumiendo que todo gasto ejecutado generó automáticamente excelencia académica.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Módulo 5: Casos Prácticos de Gestión y Gobierno Escolar</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con rigor administrativo y pedagógico cada dilema institucional y elija la decisión profesional más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: Una institución tiene un PEI formalmente actualizado y aprobado, pero los docentes en el aula desconocen sus objetivos estratégicos y trabajan de forma aislada e independiente. ¿Cuál es el principal problema de gestión que se evidencia?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Carencia de presupuesto para imprimir copias físicas del PEI a cada docente.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Ruptura en la comunicación y apropiación institucional: el PEI fue elaborado como un documento de cumplimiento burocrático y no como un proyecto colectivo vivido y gestionado en el aula.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Exceso de autonomía curricular de los docentes que viola la ley general.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Falta de sanciones disciplinarias a los jefes de área académica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: El consejo directivo analiza una problemática institucional compleja y algunos integrantes sustentan una propuesta colegiada. El director, en desacuerdo, decide desestimar el debate e implementar de inmediato su propia fórmula unilateral. ¿Qué principio de gobierno escolar está vulnerando gravemente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) La autoridad rectoral delegada por el ministerio.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) El principio de colegialidad, soberanía de los órganos del gobierno escolar, legitimidad democrática y respeto al debido proceso en la toma de decisiones institucionales.</label>
+                            <label><input type="radio" name="P34" value="C"> C) La celeridad ejecutiva requerida en la administración pública.</label>
+                            <label><input type="radio" name="P34" value="D"> D) La libertad de cátedra del consejo académico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Una institución presenta problemas crónicos de convivencia y acoso escolar. La dirección propone como única salida endurecer las sanciones disciplinarias en el manual sin indagar en las dinámicas relacionales. ¿Por qué esta estrategia resulta insuficiente desde la gestión integral?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Porque las sanciones en los manuales escolares están totalmente prohibidas por las normas vigentes.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Porque aborda los síntomas de forma puramente punitiva sin atacar las causas formativas, desconociendo la prevención, las competencias socioemocionales, la mediación escolar y la corresponsabilidad familiar.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Porque los manuales de convivencia no deben modificarse bajo ninguna circunstancia.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Porque las sanciones severas aumentan la asistencia de los padres de familia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: Un colegio invierte en recursos tecnológicos suficientes, pero los docentes prácticamente no los utilizan en sus clases. La administración concluye que su gestión fue exitosa porque los equipos fueron comprados e inventariados. ¿Qué error fundamental de gestión está cometiendo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Asumir que la administración educativa se limita al aprovisionamiento físico y la compra de bienes, desatendiendo la mediación pedagógica, la capacitación docente y la integración curricular efectiva del recurso.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> A) Asumir que la administración educativa se limita al aprovisionamiento físico y la compra de bienes, desatendiendo la mediación pedagógica, la capacitación docente y la integración curricular efectiva del recurso.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Comprar equipos tecnológicos con especificaciones inferiores a las requeridas.</label>
+                            <label><input type="radio" name="P36" value="D"> D) No haber sancionado a los docentes que omitieron el uso de los laboratorios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: Durante la elaboración del plan de mejoramiento institucional (PMI), el equipo directivo establece diez objetivos ambiciosos, pero no define responsables específicos, indicadores verificables ni fechas de seguimiento periódico. ¿Cuál es la principal debilidad de este plan?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Que diez objetivos representan una cantidad demasiado baja para una institución educativa.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Inviabilidad operativa por carecer de estructura de gestión: sin responsables no hay rendición de cuentas, sin indicadores no hay medición de avance y sin cronograma las metas quedan en meras intenciones abstractas.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Que el plan debió ser redactado exclusivamente por consultores externos a la institución.</label>
+                            <label><input type="radio" name="P37" value="D"> D) La ausencia de un formato gráfico ilustrado para presentar el documento.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Una institución requiere reducir gastos de funcionamiento y la rectoría decide eliminar unilateralmente las jornadas de capacitación docente sin evaluar el impacto pedagógico. ¿Qué debería considerar la administración antes de tomar esta decisión?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Que el desarrollo profesional continuo del talento humano es el principal motor de la calidad educativa; recortarlo deteriora las prácticas de aula, la motivación y los resultados de aprendizaje a mediano y largo plazo.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> A) Que el desarrollo profesional continuo del talento humano es el principal motor de la calidad educativa; recortarlo deteriora las prácticas de aula, la motivación y los resultados de aprendizaje a mediano y largo plazo.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Que las capacitaciones deben ser costeadas obligatoriamente por los docentes de su salario.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Que la formación docente no tiene relación comprobada con el rendimiento de los alumnos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Los representantes de estudiantes, familias y docentes asisten puntualmente a las sesiones del consejo directivo, pero sus propuestas y reparos nunca son debatidos ni considerados en las decisiones finales del colegio. ¿Puede afirmarse que existe participación efectiva? ¿Por qué?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Sí, porque la asistencia física y la firma de actas de asistencia valida la participación democrática completa.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) No, se trata de una participación meramente cosmética o simulada, donde se instrumentaliza la presencia de los estamentos para legitimar formalmente decisiones autocráticas ya tomadas.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Sí, siempre y cuando las reuniones queden registradas en fotografías institucionales.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Sí, porque los representantes de los estamentos no tienen voto legal en las decisiones escolares.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: Una institución educativa cumple el 100% de las actividades previstas en su plan anual operativo, pero al evaluar el cierre, los indicadores de aprendizaje, permanencia, convivencia y satisfacción comunitaria no muestran ninguna mejoría respecto a la línea base. ¿Puede considerarse exitosa la gestión institucional? ¿Qué debería concluirse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) Sí fue exitosa, porque la administración cumplió a cabalidad con el cronograma y el presupuesto programados.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) No fue exitosa; existió un activismo operativo formal desconectado del impacto real: la gestión escolar se mide por la mejora sustantiva de la calidad y el bienestar formativo, no por la acumulación mecánica de eventos realizados.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Sí fue exitosa, pero las familias y los docentes se rehúsan a reconocer los avances institucionales.</label>
+                            <label><input type="radio" name="P40" value="D"> D) No fue exitosa porque debieron planificarse el doble de actividades extracurriculares.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Administración Educativa, Gobierno Escolar y Gestión Institucional",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                // 1. Consultar intentos previos con la misma cédula para este examen
+                const qCheck = query(
+                    collection(db, "evaluaciones"),
+                    where("documento", "==", documento),
+                    where("examen", "==", payloadExamen.examen)
+                );
+                const snapshotIntentos = await getDocs(qCheck);
+
+                // 2. Bloquear si ya aprobó en un intento previo
+                let yaAprobo = false;
+                snapshotIntentos.forEach(docSnap => {
+                    if (docSnap.data().estado === "Aprobado") yaAprobo = true;
+                });
+
+                if (yaAprobo) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("✅ Ya has aprobado esta evaluación previamente. No se permiten más intentos.");
+                    return;
+                }
+
+                // 3. Bloquear si ya agotó los 2 intentos permitidos
+                if (snapshotIntentos.size >= 2) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("⛔ Has alcanzado el límite máximo de 2 intentos permitidos para esta evaluación.");
+                    return;
+                }
+
+                // 4. Guardar la evaluación si cumple las condiciones
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

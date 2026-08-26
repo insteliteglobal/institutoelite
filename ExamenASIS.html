@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final Integrador: Competencias ASIS | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación Final Integrador: Competencias ASIS</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Profesional</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión / Área:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Fundamentos e Indicadores (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Caracterización y Gestión Territorial (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Ética y Casos de Estudio ASIS (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-microscope"></i> Módulos 1, 2 y 3: Fundamentos de APS, Indicadores Epidemiológicos y Demográficos</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Cuál es el propósito fundamental del Análisis de Situación de Salud (ASIS) en los sistemas de salud pública?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) Elaborar auditorías contables para el cobro de servicios prestados por las IPS.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) Caracterizar, medir y explicar el perfil de salud-enfermedad y sus determinantes sociales para priorizar problemas y orientar planes y políticas territoriales basadas en evidencia.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Reemplazar la historia clínica individual de cada habitante del municipio.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Supervisar exclusivamente los inventarios farmacéuticos de la red hospitalaria.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. ¿Qué principio rector de la Atención Primaria en Salud (APS) orienta el desarrollo metodológico del ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) Centralización administrativa y rentabilidad financiera.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) Equidad y universalidad, identificando desigualdades evitables e injustas (inequidades) en salud entre subgrupos poblacionales.</label>
+                            <label><input type="radio" name="P2" value="C"> C) Enfoque puramente curativo y hospitalario de alta complejidad.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Exclusión de la participación comunitaria en el diagnóstico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. En el marco de los Determinantes Sociales de la Salud (OMS), ¿cuál de los siguientes factores constituye un determinante estructural?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) Los hábitos alimentarios individuales y el consumo de cigarrillo.</label>
+                            <label><input type="radio" name="P3" value="B" data-correct="true"> B) La estratificación socioeconómica, las políticas macroeconómicas, el mercado de empleo y los niveles de escolaridad formal.</label>
+                            <label><input type="radio" name="P3" value="C"> C) La edad biológica y la predisposición genética hereditaria.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Las redes de apoyo afectivo y el estrés psicológico agudo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. ¿Cuál es la diferencia epidemiológica fundamental entre la Tasa de Incidencia y la Tasa de Prevalencia?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) La incidencia mide las defunciones totales y la prevalencia los nacimientos.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) La incidencia cuantifica el número de casos nuevos de una enfermedad en un periodo en población a riesgo; la prevalencia mide la proporción total de casos existentes (antiguos y nuevos) en un momento dado.</label>
+                            <label><input type="radio" name="P4" value="C"> C) La prevalencia solo se aplica a enfermedades transmisibles y la incidencia a crónicas.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Son medidas equivalentes que pueden intercambiarse sin alterar el análisis.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Por qué la Tasa de Mortalidad Infantil (TMI) es considerada uno de los indicadores trazadores más sensibles de la calidad de vida y salud de un territorio?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Porque mide únicamente la cobertura de partos atendidos en clínicas privadas.</label>
+                            <label><input type="radio" name="P5" value="B" data-correct="true"> B) Porque refleja de manera directa el nivel de saneamiento básico, nutrición, escolaridad materna, acceso y oportunidad de los servicios de salud y desarrollo socioeconómico general.</label>
+                            <label><input type="radio" name="P5" value="C"> C) Porque es un indicador puramente financiero que determina el presupuesto de los hospitales.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Porque solo varía cuando se presentan epidemias de enfermedades huérfanas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Qué miden los Años de Vida Potencialmente Perdidos (AVPP) dentro del perfil epidemiológico de un ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) El promedio de días de incapacidad laboral generados por accidentes comunes.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) El impacto de la mortalidad prematura, cuantificando los años que una persona deja de vivir si fallece antes de la esperanza de vida teórica fijada.</label>
+                            <label><input type="radio" name="P6" value="C"> C) La cantidad de años requeridos para erradicar una patología infecciosa.</label>
+                            <label><input type="radio" name="P6" value="D"> D) El tiempo promedio que un paciente permanece hospitalizado en cuidados intensivos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Cómo se define y calcula técnicamente la Razón de Mortalidad Materna (RMM)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Número de muertes maternas dividido por el total de mujeres del municipio multiplicado por 100.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Número de defunciones maternas ocurridas durante el embarazo, parto o puerperio por cada 100.000 nacidos vivos en un periodo y área determinados.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Total de partos por cesárea sobre el total de nacidos vivos multiplicado por 1.000.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Porcentaje de mujeres gestantes inscritas en programas de control prenatal.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. ¿Qué fenómenos caracterizan la Transición Demográfica y Epidemiológica que experimentan las poblaciones en el ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) El incremento simultáneo de la natalidad y el aumento de muertes por desnutrición infantil.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) El descenso sostenido de la fecundidad y mortalidad, el envejecimiento poblacional progresivo y el cambio de predominio de patologías infecciosas hacia enfermedades crónicas no transmisibles y causas externas.</label>
+                            <label><input type="radio" name="P8" value="C"> C) La migración masiva exclusiva hacia zonas rurales despobladas.</label>
+                            <label><input type="radio" name="P8" value="D"> D) La reducción de la esperanza de vida al nacer por falta de tecnología médica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. Una pirámide poblacional de tipo regresivo o constrictivo (con base estrecha y ensanchamiento en edades medias y adultas) indica:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Alta fecundidad y población mayoritariamente infantil en crecimiento acelerado.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Disminución sostenida de la natalidad, envejecimiento demográfico paulatino y aumento futuro de la demanda de servicios de salud para enfermedades degenerativas.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Ausencia total de población en edad productiva.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Alta mortalidad general en todos los grupos de edad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. Los Años de Vida Ajustados por Discapacidad (AVAD / DALYs) combinan en un solo indicador:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) El gasto de bolsillo del paciente y los costos hospitalarios de la EPS.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) La carga de la enfermedad, sumando los años perdidos por muerte prematura (AVPP) y los años vividos con discapacidad o pérdida de salud (AVD).</label>
+                            <label><input type="radio" name="P10" value="C"> C) Las horas de reposo médico prescritas en consultas ambulatorias.</label>
+                            <label><input type="radio" name="P10" value="D"> D) La proporción de adultos mayores con carnet de pensión contributiva.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Cuál es la diferencia entre fuentes de información primarias y secundarias para la construcción de un ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Las primarias son internacionales y las secundarias son exclusivas de cada municipio.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Las primarias se recolectan directamente en el terreno (encuestas comunitarias, grupos focales, cartografía social); las secundarias provienen de registros existentes (RIPS, RUAF, SIVIGILA, Censos DANE).</label>
+                            <label><input type="radio" name="P11" value="C"> C) Las secundarias no tienen validez científica en epidemiología.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Las primarias solo contienen datos numéricos y las secundarias opiniones.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. ¿Qué impacto genera el "subregistro epidemiológico" en el análisis diagnóstico de un ASIS territorial?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Optimiza la calidad del gasto en medicamentos del municipio.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) Invisibiliza la magnitud real de eventos de salud, introduce sesgos en las tasas calculadas y conduce a una asignación inadecuada e ineficiente de recursos públicos.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Facilita la erradicación inmediata de enfermedades emergentes.</label>
+                            <label><input type="radio" name="P12" value="D"> D) No produce ningún efecto significativo en la planeación sanitaria.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. El indicador de Necesidades Básicas Insatisfechas (NBI) evalúa la pobreza estructural a través de cinco componentes, entre los cuales se incluyen:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Número de tarjetas de crédito y tenencia de vehículos particulares.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) Vivienda precaria, servicios públicos inadecuados, hacinamiento crítico, alta dependencia económica y presencia de niños no escolarizados.</label>
+                            <label><input type="radio" name="P13" value="C"> C) Gasto mensual en entretenimiento y viajes recreativos.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Diagnóstico médico individual de hipertensión o diabetes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Qué evalúa el Índice de Vulnerabilidad Territorial en la caracterización de un territorio?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) La cantidad de bancos comerciales presentes en el centro urbano.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) La susceptibilidad de las comunidades ante riesgos sanitarios y ambientales, ponderando factores socioeconómicos, amenazas biológicas y barreras de acceso a servicios.</label>
+                            <label><input type="radio" name="P14" value="C"> C) La velocidad de conexión a internet en las oficinas administrativas.</label>
+                            <label><input type="radio" name="P14" value="D"> D) El número de ambulancias de traslado básico disponibles en la capital.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. ¿Cuál es la diferencia técnica entre la Tasa de Letalidad y la Tasa de Mortalidad por una patología específica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) La letalidad mide nacimientos y la mortalidad mide cirugías practicadas.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) La letalidad mide la gravedad de la enfermedad (proporción de personas enfermas que mueren por esa causa); la mortalidad mide el riesgo de morir por esa patología en la población general.</label>
+                            <label><input type="radio" name="P15" value="C"> C) La mortalidad solo se calcula en animales y la letalidad en seres humanos.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Ambas tasas tienen exactamente el mismo denominador poblacional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. Los atributos de calidad del dato en salud (completitud, consistencia, oportunidad y validez) aseguran que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Las IPS no tengan que reportar información al ente territorial.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Las estadísticas epidemiológicas reflejen fielmente la realidad sanitaria, permitiendo tomar decisiones seguras y diseñar políticas públicas efectivas.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Se puedan publicar los datos personales protegidos de los usuarios sin censura.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Se elimine la necesidad de realizar encuestas de campo comunitarias.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Caracterización y Gestión <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-chart-pie"></i> Módulos 4, 5 y 6: Metodología ASIS, Priorización, Vigilancia y Gestión Territorial</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. ¿Cuál es el orden metodológico secuencial correcto para elaborar un ASIS territorial institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Ejecución de actividades, evaluación presupuestal, diagnóstico final y cierre.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) Planificación y definición del alcance, recolección y análisis de datos demográficos/epidemiológicos, priorización participativa de problemas y formulación de líneas de acción.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Priorización de problemas antes de recolectar datos demográficos.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Compra de medicamentos, auditoría contable y redacción del informe final.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. En la metodología de Hanlon para la priorización de problemas en salud, ¿cuáles son los cuatro componentes de la fórmula de puntuación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Costo de medicamentos, antigüedad del hospital, número de médicos y quejas ciudadanas.</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) Magnitud del problema (A), Severidad/Gravedad (B), Eficacia de la intervención (C) y Factibilidad del programa PEARL (D).</label>
+                            <label><input type="radio" name="P18" value="C"> C) Distancia geográfica, clima, filiación política y cobertura de internet.</label>
+                            <label><input type="radio" name="P18" value="D"> D) Tasa de natalidad, número de camas de UCI, copagos y glosas de auditoría.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Cuál es la utilidad de la Matriz de Vester en el análisis de problemáticas del ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Calcular el salario y prestaciones del personal asistencial.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) Identificar relaciones de causa-efecto entre problemas, clasificándolos en problemas críticos (alta influencia/alta dependencia), pasivos, activos e indiferentes.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Medir la temperatura de la cadena de frío en centros de vacunación.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Elaborar las tablas de facturación de servicios SOAT.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. El Sistema de Vigilancia en Salud Pública (SIVIGILA) cumple la función de:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Controlar el ingreso físico y salida de pacientes de los hospitales.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Proveer información sistemática, continua y oportuna sobre eventos de interés en salud pública para orientar la toma de decisiones y medidas de prevención y control.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Supervisar el cobro de cuotas moderadoras en farmacias ambulatorias.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Realizar encuestas electorales sobre satisfacción de usuarios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. En vigilancia epidemiológica, ¿qué distingue a un "Caso Probable" de un "Caso Confirmado"?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) El caso probable ya tiene autopsia y el confirmado solo síntomas menores.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) El caso probable cumple criterios clínicos y nexo epidemiológico; el confirmado cuenta con evidencia definitiva mediante pruebas de laboratorio o criterios diagnósticos validados.</label>
+                            <label><input type="radio" name="P21" value="C"> C) El caso confirmado es ambulatorio y el probable requiere hospitalización en UCI.</label>
+                            <label><input type="radio" name="P21" value="D"> D) No existe diferencia técnica en los protocolos de notificación del SIVIGILA.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. ¿Cómo se articula directamente el diagnóstico del ASIS con el Plan Territorial de Salud (PTS)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) El ASIS es un trámite posterior que se redacta después de cerrar la ejecución del PTS.</label>
+                            <label><input type="radio" name="P22" value="B" data-correct="true"> B) El ASIS constituye la fase diagnóstica estratégica obligatoria que fundamenta la definición de metas, ejes estratégicos y asignación de recursos del Plan de Salud Territorial.</label>
+                            <label><input type="radio" name="P22" value="C"> C) El PTS sustituye y anula la necesidad de elaborar el ASIS municipal.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Solo se articulan en caso de emergencias por desastres naturales mayores.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. ¿Por qué es fundamental la participación social y comunitaria en el componente deliberativo del ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Para transferir la responsabilidad técnica del diagnóstico a los líderes de barrio.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Porque aporta la perspectiva cualitativa vivencial, valida las prioridades territoriales, dota de legitimidad a los hallazgos y compromete a la comunidad en las soluciones.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Para evitar que los profesionales de salud deban visitar el territorio.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Porque la ley prohíbe el uso de datos numéricos sin aprobación de asambleas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. ¿Qué ventaja aporta la Georreferenciación y el Mapeo Comunitario en el análisis de salud pública?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Reduce los costos de impresión de papelería en las secretarías de salud.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) Permite visualizar la distribución espacial de eventos, identificar conglomerados (clusters) de riesgo, microterritorios vulnerables y barreras geográficas de acceso.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Elimina la necesidad de registrar historias clínicas individuales.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Sustituye las pruebas diagnósticas de laboratorio clínico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. La Intersectorialidad en la respuesta a los problemas identificados por el ASIS exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Que el hospital preste servicios de pavimentación y alcantarillado.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) La concurrencia y articulación coordinada de sectores como educación, agua potable, vivienda, ambiente y desarrollo social para incidir en los determinantes de la salud.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Disminuir las intervenciones sanitarias preventivas comunitarias.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Que cada secretaría municipal trabaje de forma aislada sin compartir información.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. En la caracterización extramural de APS, la "Ficha Familiar" es una herramienta que permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) Otorgar créditos financieros inmediatos a los hogares vulnerables.</label>
+                            <label><input type="radio" name="P26" value="B" data-correct="true"> B) Caracterizar la estructura familiar, ciclo vital, riesgos ambientales del entorno, estado vacunal y patologías crónicas de todos los convivientes para planificar el cuidado.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Cobrar multas a las familias que no asistan a citas médicas.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Reemplazar el documento de identidad oficial de los ciudadanos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. ¿Qué caracteriza a la Vigilancia Comunitaria y los Sistemas de Alerta Temprana en el nivel local?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) La imposición de sanciones penales directas por parte de las juntas de acción comunal.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) La detección y reporte oportuno y simplificado de signos de alarma o eventos inusuales en el territorio por parte de líderes comunitarios capacitados.</label>
+                            <label><input type="radio" name="P27" value="C"> C) La prescripción de antibióticos por parte de promotores sin aval médico.</label>
+                            <label><input type="radio" name="P27" value="D"> D) El cierre de fronteras municipales ante cualquier caso sospechoso.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. En epidemiología, el "Canal Endémico" permite:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) Conectar el acueducto municipal con los puestos de salud veredales.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Monitorear el comportamiento histórico de una enfermedad para identificar precozmente si el número de casos actuales se sitúa en zona de éxito, seguridad, alarma o epidemia.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Calcular la facturación mensual de medicamentos en la red de farmacias.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Difundir noticias de salud pública exclusivamente por canales de televisión.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. Las pruebas de cribado o tamizaje masivo recomendadas a partir del ASIS deben aplicarse cuando:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Los pacientes se encuentran en etapa terminal hospitalaria.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) La enfermedad representa un problema relevante de salud pública, cuenta con fase presintomática detectable y existe tratamiento eficaz disponible (ej. citología, mamografía).</label>
+                            <label><input type="radio" name="P29" value="C"> C) Las pruebas diagnósticas son de alto costo y de difícil acceso técnico.</label>
+                            <label><input type="radio" name="P29" value="D"> D) No existe ningún tratamiento médico conocido para la condición detectada.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. El "Enfoque de Curso de Vida" en el ASIS analiza la salud poblacional considerando:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Únicamente los antecedentes médicos de la población adulta mayor de 80 años.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Que los resultados en salud en cada etapa vital se construyen acumulativamente a partir de experiencias, exposiciones, transiciones y riesgos vividos desde la gestación.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Cada enfermedad como un evento aislado sin conexión temporal ni biográfica.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Exclusivamente los riesgos laborales durante la etapa productiva del individuo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. ¿Cuáles son las cuatro tipologías principales de barreras de acceso a los servicios de salud que identifica un ASIS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) Barreras climáticas, estéticas, arquitectónicas y comerciales.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) Barreras geográficas/territoriales, económicas, culturales/lingüísticas y administrativas/institucionales.</label>
+                            <label><input type="radio" name="P31" value="C"> C) Barreras de software, hardware, conectividad y redes sociales.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Barreras salariales de los especialistas en hospitales universitarios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. La evaluación del impacto de las intervenciones derivadas del ASIS debe medirse mediante:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) El conteo exclusivo de folletos repartidos en las jornadas de salud.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Cambios verificables y sostenibles en los indicadores trazadores de morbimortalidad, reducción de brechas de inequidad y mejoría de los determinantes de la comunidad.</label>
+                            <label><input type="radio" name="P32" value="C"> C) El gasto total del presupuesto sin importar los resultados epidemiológicos.</label>
+                            <label><input type="radio" name="P32" value="D"> D) La cantidad de reuniones administrativas celebradas por el comité territorial.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-user-md"></i> Módulos 7 y 8: Ética, Sistemas de Información y Casos Aplicados de ASIS</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con rigor epidemiológico y bioético cada escenario situacional y determine la conducta profesional más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. En el procesamiento de bases de datos poblacionales para el ASIS, la Ley de Protección de Datos Personales (Habeas Data) exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Publicar en internet los nombres y diagnósticos de los pacientes para conocimiento público.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Anonimizar o disociar los microdatos personales, garantizando estricta confidencialidad y usando la información con fines exclusivamente estadísticos y epidemiológicos.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Vender las bases de datos de salud a empresas comerciales de seguros privados.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Eliminar todas las historias clínicas después de tabular los resultados.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. El Consentimiento Informado en la recolección de información primaria comunitaria en salud implica:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) Obligar a las familias a responder las encuestas bajo amenaza de perder subsidios.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Explicar de manera clara y comprensible los objetivos del estudio, el uso de los datos y el carácter voluntario de la participación, respetando la autonomía individual.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Firmar formularios preimpresos sin permitir preguntas a los participantes.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Encuestar únicamente a personas mayores de edad que sepan leer y escribir.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 1: Tras una temporada de inundaciones en un municipio ribereño, el ASIS detecta un aumento del 300 % en la incidencia de Enfermedad Diarreica Aguda (EDA) en menores de 5 años. Se evidencia colapso del alcantarillado y consumo de agua no tratada. ¿Cuál es la intervención inmediata prioritaria?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Esperar a que el comité departamental autorice la construcción de un nuevo acueducto en dos años.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Desplegar respuesta de emergencia intersectorial: distribución masiva de métodos de desinfección de agua (cloración/filtros), vigilancia activa comunitaria de signos de deshidratación con sales de rehidratación oral y educación en manejo del agua segura en el hogar.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Suministrar antibióticos profilácticos a todos los niños del municipio sin valoración clínica.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Prohibir el ingreso de alimentos a la zona afectada.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 2: El ASIS institucional registra una tasa de notificación de Tuberculosis Pulmonar cercana a cero en una zona rural dispersa. Sin embargo, en visitas extramurales se detectan adultos con tos crónica de más de 15 días, hemoptisis y pérdida de peso severa. ¿Qué problema epidemiológico existe y qué acción procede?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) La tuberculosis está erradicada y se trata de casos aislados de gripe común sin importancia.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Existe un grave subregistro por barreras geográficas de acceso; se debe activar de inmediato la búsqueda activa comunitaria de sintomáticos respiratorios, toma de baciloscopias en terreno e inicio de esquema TAES/DOTS.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Sancionar a los líderes de la comunidad por no trasladar a los enfermos al hospital central.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Modificar la tasa en el software para que coincida con el promedio nacional sin verificar en campo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 3: Un municipio cuenta con recursos financieros limitados y el ASIS identifica tres problemáticas: alta prevalencia de caries dental leve, aumento de mortalidad materna por hemorragia obstétrica e incremento moderado de lumbalgias en adultos. Aplicando criterios de priorización en salud pública, ¿dónde deben focalizarse los recursos prioritarios?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) En la compra de cepillos dentales para toda la población adulta.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) En la mortalidad materna, debido a su extrema severidad, trascendencia social, impacto en años de vida perdidos y existencia de intervenciones altamente costo-efectivas (código rojo obstétrico y control prenatal de calidad).</label>
+                            <label><input type="radio" name="P37" value="C"> C) En las lumbalgias por ser la causa que registra el mayor número de consultas ambulatorias.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Dividir el presupuesto en tres partes iguales sin considerar la gravedad ni la evitabilidad del daño.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 4: En una comuna urbana de estrato bajo se reporta un brote epidémico de Dengue. La georreferenciación muestra que el 80 % de los casos se concentran en cuatro manzanas aledañas a un lote con acumulación de llantas y tanques abiertos. ¿Cuál es la estrategia integral que debe liderar el equipo de salud territorial?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Fumigar con insecticida una sola vez en el hospital central del municipio.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) Focalización microterritorial: intervención intersectorial para retiro de llantas, control físico y biológico de larvas casa a casa, movilización comunitaria en lavado de tanques y refuerzo de la red de triaje para detección precoz de signos de alarma.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Indicar a los habitantes de esas manzanas que permanezcan encerrados en sus casas.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Suspender las consultas de control prenatal para atender exclusivamente el brote.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 5: El ASIS territorial revela una tasa de embarazo adolescente del 28 % en población escolarizada de 14 a 17 años, asociada a deserción escolar y perpetuación de la pobreza. ¿Qué intervención estratégica intersectorial debe implementarse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Expulsar a las estudiantes gestantes de las instituciones educativas para evitar el mal ejemplo.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Articulación salud-educación: implementación de Servicios de Salud Amigables para Adolescentes, educación integral en sexualidad, asesoría en anticoncepción de larga duración sin barreras y programas de permanencia escolar.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Exigir que los padres de familia firmen un compromiso de abstinencia obligatoria para sus hijos.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Limitar la entrega de métodos anticonceptivos únicamente a jóvenes mayores de 18 años.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 6: En una comunidad indígena dispersa se registra una muerte materna por retraso en el reconocimiento del riesgo y falta de transporte fluvial nocturno. Los líderes manifiestan desconfianza en el hospital por maltrato cultural previo. ¿Cuál es la respuesta de gestión de APS más sólida y sostenible?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) Imponer sanciones administrativas a las parteras tradicionales por atender partos en la comunidad.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) Concertar con las autoridades indígenas un modelo de parto intercultural humanizado, capacitar y articular a las parteras tradicionales como agentes de detección temprana de alarmas, e instaurar un sistema de transporte de emergencia veredal y casas de paso.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Desistir de la atención obstétrica en la zona por considerarla inviable culturalmente.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Obligar a todas las mujeres gestantes a mudarse a la ciudad desde el primer mes de embarazo.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión/Área y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Análisis de Situación de Salud (ASIS)",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                // 1. Consultar intentos previos con la misma cédula para este examen
+                const qCheck = query(
+                    collection(db, "evaluaciones"),
+                    where("documento", "==", documento),
+                    where("examen", "==", payloadExamen.examen)
+                );
+                const snapshotIntentos = await getDocs(qCheck);
+
+                // 2. Bloquear si ya aprobó en un intento previo
+                let yaAprobo = false;
+                snapshotIntentos.forEach(docSnap => {
+                    if (docSnap.data().estado === "Aprobado") yaAprobo = true;
+                });
+
+                if (yaAprobo) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("✅ Ya has aprobado esta evaluación previamente. No se permiten más intentos.");
+                    return;
+                }
+
+                // 3. Bloquear si ya agotó los 2 intentos permitidos
+                if (snapshotIntentos.size >= 2) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("⛔ Has alcanzado el límite máximo de 2 intentos permitidos para esta evaluación.");
+                    return;
+                }
+
+                // 4. Guardar la evaluación si cumple las condiciones
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

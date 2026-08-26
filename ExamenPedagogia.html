@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Pedagogía, Didáctica e Innovación Docente | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 30px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE PREGUNTAS Y CAMPOS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        /* ESTILOS DE PREGUNTAS DE SELECCIÓN */
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES DE ACCIÓN */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 22px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación: Pedagogía, Didáctica e Innovación Docente</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Docente</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Pedagogía y Didáctica (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Evaluación e Innovación (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos y Decisiones (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Módulo 1 y 2: Pedagogía, Práctica y Estrategias Didácticas</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. ¿Cuál es la diferencia fundamental entre pedagogía y didáctica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A" data-correct="true"> A) La pedagogía es la disciplina global que reflexiona sobre el fenómeno educativo, mientras que la didáctica se orienta a los métodos, técnicas y procesos prácticos de enseñanza-aprendizaje.</label>
+                            <label><input type="radio" name="P1" value="B"> B) La didáctica es una ciencia puramente teórica y la pedagogía se limita al trabajo instrumental en el aula.</label>
+                            <label><input type="radio" name="P1" value="C"> C) La pedagogía se ocupa exclusivamente de la administración escolar y la didáctica de los reglamentos.</label>
+                            <label><input type="radio" name="P1" value="D"> D) No existe diferencia sustancial; ambos términos son estrictamente sinónimos en la práctica moderna.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. Un docente identifica que sus estudiantes memorizan contenidos, pero tienen dificultades para aplicarlos. ¿Qué debería replantear principalmente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) Incrementar la extensión de los textos teóricos y aplicar más exámenes memorísticos.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) Reorientar las situaciones de aprendizaje hacia metodologías activas y contextualizadas (análisis de casos, resolución de problemas y retos).</label>
+                            <label><input type="radio" name="P2" value="C"> C) Disminuir el tiempo de clase para evitar la sobrecarga de los estudiantes.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Exigir que los alumnos repitan los conceptos al pie de la letra en cada sesión.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. ¿Cuál de las siguientes situaciones refleja una práctica docente centrada en el aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) El docente expone continuamente durante dos horas sin permitir interrupciones ni preguntas.</label>
+                            <label><input type="radio" name="P3" value="B" data-correct="true"> B) El docente diseña entornos interactivos donde los estudiantes investigan, debaten y construyen soluciones con su orientación.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Los estudiantes leen en silencio individualmente y responden cuestionarios descontextualizados.</label>
+                            <label><input type="radio" name="P3" value="D"> D) La evaluación se fundamenta únicamente en la capacidad del alumno para transcribir el tablero.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. ¿Qué papel debe asumir el docente dentro de un modelo pedagógico centrado en el estudiante?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Transmisor único e indiscutible del saber acabado.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Mediador, diseñador de experiencias de aprendizaje y facilitador del desarrollo de la autonomía del alumno.</label>
+                            <label><input type="radio" name="P4" value="C"> C) Observador pasivo que no interviene ni orienta el proceso formativo.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Evaluador sancionatorio enfocado exclusivamente en penalizar el error.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Por qué es importante reconocer los conocimientos previos de los estudiantes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Para clasificarlos rápidamente y excluir a quienes demuestren menores saberes.</label>
+                            <label><input type="radio" name="P5" value="B" data-correct="true"> B) Porque constituyen los anclajes cognitivos necesarios para que la nueva información se integre de forma comprensiva y significativa.</label>
+                            <label><input type="radio" name="P5" value="C"> C) Exclusivamente para asignar una nota cuantitativa en el registro inicial.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Para omitir por completo la planeación de las unidades iniciales del programa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. Un profesor adapta una misma actividad teniendo en cuenta diferentes niveles de desempeño. ¿Qué principio pedagógico está aplicando?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) Homogeneización y estandarización estricta del grupo.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Diferenciación pedagógica y atención a la diversidad bajo principios del Diseño Universal para el Aprendizaje (DUA).</label>
+                            <label><input type="radio" name="P6" value="C"> C) Flexibilización arbitraria que reduce el rigor formativo.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Segregación curricular de los estudiantes con ritmos lentos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Cuál es una característica de una práctica pedagógica reflexiva?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Repetir año tras año las mismas estrategias didácticas sin someterlas a evaluación.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) El autoanálisis sistemático del docente sobre sus métodos, la toma de decisiones basada en evidencias y el ajuste continuo para mejorar la enseñanza.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Atribuir el fracaso de los aprendizajes únicamente a factores externos al aula.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Seguir al pie de la letra el índice del libro de texto sin contextualizarlo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. ¿Qué elemento permite determinar si una estrategia pedagógica realmente está funcionando?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) El silencio absoluto de los estudiantes durante toda la jornada.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) La evidencia comprobable del logro de los aprendizajes, el desarrollo de competencias y la transferencia del saber a situaciones auténticas.</label>
+                            <label><input type="radio" name="P8" value="C"> C) La velocidad con la que el docente termina de dictar el programa académico.</label>
+                            <label><input type="radio" name="P8" value="D"> D) La satisfacción superficial expresada en comentarios informales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. ¿Cuál es el propósito principal de una estrategia didáctica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A" data-correct="true"> A) Articular de forma planificada y coherente métodos, actividades y recursos para guiar al estudiante hacia el logro de metas formativas concretas.</label>
+                            <label><input type="radio" name="P9" value="B"> B) Mantener ocupados a los alumnos para garantizar el orden disciplinario.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Reemplazar la necesidad de que el docente domine el contenido conceptual.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Generar evidencias administrativas formales para auditorías institucionales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. Un docente plantea un problema real y solicita a sus estudiantes proponer diferentes soluciones. ¿Qué metodología está utilizando principalmente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Instrucción directa pasiva.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Aprendizaje Basado en Problemas (ABP).</label>
+                            <label><input type="radio" name="P10" value="C"> C) Clase magistral expositiva.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Seminario de lectura lineal.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Cuándo resulta más pertinente utilizar aprendizaje basado en problemas?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Cuando el único objetivo es que los alumnos memoricen fechas o nomenclaturas fijas.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Cuando se busca desarrollar pensamiento crítico, capacidad investigativa, trabajo en equipo y resolución de retos en contextos reales.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Cuando el profesor cuenta con muy poco tiempo para interactuar con el grupo.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Exclusivamente en evaluaciones finales sin proceso de tutoría previa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. ¿Cuál es la principal ventaja del aprendizaje colaborativo frente al trabajo grupal tradicional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Que un solo alumno puede elaborar el entregable y beneficiar al resto del equipo.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) Promueve la interdependencia positiva, la corresponsabilidad, el debate argumentado y la construcción conjunta del conocimiento.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Elimina la necesidad de que el docente efectúe seguimiento o evaluación.</label>
+                            <label><input type="radio" name="P12" value="D"> D) Facilita la división mecánica de temas para que cada quien trabaje de forma aislada.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. ¿Qué debería considerar un docente antes de seleccionar una estrategia didáctica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Únicamente la disponibilidad de herramientas tecnológicas de última generación.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) Los objetivos de aprendizaje previstos, las características y saberes previos del grupo, los recursos disponibles y el contexto sociocultural.</label>
+                            <label><input type="radio" name="P13" value="C"> C) Aquella estrategia que requiera el menor volumen de retroalimentación y corrección.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Mantener siempre la misma técnica sin considerar el tipo de competencia a desarrollar.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. Una clase presenta excelentes contenidos, pero los estudiantes participan poco y no logran relacionar los conceptos con situaciones reales. ¿Cuál sería la mejor intervención?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Incrementar la cantidad de diapositivas y apresurar el ritmo de la explicación.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) Introducir estudios de caso aplicados, preguntas provocadoras y dinámicas de análisis en pequeños grupos.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Sancionar cuantitativamente a los alumnos que no respondan de manera voluntaria.</label>
+                            <label><input type="radio" name="P14" value="D"> D) Eliminar los debates y limitarse a dictar definiciones exactas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. ¿Qué función cumple una secuencia didáctica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) Recopilar ejercicios desarticulados para llenar el tiempo de la clase.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) Organizar de forma progresiva, lógica y articulada momentos clave de apertura (conexión), desarrollo (profundización) y cierre (síntesis y evaluación).</label>
+                            <label><input type="radio" name="P15" value="C"> C) Establecer una estructura inmodificable que prohíbe cualquier adaptación sobre la marcha.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Funcionar como una lista de asistencia formal para reportes administrativos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. ¿Cuál de las siguientes prácticas representa una enseñanza activa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Los estudiantes escuchan pasivamente la lectura del docente y copian textualmente.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Los alumnos analizan datos, formulan hipótesis, debaten alternativas y fundamentan soluciones ante sus compañeros.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Memorizar y recitar el glosario de términos al unísono.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Responder cuestionarios cuyas respuestas textuales están subrayadas en la pizarra.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Evaluación e Innovación <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Módulo 3 y 4: Evaluación Formativa e Innovación Educativa</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. ¿Cuál es la diferencia entre evaluación diagnóstica, formativa y sumativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A" data-correct="true"> A) La diagnóstica identifica saberes previos y necesidades; la formativa monitorea y retroalimenta durante el proceso; la sumativa valora y certifica el nivel de logro alcanzado al final.</label>
+                            <label><input type="radio" name="P17" value="B"> B) La formativa siempre lleva nota sancionatoria y la diagnóstica no tiene utilidad pedagógica.</label>
+                            <label><input type="radio" name="P17" value="C"> C) La sumativa se ejecuta al inicio del periodo escolar y la diagnóstica en la graduación.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Todas tienen exactamente el mismo propósito: promediar una nota numérica final.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. Un docente realiza una actividad durante el desarrollo de una unidad para detectar dificultades y ajustar su enseñanza. ¿Qué tipo de evaluación está realizando?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Evaluación sumativa acumulativa.</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) Evaluación formativa orientada a la regulación pedagógica.</label>
+                            <label><input type="radio" name="P18" value="C"> C) Evaluación punitiva por desempeño.</label>
+                            <label><input type="radio" name="P18" value="D"> D) Examen de certificación de egreso.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Qué característica debe tener una retroalimentación efectiva?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Ser ambigua, tardía y limitada a una felicitación o regaño genérico.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) Ser oportuna, descriptiva, enfocada en los criterios de calidad y orientada a cómo superar las brechas identificadas (feedforward).</label>
+                            <label><input type="radio" name="P19" value="C"> C) Centrarse en juzgar las características personales del estudiante.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Resaltar únicamente los errores sin ofrecer alternativas de mejora.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. ¿Cuál es la principal diferencia entre evaluar conocimientos y evaluar competencias?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A" data-correct="true"> A) Evaluar conocimientos mide la retención y comprensión teórica; evaluar competencias valora la movilización integrada de saberes, habilidades y actitudes en contextos complejos.</label>
+                            <label><input type="radio" name="P20" value="B"> B) Evaluar competencias excluye cualquier tipo de fundamentación conceptual o teórica.</label>
+                            <label><input type="radio" name="P20" value="C"> C) No hay diferencia: dominar la teoría garantiza automáticamente la excelencia práctica.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Las competencias se evalúan exclusivamente con pruebas de opción múltiple con única respuesta.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. ¿Qué función cumple una rúbrica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) Ocultar los parámetros de calificación para sorprender a los estudiantes.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) Explicitar con claridad criterios y descriptores de niveles de desempeño, guiando el aprendizaje del alumno y otorgando objetividad a la evaluación.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Servir como mero requisito administrativo que no se socializa con los alumnos.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Asignar notas automáticas basadas en impresiones subjetivas del docente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. Un estudiante obtiene una calificación baja, pero el docente no le indica qué debe mejorar. ¿Qué componente de la evaluación está faltando?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A" data-correct="true"> A) La retroalimentación formativa y constructiva.</label>
+                            <label><input type="radio" name="P22" value="B"> B) La calificación numérica sumativa.</label>
+                            <label><input type="radio" name="P22" value="C"> C) El reporte disciplinario ante las directivas.</label>
+                            <label><input type="radio" name="P22" value="D"> D) La asignación de tareas adicionales de castigo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. ¿Cuál situación representa mejor una evaluación auténtica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Un examen de 60 preguntas memorísticas con respuestas descontextualizadas.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) La formulación, sustentación y defensa de un proyecto técnico o propuesta ante un problema real de la comunidad o sector productivo.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Recitar sin titubeos las definiciones exactas del libro guía.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Resolver una sopa de letras sobre conceptos trabajados en clase.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. ¿Por qué la evaluación formativa puede modificar la práctica docente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Porque permite justificar estadísticamente el bajo rendimiento del grupo.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) Porque proporciona información oportuna y real sobre la eficacia de las estrategias empleadas, permitiendo adaptar la enseñanza a tiempo.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Porque elimina la necesidad de planificar las sesiones futuras.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Porque garantiza que todos los estudiantes obtengan la nota máxima sin esfuerzo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. ¿Cuándo puede considerarse realmente innovadora una práctica educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Cada vez que se adquiere o utiliza un dispositivo tecnológico costoso.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) Cuando genera una transformación deliberada, significativa y sostenible en los procesos pedagógicos, mejorando la calidad del aprendizaje.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Cuando se cambia el formato de las diapositivas manteniendo la misma clase magistral pasiva.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Únicamente si cuenta con registro o reconocimiento comercial externo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. Un profesor incorpora inteligencia artificial únicamente porque es una tecnología nueva, pero mantiene exactamente la misma metodología tradicional pasiva. ¿Puede considerarse esto una innovación pedagógica? ¿Por qué?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) Sí, porque cualquier uso de IA moderna moderniza automáticamente el aula.</label>
+                            <label><input type="radio" name="P26" value="B" data-correct="true"> B) No, porque se trata de una mera sustitución tecnológica sin valor pedagógico añadido ni transformación en las dinámicas de aprendizaje.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Sí, porque reduce el uso de papel en las instalaciones educativas.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Sí, porque los estudiantes disfrutan interactuando con pantallas digitales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. ¿Cuál debería ser el criterio principal para seleccionar una herramienta tecnológica educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Su popularidad en redes sociales o la complejidad de sus gráficos.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) Su pertinencia pedagógica y su capacidad real para potenciar los objetivos y competencias formativas planteadas.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Que reemplace por completo la orientación y retroalimentación del docente.</label>
+                            <label><input type="radio" name="P27" value="D"> D) Que sea la opción más costosa del mercado tecnológico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. ¿Qué riesgo pedagógico puede existir cuando se utiliza tecnología sin una planificación didáctica adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) Que los alumnos aprendan contenidos más avanzados de forma acelerada.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Distracción cognitiva, tecnocentrismo superficial y desarticulación de los propósitos esenciales de aprendizaje.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Ninguno; el uso de tecnología garantiza calidad formativa por sí solo.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Disminución del consumo de energía en los laboratorios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. ¿Cómo puede la inteligencia artificial apoyar el proceso de enseñanza sin sustituir el papel del docente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Automatizando la redacción total de contenidos y la calificación sin supervisión crítica.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) Como asistente para personalizar ritmos, simular escenarios, enriquecer el análisis crítico y dinamizar la retroalimentación formativa guiada.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Prohibiendo el debate presencial para realizar consultas exclusivas con la máquina.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Eliminando la necesidad de que el docente prepare las experiencias de clase.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. Un docente utiliza recursos digitales para que cada estudiante avance según sus necesidades. ¿Qué enfoque está favoreciendo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A" data-correct="true"> A) Aprendizaje adaptativo, personalizado y flexible.</label>
+                            <label><input type="radio" name="P30" value="B"> B) Enseñanza frontal homogénea.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Conductismo instruccional rígido.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Evaluación estandarizada descontextualizada.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. ¿Qué elemento resulta indispensable para evaluar el impacto de una innovación educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A" data-correct="true"> A) Recopilar evidencias sistemáticas cualitativas y cuantitativas sobre la mejora real del aprendizaje y la experiencia formativa de los estudiantes.</label>
+                            <label><input type="radio" name="P31" value="B"> B) El número de publicaciones fotográficas en medios institucionales.</label>
+                            <label><input type="radio" name="P31" value="C"> C) La cantidad de dinero invertido en licencias de software.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Las felicitaciones informales recibidas en eventos institucionales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. ¿Cuál de las siguientes situaciones representa mejor una transformación digital con sentido pedagógico?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Escanear un cuestionario en papel para enviarlo como archivo PDF estático.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Integrar entornos virtuales colaborativos, analíticas de aprendizaje y recursos interactivos para potenciar la autonomía y el pensamiento crítico.</label>
+                            <label><input type="radio" name="P32" value="C"> C) Usar una pantalla digital para transcribir los mismos textos que se escribían en el pizarrón.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Enviar lecturas por correo electrónico sin brindar espacios de asesoría o debate.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Módulo 5: Casos Prácticos y Toma de Decisiones Docentes Complejas</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con rigor cada situación pedagógica y seleccione la decisión profesional más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: Un grupo tiene estudiantes con niveles muy diferentes de conocimiento. El docente utiliza una única actividad y un único ritmo para todos. Después de varias sesiones observa que los avanzados se aburren y los rezagados desisten. ¿Cuál sería la decisión pedagógica más adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Mantener el ritmo planificado y exigir a los rezagados que busquen tutorías externas por su cuenta.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Diseñar experiencias multinivel, estaciones de aprendizaje y andamiajes diferenciados basados en el Diseño Universal para el Aprendizaje (DUA).</label>
+                            <label><input type="radio" name="P33" value="C"> C) Bajar la dificultad global al mínimo para que todos aprueben sin esfuerzo.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Reprobar anticipadamente a los alumnos con dificultades para avanzar con el resto.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: Un profesor observa que sus estudiantes obtienen buenas calificaciones en pruebas de memoria, pero no pueden resolver problemas relacionados con su área profesional. ¿Qué debería modificar prioritariamente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A" data-correct="true"> A) Replantear el diseño curricular hacia tareas auténticas, aprendizaje basado en retos y evaluación de competencias aplicadas.</label>
+                            <label><input type="radio" name="P34" value="B"> B) Duplicar la cantidad de preguntas memorísticas en los exámenes escritos para reforzar las definiciones.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Asumir que la aplicación práctica corresponde exclusivamente al entorno laboral futuro.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Eliminar las actividades prácticas y concentrarse únicamente en la teoría básica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Durante una clase, el docente explica durante 90 minutos y los estudiantes toman apuntes. Al finalizar, la mayoría puede repetir conceptos, pero no aplicarlos. ¿Cuál sería la mejor transformación metodológica?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Extender la exposición a dos horas continuas para explicar con mayor detalle.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Implementar el modelo de clase invertida (Flipped Classroom) combinando micro-exposiciones con talleres de aplicación inmediata y discusión entre pares.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Prohibir la toma de apuntes para obligar a una memorización puramente auditiva.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Realizar exámenes sorpresa memorísticos al comienzo de cada clase.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: Un docente implementa una nueva plataforma educativa interactiva. Después de un semestre, descubre que los estudiantes la utilizan con entusiasmo, pero los resultados de aprendizaje no mejoraron. ¿Qué conclusión es más apropiada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Que la tecnología es intrínsecamente perjudicial para la enseñanza y debe eliminarse.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Existió un activismo o enganche lúdico superficial sin una alineación didáctica clara entre las mecánicas de la plataforma y los objetivos de aprendizaje profundo.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Que los estudiantes carecen de la capacidad cognitiva para aprender mediante plataformas.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Que la herramienta tecnológica requería una interfaz gráfica más llamativa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: Un estudiante entrega un trabajo elaborado con inteligencia artificial. El contenido es correcto, pero el estudiante no puede explicar ni defender las respuestas. ¿Cuál debería ser la respuesta pedagógica más adecuada del docente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Expulsar al estudiante del curso sin mediar retroalimentación alguna.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Desestimar el producto automatizado y orientar una actividad de reescritura crítica y defensa argumentativa, guiando al alumno en el uso ético y reflexivo de la IA.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Calificar con nota perfecta porque el texto final no presenta errores gramaticales.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Ignorar el hecho y permitir que continúe entregando textos sin sustento comprensivo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Un profesor recibe resultados bajos en una evaluación y concluye tajantemente que “los estudiantes no estudiaron”. Desde una perspectiva de evaluación formativa y práctica reflexiva, ¿qué debería hacer primero?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Diseñar una prueba aún más rigurosa para sancionar el desinterés de los alumnos.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) Analizar los reactivos con mayor índice de error, reflexionar sobre la pertinencia de las estrategias didácticas empleadas y abrir un espacio de retroalimentación constructiva con el grupo.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Solicitar sanciones disciplinarias ante la coordinación académica.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Dejar las notas intactas y avanzar con el temario sin volver sobre las dudas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Un docente quiere implementar aprendizaje basado en proyectos, pero diseña un proyecto en el que todos los estudiantes simplemente siguen instrucciones rígidas paso a paso y reproducen una solución previamente establecida. ¿Qué aspecto fundamental de esta metodología está faltando?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) La supervisión constante y el control estricto del profesor.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) La autenticidad, la pregunta desafiante, la autonomía de los alumnos (voz y elección) y el proceso de indagación abierta.</label>
+                            <label><input type="radio" name="P39" value="C"> C) La asignación de una calificación numérica individual al final de cada jornada.</label>
+                            <label><input type="radio" name="P39" value="D"> D) La imposición de formatos homogéneos para todos los entregables.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: Una institución quiere implementar una innovación educativa. Un grupo de docentes propone comprar nuevas tecnologías costosas, mientras otro propone primero identificar los problemas de aprendizaje existentes y replantear las estrategias didácticas. ¿Cuál de las dos perspectivas es pedagógicamente más sólida y por qué?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) La primera, porque adquirir equipos de última generación garantiza automáticamente el éxito formativo.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) La segunda, porque la innovación con sentido pedagógico parte de los propósitos y necesidades formativas reales, empleando la tecnología como medio y no como fin.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Ninguna, porque las metodologías tradicionales no deben modificarse bajo ninguna circunstancia.</label>
+                            <label><input type="radio" name="P40" value="D"> D) La primera, porque las pantallas inteligentes reemplazan la necesidad de actualización docente.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // CONFIGURACIÓN DE PARÁMETROS
+        const NOTA_APROBATORIA = 70; // Puntaje mínimo de 1 a 100
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            // Validación de preguntas respondidas
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                // Ir a la pestaña del primer campo faltante
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            // Mostrar animación de carga
+            document.getElementById('loadingPdf').classList.add('active');
+
+            // CALIFICACIÓN AUTOMÁTICA
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Pedagogía, Didáctica e Innovación Docente",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                // 1. Consultar intentos previos con la misma cédula para este examen
+                const qCheck = query(
+                    collection(db, "evaluaciones"),
+                    where("documento", "==", documento),
+                    where("examen", "==", payloadExamen.examen)
+                );
+                const snapshotIntentos = await getDocs(qCheck);
+
+                // 2. Bloquear si ya aprobó en un intento previo
+                let yaAprobo = false;
+                snapshotIntentos.forEach(docSnap => {
+                    if (docSnap.data().estado === "Aprobado") yaAprobo = true;
+                });
+
+                if (yaAprobo) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("✅ Ya has aprobado esta evaluación previamente. No se permiten más intentos.");
+                    return;
+                }
+
+                // 3. Bloquear si ya agotó los 2 intentos permitidos
+                if (snapshotIntentos.size >= 2) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("⛔ Has alcanzado el límite máximo de 2 intentos permitidos para esta evaluación.");
+                    return;
+                }
+
+                // 4. Guardar en Firestore colección 'evaluaciones'
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                // Ocultar Formulario y enseñar Resultado
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        // Quitar resaltado de error al marcar opción
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

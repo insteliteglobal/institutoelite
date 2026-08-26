@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Atención Primaria en Salud (APS) | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación Final: Atención Primaria en Salud (APS)</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Profesional</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión / Área:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Fundamentos de APS y Prevención (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. RIAS, Comunidad y Vigilancia (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Clínicos y Comunitarios (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-heartbeat"></i> Módulos 1, 2 y 3: Fundamentos de APS, Prevención y Salud Pública</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. Según la Declaración de Alma-Ata y su renovación en Astaná, la Atención Primaria en Salud (APS) se define primordialmente como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) La atención médica básica y de bajo costo dirigida exclusivamente a poblaciones en pobreza extrema rural.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) La asistencia sanitaria esencial, basada en métodos y tecnologías prácticos, científicamente fundados y socialmente aceptables, al alcance de todos y como eje central del sistema de salud.</label>
+                            <label><input type="radio" name="P1" value="C"> C) El primer contacto administrativo para autorizar traslados a hospitales de tercer nivel de complejidad.</label>
+                            <label><input type="radio" name="P1" value="D"> D) La atención prestada exclusivamente por promotores de salud sin intervención de profesionales médicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. ¿Cuál es la diferencia conceptual entre la APS Selectiva y la APS Integral o Renovada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) La APS selectiva atiende a toda la población y la integral solo a personas con enfermedades huérfanas.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) La selectiva se enfoca en un paquete restringido de intervenciones costo-efectivas para enfermedades específicas; la integral aborda los determinantes sociales, la equidad, la intersectorialidad y el derecho humano a la salud.</label>
+                            <label><input type="radio" name="P2" value="C"> C) La integral se aplica en clínicas privadas y la selectiva en puestos de salud comunitarios.</label>
+                            <label><input type="radio" name="P2" value="D"> D) No existe diferencia sustancial; ambos términos hacen referencia al régimen subsidiado.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. En el modelo de Determinantes Sociales de la Salud (Dahlgren y Whitehead / OMS), ¿cuál de los siguientes factores constituye un determinante estructural?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) La edad, el sexo y los factores genéticos hereditarios.</label>
+                            <label><input type="radio" name="P3" value="B" data-correct="true"> B) La estratificación socioeconómica, las políticas macroeconómicas, el mercado laboral y el nivel educativo formal.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Los estilos de vida individuales como el tabaquismo o el sedentarismo.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Las redes familiares y el apoyo comunitario cercano.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. De acuerdo con el modelo de Leavell y Clark, ¿cuál de las siguientes acciones corresponde a una Prevención Secundaria?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) La vacunación masiva con biológicos del Programa Ampliado de Inmunizaciones (PAI).</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) El tamizaje poblacional mediante citología cervicouterina y mamografía para diagnóstico precoz y tratamiento oportuno.</label>
+                            <label><input type="radio" name="P4" value="C"> C) La terapia física y rehabilitación funcional post-accidente cerebrovascular.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Las charlas sobre estilos de vida saludables y alimentación balanceada en colegios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. ¿Qué propósito tiene la Prevención Cuaternaria en la práctica clínica y comunitaria de la APS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Vacunar a poblaciones adultas contra enfermedades emergentes.</label>
+                            <label><input type="radio" name="P5" value="B" data-correct="true"> B) Identificar a pacientes en riesgo de sobremedicalización o sobrediagnóstico, protegiéndolos de intervenciones médicas innecesarias o iatrogénicas.</label>
+                            <label><input type="radio" name="P5" value="C"> C) Ofrecer cuidados paliativos terminales en el domicilio.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Canalizar a los pacientes hacia cirugías especializadas de alta complejidad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Qué caracteriza al Enfoque de Salud Familiar y Comunitaria dentro de la APS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) Atender al individuo de manera fragmentada y aislada de su entorno de convivencia.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Reconocer a la familia como la unidad básica de cuidado, analizando su estructura, dinámica relacional, ciclo vital y riesgos ambientales compartidos.</label>
+                            <label><input type="radio" name="P6" value="C"> C) Limitar la consulta médica a la prescripción de medicamentos genéricos en el consultorio.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Exigir que todos los miembros del hogar asistan obligatoriamente al hospital en la misma fecha.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Por qué la Intersectorialidad es una condición indispensable para el éxito de la Atención Primaria en Salud?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Porque permite que el sector salud administre directamente los presupuestos de obras públicas.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Porque la mayoría de los determinantes de la salud (agua potable, saneamiento básico, vivienda, educación, empleo) escapan al control exclusivo del sector sanitario.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Para que las entidades de salud no tengan que realizar actividades de prevención primaria.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Porque las leyes exigen fusionar todos los ministerios en una sola entidad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. La Carta de Ottawa define la Promoción de la Salud como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) El tratamiento farmacológico temprano de las enfermedades crónicas no transmisibles.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) El proceso que proporciona a las poblaciones los medios necesarios para ejercer un mayor control sobre su propia salud y mejorarla.</label>
+                            <label><input type="radio" name="P8" value="C"> C) La construcción de hospitales de tercer nivel en zonas de alta densidad demográfica.</label>
+                            <label><input type="radio" name="P8" value="D"> D) La entrega mensual de complementos nutricionales en los centros de salud.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. ¿Cuál es la finalidad metodológica del Análisis de Situación de Salud (ASIS) en el ámbito local?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Elaborar informes de auditoría contable para las empresas aseguradoras.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Caracterizar, medir y explicar el perfil de salud-enfermedad y los determinantes sociales de una población para priorizar problemas y orientar planes de salud territorial.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Reemplazar la historia clínica individual de cada habitante de la comunidad.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Calcular el cobro de copagos y cuotas moderadoras en la red asistencial.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. En el marco de la vigilancia epidemiológica en salud pública, ¿qué constituye un Evento de Interés en Salud Pública (EISP)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Cualquier patología menor tratada ambulatoriamente en el primer nivel.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Aquel suceso o enfermedad que por su transmisibilidad, gravedad, letalidad o impacto colectivo requiere notificación obligatoria y seguimiento por el SIVIGILA.</label>
+                            <label><input type="radio" name="P10" value="C"> C) Únicamente los accidentes de tránsito atendidos con cargo al SOAT.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Las consultas odontológicas de higiene y profilaxis semestral.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Cuál es la regla fundamental de la Cadena de Frío para la conservación de biológicos del PAI en el primer nivel de atención?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Mantener las vacunas a temperatura ambiente en lugares secos y ventilados.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Garantizar un rango térmico estricto y continuo entre +2 °C y +8 °C en el refrigerador, con control y registro de temperatura dos veces al día.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Congelar todos los biológicos bacterianos y virales a -20 °C permanentemente.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Almacenar las vacunas en la puerta del refrigerador para facilitar su acceso rápido.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. En la atención materno-infantil, la ventana de oportunidad de los "Primeros 1.000 Días de Vida" comprende:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Desde el primer año de vida hasta el ingreso a la educación básica primaria.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) El periodo desde la concepción (270 días de gestación) hasta los dos primeros años de vida del niño (730 días).</label>
+                            <label><input type="radio" name="P12" value="C"> C) Los primeros tres años del ciclo escolar preescolar.</label>
+                            <label><input type="radio" name="P12" value="D"> D) El periodo exclusivo de lactancia materna exclusiva (los primeros 6 meses).</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. En el control comunitario de Enfermedades Transmitidas por Vectores (ETV) como el Dengue, ¿cuál es la medida más sostenible y de mayor impacto?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) La fumigación espacial química indiscriminada en todas las viviendas.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) El ordenamiento ambiental, lavado y tapado hermético de tanques, y la eliminación sistemática de criaderos de Aedes aegypti con participación social activa.</label>
+                            <label><input type="radio" name="P13" value="C"> C) La prescripción profiláctica masiva de antibióticos a toda la comunidad.</label>
+                            <label><input type="radio" name="P13" value="D"> D) El cierre temporal de los centros educativos durante la temporada de lluvias.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Cuál es el enfoque fundamental de la Salud Sexual y Reproductiva dentro del modelo de APS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Limitar la atención a la entrega de métodos anticonceptivos sin asesoría previa.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) Garantizar el ejercicio libre, informado, seguro y sin discriminación de los derechos sexuales y reproductivos a lo largo de todo el curso de vida.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Condicionar la planificación familiar a la aprobación de la pareja o cónyuge.</label>
+                            <label><input type="radio" name="P14" value="D"> D) Atender exclusivamente a mujeres en edad fértil con antecedentes obstétricos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. En el abordaje de las Enfermedades No Transmisibles (ENT) como Hipertensión y Diabetes, la APS prioriza:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) La hospitalización periódica para ajuste de dosis farmacológicas.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) La estratificación del riesgo cardiovascular, la adopción de estilos de vida saludables, el autocuidado guiado y el seguimiento continuo para prevenir complicaciones.</label>
+                            <label><input type="radio" name="P15" value="C"> C) La sustitución total de los cambios de hábitos por polifarmacia intensiva.</label>
+                            <label><input type="radio" name="P15" value="D"> D) La realización de pruebas diagnósticas invasivas cada tres meses en centros especializados.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. ¿Qué condición técnica debe cumplir una prueba de tamizaje poblacional en atención primaria en salud?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Ser una prueba diagnóstica invasiva, de alto costo y de aplicación hospitalaria.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Ser sencilla, segura, de bajo costo, socialmente aceptable, con alta sensibilidad para detectar la condición en fase presintomática en población asintomática.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Aplicarse únicamente cuando el paciente manifiesta síntomas clínicos avanzados.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Requerir hospitalización previa de 24 horas para su procesamiento.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: RIAS y Comunidad <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-people-carry"></i> Módulos 4 a 9: RIAS, Participación Comunitaria, Salud Mental y Humanización</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. ¿Qué son las Rutas Integrales de Atención en Salud (RIAS) en el marco de la política de salud colombiana?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Guías contables y tarifarias para la facturación de servicios hospitalarios.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) Herramientas operativas que definen las condiciones necesarias para asegurar la integralidad en la atención a partir de acciones de promoción, prevención, diagnóstico, tratamiento y rehabilitación.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Rutas de transporte terrestre exclusivo para ambulancias medicalizadas.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Protocolos disciplinarios para el personal asistencial de las IPS.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. La Ruta Integral de Atención para la Promoción y Mantenimiento de la Salud tiene como población objetivo:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Únicamente a las personas con diagnóstico confirmado de enfermedad crónica.</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) A todas las personas, familias y comunidades a lo largo de su curso de vida (primera infancia, infancia, adolescencia, juventud, adultez y vejez).</label>
+                            <label><input type="radio" name="P18" value="C"> C) Exclusivamente a mujeres gestantes y niños menores de 1 año.</label>
+                            <label><input type="radio" name="P18" value="D"> D) A los pacientes remitidos para cirugías programadas de alta complejidad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Cuál es el propósito central de la RIAS del Grupo de Riesgo Materno-Perinatal?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Centralizar todos los partos en hospitales de cuarto nivel.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) Garantizar la atención integral antes, durante y después del embarazo, el parto y el puerperio, reduciendo la morbimortalidad materna y neonatal evitable.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Incrementar la tasa de cesáreas programadas en el primer nivel.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Exigir el cobro anticipado de los controles prenatales a las usuarias.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. La Vigilancia Epidemiológica de Base Comunitaria (VEBC) se caracteriza por:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Sustituir los laboratorios de salud pública por pruebas caseras no estandarizadas.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Empoderar a líderes y agentes comunitarios para detectar, alertar y notificar tempranamente eventos o riesgos sanitarios inusuales en su territorio.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Prohibir el ingreso de brigadas médicas a los barrios informales.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Realizar encuestas comerciales sobre consumo de fármacos sin receta.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. ¿Cómo se articula el sistema de Referencia y Contrarreferencia con los principios de la APS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) Dando de alta al paciente en el hospital sin coordinar con su centro de salud local.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) Garantizando la continuidad asistencial y complementariedad, trasladando al paciente al nivel adecuado y reintegrándolo a su comunidad con plan de seguimiento en el primer nivel.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Evitando que los pacientes de zonas rurales sean atendidos en hospitales de segundo nivel.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Atendiendo todas las urgencias de alta complejidad en puestos de salud básicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. En el marco de la Salud Mental Comunitaria, los Primeros Auxilios Psicológicos (PAP) consisten en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) La administración inmediata de psicofármacos tranquilizantes sin valoración médica.</label>
+                            <label><input type="radio" name="P22" value="B" data-correct="true"> B) Una intervención de apoyo humano, compasivo y práctico orientada a brindar contención emocional, alivio del estrés agudo y enlace con redes de apoyo.</label>
+                            <label><input type="radio" name="P22" value="C"> C) La aplicación de sesiones formales de psicoterapia psicoanalítica intensiva.</label>
+                            <label><input type="radio" name="P22" value="D"> D) El aislamiento forzado de la persona en un centro psiquiátrico cerrado.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. Frente a la detección de un caso de Violencia Basada en Género (VBG) o maltrato infantil en el primer nivel, ¿cuál es el deber del equipo de salud?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Recomendar la conciliación privada con el presunto agresor antes de reportar.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Brindar atención integral en salud sin juzgar, activar de forma inmediata la ruta intersectorial obligatoria (justicia, protección, ICBF/Comisaría) y garantizar la confidencialidad.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Esperar a que la víctima presente una denuncia formal en la fiscalía para atenderla.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Guardar reserva para evitar inconvenientes administrativos con la comunidad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. La estrategia AIEPI (Atención Integrada a las Enfermedades Prevalentes de la Infancia) en su componente comunitario busca:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Reemplazar la consulta médica profesional por tratamientos tradicionales caseros.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) Fortalecer 18 prácticas clave en las familias y comunidades para el crecimiento saludable, prevención, cuidado en el hogar y búsqueda oportuna de ayuda médica.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Hospitalizar preventivamente a todos los niños menores de cinco años con tos leve.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Vender medicamentos pediátricos sin fórmula médica en las farmacias locales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. ¿Cómo debe integrarse el Enfoque Diferencial e Intercultural en la atención en salud a comunidades indígenas y afrodescendientes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Imponiendo los tratamientos alopáticos occidentales y prohibiendo las prácticas ancestrales.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) Mediante el diálogo intercultural, el respeto a la cosmovisión y saberes de la medicina tradicional, y la concertación de planes de cuidado adecuados culturalmente.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Atendiendo a estas comunidades únicamente a través de brigadas extramurales anuales.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Exigiéndoles renunciar a su lengua materna para acceder a los servicios de salud.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. En el seguimiento de pacientes con patologías crónicas, el Programa de Adherencia Terapéutica en APS prioriza:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) Culpar al paciente por olvidos ocasionales y suspender el suministro del medicamento.</label>
+                            <label><input type="radio" name="P26" value="B" data-correct="true"> B) Identificar barreras socioculturales y económicas, simplificar esquemas posológicos, educar al paciente y su familia, y pactar metas realistas de automonitoreo.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Aumentar la dosis de los fármacos sin indagar si el usuario los está tomando.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Delegar la responsabilidad del tratamiento exclusivamente en el médico especialista.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. El abordaje del consumo de Sustancias Psicoactivas (SPA) con Enfoque de Reducción de Daños en APS implica:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Sancionar penalmente y criminalizar al usuario que consulta voluntariamente.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) Implementar estrategias pragmáticas orientadas a minimizar los riesgos e impactos negativos sobre la salud física, psíquica y social del usuario y su entorno.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Exigir la abstinencia total inmediata como único requisito para recibir atención médica.</label>
+                            <label><input type="radio" name="P27" value="D"> D) Negar el acceso a pruebas de tamizaje para VIH o Hepatitis a personas consumidoras.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. En la Educación para la Salud comunitaria, ¿cuál metodología resulta pedagógicamente más efectiva?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) Clases magistrales unidireccionales de 2 horas con terminología técnica médica compleja.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Talleres participativos dialógicos, basados en problemas reales, intercambio de experiencias, demostraciones prácticas y construcción colectiva de alternativas de cuidado.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Repartir volantes informativos en la calle sin mediar explicación o diálogo con la gente.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Proyectar videos científicos sin permitir preguntas ni debate por parte de los asistentes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. La Comunicación Asertiva en la relación profesional de salud-paciente en APS exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Mantener un trato distante y autoritario para agilizar el tiempo de la consulta.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) Escucha activa, empatía, lenguaje claro y comprensible (sin tecnicismos innecesarios), validación de emociones y verificación de la comprensión del plan de manejo.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Redactar la receta médica sin mirar al paciente para no atrasar la agenda.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Aceptar únicamente las opiniones que coincidan con la postura del profesional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. En las brigadas de salud extramurales, el manejo seguro de Residuos Cortopunzantes exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Desechar las agujas directamente en bolsas plásticas negras de basura común.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Depositar agujas y lancetas inmediatamente en recipientes rígidos tipo 'Guardián', sin reenfundar las agujas, llenándolos máximo hasta 3/4 de su capacidad.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Reenfundar manualmente todas las agujas usadas antes de botarlas al basurero.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Enterrar los residuos biológicos en los patios de las casas de la comunidad visitada.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. El Consentimiento Informado en la atención primaria es éticamente válido cuando:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) El paciente firma un formulario preimpreso sin haber recibido ninguna explicación verbal.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) Es un proceso de diálogo continuo donde se explica en lenguaje comprensible la naturaleza, beneficios, riesgos y alternativas del procedimiento, y el usuario decide libremente.</label>
+                            <label><input type="radio" name="P31" value="C"> C) Se obtiene bajo presión o coacción del equipo asistencial para agilizar un trámite.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Es firmado exclusivamente por el médico tratante en nombre del paciente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. El Secreto Profesional y la Confidencialidad de la Historia Clínica en los programas de salud comunitaria implican:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Comentar los diagnósticos de los usuarios en reuniones informales de la junta barrial.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) La obligación legal y ética de custodiar la reserva de toda la información clínica y personal conocida durante el acto de cuidado, accesible solo al paciente o por orden judicial.</label>
+                            <label><input type="radio" name="P32" value="C"> C) Publicar listas de pacientes con enfermedades infecciosas en carteleras públicas.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Compartir los datos médicos con cualquier familiar que lo solicite sin permiso del titular.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-user-md"></i> Módulo 10: Casos Prácticos de Toma de Decisiones en APS</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio clínico y de salud pública cada situación real y determine la decisión más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: En una vereda se registra un incremento acelerado de casos febriles compatibles con Dengue con signos de alarma. Se evidencia que la población almacena agua en tanques descubiertos por desabastecimiento hídrico. ¿Cuál es la decisión prioritaria del equipo de APS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Esperar a que la secretaría de salud municipal programe fumigación en tres meses.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Realizar búsqueda activa comunitaria de casos, triaje para remisión oportuna de signos de alarma, y jornada de control físico/biológico de criaderos con educación en tapado de reservorios.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Administrar ácido acetilsalicílico (aspirina) a todos los pacientes febriles de la comunidad.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Cerrar el puesto de salud veredal para evitar el contagio del personal asistencial.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: En un resguardo indígena se identifica renuencia a vacunar a los recién nacidos con BCG y Hepatitis B por desconfianza en la medicina occidental. ¿Qué estrategia de liderazgo en APS debe implementarse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) Ingresar con la fuerza pública para vacunar a los menores de manera forzada.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Convocar a las autoridades tradicionales, sabedores ancestrales y parteras a un círculo de diálogo intercultural para explicar beneficios, acordar protocolos conjuntos y vacunar con consentimiento.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Desistir del programa de inmunización en dicho territorio indígena.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Suspender los subsidios estatales a las familias que no presenten el carnet de vacunas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Un grupo de adultos mayores hipertensos y diabéticos presenta descompensación metabólica frecuente. Manifiestan que no entienden las dosis y que no pueden costear dietas comerciales complejas. ¿Cuál es la mejor intervención del equipo interdisciplinario?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Regañar a los usuarios por su falta de disciplina y exigirles comprar alimentos importados.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Diseñar un plan de educación alimentaria adaptado a los productos locales económicos de la región, implementar pastilleros visuales con colores y crear un club comunitario de actividad física y automonitoreo.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Triplicar la dosis de insulina sin brindar acompañamiento ni educación familiar.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Suspender las consultas de control y atenderlos únicamente cuando sufran crisis en urgencias.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: En una visita extramural a un asentamiento informal se identifica a un niño de 18 meses con emaciación visible, edema en miembros inferiores, apatía e inapetencia. ¿Cuál es la conducta inmediata que debe adoptar el profesional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Recomendar a la madre que le dé caldos caseros y citarlo a control en un mes.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Activar de inmediato la Ruta de Atención Integral para la Desnutrición Aguda Severa (Resolución 2350), remitir a centro de recuperación nutricional/hospitalario e iniciar manejo médico protocolizado.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Entregar un antiparasitario y enviarlo a la casa sin realizar seguimiento.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Realizar una charla sobre planificación familiar a la madre sin atender al menor.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: Durante una brigada en zona rural se capta a una gestante de 34 semanas sin ningún control prenatal previo, quien refiere cefalea intensa, visión borrosa (fosfenos) y se le detecta tensión arterial de 150/100 mmHg. ¿Cuál es la decisión clínica y logística correcta?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Indicarle reposo en cama en su casa y programarle cita médica para la siguiente semana.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Identificar emergencia obstétrica por preeclampsia con criterios de severidad, activar Código Rojo/Materno, estabilizar inmediatamente y coordinar traslado prioritario medicalizado a nivel hospitalario.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Formular acetaminofén para el dolor de cabeza y permitir que regrese a su finca a pie.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Esperar a que inicie el trabajo de parto natural para trasladarla en transporte público.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Un joven de 17 años acude al centro de salud de primer nivel manifestando llanto incontrolable, desesperanza profunda, aislamiento y un plan estructurado para terminar con su vida esa misma noche. ¿Cómo debe proceder el equipo asistencial?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Decirle que piense positivo, darle una cita con psicología para el mes siguiente y dejarlo ir solo.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) No dejarlo solo en ningún momento, brindar contención emocional empática, activar la Ruta de Urgencia en Salud Mental por Riesgo Suicida Inminente, involucrar a la red familiar y remitir a interconsulta especializada.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Reclamarle por llamar la atención y pedirle que se retire de la sala de espera.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Prescribirle un inductor del sueño y enviarlo a su domicilio sin acompañante.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Un paciente con Tuberculosis Pulmonar con baciloscopia positiva abandona el tratamiento farmacológico a las tres semanas porque "ya no siente tos ni fiebre". ¿Cuál es la estrategia prioritaria del programa de APS?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Cerrar la historia clínica del paciente y declararlo curado por ausencia de síntomas.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Realizar visita domiciliaria urgente de rescate, educar sobre el riesgo de tuberculosis farmacorresistente y muerte, reiniciar esquema bajo Tratamiento Directamente Observado (DOTS/TAES) y tamizar a todos sus contactos intradomiciliarios.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Sancionar económicamente a la familia por incumplimiento del tratamiento.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Esperar a que el paciente vuelva a consultar cuando presente hemoptisis severa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: Una comunidad rural dispersa sufre barreras geográficas severas que le impiden acceder al centro de salud de la cabecera municipal, registrando bajas coberturas en citologías, vacunación y control de crónicos. Desde la gestión de APS, ¿cuál es la solución integral más adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) Exigir que los campesinos caminen 6 horas hasta el hospital central para cualquier atención.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) Conformar y desplegar Equipos Básicos de Salud Extramurales permanentes, que realicen atención primaria domiciliaria, jornadas de salud periódicas, teleorientación y articulación con líderes comunitarios locales.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Suspender los servicios de salud preventiva para dicha población por su difícil acceso.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Construir un hospital de cuarto nivel de alta tecnología en medio de la vereda deshabitada.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+                <a href="enlaces.html" class="btn-nav" style="display: inline-block; background: #1f3565; color: white; text-decoration: none; padding: 14px 35px; border-radius: 8px;">Volver al Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión/Área y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Atención Primaria en Salud (APS)",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                // 1. Consultar intentos previos con la misma cédula para este examen
+                const qCheck = query(
+                    collection(db, "evaluaciones"),
+                    where("documento", "==", documento),
+                    where("examen", "==", payloadExamen.examen)
+                );
+                const snapshotIntentos = await getDocs(qCheck);
+
+                // 2. Bloquear si ya aprobó en un intento previo
+                let yaAprobo = false;
+                snapshotIntentos.forEach(docSnap => {
+                    if (docSnap.data().estado === "Aprobado") yaAprobo = true;
+                });
+
+                if (yaAprobo) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("✅ Ya has aprobado esta evaluación previamente. No se permiten más intentos.");
+                    return;
+                }
+
+                // 3. Bloquear si ya agotó los 2 intentos permitidos
+                if (snapshotIntentos.size >= 2) {
+                    document.getElementById('loadingPdf').classList.remove('active');
+                    alert("⛔ Has alcanzado el límite máximo de 2 intentos permitidos para esta evaluación.");
+                    return;
+                }
+
+                // 4. Guardar la evaluación si cumple las condiciones
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>
