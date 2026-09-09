@@ -278,9 +278,22 @@ links.forEach(link => {
         document.getElementById("menu").classList.remove("active");
     });
 });
+
+<script>
+function toggleMenu(){
+    const menu = document.getElementById("menu");
+    menu.classList.toggle("active");
+}
+
+const links = document.querySelectorAll(".nav-links a");
+links.forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("menu").classList.remove("active");
+    });
+});
 </script>
 
-<!-- CONEXIÓN HÍBRIDA FIREBASE + GOOGLE SHEETS -->
+<!-- MOTOR HÍBRIDO SEGURO: GOOGLE DRIVE + FIREBASE -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -308,53 +321,80 @@ links.forEach(link => {
             return;
         }
 
-        resBox.innerHTML = "<p style='color:#1f3565'><i class='fas fa-spinner fa-spin'></i> Consultando certificado...</p>";
+        resBox.innerHTML = "<p style='color:#1f3565'><i class='fas fa-spinner fa-spin'></i> Consultando certificados...</p>";
 
         let encontrados = [];
         let nombreEstudiante = "";
 
-        // 1. Consultar primero en Firebase Firestore (Nuevos certificados automáticos)
+        // 1. PRIORIDAD DRIVE (Google Sheets histórico - Jamás se pierde)
+        try {
+            const res = await fetch(URL_SHEETS);
+            const data = await res.text();
+            const filas = data.split("\n");
+
+            for(let i = 1; i < filas.length; i++){
+                const fila = filas[i];
+                if(!fila.trim()) continue;
+                
+                const col = fila.split(",");
+                if(col[0] && col[0].trim() === inputCedula){
+                    const nombreDrive = col[1] ? col[1].trim() : "";
+                    const progDrive = col[3] ? col[3].trim() : "Certificado Académico";
+                    const urlDrive = col[4] ? col[4].trim() : "";
+
+                    if(urlDrive && urlDrive.startsWith("http")){
+                        encontrados.push({
+                            nombre: nombreDrive,
+                            programa: progDrive,
+                            url: urlDrive
+                        });
+                        if(!nombreEstudiante && nombreDrive) {
+                            nombreEstudiante = nombreDrive;
+                        }
+                    }
+                }
+            }
+        } catch(err) {
+            console.error("Error consultando Google Sheets (Drive):", err);
+        }
+
+        // 2. CONSULTAR FIREBASE FIRESTORE (Nuevos certificados emitidos en el sistema)
         try {
             const q = query(collection(db, "certificados"), where("cedula", "==", inputCedula));
             const querySnapshot = await getDocs(q);
+
             querySnapshot.forEach((docSnap) => {
                 const d = docSnap.data();
-                encontrados.push({
-                    nombre: d.nombre,
-                    programa: d.programa,
-                    url: d.url || d.urlDocumento
-                });
-                if(!nombreEstudiante && d.nombre) nombreEstudiante = d.nombre;
+                const urlNube = d.url || d.urlDocumento || d.link || d.pdfUrl;
+                const nombreNube = d.nombre || d.Nombre || d.nombre_completo || d.estudiante;
+                const progNube = d.programa || d.Programa || "Certificado Académico";
+
+                // Solo se acepta si tiene un enlace web real de descarga (que empiece con http)
+                if(urlNube && typeof urlNube === "string" && urlNube.startsWith("http")){
+                    // Evita duplicar si ya vino de Drive
+                    const yaEsta = encontrados.some(e => e.programa.toUpperCase() === progNube.toUpperCase());
+                    if(!yaEsta){
+                        encontrados.push({
+                            nombre: nombreNube,
+                            programa: progNube,
+                            url: urlNube
+                        });
+                    }
+                }
+
+                if(!nombreEstudiante && nombreNube) {
+                    nombreEstudiante = nombreNube;
+                }
             });
         } catch(e) {
             console.warn("Error consultando Firebase:", e);
         }
 
-        // 2. Respaldo: si no está en Firebase, consultar el Google Sheet histórico
-        if(encontrados.length === 0){
-            try {
-                const res = await fetch(URL_SHEETS);
-                const data = await res.text();
-                const filas = data.split("\n");
-                for(let i = 1; i < filas.length; i++){
-                    const col = filas[i].split(",");
-                    if(col[0] && col[0].trim() === inputCedula){
-                        encontrados.push({
-                            nombre: col[1] ? col[1].trim() : "",
-                            programa: col[3] ? col[3].trim() : "Sin programa",
-                            url: col[4] ? col[4].trim() : "#"
-                        });
-                        if(!nombreEstudiante && col[1]) nombreEstudiante = col[1].trim();
-                    }
-                }
-            } catch(err) {
-                console.error("Error consultando Google Sheets:", err);
-            }
-        }
-
-        // MOSTRAR RESULTADO EN TABLA
+        // 3. RENDERIZAR RESULTADOS
         if(encontrados.length > 0){
-            let html = `<p class='saludo' style='color:#2a7be4; font-weight:bold; margin-bottom:10px;'>Cordial saludo, ${nombreEstudiante}</p>`;
+            let saludoTexto = nombreEstudiante ? `Cordial saludo, ${nombreEstudiante}` : "Cordial saludo";
+            let html = `<p class='saludo' style='color:#2a7be4; font-weight:bold; margin-bottom:10px;'>${saludoTexto}</p>`;
+
             html += `
             <table style="width:100%; border-collapse:collapse; margin-top:15px;">
             <thead>
@@ -365,18 +405,20 @@ links.forEach(link => {
             </thead>
             <tbody>
             `;
+
             encontrados.forEach(item => {
                 html += `
                 <tr>
                 <td style="padding:10px; border:1px solid #ddd; font-weight:600; text-transform:uppercase;">${item.programa}</td>
                 <td style="padding:10px; border:1px solid #ddd;">
-                <a href="${item.url}" target="_blank">
-                <button style="padding:8px 14px; font-size:13px; font-weight:bold; background:#1f3565; color:white; border:none; border-radius:6px; cursor:pointer;">Descargar</button>
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+                <button type="button" style="width:100%; padding:10px; font-size:14px; font-weight:bold; background:#1f3565; color:white; border:none; border-radius:6px; cursor:pointer;">Descargar</button>
                 </a>
                 </td>
                 </tr>
                 `;
             });
+
             html += "</tbody></table>";
             resBox.innerHTML = html;
         } else {
