@@ -293,7 +293,7 @@ links.forEach(link => {
 });
 </script>
 
-<!-- MOTOR HÍBRIDO SEGURO: GOOGLE DRIVE + FIREBASE -->
+<!-- MOTOR HÍBRIDO INTELIGENTE: GOOGLE DRIVE + FIREBASE -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -312,6 +312,19 @@ links.forEach(link => {
 
     const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXx5WMtDLiNSahFtRXm7diaQ3Ewa7sDhjr05S-HvdNwDwF95w8zurlArj_Z0rkLNRs1uRyUb9WqKmE/pub?gid=0&single=true&output=csv";
 
+    // Normaliza textos para detectar duplicados sin importar prefijos ni tildes
+    function limpiarTexto(txt) {
+        return (txt || "")
+            .toUpperCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace("CONOCIMIENTOS ACADEMICOS EN", "")
+            .replace("CONOCIMIENTOS ACADEMICOS", "")
+            .replace("CURSO", "")
+            .replace("DIPLOMADO", "")
+            .replace(/[^A-Z0-9]/g, "")
+            .trim();
+    }
+
     window.buscar = async function() {
         const inputCedula = document.getElementById("cedula").value.trim();
         const resBox = document.getElementById("resultado");
@@ -324,9 +337,10 @@ links.forEach(link => {
         resBox.innerHTML = "<p style='color:#1f3565'><i class='fas fa-spinner fa-spin'></i> Consultando certificados...</p>";
 
         let encontrados = [];
+        let programasRegistrados = new Set();
         let nombreEstudiante = "";
 
-        // 1. PRIORIDAD DRIVE (Google Sheets histórico - Jamás se pierde)
+        // 1. PRIORIDAD DRIVE (Histórico de Google Sheets)
         try {
             const res = await fetch(URL_SHEETS);
             const data = await res.text();
@@ -343,11 +357,15 @@ links.forEach(link => {
                     const urlDrive = col[4] ? col[4].trim() : "";
 
                     if(urlDrive && urlDrive.startsWith("http")){
+                        const claveProg = limpiarTexto(progDrive);
+                        programasRegistrados.add(claveProg);
+
                         encontrados.push({
                             nombre: nombreDrive,
                             programa: progDrive,
                             url: urlDrive
                         });
+
                         if(!nombreEstudiante && nombreDrive) {
                             nombreEstudiante = nombreDrive;
                         }
@@ -355,10 +373,10 @@ links.forEach(link => {
                 }
             }
         } catch(err) {
-            console.error("Error consultando Google Sheets (Drive):", err);
+            console.error("Error consultando Drive:", err);
         }
 
-        // 2. CONSULTAR FIREBASE FIRESTORE (Nuevos certificados emitidos en el sistema)
+        // 2. CONSULTA FIREBASE (Nuevos certificados)
         try {
             const q = query(collection(db, "certificados"), where("cedula", "==", inputCedula));
             const querySnapshot = await getDocs(q);
@@ -369,11 +387,12 @@ links.forEach(link => {
                 const nombreNube = d.nombre || d.Nombre || d.nombre_completo || d.estudiante;
                 const progNube = d.programa || d.Programa || "Certificado Académico";
 
-                // Solo se acepta si tiene un enlace web real de descarga (que empiece con http)
                 if(urlNube && typeof urlNube === "string" && urlNube.startsWith("http")){
-                    // Evita duplicar si ya vino de Drive
-                    const yaEsta = encontrados.some(e => e.programa.toUpperCase() === progNube.toUpperCase());
-                    if(!yaEsta){
+                    const claveProg = limpiarTexto(progNube);
+
+                    // Si ya existe en Drive, Firebase no lo agrega
+                    if(!programasRegistrados.has(claveProg)){
+                        programasRegistrados.add(claveProg);
                         encontrados.push({
                             nombre: nombreNube,
                             programa: progNube,
@@ -390,7 +409,7 @@ links.forEach(link => {
             console.warn("Error consultando Firebase:", e);
         }
 
-        // 3. RENDERIZAR RESULTADOS
+        // 3. MOSTRAR RESULTADOS
         if(encontrados.length > 0){
             let saludoTexto = nombreEstudiante ? `Cordial saludo, ${nombreEstudiante}` : "Cordial saludo";
             let html = `<p class='saludo' style='color:#2a7be4; font-weight:bold; margin-bottom:10px;'>${saludoTexto}</p>`;
