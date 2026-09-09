@@ -266,102 +266,123 @@ padding:30px 25px;
 
 <iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
-    authDomain: "elite-matriculas.firebaseapp.com",
-    projectId: "elite-matriculas",
-    storageBucket: "elite-matriculas.firebasestorage.app",
-    messagingSenderId: "836674120343",
-    appId: "1:836674120343:web:c4ae124456a764045b97d2"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.toggleMenu = function() {
+<script>
+function toggleMenu(){
     const menu = document.getElementById("menu");
-    if (menu) menu.classList.toggle("active");
-  };
+    menu.classList.toggle("active");
+}
 
-  const links = document.querySelectorAll(".nav-links a");
-  links.forEach(link => {
+const links = document.querySelectorAll(".nav-links a");
+links.forEach(link => {
     link.addEventListener("click", () => {
-      const menu = document.getElementById("menu");
-      if (menu) menu.classList.remove("active");
+        document.getElementById("menu").classList.remove("active");
     });
-  });
+});
+</script>
 
-  window.buscar = async function() {
-    const inputCedula = document.getElementById("cedula");
-    const contenedorResultado = document.getElementById("resultado");
-    const cedula = inputCedula.value.trim();
+<!-- CONEXIÓN HÍBRIDA FIREBASE + GOOGLE SHEETS -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    if (cedula === "") {
-      contenedorResultado.innerHTML = "<p style='color:red;'>Ingrese su cédula</p>";
-      return;
-    }
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+        authDomain: "elite-matriculas.firebaseapp.com",
+        projectId: "elite-matriculas",
+        storageBucket: "elite-matriculas.firebasestorage.app",
+        messagingSenderId: "836674120343",
+        appId: "1:836674120343:web:c4ae124456a764045b97d2"
+    };
 
-    contenedorResultado.innerHTML = "<p style='color:#1f3565; font-weight:600;'><i class='fas fa-spinner fa-spin'></i> Consultando...</p>";
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-    try {
-      const q = query(collection(db, "certificados"), where("cedula", "==", cedula));
-      const querySnapshot = await getDocs(q);
+    const URL_SHEETS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXx5WMtDLiNSahFtRXm7diaQ3Ewa7sDhjr05S-HvdNwDwF95w8zurlArj_Z0rkLNRs1uRyUb9WqKmE/pub?gid=0&single=true&output=csv";
 
-      if (querySnapshot.empty) {
-        contenedorResultado.innerHTML = "<p style='color:red;'>No se encontró certificado</p>";
-        return;
-      }
+    window.buscar = async function() {
+        const inputCedula = document.getElementById("cedula").value.trim();
+        const resBox = document.getElementById("resultado");
 
-      let encontrados = [];
-      querySnapshot.forEach((doc) => {
-        encontrados.push(doc.data());
-      });
+        if(!inputCedula){
+            resBox.innerHTML = "<p style='color:red'>Ingrese su cédula</p>";
+            return;
+        }
 
-      const primerCert = encontrados[0];
-      let html = `<p class='saludo'>Cordial saludo, ${primerCert.nombre_completo}</p>`;
+        resBox.innerHTML = "<p style='color:#1f3565'><i class='fas fa-spinner fa-spin'></i> Consultando certificado...</p>";
 
-      html += `
-        <table style="width:100%; border-collapse:collapse; margin-top:15px;">
-          <thead>
+        let encontrados = [];
+        let nombreEstudiante = "";
+
+        // 1. Consultar primero en Firebase Firestore (Nuevos certificados automáticos)
+        try {
+            const q = query(collection(db, "certificados"), where("cedula", "==", inputCedula));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((docSnap) => {
+                const d = docSnap.data();
+                encontrados.push({
+                    nombre: d.nombre,
+                    programa: d.programa,
+                    url: d.url || d.urlDocumento
+                });
+                if(!nombreEstudiante && d.nombre) nombreEstudiante = d.nombre;
+            });
+        } catch(e) {
+            console.warn("Error consultando Firebase:", e);
+        }
+
+        // 2. Respaldo: si no está en Firebase, consultar el Google Sheet histórico
+        if(encontrados.length === 0){
+            try {
+                const res = await fetch(URL_SHEETS);
+                const data = await res.text();
+                const filas = data.split("\n");
+                for(let i = 1; i < filas.length; i++){
+                    const col = filas[i].split(",");
+                    if(col[0] && col[0].trim() === inputCedula){
+                        encontrados.push({
+                            nombre: col[1] ? col[1].trim() : "",
+                            programa: col[3] ? col[3].trim() : "Sin programa",
+                            url: col[4] ? col[4].trim() : "#"
+                        });
+                        if(!nombreEstudiante && col[1]) nombreEstudiante = col[1].trim();
+                    }
+                }
+            } catch(err) {
+                console.error("Error consultando Google Sheets:", err);
+            }
+        }
+
+        // MOSTRAR RESULTADO EN TABLA
+        if(encontrados.length > 0){
+            let html = `<p class='saludo' style='color:#2a7be4; font-weight:bold; margin-bottom:10px;'>Cordial saludo, ${nombreEstudiante}</p>`;
+            html += `
+            <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+            <thead>
             <tr style="background:#1f3565; color:white;">
-              <th style="padding:10px; border:1px solid #ddd;">Programa</th>
-              <th style="padding:10px; border:1px solid #ddd; text-align:center;">Descargar</th>
+            <th style="padding:10px; border:1px solid #ddd;">Programa</th>
+            <th style="padding:10px; border:1px solid #ddd;">Descargar</th>
             </tr>
-          </thead>
-          <tbody>
-      `;
-
-      encontrados.forEach((item) => {
-        html += `
-          <tr>
-            <td style="padding:10px; border:1px solid #ddd;">${item.programa || 'Sin programa'}</td>
-            <td style="padding:10px; border:1px solid #ddd; text-align:center;">
-              <a href="${item.url_descarga}" target="_blank" rel="noopener noreferrer">
-                <button style="width:auto; padding:8px 16px;">Descargar</button>
-              </a>
-            </td>
-          </tr>
-        `;
-      });
-
-      html += "</tbody></table>";
-      contenedorResultado.innerHTML = html;
-
-    } catch (error) {
-      console.error("Error consultando certificados:", error);
-      contenedorResultado.innerHTML = "<p style='color:red;'>Error al conectar con la base de datos.</p>";
-    }
-  };
-
-  document.getElementById("cedula").addEventListener("keyup", function(event) {
-    if (event.key === "Enter") {
-      window.buscar();
-    }
-  });
+            </thead>
+            <tbody>
+            `;
+            encontrados.forEach(item => {
+                html += `
+                <tr>
+                <td style="padding:10px; border:1px solid #ddd; font-weight:600; text-transform:uppercase;">${item.programa}</td>
+                <td style="padding:10px; border:1px solid #ddd;">
+                <a href="${item.url}" target="_blank">
+                <button style="padding:8px 14px; font-size:13px; font-weight:bold; background:#1f3565; color:white; border:none; border-radius:6px; cursor:pointer;">Descargar</button>
+                </a>
+                </td>
+                </tr>
+                `;
+            });
+            html += "</tbody></table>";
+            resBox.innerHTML = html;
+        } else {
+            resBox.innerHTML = "<p style='color:red'>No se encontró certificado</p>";
+        }
+    };
 </script>
 
 </body>
