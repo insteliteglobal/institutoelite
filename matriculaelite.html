@@ -198,6 +198,7 @@
             cursor: pointer;
             transition: var(--transition);
         }
+        .file-upload-box.error { border-color: #ef4444; background: #fef2f2; }
         .file-upload-box:hover { border-color: var(--primary-light); background: #f8fafc; }
         .file-upload-box i { font-size: 28px; color: var(--primary); margin-bottom: 8px; }
         .file-upload-box p { font-size: 13.5px; color: #475569; }
@@ -265,22 +266,22 @@
             <p>Diligencia tus datos personales y selecciona tu programa formativo.</p>
         </div>
 
-        <form id="formularioMatricula">
+        <form id="formularioMatricula" novalidate>
             <div class="grid-2-col">
                 <div class="form-group">
                     <label>Nombres completos</label>
-                    <input type="text" name="Nombres" required placeholder="Ej: Carlos Andrés">
+                    <input type="text" id="inputNombres" name="Nombres" required placeholder="Ej: Carlos Andrés">
                 </div>
                 <div class="form-group">
                     <label>Apellidos completos</label>
-                    <input type="text" name="Apellidos" required placeholder="Ej: Gómez Martínez">
+                    <input type="text" id="inputApellidos" name="Apellidos" required placeholder="Ej: Gómez Martínez">
                 </div>
             </div>
 
             <div class="grid-2-col">
                 <div class="form-group">
                     <label>Tipo de Documento</label>
-                    <select name="Tipo_Documento" required>
+                    <select id="inputTipoDoc" name="Tipo_Documento" required>
                         <option value="">Seleccione...</option>
                         <option value="CC">Cédula de Ciudadanía (CC)</option>
                         <option value="TI">Tarjeta de Identidad (TI)</option>
@@ -290,18 +291,18 @@
                 </div>
                 <div class="form-group">
                     <label>Número de Documento</label>
-                    <input type="text" name="Numero_Documento" required placeholder="Ej: 1001234567">
+                    <input type="text" id="inputNumDoc" name="Numero_Documento" required placeholder="Ej: 1001234567">
                 </div>
             </div>
 
             <div class="grid-2-col">
                 <div class="form-group">
                     <label>Celular / WhatsApp</label>
-                    <input type="tel" name="Celular" required placeholder="Ej: 300 123 4567">
+                    <input type="tel" id="inputCelular" name="Celular" required placeholder="Ej: 300 123 4567">
                 </div>
                 <div class="form-group">
                     <label>Correo electrónico</label>
-                    <input type="email" name="Correo" required placeholder="ejemplo@correo.com">
+                    <input type="email" id="inputCorreo" name="Correo" required placeholder="ejemplo@correo.com">
                 </div>
             </div>
 
@@ -320,13 +321,11 @@
                 </div>
             </div>
 
+            <!-- SOLO MODALIDAD VIRTUAL -->
             <div class="form-group">
                 <label>Modalidad de estudio preferida</label>
-                <select name="Modalidad" required>
-                    <option value="">Seleccione modalidad...</option>
-                    <option value="Virtual">Virtual</option>
-                    <option value="Presencial">Presencial</option>
-                    <option value="A distancia">A distancia</option>
+                <select id="inputModalidad" name="Modalidad" required>
+                    <option value="Virtual" selected>Virtual</option>
                 </select>
             </div>
 
@@ -334,7 +333,7 @@
             <div class="form-group">
                 <label>Adjuntar Documento de Identidad (PDF o Imagen)</label>
                 <input type="file" id="archivoDocumento" name="Documento_Adjunto" accept=".pdf, .jpg, .jpeg, .png" required style="display:none;">
-                <div class="file-upload-box" onclick="document.getElementById('archivoDocumento').click()">
+                <div class="file-upload-box" id="cajaArchivo" onclick="document.getElementById('archivoDocumento').click()">
                     <i class="fas fa-cloud-arrow-up"></i>
                     <p id="labelArchivo">Haz clic para subir tu documento</p>
                     <span>Formatos admitidos: PDF, JPG o PNG (Máx 5MB)</span>
@@ -345,7 +344,7 @@
                 </div>
             </div>
 
-            <button type="submit" id="btnEnviar" class="btn-enviar">
+            <button type="button" id="btnEnviar" class="btn-enviar">
                 <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Solicitud de Matrícula
             </button>
 
@@ -530,6 +529,7 @@
     const labelArchivo = document.getElementById('labelArchivo');
     const fileNamePreview = document.getElementById('fileNamePreview');
     const previewName = document.getElementById('previewName');
+    const cajaArchivo = document.getElementById('cajaArchivo');
 
     inputArchivo.addEventListener('change', () => {
         if (inputArchivo.files && inputArchivo.files[0]) {
@@ -538,6 +538,7 @@
             previewName.textContent = `${file.name} (${sizeKB} KB)`;
             fileNamePreview.style.display = 'flex';
             labelArchivo.textContent = 'Documento cargado con éxito';
+            cajaArchivo.classList.remove('error');
         } else {
             fileNamePreview.style.display = 'none';
             labelArchivo.textContent = 'Haz clic para subir tu documento';
@@ -566,35 +567,61 @@
     const form = document.getElementById('formularioMatricula');
     const btnEnviar = document.getElementById('btnEnviar');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    btnEnviar.addEventListener('click', async () => {
+        
+        // --- 1. VALIDACIÓN MANUAL DE CAMPOS OBLIGATORIOS ---
+        const inputs = [
+            { id: 'inputNombres', nombre: 'Nombres completos' },
+            { id: 'inputApellidos', nombre: 'Apellidos completos' },
+            { id: 'inputTipoDoc', nombre: 'Tipo de Documento' },
+            { id: 'inputNumDoc', nombre: 'Número de Documento' },
+            { id: 'inputCelular', nombre: 'Celular' },
+            { id: 'inputCorreo', nombre: 'Correo electrónico' }
+        ];
 
-        const progVal = document.getElementById('inputPrograma').value;
-        if (!progVal) {
-            Swal.fire({
-                title: 'Selecciona un programa',
-                text: 'Por favor, haz clic en el buscador y elige el programa al que deseas matricularte.',
-                icon: 'warning',
-                confirmButtonColor: '#1f3565'
-            });
+        let faltaCampo = false;
+        let mensajeFalta = '';
+
+        for (let campo of inputs) {
+            const elemento = document.getElementById(campo.id);
+            if (!elemento.value.trim()) {
+                faltaCampo = true;
+                mensajeFalta = `Por favor completa el campo: <b>${campo.nombre}</b>.`;
+                elemento.focus();
+                break;
+            }
+        }
+
+        if (faltaCampo) {
+            Swal.fire({ title: 'Campo obligatorio', html: mensajeFalta, icon: 'warning', confirmButtonColor: '#1f3565' });
             return;
         }
 
+        const progVal = document.getElementById('inputPrograma').value;
+        if (!progVal) {
+            Swal.fire({ title: 'Selecciona un programa', text: 'Haz clic en el buscador para elegir tu programa.', icon: 'warning', confirmButtonColor: '#1f3565' });
+            return;
+        }
+
+        const archivoInput = document.getElementById('archivoDocumento');
+        if (!archivoInput.files || archivoInput.files.length === 0) {
+            document.getElementById('cajaArchivo').classList.add('error');
+            Swal.fire({ title: 'Falta Documento', text: 'Por favor, adjunta tu documento de identidad en formato PDF o Imagen.', icon: 'warning', confirmButtonColor: '#1f3565' });
+            return;
+        }
+
+        // --- 2. PROCESO DE ENVÍO A FIREBASE ---
         btnEnviar.disabled = true;
         btnEnviar.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Procesando archivo y enviando...';
 
         try {
-            const archivoInput = document.getElementById('archivoDocumento');
             const archivo = archivoInput.files[0];
             let urlDescarga = "";
 
-            if (archivo) {
-                const storageRef = ref(storage, `documentos_identidad/${Date.now()}_${archivo.name}`);
-                const snapshot = await uploadBytes(storageRef, archivo);
-                urlDescarga = await getDownloadURL(snapshot.ref);
-            }
+            const storageRef = ref(storage, `documentos_identidad/${Date.now()}_${archivo.name}`);
+            const snapshot = await uploadBytes(storageRef, archivo);
+            urlDescarga = await getDownloadURL(snapshot.ref);
 
-            // Consecutivo iniciando en 2001
             let consecutivoActual = 2001;
             const docContador = doc(db, 'sistema', 'contador_matriculas');
             
@@ -638,12 +665,13 @@
             document.getElementById('triggerPlaceholder').style.display = 'flex';
             document.getElementById('fileNamePreview').style.display = 'none';
             document.getElementById('labelArchivo').textContent = 'Haz clic para subir tu documento';
+            document.getElementById('cajaArchivo').classList.remove('error');
 
         } catch (error) {
             console.error("Error en el envío: ", error);
             Swal.fire({
                 title: 'Error de conexión',
-                text: 'Hubo un inconveniente al enviar tu matrícula. Revisa tu conexión o intenta de nuevo.',
+                text: 'Hubo un inconveniente al enviar tu matrícula. Revisa tu conexión e intenta de nuevo.',
                 icon: 'error',
                 confirmButtonText: 'Entendido',
                 confirmButtonColor: '#d33'
