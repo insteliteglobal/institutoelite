@@ -4,63 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrícula Oficial | Instituto Técnico Élite</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- FUENTE & ICONOS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Segoe UI, Arial; }
-        body { background: #f3f5f8; color: #1f2a44; }
+        :root {
+            --primary: #1f3565;
+            --primary-light: #2c4c91;
+            --accent: #ffd43b;
+            --text-dark: #1f2a44;
+            --text-muted: #64748b;
+            --bg-light: #f3f5f8;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --radius: 10px;
+            --shadow: 0 10px 25px rgba(31, 53, 101, 0.08);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', Segoe UI, sans-serif; }
+        body { background: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
 
         /* NAVBAR */
-        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-weight: 600; font-size: 18px; }
-        .navbar nav { display: flex; align-items: center; }
-        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; }
-        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
-        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+        .navbar { background: rgba(31, 53, 101, 0.98); backdrop-filter: blur(10px); color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+        .logo { font-weight: 700; font-size: 19px; color: white; letter-spacing: 0.5px; }
+        .navbar nav { display: flex; align-items: center; gap: 20px; }
+        .navbar nav a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 14px; font-weight: 500; transition: var(--transition); }
+        .navbar nav a:hover { color: white; }
+        .btn-blanco { background: white; color: var(--primary) !important; padding: 8px 18px; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .btn-blanco:hover { background: var(--accent); color: #000 !important; }
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; color: white; }
 
-        /* PORTADA */
-        .hero { height: 300px; background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1400&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
-        .hero h1 { font-size: 36px; }
+        /* HERO */
+        .hero { height: 260px; background: linear-gradient(rgba(31, 53, 101, 0.85), rgba(31, 53, 101, 0.92)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1400&q=80") center/cover fixed; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
+        .hero h1 { font-size: 34px; font-weight: 700; margin-bottom: 8px; }
+        .hero p { font-size: 15px; opacity: 0.9; max-width: 600px; font-weight: 300; }
 
-        /* CONTENIDO */
-        .contenedor { padding: 60px 20px; }
+        /* CONTENEDOR */
+        .contenedor { padding: 40px 20px 80px; max-width: 760px; margin: auto; }
 
         /* FORMULARIO */
-        .form-matricula { max-width: 600px; margin: auto; background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-        .form-matricula h2 { text-align: center; color: #1f3565; margin-bottom: 10px; font-size: 24px; }
-        .form-matricula p.instrucciones { text-align: center; color: #666; margin-bottom: 30px; font-size: 15px; }
-        .form-group { margin-bottom: 20px; }
-        label { font-weight: 600; color: #333; display: block; margin-bottom: 8px; font-size: 14px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; transition: all 0.3s; background-color: #f9fafb; }
-        input:focus, select:focus { outline: none; border-color: #1f3565; background-color: #fff; box-shadow: 0 0 0 3px rgba(31, 53, 101, 0.1); }
-        input[type="file"] { padding: 10px; background-color: #fff; border: 1px dashed #1f3565; cursor: pointer; }
-        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        optgroup { font-weight: 700; color: #1f3565; background: #eef2f9; }
-        option { font-weight: normal; color: #333; background: #fff; }
+        .form-matricula { background: var(--white); padding: 40px 35px; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.03); }
+        .form-header { text-align: center; margin-bottom: 30px; }
+        .form-header h2 { color: var(--primary); font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .form-header p { color: var(--text-muted); font-size: 14px; }
 
-        .btn-enviar { width: 100%; background: #1f3565; color: white; padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
-        .btn-enviar:hover { background: #2c4c91; }
-        .btn-enviar:disabled { background: #718096; cursor: not-allowed; } 
+        .form-group { margin-bottom: 22px; position: relative; }
+        label { font-weight: 600; color: #2d3748; display: block; margin-bottom: 8px; font-size: 13.5px; }
+        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 
-        .btn-whatsapp { display: block; margin-top: 15px; text-align: center; background: #25D366; color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: opacity 0.3s; }
-        .btn-whatsapp:hover { opacity: 0.9; }
+        input, select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14.5px; transition: var(--transition); background-color: #fafbfc; color: var(--text-dark); }
+        input:focus, select:focus { outline: none; border-color: var(--primary-light); background-color: #fff; box-shadow: 0 0 0 4px rgba(44, 76, 145, 0.1); }
 
-        /* WHATSAPP FLOTANTE */
-        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; }
+        /* SELECTOR PERSONALIZADO DE PROGRAMAS */
+        .custom-select-trigger {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            background: #fafbfc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+        .custom-select-trigger:hover { border-color: var(--primary-light); background: #fff; }
+        .custom-select-trigger.activo { border-color: var(--primary-light); box-shadow: 0 0 0 4px rgba(44, 76, 145, 0.1); background: #fff; }
+        .custom-select-trigger .placeholder { color: #8896ab; font-size: 14.5px; display: flex; align-items: center; gap: 10px; }
+        .custom-select-trigger .selected-text { color: var(--primary); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .custom-select-trigger i.chevron { color: var(--text-muted); transition: transform 0.25s ease; }
+        .custom-select-trigger.activo i.chevron { transform: rotate(180deg); }
+
+        /* MODAL / BOTTOM SHEET DE PROGRAMAS */
+        .programs-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            animation: fadeIn 0.2s ease-out;
+        }
+        .programs-modal.open { display: flex; }
+
+        .programs-box {
+            background: var(--white);
+            width: 100%;
+            max-width: 600px;
+            max-height: 88vh;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.25s ease-out;
+        }
+
+        .programs-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .programs-header h3 { font-size: 17px; color: var(--primary); font-weight: 700; }
+        .btn-close-modal { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: #64748b; font-size: 14px; transition: var(--transition); }
+        .btn-close-modal:hover { background: #e2e8f0; color: #000; }
+
+        /* BUSCADOR DENTRO DEL SELECTOR */
+        .search-container { padding: 15px 22px 10px; }
+        .search-input-wrap { position: relative; }
+        .search-input-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 15px; }
+        .search-input-wrap input {
+            padding: 12px 14px 12px 42px;
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .search-input-wrap input:focus { background: #fff; }
+
+        /* FILTROS / PILLS */
+        .filter-pills { display: flex; gap: 8px; padding: 0 22px 12px; overflow-x: auto; scrollbar-width: none; }
+        .filter-pills::-webkit-scrollbar { display: none; }
+        .pill {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            padding: 6px 13px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .pill:hover { background: #e2e8f0; }
+        .pill.active { background: var(--primary); color: white; font-weight: 600; }
+
+        /* LISTA SCROLLABLE DE PROGRAMAS */
+        .programs-list {
+            padding: 8px 18px 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            max-height: 52vh;
+        }
+        .program-item {
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .program-item:hover { background: #f8fafc; border-color: var(--border); }
+        .program-item.selected { background: #eef4ff; border-color: #bfdbfe; }
+        .program-info { display: flex; flex-direction: column; gap: 3px; }
+        .program-name { font-size: 14px; font-weight: 600; color: #1e293b; }
+        .program-tag {
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+        .tag-tl { background: #e0f2fe; color: #0369a1; }
+        .tag-ca { background: #fef3c7; color: #b45309; }
+        .tag-cc { background: #dcfce7; color: #15803d; }
+        .program-item i.check-icon { color: var(--primary); font-size: 16px; opacity: 0; }
+        .program-item.selected i.check-icon { opacity: 1; }
+
+        .no-results { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; }
+
+        /* ADJUNTAR ARCHIVO MEJORADO */
+        .file-upload-box {
+            border: 2px dashed #cbd5e1;
+            padding: 22px;
+            border-radius: var(--radius);
+            text-align: center;
+            background: #fafbfc;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .file-upload-box:hover { border-color: var(--primary-light); background: #f8fafc; }
+        .file-upload-box i { font-size: 28px; color: var(--primary); margin-bottom: 8px; }
+        .file-upload-box p { font-size: 13.5px; color: #475569; }
+        .file-upload-box span { font-size: 12px; color: #94a3b8; }
+        .file-name-preview { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--primary); display: none; align-items: center; justify-content: center; gap: 6px; }
+
+        /* BOTONES */
+        .btn-enviar { width: 100%; background: var(--primary); color: white; padding: 15px; border: none; border-radius: var(--radius); font-size: 15.5px; font-weight: 600; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 15px rgba(31, 53, 101, 0.2); }
+        .btn-enviar:hover { background: var(--primary-light); transform: translateY(-1px); }
+        .btn-enviar:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; text-align: center; background: #25D366; color: white; padding: 13px; border-radius: var(--radius); text-decoration: none; font-weight: 600; font-size: 14.5px; transition: var(--transition); }
+        .btn-whatsapp:hover { opacity: 0.92; transform: translateY(-1px); }
+
+        /* BOTON FLOTANTE */
+        .whatsapp { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; text-decoration: none; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35); z-index: 1000; transition: var(--transition); }
+        .whatsapp:hover { transform: scale(1.08); }
+
+        /* ANIMACIONES */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         /* RESPONSIVE */
-        @media(max-width: 900px) {
-            .navbar { padding: 15px 25px; }
+        @media(max-width: 768px) {
+            .navbar { padding: 15px 20px; }
             .menu-toggle { display: block; }
-            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
-            .navbar nav a { margin: 15px 0; }
+            .navbar nav { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(31, 53, 101, 0.98); flex-direction: column; align-items: flex-start; padding: 15px 20px; display: none; }
             .navbar nav.active { display: flex; }
-        }
-        @media(max-width: 600px) {
-            .hero h1 { font-size: 28px; }
-            .contenedor { padding: 40px 15px; }
-            .grid-2-col { grid-template-columns: 1fr; }
-            .form-matricula { padding: 30px 20px; }
+            .navbar nav a, .btn-blanco { width: 100%; margin: 6px 0; }
+            .grid-2-col { grid-template-columns: 1fr; gap: 14px; }
+            .form-matricula { padding: 25px 20px; }
+            .programs-box { max-height: 92vh; border-radius: 20px 20px 0 0; position: fixed; bottom: 0; margin-bottom: 0; }
+            .programs-modal { align-items: flex-end; padding: 0; }
         }
     </style>
 </head>
@@ -85,22 +255,25 @@
 
 <section class="hero">
     <h1>Matrícula Oficial</h1>
+    <p>Inicia tu proceso de formación técnica o académica formal con registro inmediato.</p>
 </section>
 
 <section class="contenedor">
     <div class="form-matricula">
-        <h2>Inscripción a Programas Académicos</h2>
-        <p class="instrucciones">Completa tus datos básicos para iniciar tu proceso de matrícula de forma rápida y segura.</p>
+        <div class="form-header">
+            <h2>Formulario de Admisión</h2>
+            <p>Diligencia tus datos personales y selecciona tu programa formativo.</p>
+        </div>
 
         <form id="formularioMatricula">
             <div class="grid-2-col">
                 <div class="form-group">
                     <label>Nombres completos</label>
-                    <input type="text" name="Nombres" required placeholder="Ej: Juan Carlos">
+                    <input type="text" name="Nombres" required placeholder="Ej: Carlos Andrés">
                 </div>
                 <div class="form-group">
                     <label>Apellidos completos</label>
-                    <input type="text" name="Apellidos" required placeholder="Ej: Pérez Gómez">
+                    <input type="text" name="Apellidos" required placeholder="Ej: Gómez Martínez">
                 </div>
             </div>
 
@@ -112,7 +285,7 @@
                         <option value="CC">Cédula de Ciudadanía (CC)</option>
                         <option value="TI">Tarjeta de Identidad (TI)</option>
                         <option value="CE">Cédula de Extranjería (CE)</option>
-                        <option value="PEP">Permiso Especial (PEP/PPT)</option>
+                        <option value="PEP">Permiso de Protección Temporal (PPT/PEP)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -132,69 +305,44 @@
                 </div>
             </div>
 
-            <!-- PROGRAMAS AGRUPADOS ORDENADAMENTE -->
+            <!-- SELECTOR INTELIGENTE CON BUSCADOR -->
             <div class="form-group">
                 <label>Programa al que deseas matricularte</label>
-                <select name="Programa" required>
-                    <option value="">Selecciona un programa...</option>
-
-                    <optgroup label="── TÉCNICOS LABORALES (12) ──">
-                        <option value="TL - Auxiliar Contable">Técnico Laboral en Auxiliar Contable</option>
-                        <option value="TL - Belleza Integral">Técnico Laboral en Belleza Integral</option>
-                        <option value="TL - Análisis y Programación de Sistemas">Técnico Laboral en Análisis y Programación de Sistemas</option>
-                        <option value="TL - Pedagogía Infantil">Técnico Laboral en Pedagogía Infantil</option>
-                        <option value="TL - Auxiliar de Almacén, Inventarios y Bodega">Técnico Laboral en Auxiliar de Almacén, Inventarios y Bodega</option>
-                        <option value="TL - Auxiliar Administrativo y Gestión Digital">Técnico Laboral en Auxiliar Administrativo y Gestión Digital</option>
-                        <option value="TL - Auxiliar Administrativo para la Gestión Pública">Técnico Laboral en Auxiliar Administrativo para la Gestión Pública</option>
-                        <option value="TL - Facturación y Documentos Electrónicos">Técnico Laboral en Facturación y Documentos Electrónicos</option>
-                        <option value="TL - Gestión Documental y Expediente Electrónico">Técnico Laboral en Gestión Documental y Expediente Electrónico</option>
-                        <option value="TL - Proyectos de Inversión Pública">Técnico Laboral en Formulación, Gestión y Seguimiento de Proyectos de Inversión Pública</option>
-                        <option value="TL - Servicios al Cliente">Técnico Laboral en Servicios al Cliente</option>
-                        <option value="TL - Talento Humano y Prestaciones">Técnico Laboral en Talento Humano y Prestaciones</option>
-                    </optgroup>
-
-                    <optgroup label="── CONOCIMIENTOS ACADÉMICOS (11) ──">
-                        <option value="CA - Formulación y Gestión de Proyectos">CA en Formulación y Gestión de Proyectos</option>
-                        <option value="CA - Gestión Documental">CA en Gestión Documental</option>
-                        <option value="CA - Gestión Educativa">CA en Gestión Educativa</option>
-                        <option value="CA - Finanzas Públicas">CA en Finanzas Públicas</option>
-                        <option value="CA - Administración Pública">CA en Administración Pública</option>
-                        <option value="CA - Servicio al Cliente">CA en Servicio al Cliente</option>
-                        <option value="CA - Derechos Humanos">CA en Derechos Humanos</option>
-                        <option value="CA - Biodiversidad y Gestión Ambiental">CA en Conservación de la Biodiversidad y Gestión Ambiental Comunitaria</option>
-                        <option value="CA - Auditoría y Cumplimiento Aduanero">CA en Auditoría, Fiscalización y Cumplimiento Aduanero</option>
-                        <option value="CA - Proyectos de Inversión Pública">CA en Proyectos de Inversión Pública</option>
-                        <option value="CA - Competencias Digitales e IA Docentes">CA en Competencias Digitales, Programación e IA para Docentes</option>
-                    </optgroup>
-
-                    <optgroup label="── CURSOS CORTOS (10) ──">
-                        <option value="CC - Bioseguridad">Curso Corto en Bioseguridad (40 horas)</option>
-                        <option value="CC - Primeros Auxilios Psicológicos">Curso Corto en Primeros Auxilios Psicológicos (40 horas)</option>
-                        <option value="CC - Promoción y Mantenimiento de la Salud">Curso Corto en Promoción y Mantenimiento de la Salud (40 horas)</option>
-                        <option value="CC - Promoción de la Salud">Curso Corto en Promoción de la Salud (40 horas)</option>
-                        <option value="CC - Salud Mental">Curso Corto en Salud Mental (40 horas)</option>
-                        <option value="CC - Herramientas Digitales e Inteligencia Artificial">Curso Corto en Manejo de Herramientas Digitales e IA (40 horas)</option>
-                        <option value="CC - Derecho Administrativo">Curso Corto en Fundamentos del Derecho Administrativo (80 horas)</option>
-                        <option value="CC - Derecho Laboral y Seguridad Social">Curso Corto en Fundamentos del Derecho Laboral y Seguridad Social (80 horas)</option>
-                        <option value="CC - Derecho Civil">Curso Corto en Fundamentos del Derecho Civil (80 horas)</option>
-                        <option value="CC - Seguridad y Salud en el Trabajo">Curso Corto en Seguridad y Salud en el Trabajo (SST) (40 horas)</option>
-                    </optgroup>
-                </select>
+                
+                <input type="hidden" name="Programa" id="inputPrograma" required>
+                
+                <div class="custom-select-trigger" id="selectTrigger">
+                    <span class="placeholder" id="triggerPlaceholder">
+                        <i class="fas fa-search"></i> Buscar y seleccionar programa (33 disponibles)...
+                    </span>
+                    <span class="selected-text" id="triggerSelected" style="display:none;"></span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Modalidad de estudio preferida</label>
                 <select name="Modalidad" required>
-                    <option value="">Seleccione...</option>
+                    <option value="">Seleccione modalidad...</option>
                     <option value="Virtual">Virtual</option>
                     <option value="Presencial">Presencial</option>
                     <option value="A distancia">A distancia</option>
                 </select>
             </div>
 
+            <!-- ADJUNTAR ARCHIVO MEJORADO -->
             <div class="form-group">
                 <label>Adjuntar Documento de Identidad (PDF o Imagen)</label>
-                <input type="file" id="archivoDocumento" name="Documento_Adjunto" accept=".pdf, .jpg, .jpeg, .png" required>
+                <input type="file" id="archivoDocumento" name="Documento_Adjunto" accept=".pdf, .jpg, .jpeg, .png" required style="display:none;">
+                <div class="file-upload-box" onclick="document.getElementById('archivoDocumento').click()">
+                    <i class="fas fa-cloud-arrow-up"></i>
+                    <p id="labelArchivo">Haz clic para subir tu documento</p>
+                    <span>Formatos admitidos: PDF, JPG o PNG (Máx 5MB)</span>
+                    <div class="file-name-preview" id="fileNamePreview">
+                        <i class="fas fa-check-circle" style="font-size:14px; color:#16a34a; margin:0;"></i>
+                        <span id="previewName"></span>
+                    </div>
+                </div>
             </div>
 
             <button type="submit" id="btnEnviar" class="btn-enviar">
@@ -202,23 +350,199 @@
             </button>
 
             <a href="https://wa.me/573045778728" target="_blank" class="btn-whatsapp">
-                <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> ¿Dudas? Escríbenos por WhatsApp
+                <i class="fab fa-whatsapp" style="font-size:18px;"></i> ¿Tienes dudas? Escríbenos por WhatsApp
             </a>
-
         </form>
     </div>
 </section>
+
+<!-- MODAL SEARCHABLE DE PROGRAMAS -->
+<div class="programs-modal" id="programsModal">
+    <div class="programs-box">
+        <div class="programs-header">
+            <h3>Seleccionar Programa Académico</h3>
+            <button type="button" class="btn-close-modal" id="btnCloseModal"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="search-container">
+            <div class="search-input-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="buscadorProgramas" placeholder="Escribe para buscar programa..." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="filter-pills">
+            <button type="button" class="pill active" data-filter="all">Todos (33)</button>
+            <button type="button" class="pill" data-filter="tl">🎓 Técnicos (12)</button>
+            <button type="button" class="pill" data-filter="ca">📚 Académicos (11)</button>
+            <button type="button" class="pill" data-filter="cc">⏱️ Cursos Cortos (10)</button>
+        </div>
+
+        <div class="programs-list" id="listaProgramas"></div>
+    </div>
+</div>
 
 <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- SWEETALERT2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function toggleMenu(){
         document.getElementById("menu").classList.toggle("active");
     }
+
+    // BASE DE DATOS DE LOS 33 PROGRAMAS
+    const listaData = [
+        // 12 TÉCNICOS LABORALES
+        { id: "TL - Auxiliar Contable", name: "Técnico Laboral en Auxiliar Contable", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Belleza Integral", name: "Técnico Laboral en Belleza Integral", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Análisis y Programación de Sistemas", name: "Técnico Laboral en Análisis y Programación de Sistemas", cat: "tl", tag: "Técnico Laboral • 640h" },
+        { id: "TL - Pedagogía Infantil", name: "Técnico Laboral en Pedagogía Infantil", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Auxiliar de Almacén, Inventarios y Bodega", name: "Técnico Laboral en Auxiliar de Almacén, Inventarios y Bodega", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Auxiliar Administrativo y Gestión Digital", name: "Técnico Laboral en Auxiliar Administrativo y Gestión Digital", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Auxiliar Administrativo para la Gestión Pública", name: "Técnico Laboral en Auxiliar Administrativo para la Gestión Pública", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Facturación y Documentos Electrónicos", name: "Técnico Laboral en Facturación y Documentos Electrónicos", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Gestión Documental y Expediente Electrónico", name: "Técnico Laboral en Gestión Documental y Expediente Electrónico", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Proyectos de Inversión Pública", name: "Técnico Laboral en Proyectos de Inversión Pública", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Servicios al Cliente", name: "Técnico Laboral en Servicios al Cliente", cat: "tl", tag: "Técnico Laboral • 980h" },
+        { id: "TL - Talento Humano y Prestaciones", name: "Técnico Laboral en Talento Humano y Prestaciones", cat: "tl", tag: "Técnico Laboral • 980h" },
+
+        // 11 CONOCIMIENTOS ACADÉMICOS
+        { id: "CA - Formulación y Gestión de Proyectos", name: "CA en Formulación y Gestión de Proyectos", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Gestión Documental", name: "CA en Gestión Documental", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Gestión Educativa", name: "CA en Gestión Educativa", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Finanzas Públicas", name: "CA en Finanzas Públicas", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Administración Pública", name: "CA en Administración Pública", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Servicio al Cliente", name: "CA en Servicio al Cliente", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Derechos Humanos", name: "CA en Derechos Humanos", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Biodiversidad y Gestión Ambiental", name: "CA en Conservación de la Biodiversidad y Gestión Ambiental Comunitaria", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Auditoría y Cumplimiento Aduanero", name: "CA en Auditoría, Fiscalización y Cumplimiento Aduanero", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Proyectos de Inversión Pública", name: "CA en Proyectos de Inversión Pública", cat: "ca", tag: "Académico • 180h" },
+        { id: "CA - Competencias Digitales e IA Docentes", name: "CA en Competencias Digitales, Programación e IA para Docentes", cat: "ca", tag: "Académico • 180h" },
+
+        // 10 CURSOS CORTOS
+        { id: "CC - Bioseguridad", name: "Curso Corto en Bioseguridad", cat: "cc", tag: "Curso Corto • 40h" },
+        { id: "CC - Primeros Auxilios Psicológicos", name: "Curso Corto en Primeros Auxilios Psicológicos", cat: "cc", tag: "Curso Corto • 40h" },
+        { id: "CC - Promoción y Mantenimiento de la Salud", name: "Curso Corto en Promoción y Mantenimiento de la Salud", cat: "cc", tag: "Curso Corto • 40h" },
+        { id: "CC - Promoción de la Salud", name: "Curso Corto en Promoción de la Salud", cat: "cc", tag: "Curso Corto • 40h" },
+        { id: "CC - Salud Mental", name: "Curso Corto en Salud Mental", cat: "cc", tag: "Curso Corto • 40h" },
+        { id: "CC - Manejo de Herramientas Digitales e IA", name: "Curso Corto en Manejo de Herramientas Digitales e IA", cat: "cc", tag: "Curso Corto • 40h" },
+        { id: "CC - Derecho Administrativo", name: "Curso Corto en Fundamentos del Derecho Administrativo", cat: "cc", tag: "Curso Corto • 80h" },
+        { id: "CC - Derecho Laboral y Seguridad Social", name: "Curso Corto en Fundamentos del Derecho Laboral y Seguridad Social", cat: "cc", tag: "Curso Corto • 80h" },
+        { id: "CC - Derecho Civil", name: "Curso Corto en Fundamentos del Derecho Civil", cat: "cc", tag: "Curso Corto • 80h" },
+        { id: "CC - Seguridad y Salud en el Trabajo", name: "Curso Corto en Fundamentos de SST", cat: "cc", tag: "Curso Corto • 40h" }
+    ];
+
+    // CONTROL DEL MODAL Y BÚSQUEDA
+    const selectTrigger = document.getElementById('selectTrigger');
+    const programsModal = document.getElementById('programsModal');
+    const btnCloseModal = document.getElementById('btnCloseModal');
+    const buscador = document.getElementById('buscadorProgramas');
+    const listaContainer = document.getElementById('listaProgramas');
+    const inputPrograma = document.getElementById('inputPrograma');
+    const triggerPlaceholder = document.getElementById('triggerPlaceholder');
+    const triggerSelected = document.getElementById('triggerSelected');
+    const pills = document.querySelectorAll('.pill');
+
+    let currentFilter = 'all';
+    let valorSeleccionado = '';
+
+    function renderProgramas(){
+        const busqueda = buscador.value.toLowerCase().trim();
+        listaContainer.innerHTML = '';
+
+        const filtrados = listaData.filter(prog => {
+            const coincideCat = (currentFilter === 'all') || (prog.cat === currentFilter);
+            const coincideTexto = prog.name.toLowerCase().includes(busqueda) || prog.tag.toLowerCase().includes(busqueda);
+            return coincideCat && coincideTexto;
+        });
+
+        if(filtrados.length === 0){
+            listaContainer.innerHTML = `<div class="no-results"><i class="fas fa-folder-open" style="font-size:30px; margin-bottom:10px; color:#cbd5e1; display:block;"></i>No encontramos ningún programa que coincida con "${busqueda}"</div>`;
+            return;
+        }
+
+        filtrados.forEach(prog => {
+            const isSelected = prog.id === valorSeleccionado;
+            const item = document.createElement('div');
+            item.className = `program-item ${isSelected ? 'selected' : ''}`;
+            item.innerHTML = `
+                <div class="program-info">
+                    <span class="program-name">${prog.name}</span>
+                    <span class="program-tag tag-${prog.cat}">${prog.tag}</span>
+                </div>
+                <i class="fas fa-check-circle check-icon"></i>
+            `;
+            item.addEventListener('click', () => {
+                seleccionarPrograma(prog);
+            });
+            listaContainer.appendChild(item);
+        });
+    }
+
+    function seleccionarPrograma(prog){
+        valorSeleccionado = prog.id;
+        inputPrograma.value = prog.id;
+        
+        triggerPlaceholder.style.display = 'none';
+        triggerSelected.style.display = 'flex';
+        triggerSelected.innerHTML = `<i class="fas fa-check-circle" style="color:#16a34a;"></i> ${prog.name}`;
+        
+        cerrarModal();
+    }
+
+    function abrirModal(){
+        programsModal.classList.add('open');
+        selectTrigger.classList.add('activo');
+        setTimeout(() => buscador.focus(), 150);
+        renderProgramas();
+    }
+
+    function cerrarModal(){
+        programsModal.classList.remove('open');
+        selectTrigger.classList.remove('activo');
+        buscador.value = '';
+    }
+
+    selectTrigger.addEventListener('click', abrirModal);
+    btnCloseModal.addEventListener('click', cerrarModal);
+
+    programsModal.addEventListener('click', (e) => {
+        if(e.target === programsModal) cerrarModal();
+    });
+
+    buscador.addEventListener('input', renderProgramas);
+
+    pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            pills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            currentFilter = pill.dataset.filter;
+            renderProgramas();
+        });
+    });
+
+    // VISUALIZADOR DE ARCHIVO
+    const inputArchivo = document.getElementById('archivoDocumento');
+    const labelArchivo = document.getElementById('labelArchivo');
+    const fileNamePreview = document.getElementById('fileNamePreview');
+    const previewName = document.getElementById('previewName');
+
+    inputArchivo.addEventListener('change', () => {
+        if (inputArchivo.files && inputArchivo.files[0]) {
+            const file = inputArchivo.files[0];
+            const sizeKB = (file.size / 1024).toFixed(0);
+            previewName.textContent = `${file.name} (${sizeKB} KB)`;
+            fileNamePreview.style.display = 'flex';
+            labelArchivo.textContent = 'Documento cargado con éxito';
+        } else {
+            fileNamePreview.style.display = 'none';
+            labelArchivo.textContent = 'Haz clic para subir tu documento';
+        }
+    });
 </script>
 
 <script type="module">
@@ -243,7 +567,18 @@
     const btnEnviar = document.getElementById('btnEnviar');
 
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
+
+        const progVal = document.getElementById('inputPrograma').value;
+        if (!progVal) {
+            Swal.fire({
+                title: 'Selecciona un programa',
+                text: 'Por favor, haz clic en el buscador y elige el programa al que deseas matricularte.',
+                icon: 'warning',
+                confirmButtonColor: '#1f3565'
+            });
+            return;
+        }
 
         btnEnviar.disabled = true;
         btnEnviar.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Procesando archivo y enviando...';
@@ -256,11 +591,11 @@
             if (archivo) {
                 const storageRef = ref(storage, `documentos_identidad/${Date.now()}_${archivo.name}`);
                 const snapshot = await uploadBytes(storageRef, archivo);
-                urlDescarga = await getDownloadURL(snapshot.ref); 
+                urlDescarga = await getDownloadURL(snapshot.ref);
             }
 
-            // Lógica para iniciar en consecutivo 2001
-            let consecutivoActual = 2001; 
+            // Consecutivo iniciando en 2001
+            let consecutivoActual = 2001;
             const docContador = doc(db, 'sistema', 'contador_matriculas');
             
             await runTransaction(db, async (transaction) => {
@@ -270,11 +605,7 @@
                     consecutivoActual = 2001;
                 } else {
                     let totalActual = contadorSnap.data().total;
-                    if (totalActual < 2001) {
-                        consecutivoActual = 2001;
-                    } else {
-                        consecutivoActual = totalActual + 1;
-                    }
+                    consecutivoActual = (totalActual < 2001) ? 2001 : totalActual + 1;
                     transaction.update(docContador, { total: consecutivoActual });
                 }
             });
@@ -286,35 +617,37 @@
 
             datosMatricula.urlDocumento = urlDescarga;
             datosMatricula.estado = 'Pendiente';
-            datosMatricula.fechaRegistro = serverTimestamp(); 
+            datosMatricula.fechaRegistro = serverTimestamp();
             datosMatricula.consecutivo = consecutivoActual;
-            datosMatricula.origen = 'Registro Estudiantes'; 
+            datosMatricula.origen = 'Registro Estudiantes';
 
             await addDoc(collection(db, "matriculas"), datosMatricula);
 
-            // Alerta de éxito con SweetAlert2
             Swal.fire({
                 title: '¡Solicitud Exitosa!',
-                html: `Tu proceso de matrícula se ha enviado correctamente.<br><br>Tu número de radicado es el <b style="font-size: 18px; color: #1f3565;">#${consecutivoActual}</b>.<br>Nos pondremos en contacto pronto.`,
+                html: `Tu proceso de matrícula se ha enviado correctamente.<br><br>Tu número de radicado oficial es el <b style="font-size: 20px; color: #1f3565;">#${consecutivoActual}</b>.<br>El equipo de admisiones se comunicará contigo.`,
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
                 confirmButtonColor: '#1f3565',
                 backdrop: `rgba(15, 23, 42, 0.7)`
             });
             
-            form.reset(); 
+            form.reset();
+            document.getElementById('inputPrograma').value = '';
+            document.getElementById('triggerSelected').style.display = 'none';
+            document.getElementById('triggerPlaceholder').style.display = 'flex';
+            document.getElementById('fileNamePreview').style.display = 'none';
+            document.getElementById('labelArchivo').textContent = 'Haz clic para subir tu documento';
 
         } catch (error) {
             console.error("Error en el envío: ", error);
-            
             Swal.fire({
                 title: 'Error de conexión',
-                text: 'Hubo un problema al enviar la matrícula. Por favor, verifica tu conexión o intenta más tarde.',
+                text: 'Hubo un inconveniente al enviar tu matrícula. Revisa tu conexión o intenta de nuevo.',
                 icon: 'error',
                 confirmButtonText: 'Entendido',
                 confirmButtonColor: '#d33'
             });
-
         } finally {
             btnEnviar.disabled = false;
             btnEnviar.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Enviar Solicitud de Matrícula';
