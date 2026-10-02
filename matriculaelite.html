@@ -18,7 +18,7 @@
         .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
 
         /* PORTADA */
-        .hero { height: 300px; background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+        .hero { height: 300px; background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1400&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
         .hero h1 { font-size: 36px; }
 
         /* CONTENIDO */
@@ -35,6 +35,9 @@
         input[type="file"] { padding: 10px; background-color: #fff; border: 1px dashed #1f3565; cursor: pointer; }
         .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
+        optgroup { font-weight: 700; color: #1f3565; background: #eef2f9; }
+        option { font-weight: normal; color: #333; background: #fff; }
+
         .btn-enviar { width: 100%; background: #1f3565; color: white; padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
         .btn-enviar:hover { background: #2c4c91; }
         .btn-enviar:disabled { background: #718096; cursor: not-allowed; } 
@@ -86,7 +89,7 @@
 
 <section class="contenedor">
     <div class="form-matricula">
-        <h2>Inscripción a Programas Técnicos</h2>
+        <h2>Inscripción a Programas Académicos</h2>
         <p class="instrucciones">Completa tus datos básicos para iniciar tu proceso de matrícula de forma rápida y segura.</p>
 
         <form id="formularioMatricula">
@@ -129,20 +132,53 @@
                 </div>
             </div>
 
-            <!-- AQUÍ ESTÁ LA ACTUALIZACIÓN DE LOS PROGRAMAS -->
+            <!-- PROGRAMAS AGRUPADOS ORDENADAMENTE -->
             <div class="form-group">
                 <label>Programa al que deseas matricularte</label>
                 <select name="Programa" required>
                     <option value="">Selecciona un programa...</option>
-                    <option value="Auxiliar Contable">Técnico Laboral en Auxiliar Contable</option>
-                    <option value="Belleza Integral">Técnico Laboral en Belleza Integral</option>
-                    <option value="Analisis y Programacion">Técnico Laboral en Análisis y Programación de Sistemas</option>
-                    <option value="Pedagogia Infantil">Técnico Laboral en Pedagogía Infantil</option>
-                    <option value="Atencion Primaria en Salud">Conocimientos académicos en Atención Primaria en Salud (APS)</option>
-                    <option value="Facturacion y Auditoria">Conocimientos académicos en Facturación y Auditoria de Servicios en Salud</option>
-                    <option value="Salud Publica y Bienestar">Conocimientos académicos en Salud Pública y Gestión del Bienestar</option>
-                    <option value="Salud Mental">Conocimientos académicos en Salud Mental y Apoyo Psicosocial</option>
-                    <option value="Analisis de Situacion en Salud">Conocimientos académicos en Análisis de Situación en Salud (ASIS)</option>
+
+                    <optgroup label="── TÉCNICOS LABORALES (12) ──">
+                        <option value="TL - Auxiliar Contable">Técnico Laboral en Auxiliar Contable</option>
+                        <option value="TL - Belleza Integral">Técnico Laboral en Belleza Integral</option>
+                        <option value="TL - Análisis y Programación de Sistemas">Técnico Laboral en Análisis y Programación de Sistemas</option>
+                        <option value="TL - Pedagogía Infantil">Técnico Laboral en Pedagogía Infantil</option>
+                        <option value="TL - Auxiliar de Almacén, Inventarios y Bodega">Técnico Laboral en Auxiliar de Almacén, Inventarios y Bodega</option>
+                        <option value="TL - Auxiliar Administrativo y Gestión Digital">Técnico Laboral en Auxiliar Administrativo y Gestión Digital</option>
+                        <option value="TL - Auxiliar Administrativo para la Gestión Pública">Técnico Laboral en Auxiliar Administrativo para la Gestión Pública</option>
+                        <option value="TL - Facturación y Documentos Electrónicos">Técnico Laboral en Facturación y Documentos Electrónicos</option>
+                        <option value="TL - Gestión Documental y Expediente Electrónico">Técnico Laboral en Gestión Documental y Expediente Electrónico</option>
+                        <option value="TL - Proyectos de Inversión Pública">Técnico Laboral en Formulación, Gestión y Seguimiento de Proyectos de Inversión Pública</option>
+                        <option value="TL - Servicios al Cliente">Técnico Laboral en Servicios al Cliente</option>
+                        <option value="TL - Talento Humano y Prestaciones">Técnico Laboral en Talento Humano y Prestaciones</option>
+                    </optgroup>
+
+                    <optgroup label="── CONOCIMIENTOS ACADÉMICOS (11) ──">
+                        <option value="CA - Formulación y Gestión de Proyectos">CA en Formulación y Gestión de Proyectos</option>
+                        <option value="CA - Gestión Documental">CA en Gestión Documental</option>
+                        <option value="CA - Gestión Educativa">CA en Gestión Educativa</option>
+                        <option value="CA - Finanzas Públicas">CA en Finanzas Públicas</option>
+                        <option value="CA - Administración Pública">CA en Administración Pública</option>
+                        <option value="CA - Servicio al Cliente">CA en Servicio al Cliente</option>
+                        <option value="CA - Derechos Humanos">CA en Derechos Humanos</option>
+                        <option value="CA - Biodiversidad y Gestión Ambiental">CA en Conservación de la Biodiversidad y Gestión Ambiental Comunitaria</option>
+                        <option value="CA - Auditoría y Cumplimiento Aduanero">CA en Auditoría, Fiscalización y Cumplimiento Aduanero</option>
+                        <option value="CA - Proyectos de Inversión Pública">CA en Proyectos de Inversión Pública</option>
+                        <option value="CA - Competencias Digitales e IA Docentes">CA en Competencias Digitales, Programación e IA para Docentes</option>
+                    </optgroup>
+
+                    <optgroup label="── CURSOS CORTOS (10) ──">
+                        <option value="CC - Bioseguridad">Curso Corto en Bioseguridad (40 horas)</option>
+                        <option value="CC - Primeros Auxilios Psicológicos">Curso Corto en Primeros Auxilios Psicológicos (40 horas)</option>
+                        <option value="CC - Promoción y Mantenimiento de la Salud">Curso Corto en Promoción y Mantenimiento de la Salud (40 horas)</option>
+                        <option value="CC - Promoción de la Salud">Curso Corto en Promoción de la Salud (40 horas)</option>
+                        <option value="CC - Salud Mental">Curso Corto en Salud Mental (40 horas)</option>
+                        <option value="CC - Herramientas Digitales e Inteligencia Artificial">Curso Corto en Manejo de Herramientas Digitales e IA (40 horas)</option>
+                        <option value="CC - Derecho Administrativo">Curso Corto en Fundamentos del Derecho Administrativo (80 horas)</option>
+                        <option value="CC - Derecho Laboral y Seguridad Social">Curso Corto en Fundamentos del Derecho Laboral y Seguridad Social (80 horas)</option>
+                        <option value="CC - Derecho Civil">Curso Corto en Fundamentos del Derecho Civil (80 horas)</option>
+                        <option value="CC - Seguridad y Salud en el Trabajo">Curso Corto en Seguridad y Salud en el Trabajo (SST) (40 horas)</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -151,6 +187,8 @@
                 <select name="Modalidad" required>
                     <option value="">Seleccione...</option>
                     <option value="Virtual">Virtual</option>
+                    <option value="Presencial">Presencial</option>
+                    <option value="A distancia">A distancia</option>
                 </select>
             </div>
 
@@ -221,7 +259,7 @@
                 urlDescarga = await getDownloadURL(snapshot.ref); 
             }
 
-            // Lógica actualizada para iniciar en 2001
+            // Lógica para iniciar en consecutivo 2001
             let consecutivoActual = 2001; 
             const docContador = doc(db, 'sistema', 'contador_matriculas');
             
@@ -254,7 +292,7 @@
 
             await addDoc(collection(db, "matriculas"), datosMatricula);
 
-            // ALERTA DE ÉXITO PREMIUM
+            // Alerta de éxito con SweetAlert2
             Swal.fire({
                 title: '¡Solicitud Exitosa!',
                 html: `Tu proceso de matrícula se ha enviado correctamente.<br><br>Tu número de radicado es el <b style="font-size: 18px; color: #1f3565;">#${consecutivoActual}</b>.<br>Nos pondremos en contacto pronto.`,
@@ -269,7 +307,6 @@
         } catch (error) {
             console.error("Error en el envío: ", error);
             
-            // ALERTA DE ERROR PREMIUM
             Swal.fire({
                 title: 'Error de conexión',
                 text: 'Hubo un problema al enviar la matrícula. Por favor, verifica tu conexión o intenta más tarde.',
