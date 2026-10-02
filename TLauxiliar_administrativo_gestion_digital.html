@@ -21,16 +21,24 @@ body{background:#f3f5f8;color:#1f2a44;}
 
 /* PORTADA */
 .hero{
-height:420px;
+min-height:420px;
+height:auto;
+padding:60px 20px;
 background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.85)),
-url("auxiliar-administrativo-digital.jpg");
+url("https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=80");
 background-size:cover;background-position:center;
 display:flex;align-items:center;justify-content:center;text-align:center;color:white;
 }
-.hero h1{font-size:36px;margin-bottom:8px;}
-.hero p{font-size:18px;margin-bottom:15px;}
-.btn-principal{background:white;color:#1f3565;padding:10px 22px;border-radius:6px;text-decoration:none;margin-right:10px;}
-.btn-secundario{background:#1f3565;color:white;padding:10px 22px;border-radius:6px;text-decoration:none;}
+.hero > div{
+max-width:850px;
+width:100%;
+margin:0 auto;
+padding:0 15px;
+}
+.hero h1{font-size:36px;margin-bottom:12px;line-height:1.25;}
+.hero p{font-size:18px;margin-bottom:20px;line-height:1.5;}
+.btn-principal{background:white;color:#1f3565;padding:10px 22px;border-radius:6px;text-decoration:none;margin-right:10px;display:inline-block;}
+.btn-secundario{background:#1f3565;color:white;padding:10px 22px;border-radius:6px;text-decoration:none;display:inline-block;}
 
 /* Buscador */
 .main-search{display:flex;justify-content:flex-start;margin:20px 0 40px 0;}
@@ -76,7 +84,9 @@ li{margin-bottom:3px;}
   .navbar nav{display:none;flex-direction:column;width:100%;margin-top:10px;}
   .navbar nav.active{display:flex;}
   .navbar nav a, .btn-blanco{margin:10px 0;}
-  .hero {height:auto;padding:40px 20px;}
+  .hero {min-height:auto;padding:50px 15px;}
+  .hero h1{font-size:28px;}
+  .hero p{font-size:16px;}
   .grid {grid-template-columns:1fr;}
   .main-search form{width:250px;}
 }
