@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conservación de la Biodiversidad | Instituto Técnico Élite</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, Arial;
+}
+
+body{
+background:#f3f5f8;
+color:#1f2a44;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:#1f3565;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+position:sticky;
+top:0;
+z-index:1000;
+flex-wrap:wrap;
+}
+
+.logo{
+font-weight:600;
+font-size:18px;
+color:white;
+}
+
+/* Botón hamburguesa */
+
+.menu-toggle{
+display:none;
+font-size:24px;
+color:white;
+cursor:pointer;
+}
+
+/* NAV LINKS */
+
+.navbar nav{
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+}
+
+.navbar nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-size:15px;
+}
+
+.btn-blanco{
+background:white;
+color:#1f3565 !important;
+padding:6px 14px;
+border-radius:6px;
+font-weight:600;
+margin-left:10px;
+}
+
+/* PORTADA */
+
+.hero{
+height:420px;
+background:
+linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.80)),
+url("conservacion-biodiversidad.jpg");
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:36px;
+margin-bottom:8px;
+}
+
+.hero p{
+font-size:18px;
+margin-bottom:15px;
+}
+
+.btn-principal{
+background:white;
+color:#1f3565;
+padding:10px 22px;
+border-radius:6px;
+text-decoration:none;
+margin-right:10px;
+}
+
+.btn-secundario{
+background:#1f3565;
+color:white;
+padding:10px 22px;
+border-radius:6px;
+text-decoration:none;
+}
+
+/* Buscador */
+
+.main-search{
+display:flex;
+justify-content:flex-start;
+margin:20px 0 40px 0;
+}
+
+.main-search form{
+display:flex;
+width:300px;
+}
+
+.main-search input{
+flex:1;
+padding:8px;
+border-radius:6px 0 0 6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+.main-search button{
+background:#1f3565;
+border:none;
+color:white;
+padding:8px 12px;
+border-radius:0 6px 6px 0;
+cursor:pointer;
+}
+
+/* SECCIONES */
+
+.seccion{
+padding:22px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+.seccion h2{
+margin-bottom:10px;
+font-size:24px;
+}
+
+.seccion p{
+margin-bottom:15px;
+line-height:1.6;
+}
+
+/* GRID TARJETAS */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:10px;
+}
+
+.card{
+background:white;
+padding:18px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+.card h3{
+margin-bottom:4px;
+}
+
+/* LISTAS */
+
+ul{
+padding-left:20px;
+line-height:1.5;
+margin-top:6px;
+}
+
+li{
+margin-bottom:3px;
+}
+
+/* CTA */
+
+.cta{
+background:#1f3565;
+color:white;
+text-align:center;
+padding:60px 30px;
+}
+
+.cta h2{
+margin-bottom:15px;
+}
+
+.cta p{
+margin-bottom:25px;
+line-height:1.6;
+}
+
+.cta a.btn-principal{
+display:inline-block;
+margin-top:10px;
+padding:12px 28px;
+font-size:16px;
+text-decoration:none;
+}
+
+/* FOOTER */
+
+.footer{
+background:#1f3565;
+color:#cfd7ec;
+padding:50px 20px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin-bottom:20px;
+}
+
+.footer h4{
+color:white;
+margin-bottom:6px;
+}
+
+.footer p{
+font-size:14px;
+margin-bottom:4px;
+}
+
+.footer a{
+color:#cfd7ec;
+text-decoration:none;
+}
+
+.footer a:hover{
+text-decoration:underline;
+}
+
+.footer .social-icons{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.footer .social-icons a{
+color:white;
+font-size:18px;
+text-decoration:none;
+}
+
+.copyright{
+text-align:center;
+font-size:13px;
+opacity:0.9;
+margin-top:10px;
+}
+
+/* WHATSAPP */
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+width:55px;
+height:55px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+
+.menu-toggle{
+display:block;
+}
+
+.navbar nav{
+display:none;
+flex-direction:column;
+width:100%;
+margin-top:10px;
+}
+
+.navbar nav.active{
+display:flex;
+}
+
+.navbar nav a,
+.btn-blanco{
+margin:10px 0;
+}
+
+.hero{
+height:auto;
+padding:40px 20px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.main-search form{
+width:250px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">Instituto Técnico Élite</div>
+
+<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+
+<nav>
+
+<a href="inicio.html">Inicio</a>
+<a href="oferta-academica.html">Oferta Académica</a>
+<a href="pagos-en-linea.html">Pagos en línea</a>
+<a href="quienes-somos.html">Quiénes somos</a>
+<a href="contacto.html">Contacto</a>
+<a href="certificados.html">Certificados</a>
+
+<a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+
+<a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div>
+
+<h1>Conocimientos académicos en Conservación de la Biodiversidad y Gestión Ambiental Comunitaria</h1>
+
+<p>
+Fortalece tus conocimientos en la protección de los recursos naturales y aprende a diseñar estrategias de gestión ambiental sostenibles junto a las comunidades.
+</p>
+
+<a class="btn-principal" href="https://INSTITUTOELITE.q10.com/Preinscripcion">
+
+Inscribirme
+
+</a>
+
+</div>
+
+</section>
+
+<div class="main-search">
+
+<form action="#" method="GET">
+
+<input type="text" placeholder="Buscar..." name="q">
+
+<button type="submit">
+
+<i class="fas fa-search"></i>
+
+</button>
+
+</form>
+
+</div>
+
+<section class="seccion">
+
+<h2>Información general del programa</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Modalidad</h3>
+<p>Virtual</p>
+</div>
+
+<div class="card">
+<h3>Tipo de programa</h3>
+<p>Académico</p>
+</div>
+
+<div class="card">
+<h3>Duración</h3>
+<p>180 horas</p>
+</div>
+
+<div class="card">
+<h3>Certificación</h3>
+<p>Conocimientos Académicos en Conservación de la Biodiversidad y Gestión Ambiental Comunitaria</p>
+</div>
+
+<div class="card">
+<h3>Área de formación</h3>
+<p>Medio Ambiente y Sostenibilidad</p>
+</div>
+
+<div class="card">
+<h3>Vigencia</h3>
+<p>Programa activo</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="seccion">
+
+<h2>¿A quién va dirigido?</h2>
+
+<p>
+Personas interesadas en el cuidado del medio ambiente, la conservación de la flora y fauna, y el desarrollo de proyectos ecológicos de impacto comunitario y sostenible.
+</p>
+
+</section>
+
+<section class="seccion">
+
+<h2>Perfil del egresado</h2>
+
+<p>
+El egresado estará en capacidad de brindar apoyo académico y técnico en procesos relacionados con la protección de la biodiversidad, la educación ambiental y la formulación y ejecución de proyectos de gestión comunitaria sostenible.
+</p>
+
+</section>
+
+<section class="seccion">
+
+<h2>Competencias que desarrollarás</h2>
+
+<ul>
+
+<li>Análisis académico de ecosistemas y preservación de la biodiversidad</li>
+
+<li>Implementación de estrategias de gestión ambiental</li>
+
+<li>Diseño y promoción de proyectos de educación ambiental</li>
+
+<li>Participación comunitaria y promoción del desarrollo sostenible</li>
+
+<li>Trabajo colaborativo y comunicación enfocada a las comunidades</li>
+
+</ul>
+
+</section>
+
+<section class="seccion">
+
+<h2>Plan de estudios</h2>
+
+<ul>
+
+<li>Fundamentos de Biodiversidad y Ecosistemas</li>
+
+<li>Marco Normativo Ambiental y Sostenibilidad</li>
+
+<li>Educación y Cultura Ambiental</li>
+
+<li>Gestión Ambiental Comunitaria</li>
+
+<li>Estrategias de Conservación de Flora y Fauna</li>
+
+<li>Impacto Ambiental y Cambio Climático</li>
+
+<li>Formulación de Proyectos Ecológicos y Sustentables</li>
+
+<li>Desarrollo Sostenible en Comunidades Locales</li>
+
+<li>Proyecto Final Integrador</li>
+
+</ul>
+
+<p><strong>Duración total:</strong> 180 horas.</p>
+
+</section>
+
+<section class="seccion">
+
+<h2>Requisitos de ingreso</h2>
+
+<ul>
+
+<li>Básica secundaria aprobada</li>
+
+<li>Certificación académica</li>
+
+<li>Cumplir condiciones de modalidad virtual</li>
+
+</ul>
+
+</section>
+
+<section class="seccion">
+
+<h2>Sistema de evaluación</h2>
+
+<ul>
+
+<li>Talleres y actividades prácticas: 40%</li>
+
+<li>Evaluaciones parciales: 30%</li>
+
+<li>Proyecto final integrador: 30%</li>
+
+</ul>
+
+</section>
+
+<section class="seccion">
+
+<h2>Campo de desempeño</h2>
+
+<ul>
+
+<li>Proyectos de conservación ambiental y ecológica</li>
+
+<li>Organizaciones no gubernamentales (ONG) del sector ambiental</li>
+
+<li>Programas de educación y sensibilización en las comunidades</li>
+
+<li>Gestión ambiental en municipios y entes locales</li>
+
+<li>Apoyo en entidades de control y protección de los ecosistemas</li>
+
+</ul>
+
+<p>
+
+Este programa fortalece competencias académicas y técnicas para el sector del medio ambiente y el desarrollo comunitario sostenible.
+
+</p>
+
+</section>
+
+<section class="cta">
+
+<h2>Inscripción</h2>
+
+<p>Da el siguiente paso en tu desarrollo profesional.</p>
+
+<a class="btn-principal" href="https://INSTITUTOELITE.q10.com/Preinscripcion">
+
+Inscribirme ahora
+
+</a>
+
+</section>
+
+<section class="seccion">
+<h2>Soporte Legal del Programa</h2>
+<p>El programa Conocimientos Académicos en Conservación de la Biodiversidad y Gestión Ambiental Comunitaria cuenta con registro y aprobación oficial otorgados por la Secretaría de Educación, Cultura y Deporte del Municipio de Santa Cruz de Lorica.</p>
+<p>Resolución No 1250 del 14 de septiembre de 2026, conforme a la normativa vigente para la educación para el trabajo y el desarrollo humano.</p>
+</section>
+
+<!-- Footer -->
+
+<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
+
+<!-- Botón WhatsApp flotante con icono real -->
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.navbar nav');
+
+menuToggle.addEventListener('click', () => {
+nav.classList.toggle('active');
+});
+
+</script>
+
+</body>
+</html>
