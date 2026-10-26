@@ -384,6 +384,13 @@ padding:30px 25px;
 
         // 3. MOSTRAR RESULTADOS
         if(encontrados.length > 0){
+            // Si la consulta viene desde el QR, redirige y descarga automáticamente de inmediato
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.get("cedula") && encontrados.length === 1){
+                window.location.href = encontrados[0].url;
+                return;
+            }
+
             let saludoTexto = nombreEstudiante ? `Cordial saludo, ${nombreEstudiante}` : "Cordial saludo";
             let html = `<p class='saludo' style='color:#2a7be4; font-weight:bold; margin-bottom:10px;'>${saludoTexto}</p>`;
 
