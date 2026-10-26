@@ -446,5 +446,15 @@ links.forEach(link => {
     };
 </script>
 
+    // AUTO-BÚSQUEDA AUTOMÁTICA DESDE CÓDIGO QR
+    window.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cedulaAuto = urlParams.get("cedula");
+        if(cedulaAuto){
+            document.getElementById("cedula").value = cedulaAuto;
+            buscar();
+        }
+    });
+
 </body>
 </html>
