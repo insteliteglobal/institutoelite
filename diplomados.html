@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diplomados para Docentes y Coordinadores | Instituto Técnico Élite</title>
+
+<!-- Font Awesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Arial, sans-serif;}
+body{background:#f3f5f8;color:#1f2a44;}
+
+/* NAVBAR */
+.navbar{
+  background:#1f3565;color:white;display:flex;justify-content:space-between;
+  align-items:center;padding:15px 20px;position:sticky;top:0;z-index:1000;flex-wrap:wrap;
+}
+.logo{font-weight:600;font-size:18px;color:white;}
+.menu-toggle{display:none;font-size:24px;color:white;cursor:pointer;}
+.navbar nav{display:flex;flex-wrap:wrap;align-items:center;}
+.navbar nav a{color:white;text-decoration:none;margin-left:20px;font-size:15px;}
+.btn-blanco{
+  background:white;color:#1f3565 !important;padding:6px 14px;border-radius:6px;
+  font-weight:600;margin-left:10px;text-decoration:none;
+}
+
+/* HERO CON IMAGEN LIBRE DE DERECHOS DIRECTA */
+.hero{
+  height:380px;
+  background:linear-gradient(rgba(15,28,55,0.75),rgba(15,28,55,0.90)), url("https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1400&q=80");
+  background-size:cover;background-position:center;display:flex;align-items:center;
+  justify-content:center;text-align:center;color:white;padding:20px;
+}
+.hero h1{font-size:36px;margin-bottom:12px;font-weight:700;}
+.hero p{font-size:17px;max-width:800px;margin:0 auto 20px;line-height:1.5;}
+.badge-hero{
+  display:inline-block;background:#e6a117;color:#1f2a44;padding:6px 16px;
+  border-radius:20px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;
+}
+
+/* SECCIÓN PAQUETES DESTACADOS (CONCURSO) */
+.paquetes-container{max-width:1150px;margin:-50px auto 40px;padding:0 20px;position:relative;z-index:10;}
+.paquetes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:25px;}
+.card-paquete{
+  background:white;border-radius:12px;padding:30px;box-shadow:0 8px 24px rgba(0,0,0,0.12);
+  border-top:5px solid #e6a117;display:flex;flex-direction:column;justify-content:space-between;
+}
+.card-paquete h3{color:#1f3565;font-size:22px;margin-bottom:8px;}
+.card-paquete .tag-horas{
+  display:inline-block;background:#e8f0fe;color:#1f3565;padding:4px 10px;
+  border-radius:5px;font-size:13px;font-weight:700;margin-bottom:12px;
+}
+.card-paquete p{font-size:14px;color:#445;line-height:1.5;margin-bottom:15px;}
+.card-paquete ul{margin-left:18px;margin-bottom:20px;font-size:14px;color:#223;line-height:1.6;}
+.btn-inscribir-paquete{
+  background:#1f3565;color:white;text-align:center;padding:11px 20px;border-radius:6px;
+  text-decoration:none;font-weight:600;transition:0.3s;display:block;
+}
+.btn-inscribir-paquete:hover{background:#152445;}
+
+/* FILTROS / PESTAÑAS */
+.filtros{text-align:center;margin:30px 20px 20px;}
+.filtros h2{color:#1f3565;font-size:26px;margin-bottom:15px;}
+.btn-filtro{
+  background:white;border:1px solid #1f3565;color:#1f3565;padding:8px 18px;
+  border-radius:20px;cursor:pointer;margin:4px;font-weight:600;font-size:14px;transition:0.3s;
+}
+.btn-filtro.activo, .btn-filtro:hover{background:#1f3565;color:white;}
+
+/* GRID DIPLOMADOS INDIVIDUALES */
+.catalogo{max-width:1150px;margin:20px auto 50px;padding:0 20px;}
+.grid-diplomados{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;}
+
+.card-dip{
+  background:white;border-radius:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.07);
+  display:flex;flex-direction:column;transition:transform 0.25s ease;
+}
+.card-dip:hover{transform:translateY(-5px);}
+.card-dip img{width:100%;height:185px;object-fit:cover;display:block;background:#e2e8f0;}
+.card-dip-body{padding:20px;flex-grow:1;display:flex;flex-direction:column;}
+.card-dip-badge{
+  align-self:flex-start;background:#eef2ff;color:#1f3565;font-size:12px;
+  font-weight:700;padding:4px 8px;border-radius:4px;margin-bottom:10px;
+}
+.card-dip h3{font-size:18px;color:#1f3565;margin-bottom:10px;line-height:1.35;min-height:48px;}
+.card-dip p{font-size:13.5px;color:#556;line-height:1.5;margin-bottom:18px;flex-grow:1;}
+
+.acciones-card{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-info{
+  background:#f0f3f8;color:#1f3565;text-align:center;padding:9px 10px;
+  border-radius:6px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid #d0d7e5;
+}
+.btn-info:hover{background:#e2e8f2;}
+.btn-inscribir{
+  background:#1f3565;color:white;text-align:center;padding:9px 10px;
+  border-radius:6px;text-decoration:none;font-weight:600;font-size:13px;
+}
+.btn-inscribir:hover{background:#152445;}
+
+/* WHATSAPP */
+.whatsapp{
+  position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:55px;
+  height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:26px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:999;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px){
+  .paquetes-grid{grid-template-columns:1fr;}
+  .grid-diplomados{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width: 600px){
+  .grid-diplomados{grid-template-columns:1fr;}
+  .menu-toggle{display:block;}
+  .navbar nav{display:none;flex-direction:column;width:100%;margin-top:10px;}
+  .navbar nav.active{display:flex;}
+  .navbar nav a, .btn-blanco{margin:8px 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">Instituto Técnico Élite</div>
+  <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="oferta-academica.html">Oferta Académica</a>
+    <a href="diplomados.html">Diplomados</a>
+    <a href="pagos-en-linea.html">Pagos en línea</a>
+    <a href="quienes-somos.html">Quiénes somos</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="certificados.html">Certificados</a>
+    <a class="btn-blanco" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirse</a>
+    <a class="btn-blanco" href="https://institutoelite.q10.com">Campus Virtual</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <span class="badge-hero"><i class="fas fa-award"></i> Válidos para Concurso Docente y Escalafón</span>
+    <h1 style="margin-top:10px;">Diplomados de Actualización Pedagógica</h1>
+    <p>Programas certificados de 120 horas bajo la normativa MEN y Decreto 1075 de 2015. Diseñados para fortalecer tu puntaje en méritos y ascensos.</p>
+  </div>
+</section>
+
+<!-- PAQUETES PROMOCIONALES 600 HORAS -->
+<div class="paquetes-container">
+  <div class="paquetes-grid">
+
+    <!-- Paquete Docentes -->
+    <div class="card-paquete">
+      <div>
+        <span class="tag-horas"><i class="fas fa-layer-group"></i> PAQUETE COMPLETO: 5 DIPLOMADOS (600 HORAS)</span>
+        <h3>Paquete Concurso: Docentes de Aula</h3>
+        <p>Especialmente estructurado para docentes en ejercicio y aspirantes a concurso de méritos en educación básica y media.</p>
+        <ul>
+          <li>Pedagogía, Didáctica e Innovación Docente</li>
+          <li>Evaluación Formativa y Mejoramiento de Aprendizajes</li>
+          <li>Educación Inclusiva, DUA y Ajustes Razonables</li>
+          <li>Pedagogía Digital e Inteligencia Artificial en el Aula</li>
+          <li>Gestión Educativa y Liderazgo Escolar</li>
+        </ul>
+      </div>
+      <a class="btn-inscribir-paquete" href="https://www.institutoelite.edu.co/matriculaelite.html">
+        <i class="fas fa-user-check"></i> Inscribirme al Paquete Docentes
+      </a>
+    </div>
+
+    <!-- Paquete Coordinadores -->
+    <div class="card-paquete">
+      <div>
+        <span class="tag-horas"><i class="fas fa-user-tie"></i> PAQUETE COMPLETO: 5 DIPLOMADOS (600 HORAS)</span>
+        <h3>Paquete Concurso: Directivos y Coordinadores</h3>
+        <p>Orientado a la planeación curricular, clima institucional, convivencia y directivas docentes escolares.</p>
+        <ul>
+          <li>Coordinación de la Convivencia y Mediación Pedagógica</li>
+          <li>Planeación y Seguimiento de Procesos Académicos</li>
+          <li>Gestión de la Evaluación y Desempeño Académico</li>
+          <li>Gestión Educativa y Liderazgo Escolar</li>
+          <li>Pedagogía, Didáctica e Innovación Docente</li>
+        </ul>
+      </div>
+      <a class="btn-inscribir-paquete" href="https://www.institutoelite.edu.co/matriculaelite.html">
+        <i class="fas fa-user-check"></i> Inscribirme al Paquete Directivos
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FILTROS -->
+<div class="filtros">
+  <h2>Catálogo de Diplomados Individuales (120 Horas)</h2>
+  <button class="btn-filtro activo" onclick="filtrar('todos')">Todos (8 Programas)</button>
+  <button class="btn-filtro" onclick="filtrar('docentes')">Para Docentes de Aula (5)</button>
+  <button class="btn-filtro" onclick="filtrar('coordinadores')">Para Directivos y Coordinadores (5)</button>
+</div>
+
+<!-- CATÁLOGO -->
+<section class="catalogo">
+  <div class="grid-diplomados">
+
+    <!-- 1. Educación Inclusiva -->
+    <div class="card-dip item-docentes">
+      <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80" alt="Educación Inclusiva DUA">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Docentes</span>
+        <h3>Educación Inclusiva, DUA y Ajustes Razonables en el Aula</h3>
+        <p>Marco normativo Ley 2216/2022, Decreto 1421/2017, diseño DUA, PIAR y evaluación diferenciada en el aula.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-educacion-inclusiva.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Evaluación Formativa -->
+    <div class="card-dip item-docentes">
+      <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Evaluación Formativa">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Docentes</span>
+        <h3>Evaluación Formativa y Estrategias en los Aprendizajes</h3>
+        <p>Decreto 1290/2009, diseño de instrumentos, análisis de Pruebas Saber ICFES y planes de mejoramiento continuo.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-evaluacion-formativa.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Pedagogía Digital e IA -->
+    <div class="card-dip item-docentes">
+      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80" alt="Pedagogía Digital e Inteligencia Artificial">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Docentes</span>
+        <h3>Pedagogía Digital e Inteligencia Artificial en el Aula</h3>
+        <p>Integración didáctica de IA generativa, prompting educativo, analítica de aprendizaje y convivencia digital.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-pedagogia-digital-ia.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Pedagogía, Didáctica e Innovación (Aplica a ambos) -->
+    <div class="card-dip item-docentes item-coordinadores">
+      <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="Pedagogía y Didáctica">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Docentes y Coordinadores</span>
+        <h3>Pedagogía, Didáctica e Innovación Docente</h3>
+        <p>Modelos pedagógicos, planeación de aula, metodologías activas y marco normativo Ley 115 y Decreto 1278.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-pedagogia-didactica.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Convivencia Escolar y Mediación -->
+    <div class="card-dip item-coordinadores">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Convivencia Escolar">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Coordinadores</span>
+        <h3>Coordinación de la Convivencia y Mediación Pedagógica</h3>
+        <p>Ley 1620/2013, manuales de convivencia, Ruta de Atención Integral (Tipos I, II y III) y mediación escolar.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-convivencia-escolar.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Planeación y Seguimiento Académico -->
+    <div class="card-dip item-coordinadores">
+      <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=600&q=80" alt="Planeación Académica">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Coordinadores</span>
+        <h3>Planeación y Seguimiento de Procesos Académicos</h3>
+        <p>Gestión del PEI, mallas curriculares, planes de estudio, autoevaluación institucional Guía 34 y rendición de cuentas.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-planeacion-seguimiento.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Gestión de la Evaluación y Desempeño -->
+    <div class="card-dip item-coordinadores">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Desempeño Académico">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Coordinadores</span>
+        <h3>Gestión de la Evaluación y Desempeño Académico</h3>
+        <p>Diseño y administración del SIEE, alertas tempranas contra la deserción, comisiones de promoción e ISCE.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-gestion-evaluacion.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Gestión Educativa y Liderazgo Escolar (Aplica a ambos) -->
+    <div class="card-dip item-docentes item-coordinadores">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Gestión Educativa">
+      <div class="card-dip-body">
+        <span class="card-dip-badge"><i class="fas fa-clock"></i> 120 Horas | Docentes y Coordinadores</span>
+        <h3>Gestión Educativa y Liderazgo Escolar</h3>
+        <p>Direccionamiento estratégico, Fondo de Servicios Educativos, gobierno escolar, liderazgo pedagógico y talento humano.</p>
+        <div class="acciones-card">
+          <a class="btn-info" href="diplomado-gestion-educativa.html">Ver Contenido</a>
+          <a class="btn-inscribir" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER IFRAME -->
+<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- SCRIPTS INTERACTIVOS -->
+<script>
+function filtrar(categoria) {
+  const cards = document.querySelectorAll('.card-dip');
+  const btns = document.querySelectorAll('.btn-filtro');
+
+  btns.forEach(b => b.classList.remove('activo'));
+  event.target.classList.add('activo');
+
+  cards.forEach(card => {
+    if (categoria === 'todos') {
+      card.style.display = 'flex';
+    } else if (card.classList.contains('item-' + categoria)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.navbar nav');
+menuToggle.addEventListener('click', () => { nav.classList.toggle('active'); });
+</script>
+
+</body>
+</html>
