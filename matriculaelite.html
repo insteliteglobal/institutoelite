@@ -183,6 +183,7 @@
         .tag-tl { background: #e0f2fe; color: #0369a1; }
         .tag-ca { background: #fef3c7; color: #b45309; }
         .tag-cc { background: #dcfce7; color: #15803d; }
+        .tag-dip { background: #fee2e2; color: #b91c1c; }
         .program-item i.check-icon { color: var(--primary); font-size: 16px; opacity: 0; }
         .program-item.selected i.check-icon { opacity: 1; }
 
@@ -371,7 +372,8 @@
         </div>
 
         <div class="filter-pills">
-            <button type="button" class="pill active" data-filter="all">Todos (33)</button>
+            <button type="button" class="pill active" data-filter="all">Todos (43)</button>
+            <button type="button" class="pill" data-filter="dip">🏅 Diplomados (10)</button>
             <button type="button" class="pill" data-filter="tl">🎓 Técnicos (12)</button>
             <button type="button" class="pill" data-filter="ca">📚 Académicos (11)</button>
             <button type="button" class="pill" data-filter="cc">⏱️ Cursos Cortos (10)</button>
@@ -393,8 +395,20 @@
         document.getElementById("menu").classList.toggle("active");
     }
 
-    // BASE DE DATOS DE LOS 33 PROGRAMAS
+    // BASE DE DATOS DE LOS 43 PROGRAMAS
     const listaData = [
+        // 10 DIPLOMADOS Y PAQUETES (NUEVOS)
+        { id: "PAQ - Concurso Docentes Aula", name: "Paquete Concurso (5 Diplomados): Docentes de Aula", cat: "dip", tag: "Paquete • 600h" },
+        { id: "PAQ - Concurso Directivos Coordinadores", name: "Paquete Concurso (5 Diplomados): Directivos y Coordinadores", cat: "dip", tag: "Paquete • 600h" },
+        { id: "DIP - Educacion Inclusiva y DUA", name: "Diplomado en Educación Inclusiva, DUA y Ajustes Razonables en el Aula", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Evaluacion Formativa", name: "Diplomado en Evaluación Formativa y Mejoramiento de los Aprendizajes", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Pedagogia Digital e IA", name: "Diplomado en Pedagogía Digital e Inteligencia Artificial Aplicadas al Aula", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Pedagogia y Didactica", name: "Diplomado en Pedagogía, Didáctica e Innovación Docente", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Convivencia Escolar", name: "Diplomado en Coordinación de la Convivencia Escolar y Mediación Pedagógica", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Planeacion y Seguimiento", name: "Diplomado en Planeación y Seguimiento de Procesos Académicos Institucionales", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Gestion de Evaluacion", name: "Diplomado en Gestión de la Evaluación y Seguimiento al Desempeño Académico", cat: "dip", tag: "Diplomado • 120h" },
+        { id: "DIP - Gestion Educativa", name: "Diplomado en Gestión Educativa y Liderazgo Escolar", cat: "dip", tag: "Diplomado • 120h" },
+
         // 12 TÉCNICOS LABORALES
         { id: "TL - Auxiliar Contable", name: "Técnico Laboral en Auxiliar Contable", cat: "tl", tag: "Técnico Laboral • 980h" },
         { id: "TL - Belleza Integral", name: "Técnico Laboral en Belleza Integral", cat: "tl", tag: "Técnico Laboral • 980h" },
