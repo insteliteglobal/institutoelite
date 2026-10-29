@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diplomado en Pedagogía, Didáctica e Innovación Docente | Instituto Técnico Élite</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Arial, sans-serif;}
+body{background:#f3f5f8;color:#1f2a44;}
+.navbar{background:#1f3565;color:white;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;position:sticky;top:0;z-index:1000;}
+.logo{font-weight:600;font-size:18px;color:white;}
+.navbar nav a{color:white;text-decoration:none;margin-left:20px;font-size:15px;}
+.btn-blanco{background:white;color:#1f3565 !important;padding:6px 14px;border-radius:6px;font-weight:600;text-decoration:none;margin-left:10px;}
+
+/* HERO CON IMAGEN LIBRE DE DERECHOS DIRECTA */
+.hero{
+  height:360px;
+  background:linear-gradient(rgba(15,28,55,0.7),rgba(15,28,55,0.85)), url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=80");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  padding:20px;
+}
+.hero h1{font-size:32px;margin-bottom:10px;}
+.hero p{font-size:16px;margin-bottom:20px;}
+.btn-principal{background:#e6a117;color:#1f2a44;padding:11px 26px;border-radius:6px;text-decoration:none;font-weight:700;}
+
+.seccion{padding:30px 20px;max-width:1050px;margin:auto;}
+.seccion h2{margin-bottom:15px;color:#1f3565;font-size:24px;}
+.grid-info{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px;}
+.card-mini{background:white;padding:15px;border-radius:8px;box-shadow:0 3px 8px rgba(0,0,0,0.06);text-align:center;}
+.card-mini h4{color:#889;font-size:13px;text-transform:uppercase;}
+.card-mini p{color:#1f3565;font-size:16px;font-weight:700;margin-top:5px;}
+
+/* TABLA DE MÓDULOS */
+.tabla-modulos{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.08);margin-top:10px;}
+.tabla-modulos th{background:#1f3565;color:white;padding:12px;text-align:left;font-size:14px;}
+.tabla-modulos td{padding:12px;border-bottom:1px solid #eee;font-size:13.5px;line-height:1.5;vertical-align:top;}
+.tabla-modulos tr:last-child td{border-bottom:none;}
+.tabla-modulos td.horas{text-align:center;font-weight:bold;color:#1f3565;width:80px;}
+.tabla-modulos td.mod-nom{font-weight:600;width:240px;color:#1f2a44;}
+
+.cta-banner{background:#1f3565;color:white;text-align:center;padding:40px 20px;margin-top:40px;border-radius:10px;}
+.cta-banner h2{margin-bottom:10px;}
+.cta-banner p{margin-bottom:20px;color:#cfd7ec;}
+
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+@media(max-width:768px){.grid-info{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">Instituto Técnico Élite</div>
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="oferta-academica.html">Oferta Académica</a>
+    <a href="diplomados.html">Diplomados</a>
+    <a class="btn-blanco" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirse</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Pedagogía, Didáctica e Innovación Docente</h1>
+    <p>Programa certificado de profundización docente válido para escalafón y concurso de méritos.</p>
+    <a class="btn-principal" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme a este Diplomado</a>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="grid-info">
+    <div class="card-mini"><h4>Intensidad</h4><p>120 Horas</p></div>
+    <div class="card-mini"><h4>Modalidad</h4><p>Virtual Asistida</p></div>
+    <div class="card-mini"><h4>Válido Para</h4><p>Concurso y Escalafón</p></div>
+    <div class="card-mini"><h4>Certificación</h4><p>Diplomado Aprobado</p></div>
+  </div>
+
+  <h2>Estructura Curricular y Contenidos Temáticos</h2>
+  <table class="tabla-modulos">
+    <thead>
+      <tr>
+        <th>Módulo</th>
+        <th style="text-align:center;">Horas</th>
+        <th>Contenido Temático Detallado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="mod-nom">1. Fundamentos pedagógicos y marco normativo de la educación en Colombia</td>
+        <td class="horas">20</td>
+        <td>Corrientes y modelos pedagógicos (tradicional, escuela nueva, constructivismo y pedagogía crítica), rol del docente en el siglo XXI, fines y principios de la educación colombiana (Constitución art. 67, Ley 115/1994), estructura del sistema educativo (Decreto 1075/2015), derechos, deberes y ética docente (Decreto 1278/2002) y Ley 2277/2022.</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">2. Currículo, PEI y planeación pedagógica</td>
+        <td class="horas">20</td>
+        <td>El PEI y su relación con el currículo (Ley 115/1994 arts. 76-79, Decreto 1860/1994), lineamientos curriculares, Estándares Básicos de Competencias y DBA del MEN, construcción de mallas curriculares y planes de área, planeación de aula (planes de clase, unidades y proyectos) y diseño por competencias (Decreto 1075/2015).</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">3. Didáctica y estrategias de enseñanza-aprendizaje</td>
+        <td class="horas">20</td>
+        <td>Didáctica general y didácticas específicas, metodologías activas (aprendizaje basado en proyectos y problemas, aula invertida, aprendizaje cooperativo, estudio de caso y gamificación), pensamiento crítico y resolución de problemas, gestión del aula y clima escolar, y diseño de secuencias didácticas, según la Ley 115/1994 y las orientaciones del MEN.</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">4. Evaluación del aprendizaje y mejoramiento continuo</td>
+        <td class="horas">20</td>
+        <td>Tipos de evaluación (diagnóstica, formativa y sumativa), SIEE y escala de valoración nacional e institucional (Decreto 1290/2009, compilado en el Decreto 1075/2015), diseño de instrumentos (rúbricas, listas de cotejo, portafolios y pruebas tipo Saber), análisis de resultados de Pruebas Saber del ICFES, planes de mejoramiento y retroalimentación efectiva.</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">5. Educación inclusiva, diversidad y convivencia escolar</td>
+        <td class="horas">20</td>
+        <td>Educación inclusiva y atención a la diversidad (Decreto 1421/2017, Ley 1618/2013), DUA y PIAR, enfoque diferencial (etnoeducación, población víctima y talentos excepcionales), Sistema Nacional de Convivencia Escolar, manual de convivencia y rutas de atención (Ley 1620/2013, Decreto 1965/2013), prevención del acoso escolar y Ley 1098/2006.</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">6. Innovación docente, TIC e investigación en el aula</td>
+        <td class="horas">20</td>
+        <td>Competencias digitales docentes, herramientas y plataformas educativas (LMS, Google Workspace, Canva), recursos educativos digitales y uso ético de la inteligencia artificial (Ley 1341/2009 y lineamientos del MEN), ciudadanía digital y protección de datos personales (Ley 1581/2012), investigación-acción, sistematización de experiencias y proyecto final de innovación pedagógica (Ley 2277/2022).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cta-banner">
+    <h2>¿Listo para certificar tus 120 horas?</h2>
+    <p>Inscríbete en línea y asegura tu cupo para la próxima cohorte docente.</p>
+    <a class="btn-principal" href="https://www.institutoelite.edu.co/matriculaelite.html">Realizar Matrícula Ahora</a>
+  </div>
+</section>
+
+<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
+
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</body>
+</html>

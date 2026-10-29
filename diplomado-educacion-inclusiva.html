@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diplomado en Educación Inclusiva, DUA y Ajustes Razonables | Instituto Técnico Élite</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Arial, sans-serif;}
+body{background:#f3f5f8;color:#1f2a44;}
+.navbar{background:#1f3565;color:white;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;position:sticky;top:0;z-index:1000;}
+.logo{font-weight:600;font-size:18px;color:white;}
+.navbar nav a{color:white;text-decoration:none;margin-left:20px;font-size:15px;}
+.btn-blanco{background:white;color:#1f3565 !important;padding:6px 14px;border-radius:6px;font-weight:600;text-decoration:none;margin-left:10px;}
+
+/* HERO CON IMAGEN LIBRE DE DERECHOS DIRECTA */
+.hero{
+  height:360px;
+  background:linear-gradient(rgba(15,28,55,0.7),rgba(15,28,55,0.85)), url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1400&q=80");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  padding:20px;
+}
+.hero h1{font-size:32px;margin-bottom:10px;}
+.hero p{font-size:16px;margin-bottom:20px;}
+.btn-principal{background:#e6a117;color:#1f2a44;padding:11px 26px;border-radius:6px;text-decoration:none;font-weight:700;}
+
+.seccion{padding:30px 20px;max-width:1050px;margin:auto;}
+.seccion h2{margin-bottom:15px;color:#1f3565;font-size:24px;}
+.grid-info{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px;}
+.card-mini{background:white;padding:15px;border-radius:8px;box-shadow:0 3px 8px rgba(0,0,0,0.06);text-align:center;}
+.card-mini h4{color:#889;font-size:13px;text-transform:uppercase;}
+.card-mini p{color:#1f3565;font-size:16px;font-weight:700;margin-top:5px;}
+
+/* TABLA DE MÓDULOS */
+.tabla-modulos{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.08);margin-top:10px;}
+.tabla-modulos th{background:#1f3565;color:white;padding:12px;text-align:left;font-size:14px;}
+.tabla-modulos td{padding:12px;border-bottom:1px solid #eee;font-size:13.5px;line-height:1.5;vertical-align:top;}
+.tabla-modulos tr:last-child td{border-bottom:none;}
+.tabla-modulos td.horas{text-align:center;font-weight:bold;color:#1f3565;width:80px;}
+.tabla-modulos td.mod-nom{font-weight:600;width:240px;color:#1f2a44;}
+
+.cta-banner{background:#1f3565;color:white;text-align:center;padding:40px 20px;margin-top:40px;border-radius:10px;}
+.cta-banner h2{margin-bottom:10px;}
+.cta-banner p{margin-bottom:20px;color:#cfd7ec;}
+
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+@media(max-width:768px){.grid-info{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">Instituto Técnico Élite</div>
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="oferta-academica.html">Oferta Académica</a>
+    <a href="diplomados.html">Diplomados</a>
+    <a class="btn-blanco" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirse</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Educación Inclusiva, DUA y Ajustes Razonables en el Aula</h1>
+    <p>Programa certificado de profundización docente válido para escalafón y concurso de méritos.</p>
+    <a class="btn-principal" href="https://www.institutoelite.edu.co/matriculaelite.html">Inscribirme a este Diplomado</a>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="grid-info">
+    <div class="card-mini"><h4>Intensidad</h4><p>120 Horas</p></div>
+    <div class="card-mini"><h4>Modalidad</h4><p>Virtual Asistida</p></div>
+    <div class="card-mini"><h4>Válido Para</h4><p>Concurso y Escalafón</p></div>
+    <div class="card-mini"><h4>Certificación</h4><p>Diplomado Aprobado</p></div>
+  </div>
+
+  <h2>Estructura Curricular y Contenidos Temáticos</h2>
+  <table class="tabla-modulos">
+    <thead>
+      <tr>
+        <th>Módulo</th>
+        <th style="text-align:center;">Horas</th>
+        <th>Contenido Temático Detallado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="mod-nom">1. Fundamentos de la educación inclusiva y marco normativo</td>
+        <td class="horas">20</td>
+        <td>Inclusión, equidad y diversidad en la escuela, modelo social de la discapacidad, derecho a la educación inclusiva (Constitución arts. 13, 47 y 67, Ley 115/1994, Ley 1346/2009, Ley 1618/2013), Decreto 1421/2017 compilado en el Decreto 1075/2015, Ley 2216/2022 y Circular 024 de 2026 del MEN.</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">2. Caracterización y valoración pedagógica del estudiante</td>
+        <td class="horas">20</td>
+        <td>Matrícula y reporte de estudiantes con discapacidad en el SIMAT, caracterización, valoración pedagógica e historia escolar, barreras para el aprendizaje y la participación, enfoque diferencial y talentos excepcionales, interés superior del niño (Ley 1098/2006) y participación de la familia (Decreto 1421/2017).</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">3. Diseño Universal para el Aprendizaje (DUA)</td>
+        <td class="horas">20</td>
+        <td>Principios y pautas del DUA (múltiples formas de implicación, representación, acción y expresión), diseño de experiencias de aprendizaje accesibles, materiales y tecnologías de apoyo, estrategias para el aula regular, conforme al Decreto 1421/2017, la Ley 1618/2013 y las orientaciones pedagógicas del MEN.</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">4. PIAR y ajustes razonables en el aula</td>
+        <td class="horas">20</td>
+        <td>Concepto de ajustes razonables, diseño, implementación y seguimiento del Plan Individual de Ajustes Razonables (PIAR) por el docente de aula con el docente de apoyo, la familia y el estudiante, acta de acuerdo, informe anual de proficiencia y apoyos pedagógicos (Decreto 1421/2017, Decreto 1075/2015).</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">5. Evaluación, flexibilización curricular y promoción inclusiva</td>
+        <td class="horas">20</td>
+        <td>Flexibilización curricular y evaluación diferenciada según el PIAR, criterios de evaluación y promoción en el SIEE (Decreto 1290/2009, compilado en el Decreto 1075/2015), instrumentos accesibles, retroalimentación, orientaciones para la graduación y certificación de estudiantes con discapacidad (Decreto 1421/2017).</td>
+      </tr>
+      <tr>
+        <td class="mod-nom">6. Gestión institucional, familias y apoyos para la inclusión</td>
+        <td class="horas">20</td>
+        <td>PEI y plan de mejoramiento con enfoque inclusivo (Ley 2216/2022), docentes de apoyo y trabajo con familias y entidades de salud, convivencia y prevención de la discriminación (Ley 1620/2013), protección de datos sensibles de estudiantes (Ley 1581/2012) y proyecto final de aula inclusiva.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cta-banner">
+    <h2>¿Listo para certificar tus 120 horas?</h2>
+    <p>Inscríbete en línea y asegura tu cupo para la próxima cohorte docente.</p>
+    <a class="btn-principal" href="https://www.institutoelite.edu.co/matriculaelite.html">Realizar Matrícula Ahora</a>
+  </div>
+</section>
+
+<iframe src="footer.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
+
+<a href="https://wa.me/573045778728" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</body>
+</html>
