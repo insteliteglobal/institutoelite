@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Educación Inclusiva, DUA y Ajustes Razonables en el Aula | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación Final: Educación Inclusiva, DUA y Ajustes Razonables en el Aula</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Profesional</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión / Área:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Marco Normativo, Caracterización y DUA (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. PIAR, Evaluación SIEE y Gestión Inclusiva (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos de Aula Inclusiva (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-universal-access"></i> Módulos 1, 2 y 3: Fundamentos Normativos, Caracterización y Diseño Universal (DUA)</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. De acuerdo con el "Modelo Social de la Discapacidad" adoptado por la Convención de la ONU (Ley 1346 de 2009) y el Decreto 1421 de 2017, la discapacidad resulta principalmente de:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) Una deficiencia médica individual que debe curarse antes de que el estudiante ingrese a la escuela regular.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) La interacción entre las personas con deficiencias y las barreras debidas a la actitud y al entorno que evitan su participación plena y efectiva en igualdad de condiciones.</label>
+                            <label><input type="radio" name="P1" value="C"> C) La incapacidad cognitiva permanente para convivir en grupos heterogéneos.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Una condición clínica cuya atención corresponde exclusivamente al sector salud mediante aulas hospitalarias.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. ¿Cuál es la diferencia fundamental entre "Integración Escolar" y "Educación Inclusiva" según los lineamientos del Ministerio de Educación Nacional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) Son términos jurídicamente idénticos que implican matricular al estudiante sin modificar las prácticas de aula.</label>
+                            <label><input type="radio" name="P2" value="B"> B) La inclusión consiste en crear salones especiales separados dentro del mismo colegio regular.</label>
+                            <label><input type="radio" name="P2" value="C" data-correct="true"> C) En la integración el estudiante debe adaptarse al sistema rígido existente; en la educación inclusiva el sistema educativo transforma su cultura, políticas y prácticas para responder a la diversidad de todos.</label>
+                            <label><input type="radio" name="P2" value="D"> D) La integración aplica para colegios privados y la inclusión únicamente para instituciones oficiales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. Los artículos 13, 47 y 67 de la Constitución Política de Colombia, desarrollados por la Ley 115 de 1994 y la Ley Estatutaria 1618 de 2013, consagran que la educación de las personas con discapacidad es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A" data-correct="true"> A) Un derecho fundamental y un servicio público obligatorio en el que el Estado debe garantizar el acceso, la permanencia, la pertinencia y la calidad sin discriminación.</label>
+                            <label><input type="radio" name="P3" value="B"> B) Un beneficio asistencial sujeto a la disponibilidad de cupos en instituciones especializadas privadas.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Una opción voluntaria que depende del concepto favorable de la asociación de padres de familia.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Un programa extracurricular limitado a talleres manuales no conducentes a título.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. La Ley 2216 de 2022 y la Circular 024 de 2026 del Ministerio de Educación Nacional amplían y precisan las garantías de atención educativa inclusiva al establecer medidas específicas para:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Excluir de los planes de apoyo a los estudiantes que no cuenten con certificado médico de discapacidad física.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Promover la detección temprana, el acompañamiento pedagógico oportuno y los ajustes razonables para niños, niñas, adolescentes y jóvenes con trastornos específicos de aprendizaje (dislexia, discalculia, disgrafía, TDAH) y diversidad funcional.</label>
+                            <label><input type="radio" name="P4" value="C"> C) Crear instituciones segregadas exclusivas para estudiantes con dificultades de lectura y escritura.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Condicionar la matrícula escolar a la presentación de pruebas neuropsicológicas particulares.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. De conformidad con el Decreto 1421 de 2017 (compilado en el Decreto 1075 de 2015), ¿qué debe hacer una institución educativa cuando solicita cupo un estudiante con discapacidad que aún no cuenta con diagnóstico médico formal ni está registrado en el SIMAT?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Negar la matrícula hasta que la EPS entregue el diagnóstico clínico definitivo.</label>
+                            <label><input type="radio" name="P5" value="B"> B) Permitirle asistir como "oyente" sin registrarlo oficialmente en el sistema.</label>
+                            <label><input type="radio" name="P5" value="C" data-correct="true"> C) Garantizar de inmediato su matrícula en el SIMAT, iniciar la valoración pedagógica institucional y activar la ruta intersectorial con salud para obtener el soporte clínico sin dilatar su derecho a la educación.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Remitirlo a educación para adultos nocturna sin importar su edad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. ¿Cuál es el propósito central de la "Valoración Pedagógica" que realiza el equipo docente al estudiante según el Decreto 1421 de 2017?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) Emitir un diagnóstico clínico neurológico o psiquiátrico sobre la patología del estudiante.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Identificar sus fortalezas, intereses, estilos de aprendizaje, competencias actuales, contexto familiar y las barreras del entorno escolar para orientar el DUA y el PIAR.</label>
+                            <label><input type="radio" name="P6" value="C"> C) Determinar su coeficiente intelectual numérico para clasificarlo en grupos homogéneos.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Justificar por qué el estudiante no puede cursar las áreas obligatorias del currículo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. En el enfoque de educación inclusiva, las "Barreras para el Aprendizaje y la Participación (BAP)" se clasifican en categorías como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Barreras genéticas, cromosómicas y metabólicas propias del estudiante.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Barreras actitudinales (prejuicios, bajas expectativas), metodológicas/didácticas (clases rígidas homogéneas), físicas/arquitectónicas y comunicativas.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Barreras arancelarias, tributarias y presupuestales del sector privado.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Únicamente la ausencia de rampas de acceso en el primer piso del colegio.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. Conforme al Decreto 1075 de 2015 y las orientaciones del MEN, el enfoque diferencial en el aula inclusiva también cobija a los estudiantes con "Capacidades o Talentos Excepcionales", quienes requieren:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) Repetir exactamente los mismos ejercicios básicos que el resto del curso para evitar que se adelanten.</label>
+                            <label><input type="radio" name="P8" value="B"> B) Ser excluidos del aula regular para estudiar de forma aislada en casa.</label>
+                            <label><input type="radio" name="P8" value="C" data-correct="true"> C) Estrategias de enriquecimiento curricular, profundización investigativa, aceleración flexible cuando corresponda y acompañamiento socioemocional.</label>
+                            <label><input type="radio" name="P8" value="D"> D) Exoneración total de las evaluaciones institucionales sin seguimiento.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. De acuerdo con el Código de la Infancia y la Adolescencia (Ley 1098 de 2006) y el Decreto 1421 de 2017, la participación de la familia en el proceso de inclusión educativa constituye:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Un trámite opcional que solo se activa si el estudiante reprueba el año.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Un eje de corresponsabilidad fundamental: la familia aporta información vital en la historia escolar, participa activamente en la construcción y firma del Acta de Acuerdo del PIAR y apoya los compromisos en casa.</label>
+                            <label><input type="radio" name="P9" value="C"> C) La obligación de contratar un docente sombra particular pagado por los padres como condición de matrícula.</label>
+                            <label><input type="radio" name="P9" value="D"> D) La delegación completa de las funciones pedagógicas del docente de aula en los acudientes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. El Diseño Universal para el Aprendizaje (DUA), desarrollado por el CAST y adoptado por el Decreto 1421 de 2017, se fundamenta en tres principios rectores:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Memorización, Repetición y Evaluación Estandarizada Única.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Proporcionar múltiples formas de Implicación/Motivación (el porqué), múltiples formas de Representación (el qué) y múltiples formas de Acción y Expresión (el cómo).</label>
+                            <label><input type="radio" name="P10" value="C"> C) Diagnóstico clínico, Terapia individual y Certificación diferenciada.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Homogeneización de contenidos, Disciplina rígida y Promoción automática.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. El primer principio del DUA ("Proporcionar múltiples formas de implicación o compromiso") activa las redes afectivas del cerebro buscando que el docente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Utilice únicamente calificaciones punitivas para obligar a los estudiantes a atender.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Capte el interés conectando con la realidad y autonomía del estudiante, mantenga el esfuerzo mediante metas claras y promueva la autorregulación emocional en un clima seguro.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Presente toda la información exclusivamente mediante lectura silenciosa de textos extensos.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Exija que todos los estudiantes resuelvan las tareas mediante un examen oral.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. El segundo principio del DUA ("Proporcionar múltiples formas de representación") responde a la diversidad de percepción y comprensión mediante acciones como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Dictar la clase sin apoyos visuales ni ejemplos concretos.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) Ofrecer la información en diversos canales (visual, auditivo, táctil, concreto), aclarar vocabulario clave, usar organizadores gráficos y activar conocimientos previos.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Permitir que cada estudiante elija si desea asistir o no a las clases obligatorias.</label>
+                            <label><input type="radio" name="P12" value="D"> D) Evaluar únicamente mediante pruebas escritas cronometradas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. El tercer principio del DUA ("Proporcionar múltiples formas de acción y expresión") activa las redes estratégicas permitiendo que los estudiantes:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Demuestren lo aprendido únicamente a través de un examen escrito de 50 preguntas.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) Interactúen con los materiales mediante tecnologías de apoyo y expresen sus conocimientos por diversos medios (oral, escrito, artístico, maquetas, recursos digitales o dramatizaciones).</label>
+                            <label><input type="radio" name="P13" value="C"> C) Trabajen siempre de manera individual sin apoyo de pares ni retroalimentación.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Reciban contenidos simplificados sin retos cognitivos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. ¿Cuál es la relación secuencial y pedagógica correcta entre el DUA y el PIAR dentro de una institución educativa inclusiva?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Primero se elabora un PIAR para todos los estudiantes del salón y luego se aplica el DUA.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) El DUA es la base universal de planeación accesible para toda el aula; cuando las estrategias universales del DUA no son suficientes para un estudiante con discapacidad, se diseña el PIAR con ajustes razonables específicos.</label>
+                            <label><input type="radio" name="P14" value="C"> C) El DUA y el PIAR son mutuamente excluyentes: si se aplica uno, queda prohibido usar el otro.</label>
+                            <label><input type="radio" name="P14" value="D"> D) El DUA corresponde únicamente al docente de apoyo y el PIAR exclusivamente al rector.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. Dentro de las tecnologías de apoyo y accesibilidad en el aula inclusiva, ¿qué herramienta favorece la participación equitativa de estudiantes con discapacidad visual o sordera?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) Uso exclusivo de videos sin subtítulos ni descripción verbal de gráficos.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) Lectores de pantalla (NVDA/JAWS), macrotipos y materiales táctiles para baja visión/ceguera; e interpretación en Lengua de Señas Colombiana (LSC), subtitulación cerrada y apoyos visuales para estudiantes sordos.</label>
+                            <label><input type="radio" name="P15" value="C"> C) Ubicación del estudiante en la última fila del aula para no interrumpir a sus compañeros.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Prohibición de dispositivos tecnológicos personales de apoyo dentro del salón.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. El principio de "Interés Superior del Niño" (Ley 1098 de 2006) aplicado a la educación inclusiva obliga a que ante cualquier conflicto administrativo o presupuestal:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Prevalezca la comodidad operativa del horario escolar sobre las necesidades del estudiante.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Prevalezca siempre la garantía efectiva de los derechos fundamentales, el desarrollo integral y la permanencia educativa del niño, niña o adolescente.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Se suspenda la escolaridad del menor hasta el siguiente año lectivo.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Se traslade la responsabilidad educativa exclusivamente a la familia.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: PIAR, Evaluación y Gestión <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Módulos 4, 5 y 6: PIAR, Ajustes Razonables, Evaluación SIEE y Gestión Institucional</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. Jurídica y pedagógicamente (Ley 1618 de 2013 y Decreto 1421 de 2017), ¿cómo se definen los "Ajustes Razonables"?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Regalar la aprobación de las asignaturas sin evaluar los aprendizajes del estudiante.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) Las acciones, adaptaciones, estrategias, apoyos, recursos o modificaciones necesarias y adecuadas del sistema educativo y la gestión escolar, basadas en necesidades específicas de cada estudiante, que no impongan una carga desproporcionada o indebida.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Construir un edificio nuevo antes de aceptar la matrícula de un estudiante.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Eliminar todas las áreas académicas para dejar únicamente actividades recreativas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. Según el Decreto 1421 de 2017, ¿quiénes son los responsables directos del diseño, implementación y seguimiento del Plan Individual de Ajustes Razonables (PIAR)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Únicamente el médico especialista de la EPS externa.</label>
+                            <label><input type="radio" name="P18" value="B"> B) Exclusivamente el docente de apoyo pedagógico sin participación de los profesores de área.</label>
+                            <label><input type="radio" name="P18" value="C" data-correct="true"> C) Los docentes de aula (de cada área/grado) en liderazgo conjunto con el docente de apoyo pedagógico, la familia y el propio estudiante, bajo el seguimiento de directivos docentes.</label>
+                            <label><input type="radio" name="P18" value="D"> D) El secretario administrativo encargado del SIMAT.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Cuál es el plazo y la periodicidad establecidos en el Decreto 1421 de 2017 para la elaboración y actualización del PIAR?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Se elabora únicamente en la última semana del cuarto periodo académico.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) Debe diseñarse durante el primer trimestre del año escolar (o dentro de los primeros 30 días tras un traslado) y actualizarse periódicamente durante el año como herramienta viva de planeación.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Se redacta una sola vez en preescolar y permanece idéntico hasta grado once.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Solo se elabora si el estudiante pierde más de tres asignaturas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. ¿Qué función cumple el "Acta de Acuerdo" que acompaña al PIAR según el Decreto 1421 de 2017?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Exonerar al colegio de toda responsabilidad si el estudiante no alcanza los objetivos.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Formalizar los compromisos pedagógicos de la institución educativa y los compromisos de acompañamiento de la familia y el estudiante, firmada por el rector, docentes, familia y estudiante.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Autorizar el retiro voluntario del estudiante en caso de bajo rendimiento.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Reemplazar el boletín de calificaciones de todos los periodos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. ¿Cuál es la finalidad del "Informe Anual de Competencias" (o Informe Anual de Proficiencia) establecido en el Decreto 1421 de 2017?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) Sustituir el diploma de bachiller por una constancia informal de asistencia.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) Documentar al finalizar cada año escolar los avances alcanzados, los ajustes razonables que funcionaron y las recomendaciones pedagógicas para el docente del grado siguiente o la institución receptora en caso de traslado.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Reportar únicamente las fallas de asistencia injustificadas del estudiante.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Servir como soporte de cobro financiero ante la Secretaría de Educación.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. En el marco de la flexibilización curricular para estudiantes con discapacidad intelectual o psicosocial, el docente de aula debe:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) Mantener exactamente los mismos logros abstractos sin ninguna priorización ni ajuste.</label>
+                            <label><input type="radio" name="P22" value="B" data-correct="true"> B) Priorizar y graduar los aprendizajes esenciales y funcionales de las áreas obligatorias en coherencia con los DBA y el PIAR, manteniendo un currículo desafiante, significativo y pertinente.</label>
+                            <label><input type="radio" name="P22" value="C"> C) Eliminar las asignaturas de Matemáticas y Lenguaje de su horario escolar.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Dejar al estudiante realizando planas de caligrafía mientras el resto del grupo avanza.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. En articulación con el Decreto 1290 de 2009 (SIEE), ¿cómo debe realizarse la evaluación de los aprendizajes de un estudiante que cuenta con PIAR?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Aplicando la misma prueba escrita estandarizada sin ajustes para garantizar "igualdad".</label>
+                            <label><input type="radio" name="P23" value="B"> B) Asignando automáticamente desempeño "Superior" en todas las áreas por tener discapacidad.</label>
+                            <label><input type="radio" name="P23" value="C" data-correct="true"> C) Evaluando de manera continua y formativa frente a los objetivos y metas acordados en su PIAR, utilizando instrumentos accesibles y los apoyos definidos en dicho plan.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Evaluando únicamente su comportamiento disciplinario y presentación personal.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. Respecto a la promoción escolar en el SIEE (Decreto 1290 de 2009 y Decreto 1421 de 2017), ¿pueden los estudiantes con discapacidad ser promovidos de grado o eventualmente no promovidos?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Siempre deben ser promovidos automáticamente sin importar si asistieron o si se ejecutó el PIAR.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) La Comisión de Evaluación y Promoción analiza su avance frente a las metas del PIAR; la no promoción es una medida excepcional que solo procede si la institución demuestra haber implementado rigurosamente el PIAR y justifica pedagógicamente que repetir el grado beneficia su desarrollo.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Deben repetir cada grado dos veces obligatoriamente para reforzar contenidos.</label>
+                            <label><input type="radio" name="P24" value="D"> D) No pueden ser promovidos más allá de quinto de primaria en colegios regulares.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. De acuerdo con el Decreto 1421 de 2017 y las orientaciones del MEN sobre graduación y titulación de estudiantes con discapacidad en grado undécimo:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Se les entrega un "certificado de asistencia especial" diferente al diploma de bachiller de sus compañeros.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) Reciben exactamente el mismo título oficial de Bachiller (Académico o Técnico) en ceremonia regular en igualdad de condiciones, una vez cumplidos los objetivos ajustados en su PIAR, acompañado de su Informe Anual de Competencias.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Su graduación depende de obtener un puntaje mínimo en la prueba Saber 11.</label>
+                            <label><input type="radio" name="P25" value="D"> D) El diploma debe llevar en el frente la mención del diagnóstico médico del estudiante.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. ¿Cuál es el rol pedagógico correcto del "Docente de Apoyo Pedagógico" dentro de la institución educativa según el Decreto 1421 de 2017?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) Sacar del salón a todos los estudiantes con discapacidad para darles clase en un aula separada.</label>
+                            <label><input type="radio" name="P26" value="B"> B) Reemplazar al docente de aula en la calificación y planeación de las asignaturas.</label>
+                            <label><input type="radio" name="P26" value="C" data-correct="true"> C) Acompañar y asesorar a los docentes de aula y directivos en el diseño del DUA, la construcción e implementación de los PIAR, el trabajo con familias y la gestión institucional inclusiva.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Realizar terapias clínicas de fonoaudiología y fisioterapia dentro del colegio.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. Conforme a la Ley 2216 de 2022 y el Decreto 1421 de 2017, ¿cómo debe articularse el enfoque de educación inclusiva en la gestión institucional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Como un proyecto aislado que se ejecuta únicamente durante el Día Internacional de la Discapacidad.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) De manera transversal en el Proyecto Educativo Institucional (PEI), el Manual de Convivencia, el SIEE y el Plan de Mejoramiento Institucional (PMI) en sus cuatro áreas de gestión.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Como un anexo opcional exclusivo del área de orientación escolar.</label>
+                            <label><input type="radio" name="P27" value="D"> D) Limitándose a la compra de libros especializados para la biblioteca.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. En la articulación intersectorial entre el sector Educación y el sector Salud para estudiantes con discapacidad, es fundamental comprender que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) El colegio debe exigir que las terapias médicas se realicen dentro del aula de clase.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Educación garantiza el derecho al aprendizaje y los apoyos pedagógicos (DUA/PIAR), mientras Salud garantiza la rehabilitación integral, ayudas técnicas y tratamientos clínicos; ambos sectores se articulan sin condicionarse mutuamente.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Si la EPS no entrega las terapias, el colegio debe suspender la asistencia del estudiante.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Los docentes deben suspender o modificar los medicamentos formulados por el médico tratante.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. Conforme a la Ley 1620 de 2013 y el Decreto 1965 de 2013, cuando un estudiante con discapacidad es objeto de burlas, exclusión o acoso escolar por su condición, la institución debe:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Trasladar al estudiante con discapacidad a otra jornada para "protegerlo" de sus compañeros.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) Activar de inmediato la Ruta de Atención Integral para la Convivencia Escolar (promoción, prevención, atención y seguimiento), restablecer los derechos del estudiante afectado y desarrollar acciones formativas contra la discriminación en toda la comunidad.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Minimizar el hecho indicando que debe acostumbrarse al trato del grupo.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Prohibirle salir al descanso escolar.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. Según la Ley 1581 de 2012 (Régimen General de Protección de Datos Personales), la información contenida en la historia escolar, soportes clínicos y el PIAR de un estudiante constituye:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Información pública que puede fijarse en la cartelera de la sala de profesores.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Datos personales sensibles de un menor de edad sujetos a estricta reserva, confidencialidad y custodia; solo pueden acceder los actores directamente responsables de su atención pedagógica con autorización de los representantes legales.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Datos comerciales que pueden enviarse por grupos abiertos de mensajería instantánea.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Información que debe leerse en voz alta en las asambleas generales de padres.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. ¿Qué estrategia metodológica de trabajo colaborativo entre pares en el aula regular potencia significativamente la inclusión y el aprendizaje mutuo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) La competencia individualista por los primeros puestos con publicación pública del ranking.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) El aprendizaje cooperativo con roles interdependientes, tutoría entre pares y grupos heterogéneos donde se valoran las distintas habilidades de cada estudiante.</label>
+                            <label><input type="radio" name="P31" value="C"> C) Agrupar en una esquina del salón únicamente a los estudiantes que requieren apoyos.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Evitar el trabajo en equipo para que los estudiantes más rápidos no pierdan tiempo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. El "Índice de Inclusión" utilizado en la autoevaluación institucional permite a los colegios:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Calcular el porcentaje de estudiantes con discapacidad que deben ser rechazados por falta de recursos.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Diagnosticar el estado de sus culturas, políticas y prácticas inclusivas con participación de toda la comunidad educativa para formular metas concretas en el Plan de Mejoramiento Institucional (PMI).</label>
+                            <label><input type="radio" name="P32" value="C"> C) Evaluar exclusivamente la infraestructura física externa del establecimiento.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Sustituir el seguimiento individual del PIAR por estadísticas generales.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Aplicación Práctica: Casos de Aula Inclusiva, DUA y Toma de Decisiones</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio pedagógico, normativo y ético cada situación escolar y elija la decisión profesional más fundamentada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: Una madre de familia acude en enero a matricular a su hijo de 8 años con Trastorno del Espectro Autista (TEA) en grado tercero. El funcionario administrativo le indica que "no puede matricularlo hasta que traiga el certificado actualizado de discapacidad emitido por la EPS y un acompañante terapéutico pagado por ella". Conforme al Decreto 1421 de 2017 y la Ley 1618 de 2013, ¿cuál es la actuación correcta?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Respaldar al funcionario porque sin certificado médico actualizado el SIMAT bloquea la matrícula.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Ordenar la matrícula inmediata sin barreras ni condicionamientos económicos, realizar la valoración pedagógica institucional, iniciar el diseño del PIAR en el primer trimestre y activar la ruta intersectorial con salud para gestionar los soportes clínicos.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Matricular al niño condicionando su asistencia a dos horas diarias mientras la madre consigue el diagnóstico.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Sugerir a la madre que busque una fundación privada porque el colegio regular no cuenta con especialistas médicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: En grado cuarto, un estudiante presenta dificultades persistentes en la decodificación lectora, ortografía y fluidez compatibles con dislexia (trastorno específico de aprendizaje). Aunque no tiene discapacidad intelectual ni sensorial, su docente de Lenguaje le reprueba todos los exámenes escritos por "mala ortografía y lentitud". A la luz de la Ley 2216 de 2022 y el DUA, ¿qué debe hacer el docente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) Mantener la calificación reprobatoria para exigirle que lea más rápido mediante planas diarias.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Implementar apoyos pedagógicos y ajustes razonables: otorgar tiempo adicional en evaluaciones, usar fuentes tipográficas accesibles y apoyos auditivos, valorar sus ideas por vía oral o multimedia y activar acompañamiento psicopedagógico.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Exonerarlo de cursar el área de Lenguaje durante toda la básica primaria.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Remitirlo a repetir grado tercero por no alcanzar la velocidad lectora estándar.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Un profesor de Matemáticas de grado séptimo manifiesta: "Yo no puedo hacer 35 clases diferentes cada día; si el estudiante con discapacidad intelectual no entiende mis explicaciones magistrales, debe irse con el docente de apoyo". Desde el enfoque DUA y el Decreto 1421 de 2017, ¿cuál es la orientación pedagógica correcta?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Autorizar que el estudiante salga siempre de clase de Matemáticas hacia el aula de apoyo.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Aclarar que el DUA no exige 35 clases distintas sino una única planeación flexible y accesible para todos (uso de material concreto manipulable, apoyos visuales y múltiples formas de expresión), complementada con ajustes razonables en el PIAR en trabajo colaborativo con el docente de apoyo.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Pedir al docente de apoyo que diseñe y califique solo todas las clases de Matemáticas del estudiante.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Aprobarle la asignatura con nota mínima sin realizar ajustes metodológicos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: Durante el primer trimestre del año escolar, la directora de grupo y el docente de apoyo diseñan el PIAR de una estudiante sorda usuaria de Lengua de Señas Colombiana (LSC), pero olvidan convocar a la familia para su revisión y firma. Al final del segundo periodo, los padres reclaman desconocer los ajustes acordados. ¿Qué falla procedimental ocurrió según el Decreto 1421 de 2017?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Ninguna, porque el PIAR es un documento reservado exclusivo de los docentes.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Se omitió la participación corresponsable de la familia y la suscripción obligatoria del "Acta de Acuerdo", instrumento donde se socializan y pactan los compromisos de la escuela, la familia y la estudiante frente al PIAR.</label>
+                            <label><input type="radio" name="P36" value="C"> C) El PIAR debió enviarse únicamente a la Secretaría de Educación sin copia a los padres.</label>
+                            <label><input type="radio" name="P36" value="D"> D) La familia solo debe ser informada si la estudiante pierde el año escolar.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: Al finalizar el año lectivo en grado undécimo, un estudiante con discapacidad intelectual moderada cumplió satisfactoriamente con todas las metas y ajustes razonables definidos en su PIAR y en el SIEE institucional. Algunos miembros del Consejo Académico proponen entregarle un "Certificado de Asistencia y Participación" en lugar del título de Bachiller Académico. ¿Es legal esta propuesta?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Sí, porque el diploma oficial de bachiller solo se otorga a estudiantes sin ajustes curriculares.</label>
+                            <label><input type="radio" name="P37" value="B"> B) Sí, siempre que el certificado de asistencia sea firmado por el rector y el docente de apoyo.</label>
+                            <label><input type="radio" name="P37" value="C" data-correct="true"> C) No; conforme al Decreto 1421 de 2017 y las orientaciones del MEN, esa práctica es discriminatoria: el estudiante debe recibir exactamente el mismo título oficial de Bachiller Académico en igualdad de condiciones, acompañado de su Informe Anual de Competencias.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Debe graduarse en una ceremonia privada separada para no alterar el protocolo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Una familia solicita traslado de su hijo con discapacidad motriz e intelectual leve a otra institución educativa en otro municipio a mitad de año. ¿Qué documentos pedagógicos obligatorios debe entregar la institución de origen para garantizar la continuidad de su proceso inclusivo?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Únicamente el paz y salvo financiero y el certificado de notas numéricas tradicionales.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) La historia escolar completa, el PIAR vigente con sus actas de seguimiento y el Informe Anual/Parcial de Competencias detallando los apoyos y ajustes que resultaron efectivos.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Solo el carné de vacunación y una carta de buena conducta.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Ningún documento sobre el PIAR porque cada colegio debe empezar desde cero sin antecedentes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: En una reunión general de padres de familia de grado quinto, un docente proyecta en pantalla una tabla con los nombres de todos los estudiantes del curso y una columna titulada "Diagnóstico / Discapacidad" para explicar por qué algunos tienen evaluaciones diferentes. ¿Qué norma vulnera esta conducta y cómo debió actuar?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Es una práctica transparente recomendada para sensibilizar a los demás padres de familia.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Vulnera la Ley 1581 de 2012 (protección de datos personales sensibles de menores) y la Ley 1098 de 2006 (derecho a la intimidad); debió explicar de manera general el enfoque DUA y la evaluación formativa del SIEE sin divulgar datos ni diagnósticos individuales.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Solo vulnera la ley si los diagnósticos tienen errores ortográficos.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Debió leer únicamente las iniciales de los estudiantes junto con su diagnóstico médico.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: La Comisión de Evaluación y Promoción analiza el caso de un estudiante con discapacidad psicosocial que reprobó cuatro áreas al cierre del año escolar. Al revisar los soportes, se evidencia que los docentes nunca elaboraron su PIAR ni aplicaron ajustes razonables durante el año. ¿Qué decisión ética y normativa corresponde tomar?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) Reprobar automáticamente al estudiante bajo el argumento de que el reglamento aplica igual para todos.</label>
+                            <label><input type="radio" name="P40" value="B"> B) Culpar exclusivamente a la familia por no exigir los ajustes por escrito cada semana.</label>
+                            <label><input type="radio" name="P40" value="C" data-correct="true"> C) No puede sancionarse al estudiante con la reprobación cuando la institución incumplió su deber legal de garantizar el PIAR y los ajustes razonables (Decreto 1421 de 2017); debe garantizarse su promoción con un plan inmediato de nivelación, valoración pedagógica y diseño riguroso del PIAR.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Sugerir el retiro del estudiante hacia un programa de validación no escolarizado.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión/Área y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Educación Inclusiva, DUA y Ajustes Razonables en el Aula",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Pedagogía Digital e Inteligencia Artificial Aplicadas al Aula | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación Final: Pedagogía Digital e Inteligencia Artificial Aplicadas al Aula</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Profesional</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión / Área:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Pedagogía Digital, EVA e IA Generativa (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Diseño Didáctico, Evaluación y Ética Digital (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos de Aula y Gobernanza IA (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-laptop-code"></i> Módulos 1, 2 y 3: Pedagogía Digital, Entornos Virtuales e IA Generativa</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. En la Pedagogía Digital contemporánea, ¿cuál es la transformación esencial del rol docente frente a la simple digitalización de contenidos tradicionales?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) Sustituir por completo la interacción pedagógica humana por plataformas automatizadas de calificación.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) Actuar como diseñador de experiencias de aprendizaje activas, curador crítico de recursos digitales y mediador cognitivo que integra la tecnología con sentido pedagógico.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Limitar la clase a la proyección de diapositivas y videos largos sin participación estudiantil.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Exigir el dominio técnico de programación avanzada antes de abordar los objetivos curriculares.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. De acuerdo con el modelo SAMR de Rubén Puentedura para la integración de TIC en el aula, los niveles de "Modificación" y "Redefinición" se caracterizan porque:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) La tecnología reemplaza al papel o al tablero sin alterar la estructura funcional de la tarea escolar.</label>
+                            <label><input type="radio" name="P2" value="B"> B) Se añade únicamente un corrector ortográfico o un buscador básico a una actividad tradicional.</label>
+                            <label><input type="radio" name="P2" value="C" data-correct="true"> C) Permiten rediseñar significativamente la actividad pedagógica y crear tareas nuevas de colaboración global e investigación antes inconcebible sin tecnología.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Restringen el uso de herramientas digitales exclusivamente a la gestión administrativa de notas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. El marco conceptual TPACK (Mishra y Koehler) sostiene que una integración efectiva de las TIC en la enseñanza requiere la intersección equilibrada de tres conocimientos fundamentales:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A" data-correct="true"> A) Conocimiento Disciplinar (Contenido), Conocimiento Pedagógico y Conocimiento Tecnológico.</label>
+                            <label><input type="radio" name="P3" value="B"> B) Conocimiento Financiero, Conocimiento Jurídico y Conocimiento de Hardware.</label>
+                            <label><input type="radio" name="P3" value="C"> C) Conocimiento de Redes Sociales, Ofimática Básica y Mantenimiento de Equipos.</label>
+                            <label><input type="radio" name="P3" value="D"> D) Conocimiento Estadístico, Evaluación Estandarizada y Normatividad Laboral.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. En el marco normativo colombiano, los Estándares de Competencias TIC para el Desarrollo Profesional Docente del Ministerio de Educación Nacional (MEN) organizan las competencias en cinco dimensiones:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) Contable, Tributaria, Comercial, Logística y Administrativa.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) Tecnológica, Comunicativa, Pedagógica, de Gestión e Investigativa (en los niveles Explorador, Integrador e Innovador).</label>
+                            <label><input type="radio" name="P4" value="C"> C) Lectura Crítica, Matemáticas, Ciencias Naturales, Sociales e Inglés.</label>
+                            <label><input type="radio" name="P4" value="D"> D) Infraestructura, Conectividad, Dotación, Soporte Técnico y Auditoría.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. La Ley de Educación Digital (Ley 2626 de 2026) y la Política TIC (Ley 1341 de 2009), articuladas con la Ley 115 de 1994 y el Decreto 1075 de 2015, establecen como prioridad del sistema educativo:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Eliminar la enseñanza presencial en todos los establecimientos educativos oficiales.</label>
+                            <label><input type="radio" name="P5" value="B"> B) Prohibir el acceso a internet en las instituciones de educación básica primaria.</label>
+                            <label><input type="radio" name="P5" value="C" data-correct="true"> C) Garantizar la alfabetización digital, el pensamiento computacional, el cierre de brechas tecnológicas y la apropiación crítica y ética de herramientas digitales e IA en el aula.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Delegar la definición del currículo nacional exclusivamente en empresas proveedoras de software.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. En la gestión de Entornos Virtuales de Aprendizaje (EVA) y sistemas LMS como Moodle o Google Classroom, ¿qué característica define un modelo de aula híbrida (Blended Learning) de alta calidad?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) Subir archivos PDF extensos al repositorio sin actividades de interacción ni retroalimentación.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Articular coherentemente los encuentros presenciales sincrónicos con actividades virtuales asincrónicas estructuradas, rutas claras de aprendizaje y seguimiento continuo.</label>
+                            <label><input type="radio" name="P6" value="C"> C) Duplicar exactamente las mismas horas de clase magistral frente a una cámara web.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Evaluar únicamente mediante asistencia automática al inicio de la sesión virtual.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. ¿Qué distingue a un Recurso Educativo Digital Abierto (REDA) según los lineamientos del Ministerio de Educación Nacional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Es cualquier archivo descargado de internet sin importar si tiene restricciones comerciales o bloqueos técnicos.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Es un material digital con intencionalidad educativa que cuenta con licenciamiento abierto (como Creative Commons), permitiendo su acceso, uso, adaptación y redistribución gratuita respetando la autoría.</label>
+                            <label><input type="radio" name="P7" value="C"> C) Es un software propietario de pago anual exclusivo para rectores.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Es una presentación privada que no puede ser modificada ni compartida bajo ninguna circunstancia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. Conforme a la Ley 23 de 1982 y la Decisión Andina 351 de 1993 sobre Derechos de Autor en Colombia, cuando un docente realiza curaduría de contenidos digitales para su aula debe:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) Eliminar el nombre del autor original para presentar el material como producción propia.</label>
+                            <label><input type="radio" name="P8" value="B"> B) Reproducir libros completos protegidos por copyright en plataformas públicas sin autorización.</label>
+                            <label><input type="radio" name="P8" value="C" data-correct="true"> C) Respetar los derechos morales citando siempre la fuente y el autor, y verificar los permisos patrimoniales o licencias abiertas antes de adaptar o redistribuir obras.</label>
+                            <label><input type="radio" name="P8" value="D"> D) Asumir que todo contenido publicado en la web es de dominio público y carece de titularidad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. En la licencia abierta Creative Commons "CC BY-NC-SA", ¿qué condiciones establece el autor para el uso educativo del recurso?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) Uso comercial libre sin necesidad de mencionar al creador.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) Reconocimiento obligatorio de autoría (BY), prohibición de uso con fines comerciales (NC) y obligación de compartir las obras derivadas bajo la misma licencia (SA).</label>
+                            <label><input type="radio" name="P9" value="C"> C) Prohibición absoluta de realizar cualquier adaptación o traducción del material.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Caducidad automática del permiso a los treinta días de su descarga.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. Desde el punto de vista técnico y pedagógico, ¿cómo operan los Modelos Grandes de Lenguaje (LLM) en la Inteligencia Artificial Generativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Consultan una base de datos enciclopédica verificada por humanos en tiempo real con certeza absoluta.</label>
+                            <label><input type="radio" name="P10" value="B"> B) Poseen conciencia propia, comprensión moral y capacidad de experimentación física.</label>
+                            <label><input type="radio" name="P10" value="C" data-correct="true"> C) Predicen estadísticamente secuencias de tokens (palabras o fragmentos) a partir de patrones aprendidos durante su entrenamiento masivo, sin comprensión semántica real ni garantía automática de veracidad.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Funcionan exclusivamente mediante reglas lógicas fijas programadas manualmente por cada docente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. ¿Qué es una "alucinación" en los sistemas de Inteligencia Artificial Generativa aplicada a la educación?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Un fallo físico de la pantalla del computador por sobrecalentamiento.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) La generación de información falsa, citas bibliográficas inexistentes, leyes inventadas o datos erróneos presentados con un tono altamente convincente y coherente.</label>
+                            <label><input type="radio" name="P11" value="C"> C) La negativa del sistema a responder solicitudes que infringen normas de seguridad.</label>
+                            <label><input type="radio" name="P11" value="D"> D) La traducción automática de un texto de inglés a español.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. ¿Por qué los sistemas de Inteligencia Artificial pueden reproducir o amplificar "sesgos algorítmicos" en el contexto escolar?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Porque los algoritmos deciden intencionalmente discriminar a determinados colegios.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) Porque se entrenan con grandes volúmenes de datos históricos y culturales de internet que contienen prejuicios de género, raza, idioma o contexto socioeconómico.</label>
+                            <label><input type="radio" name="P12" value="C"> C) Porque únicamente funcionan en equipos de última generación con conexión de fibra óptica.</label>
+                            <label><input type="radio" name="P12" value="D"> D) Porque los modelos generativos bloquean toda información producida en América Latina.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. En Ingeniería de Instrucciones (Prompting) para el diseño pedagógico, ¿qué elementos estructuran un prompt efectivo y de alta precisión?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Una sola palabra clave seguida de signos de interrogación sin contexto.</label>
+                            <label><input type="radio" name="P13" value="B"> B) Únicamente el nombre de la asignatura y el número de páginas deseado.</label>
+                            <label><input type="radio" name="P13" value="C" data-correct="true"> C) Definición de rol docente, contexto educativo (grado, área, DBA), tarea específica, formato de salida, criterios de calidad y restricciones.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Instrucciones ambiguas para que el modelo elija libremente el nivel educativo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. La técnica de prompting conocida como "Chain-of-Thought" (Cadena de Pensamiento) consiste en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Pedirle a la IA que responda en menos de diez palabras sin explicaciones.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) Solicitar al modelo que desglose su razonamiento paso a paso antes de llegar a la conclusión o propuesta didáctica final, mejorando la precisión lógica.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Conectar varias computadoras en red local para acelerar el internet del aula.</label>
+                            <label><input type="radio" name="P14" value="D"> D) Repetir la misma pregunta diez veces hasta obtener una respuesta diferente.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. La Política Nacional de Inteligencia Artificial de Colombia (CONPES 4144 de 2025) orienta la incorporación de la IA en el sector educativo hacia:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) La reducción de la planta docente oficial mediante tutores virtuales autónomos.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) El desarrollo de capacidades y talento humano, la gobernanza ética, la mitigación de riesgos, la equidad territorial y el uso de la IA como herramienta de apoyo al aprendizaje.</label>
+                            <label><input type="radio" name="P15" value="C"> C) La obligatoriedad de usar exclusivamente modelos pagos extranjeros en todas las escuelas.</label>
+                            <label><input type="radio" name="P15" value="D"> D) La sustitución de los Proyectos Educativos Institucionales por estándares comerciales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. La diferencia fundamental entre la Inteligencia Artificial Tradicional (discriminativa/predictiva) y la Inteligencia Artificial Generativa radica en que esta última:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Solo puede clasificar correos electrónicos como spam o no spam.</label>
+                            <label><input type="radio" name="P16" value="B"> B) No requiere datos previos ni entrenamiento matemático para funcionar.</label>
+                            <label><input type="radio" name="P16" value="C" data-correct="true"> C) Crea contenido original nuevo (texto, imágenes, audio, código o simulaciones) a partir de las distribuciones aprendidas de sus datos de entrenamiento.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Garantiza exactitud matemática del 100 % sin necesidad de revisión humana.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Diseño Didáctico y Ética <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Módulos 4, 5 y 6: Diseño Didáctico, Evaluación con IA, Ética y Protección de Datos</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. Al utilizar herramientas de Inteligencia Artificial para diseñar secuencias didácticas en Colombia, ¿cómo garantiza el docente la pertinencia curricular conforme a la Ley 115 de 1994 y el Decreto 1075 de 2015?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Aplicando directamente las planeaciones generadas por la IA basadas en currículos de otros países.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) Alineando las actividades propuestas con los Estándares Básicos de Competencias (EBC), los Derechos Básicos de Aprendizaje (DBA), el PEI y el contexto sociocultural de sus estudiantes.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Eliminando los objetivos de aprendizaje del plan de área para seguir las sugerencias aleatorias del chat.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Limitando la planeación únicamente a cuestionarios de memorización mecánica.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. En la metodología activa de "Aula Invertida" (Flipped Classroom) potenciada con IA, ¿qué función cumple el entorno digital antes de la clase presencial?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Reemplazar la evaluación formativa por exámenes sorpresa al iniciar la jornada.</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) Permitir que el estudiante explore conceptos base mediante recursos interactivos y tutores de IA en casa, reservando el tiempo presencial para debates, resolución de problemas y trabajo colaborativo.</label>
+                            <label><input type="radio" name="P18" value="C"> C) Asignar tareas repetitivas de copia textual durante el horario de descanso.</label>
+                            <label><input type="radio" name="P18" value="D"> D) Eximir al docente de preparar actividades de profundización en el aula.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. ¿Cómo apoya la Inteligencia Artificial la implementación del Diseño Universal para el Aprendizaje (DUA) y los ajustes razonables (Decreto 1421 de 2017 y Ley 1618 de 2013)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Separando a los estudiantes con discapacidad en aulas virtuales aisladas del grupo regular.</label>
+                            <label><input type="radio" name="P19" value="B"> B) Exonerando a los estudiantes con PIAR de participar en actividades digitales.</label>
+                            <label><input type="radio" name="P19" value="C" data-correct="true"> C) Facilitando la transformación de un mismo contenido en múltiples formatos accesibles (lectura fácil, audiodescripción, apoyos visuales, niveles graduados de complejidad) para atender la diversidad del aula.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Generando diagnósticos clínicos médicos que reemplazan la valoración de EPS.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. En la personalización del aprendizaje mediante IA adaptativa, ¿cuál es el criterio pedagógico correcto para regular el avance del estudiante?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Etiquetar permanentemente a los estudiantes según su velocidad inicial de respuesta.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Ofrecer andamiajes dinámicos, ejercicios graduados según la zona de desarrollo próximo y retroalimentación oportuna, manteniendo altas expectativas para todos.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Reducir los contenidos fundamentales a quienes requieren mayor acompañamiento.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Permitir que el algoritmo decida la promoción o reprobación anual del estudiante.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. En el diseño de evaluación formativa con apoyo de IA, ¿qué ventaja ofrece una rúbrica analítica generada y validada por el docente?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) Ocultar los criterios de calificación hasta el final del periodo académico.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) Explicitar niveles claros de desempeño y descriptores observables que orientan al estudiante sobre cómo mejorar su proceso antes de la entrega final.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Asignar notas numéricas automáticas sin que el docente revise las evidencias.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Sustituir el Sistema Institucional de Evaluación de los Estudiantes (SIEE).</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. Al elaborar ítems tipo pruebas Saber con apoyo de IA generativa para fortalecer competencias evaluadas por el ICFES, el docente debe verificar que cada pregunta:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) Evalúe exclusivamente definiciones memorísticas copiadas de internet.</label>
+                            <label><input type="radio" name="P22" value="B"> B) Contenga opciones de respuesta ambiguas donde dos alternativas sean válidas.</label>
+                            <label><input type="radio" name="P22" value="C" data-correct="true"> C) Presente un contexto o situación problema auténtica, evalúe una afirmación/evidencia específica de competencia y tenga una única clave válida con distractores plausibles.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Sea aplicada directamente sin revisión disciplinar ni pedagógica previa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. De conformidad con el Decreto 1290 de 2009 (compilado en el Decreto 1075 de 2015), ¿cómo debe integrarse el uso de herramientas digitales e IA en el Sistema Institucional de Evaluación de los Estudiantes (SIEE)?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Reemplazando la escala de valoración nacional (Superior, Alto, Básico, Bajo) por porcentajes automáticos de software.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Definiendo reglas transparentes de evaluación integral, criterios de citación y uso ético de IA, y estrategias de retroalimentación formativa aprobadas por el Consejo Directivo.</label>
+                            <label><input type="radio" name="P23" value="C"> C) Delegando la decisión de promoción escolar en una plataforma externa sin participación de la comisión de evaluación.</label>
+                            <label><input type="radio" name="P23" value="D"> D) Eliminando la autoevaluación y coevaluación de los estudiantes.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. Respecto a los llamados "detectores de texto generado por IA", ¿cuál es la postura técnica y pedagógica recomendada por la UNESCO y las autoridades educativas?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Son pruebas infalibles y suficientes por sí solas para sancionar disciplinariamente a un estudiante.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) Presentan altas tasas de falsos positivos (especialmente en textos bien estructurados), por lo que nunca deben usarse como única prueba punitiva; deben combinarse con seguimiento del proceso, defensa oral y evaluación auténtica.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Deben utilizarse para anular automáticamente todos los trabajos digitales del curso.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Tienen validez jurídica plena para expulsar estudiantes sin debido proceso.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. Para fomentar la integridad académica frente a la IA generativa, la estrategia didáctica más efectiva en el aula es:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Prohibir cualquier uso de computadoras y regresar exclusivamente a dictados en cuaderno.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) Diseñar tareas situadas en el contexto local, exigir trazabilidad de borradores, promover el análisis crítico de respuestas de IA y enseñar a declarar y citar explícitamente su uso como herramienta de apoyo.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Permitir que los estudiantes entreguen textos copiados sin leerlos ni verificarlos.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Ignorar la existencia de la IA generativa en los acuerdos de aula.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. El principio ético de "Supervisión Humana" (Human-in-the-Loop) en la aplicación de la IA educativa establece que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) La IA debe tomar las decisiones pedagógicas y disciplinarias mientras el docente observa pasivamente.</label>
+                            <label><input type="radio" name="P26" value="B" data-correct="true"> B) El criterio profesional, ético y pedagógico del docente siempre prevalece sobre cualquier recomendación automatizada, siendo el humano el responsable final de toda decisión educativa.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Solo los ingenieros de sistemas pueden revisar las respuestas generadas por la IA.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Los estudiantes no deben cuestionar los resultados entregados por un algoritmo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. Conforme a la Ley 1581 de 2012 y el Decreto 1074 de 2015 sobre Protección de Datos Personales en Colombia, los datos personales de niños, niñas y adolescentes:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) Pueden subirse libremente a plataformas públicas de IA gratuita para entrenar modelos externos.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) Gozan de protección reforzada y prevalencia de sus derechos; está prohibido compartir información personal, diagnósticos o identificadores de menores en herramientas externas de IA sin autorización previa y expresa de sus representantes legales y bajo estándares de seguridad.</label>
+                            <label><input type="radio" name="P27" value="C"> C) Se consideran datos públicos de libre circulación cuando se recolectan en colegios oficiales.</label>
+                            <label><input type="radio" name="P27" value="D"> D) No están cobijados por el régimen de Habeas Data hasta que el estudiante cumpla 21 años.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. En cumplimiento del Código de la Infancia y la Adolescencia (Ley 1098 de 2006), al utilizar entornos digitales en la escuela se debe garantizar primordialmente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) El registro obligatorio de menores de 13 años en redes sociales comerciales abiertas.</label>
+                            <label><input type="radio" name="P28" value="B"> B) La publicación de fotografías y calificaciones de los estudiantes en portales públicos sin consentimiento.</label>
+                            <label><input type="radio" name="P28" value="C" data-correct="true"> C) El interés superior del niño, su integridad personal, su intimidad, su imagen y la protección contra toda forma de explotación, violencia o exposición en entornos virtuales.</label>
+                            <label><input type="radio" name="P28" value="D"> D) El acceso irrestricto a plataformas sin filtros ni acompañamiento adulto.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. De acuerdo con la Ley 1620 de 2013 y el Decreto 1965 de 2013, el "ciberacoso escolar" (ciberbullying) se define como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Un desacuerdo académico puntual entre dos estudiantes durante un foro virtual.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) Toda forma de intimidación con uso deliberado de tecnologías de información (internet, redes sociales, mensajería, IA) para ejercer maltrato psicológico y continuado contra un miembro de la comunidad educativa.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Una falla técnica en la plataforma institucional de notas.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Una conducta que ocurre fuera del horario escolar y sobre la cual el colegio no tiene competencia formativa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. Según el Decreto 1965 de 2013, las situaciones de ciberacoso escolar que no revisten la comisión de un delito penal pero afectan repetidamente la convivencia escolar se clasifican dentro de la Ruta de Atención Integral como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Situaciones Tipo I.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Situaciones Tipo II (requieren atención inmediata, medidas de restablecimiento de derechos, informe a padres/acudientes y reporte al Comité Escolar de Convivencia).</label>
+                            <label><input type="radio" name="P30" value="C"> C) Faltas administrativas exclusivas del área de sistemas.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Conflictos privados que deben resolverse sin intervención institucional.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. La Ley 1273 de 2009 (Ley de Delitos Informáticos en Colombia) tipifica como conductas punibles que pueden presentarse en entornos escolares digitales:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) El uso de calculadoras científicas y diccionarios digitales en clase.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) El acceso abusivo a sistemas informáticos, la suplantación de identidad en sitios web, el daño informático y la violación de datos personales (que obligan a activar protocolo de Situación Tipo III).</label>
+                            <label><input type="radio" name="P31" value="C"> C) La creación de blogs educativos con licencias abiertas.</label>
+                            <label><input type="radio" name="P31" value="D"> D) La descarga de documentos oficiales desde el portal del Ministerio de Educación.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. La "Ciudadanía Digital Crítica" en la formación escolar busca que los estudiantes desarrollen capacidades para:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Consumir pasivamente cualquier contenido viralizado en redes sociales.</label>
+                            <label><input type="radio" name="P32" value="B"> B) Compartir contraseñas y datos familiares en aplicaciones gratuitas.</label>
+                            <label><input type="radio" name="P32" value="C" data-correct="true"> C) Evaluar la veracidad de fuentes, proteger su huella y seguridad digital, interactuar con empatía en línea y ejercer sus derechos y deberes democráticos en entornos virtuales.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Evitar el uso de cualquier herramienta tecnológica durante toda su formación.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Aplicación Práctica: Casos de Aula Digital, Evaluación y Gobernanza Ética de la IA</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio pedagógico, normativo y ético cada situación de aula y elija la decisión profesional más acertada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: Un docente de Ciencias Sociales de grado décimo pide a una IA generativa que redacte una guía sobre la Constitución Política de 1991. Al revisar el texto generado, el docente nota que la IA cita dos artículos inexistentes con un lenguaje muy convincente. Desde la alfabetización en IA y el rol docente, ¿cuál es la actuación correcta?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Entregar la guía tal como salió porque el formato y la redacción son impecables.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Identificar el fenómeno como una "alucinación" del modelo, contrastar y corregir el contenido con el texto oficial de la Constitución, y aprovechar la experiencia para enseñar a sus estudiantes a verificar siempre las fuentes primarias.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Solicitar a los estudiantes que memoricen los artículos generados por la IA sin consultar la Constitución.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Abandonar definitivamente el uso de tecnologías digitales en la institución.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: Una docente desea utilizar una herramienta gratuita de IA en la nube para generar informes individuales de comportamiento y rendimiento. Para ello, piensa copiar en el prompt los nombres completos, números de tarjeta de identidad, diagnósticos médicos y situaciones familiares de sus 38 estudiantes. ¿Qué norma infringe esta acción y qué debe hacer?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) No infringe ninguna norma porque el fin es estrictamente pedagógico.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Infringe la Ley 1581 de 2012, el Decreto 1074 de 2015 y la Ley 1098 de 2006 al exponer datos personales y sensibles de menores a servidores externos sin autorización; debe anonimizar completamente los datos (usar códigos o pseudónimos) antes de ingresar cualquier información.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Solo debe pedir permiso verbal a los estudiantes menores de edad antes de subir sus diagnósticos.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Debe subir únicamente los números de documento sin los nombres completos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Un profesor de Literatura pasa el ensayo de una estudiante brillante por un detector gratuito de IA, el cual arroja "82 % probabilidad de IA". Sin dialogar con la estudiante ni revisar sus borradores previos, el docente le asigna calificación de 1.0 por supuesto fraude. A la luz del Decreto 1290 de 2009 y las orientaciones éticas sobre IA, ¿cómo debe procederse?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Confirmar la nota de 1.0 porque el porcentaje del detector supera el 80 %.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Reconocer que los detectores de IA generan falsos positivos y no son prueba concluyente; garantizar el debido proceso revisando el historial de versiones del documento, realizando una sustentación oral dialogada y estableciendo criterios claros en el SIEE.</label>
+                            <label><input type="radio" name="P35" value="C"> C) Suspender a la estudiante durante una semana como medida ejemplarizante.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Repetir el examen escrito a todo el curso sin explicar los motivos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: En un colegio se descubre que un grupo de estudiantes utilizó una aplicación de IA generativa de imágenes para crear montajes falsos (deepfakes) ofensivos con el rostro de una compañera y los difundió en grupos de mensajería, afectando gravemente su dignidad e integridad. ¿Cómo se tipifica y atiende este caso?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Como una broma juvenil sin relevancia institucional por haberse hecho desde celulares personales.</label>
+                            <label><input type="radio" name="P36" value="B"> B) Como una Situación Tipo I que se resuelve con una disculpa verbal informal.</label>
+                            <label><input type="radio" name="P36" value="C" data-correct="true"> C) Como un grave caso de ciberacoso y posible delito informático/violación de imagen y datos personales (Ley 1620 de 2013, Decreto 1965 de 2013 y Ley 1273 de 2009); se debe activar de inmediato la Ruta de Atención Integral (Situación Tipo II/III), proteger a la víctima, informar a acudientes y remitir a autoridades competentes.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Decomisando los teléfonos celulares sin informar a las familias ni al Comité de Convivencia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: En su aula de grado octavo, una docente tiene estudiantes con diversos estilos de aprendizaje y dos estudiantes con PIAR (uno con baja visión y otro con dislexia). Al planear una unidad de Ciencias Naturales usando IA y enfoque DUA (Decreto 1421 de 2017), ¿qué estrategia representa el nivel de "Modificación/Redefinición" (SAMR) y diseño universal?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Imprimir la misma guía en letra pequeña para todos y pedir a los dos estudiantes con PIAR que hagan un dibujo aparte.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Diseñar un entorno digital accesible en el LMS donde el contenido esté disponible simultáneamente en texto adaptable (lectura fácil y alto contraste), audio narrado y simulador interactivo, permitiendo que cada estudiante demuestre su aprendizaje mediante infografía, pódcast o modelo digital.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Eximir a los estudiantes con PIAR de realizar actividades de Ciencias Naturales.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Enviar un enlace web sin verificar si es compatible con lectores de pantalla.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Un docente de Matemáticas quiere transformar una actividad tradicional de resolución de ejercicios en papel hacia el nivel de "Redefinición" del modelo SAMR integrando pedagogía digital. ¿Cuál de las siguientes propuestas cumple realmente con ese nivel?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Escanear la hoja de ejercicios en PDF y subirla a Google Classroom para que la impriman en casa.</label>
+                            <label><input type="radio" name="P38" value="B"> B) Usar un formulario digital de opción múltiple que califica automáticamente los mismos ejercicios del libro.</label>
+                            <label><input type="radio" name="P38" value="C" data-correct="true"> C) Guiar a los estudiantes para recolectar datos reales de consumo hídrico de su municipio, modelarlos en hojas de cálculo colaborativas con simulaciones interactivas y presentar propuestas de solución en un foro virtual con expertos y estudiantes de otras regiones.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Proyectar los ejercicios en el televisor del salón en lugar de escribirlos en el tablero.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Un equipo de docentes está construyendo un repositorio institucional de Recursos Educativos Digitales Abiertos (REDA) en Moodle. Uno de los docentes encuentra un excelente simulador interactivo en internet con licencia "CC BY-NC" (Atribución - No Comercial) y quiere integrarlo en una guía modificada. ¿Qué actuación cumple con la Ley 23 de 1982 y las licencias abiertas?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Descargar el código, quitar los créditos originales y vender la guía a otras instituciones.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Integrar el recurso con fines estrictamente educativos sin ánimo de lucro, manteniendo intactos los créditos del autor original, el enlace a la fuente y el tipo de licencia Creative Commons.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Publicar el recurso bajo su propio nombre argumentando que las licencias extranjeras no aplican en Colombia.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Descartar el recurso porque toda licencia Creative Commons prohíbe su uso en colegios.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: El Consejo Académico de una institución educativa se reúne para actualizar su proyecto pedagógico frente a la Ley 2626 de 2026 (Ley de Educación Digital) y el CONPES 4144 de 2025. Algunos docentes proponen bloquear todas las herramientas de IA en la red escolar, mientras otros sugieren dejar su uso sin ninguna orientación. Como líder pedagógico, ¿cuál es la política institucional más sólida?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) Bloquear totalmente el acceso a herramientas de IA para evitar cualquier riesgo académico.</label>
+                            <label><input type="radio" name="P40" value="B"> B) Permitir el uso libre sin normas ni formación docente para que los estudiantes aprendan por ensayo y error.</label>
+                            <label><input type="radio" name="P40" value="C" data-correct="true"> C) Adoptar un marco institucional de apropiación crítica y ética: formar a los docentes en competencias digitales e IA, actualizar el SIEE con lineamientos de transparencia y citación, proteger los datos de menores (Ley 1581/2012) e integrar la IA como mediación para el pensamiento crítico y la equidad.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Reemplazar las áreas fundamentales del currículo por cursos exclusivos de manejo comercial de aplicaciones.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión/Área y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Pedagogía Digital e Inteligencia Artificial Aplicadas al Aula",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>
