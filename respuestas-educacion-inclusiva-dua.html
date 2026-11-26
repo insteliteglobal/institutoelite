@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Educación Inclusiva, DUA y Ajustes Razonables</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Educación Inclusiva, DUA y Ajustes Razonables en el Aula | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-universal-access"></i> Módulos 1, 2 y 3: Fundamentos Normativos, Caracterización y Diseño Universal (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">De acuerdo con el "Modelo Social de la Discapacidad" adoptado por la Convención de la ONU (Ley 1346 de 2009) y el Decreto 1421 de 2017, la discapacidad resulta principalmente de:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La interacción entre las personas con deficiencias y las barreras debidas a la actitud y al entorno que evitan su participación plena y efectiva en igualdad de condiciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El modelo social traslada el foco de la limitación clínica individual hacia la eliminación de las barreras actitudinales, pedagógicas y físicas del entorno.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">¿Cuál es la diferencia fundamental entre "Integración Escolar" y "Educación Inclusiva" según los lineamientos del Ministerio de Educación Nacional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) En la integración el estudiante debe adaptarse al sistema rígido existente; en la educación inclusiva el sistema educativo transforma su cultura, políticas y prácticas para responder a la diversidad de todos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La educación inclusiva exige transformar la oferta pedagógica y curricular institucional para garantizar equidad sin exigir que el estudiante se moldee a un sistema homogéneo.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">Los artículos 13, 47 y 67 de la Constitución Política de Colombia, desarrollados por la Ley 115 de 1994 y la Ley Estatutaria 1618 de 2013, consagran que la educación de las personas con discapacidad es:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Un derecho fundamental y un servicio público obligatorio en el que el Estado debe garantizar el acceso, la permanencia, la pertinencia y la calidad sin discriminación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La educación inclusiva es un derecho fundamental irrenunciable garantizado constitucionalmente en igualdad de condiciones y oportunidades.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">La Ley 2216 de 2022 y la Circular 024 de 2026 del Ministerio de Educación Nacional amplían y precisan las garantías de atención educativa inclusiva al establecer medidas específicas para:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Promover la detección temprana, el acompañamiento pedagógico oportuno y los ajustes razonables para niños, niñas, adolescentes y jóvenes con trastornos específicos de aprendizaje (dislexia, discalculia, disgrafía, TDAH) y diversidad funcional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La Ley 2216 de 2022 protege expresamente a estudiantes con trastornos específicos del aprendizaje para evitar la deserción y repitencia injustificada.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">De conformidad con el Decreto 1421 de 2017 (compilado en el Decreto 1075 de 2015), ¿qué debe hacer una institución educativa cuando solicita cupo un estudiante con discapacidad que aún no cuenta con diagnóstico médico formal ni está registrado en el SIMAT?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Garantizar de inmediato su matrícula en el SIMAT, iniciar la valoración pedagógica institucional y activar la ruta intersectorial con salud para obtener el soporte clínico sin dilatar su derecho a la educación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Decreto 1421 de 2017 prohíbe condicionar la matrícula escolar a la entrega previa de certificados médicos o diagnósticos clínicos.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Cuál es el propósito central de la "Valoración Pedagógica" que realiza el equipo docente al estudiante según el Decreto 1421 de 2017?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificar sus fortalezas, intereses, estilos de aprendizaje, competencias actuales, contexto familiar y las barreras del entorno escolar para orientar el DUA y el PIAR.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La valoración pedagógica es un proceso estrictamente educativo (no clínico) orientado a identificar potencialidades y diseñar los apoyos pertinentes.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">En el enfoque de educación inclusiva, las "Barreras para el Aprendizaje y la Participación (BAP)" se clasifican en categorías como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Barreras actitudinales (prejuicios, bajas expectativas), metodológicas/didácticas (clases rígidas homogéneas), físicas/arquitectónicas y comunicativas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Las BAP no son defectos del estudiante, sino obstáculos presentes en las prácticas, políticas y culturas del entorno educativo.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">Conforme al Decreto 1075 de 2015 y las orientaciones del MEN, el enfoque diferencial en el aula inclusiva también cobija a los estudiantes con "Capacidades o Talentos Excepcionales", quienes requieren:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Estrategias de enriquecimiento curricular, profundización investigativa, aceleración flexible cuando corresponda y acompañamiento socioemocional.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La atención a la diversidad contempla tanto a quienes requieren apoyos por discapacidad como a quienes presentan capacidades o talentos excepcionales.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">De acuerdo con el Código de la Infancia y la Adolescencia (Ley 1098 de 2006) y el Decreto 1421 de 2017, la participación de la familia en el proceso de inclusión educativa constituye:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un eje de corresponsabilidad fundamental: la familia aporta información vital en la historia escolar, participa activamente en la construcción y firma del Acta de Acuerdo del PIAR y apoya los compromisos en casa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La familia es un actor corresponsable indispensable en la planeación, seguimiento y suscripción del PIAR.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">El Diseño Universal para el Aprendizaje (DUA), desarrollado por el CAST y adoptado por el Decreto 1421 de 2017, se fundamenta en tres principios rectores:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Proporcionar múltiples formas de Implicación/Motivación (el porqué), múltiples formas de Representación (el qué) y múltiples formas de Acción y Expresión (el cómo).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Estos tres principios responden a las redes afectivas, de reconocimiento y estratégicas del aprendizaje humano.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">El primer principio del DUA ("Proporcionar múltiples formas de implicación o compromiso") activa las redes afectivas del cerebro buscando que el docente:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Capte el interés conectando con la realidad y autonomía del estudiante, mantenga el esfuerzo mediante metas claras y promueva la autorregulación emocional en un clima seguro.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La motivación intrínseca y la seguridad emocional son requisitos esenciales para activar la atención y el compromiso con el aprendizaje.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">El segundo principio del DUA ("Proporcionar múltiples formas de representación") responde a la diversidad de percepción y comprensión mediante acciones como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ofrecer la información en diversos canales (visual, auditivo, táctil, concreto), aclarar vocabulario clave, usar organizadores gráficos y activar conocimientos previos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza que los contenidos curriculares sean perceptibles y comprensibles para todos los estudiantes independientemente de su canal sensorial preferente.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">El tercer principio del DUA ("Proporcionar múltiples formas de acción y expresión") activa las redes estratégicas permitiendo que los estudiantes:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Interactúen con los materiales mediante tecnologías de apoyo y expresen sus conocimientos por diversos medios (oral, escrito, artístico, maquetas, recursos digitales o dramatizaciones).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Elimina la barrera de evaluar mediante un único formato homogéneo, permitiendo demostrar competencias por vías diversas.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">¿Cuál es la relación secuencial y pedagógica correcta entre el DUA y el PIAR dentro de una institución educativa inclusiva?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El DUA es la base universal de planeación accesible para toda el aula; cuando las estrategias universales del DUA no son suficientes para un estudiante con discapacidad, se diseña el PIAR con ajustes razonables específicos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El DUA beneficia a todo el grupo desde el diseño inicial, mientras que el PIAR personaliza los apoyos específicos que un estudiante requiera adicionalmente.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">Dentro de las tecnologías de apoyo y accesibilidad en el aula inclusiva, ¿qué herramienta favorece la participación equitativa de estudiantes con discapacidad visual o sordera?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Lectores de pantalla (NVDA/JAWS), macrotipos y materiales táctiles para baja visión/ceguera; e interpretación en Lengua de Señas Colombiana (LSC), subtitulación cerrada y apoyos visuales para estudiantes sordos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza accesibilidad comunicativa y sensorial plena dentro del aula regular conforme a la Ley 1618 de 2013.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">El principio de "Interés Superior del Niño" (Ley 1098 de 2006) aplicado a la educación inclusiva obliga a que ante cualquier conflicto administrativo o presupuestal:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Prevalezca siempre la garantía efectiva de los derechos fundamentales, el desarrollo integral y la permanencia educativa del niño, niña o adolescente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los derechos fundamentales de los niños, niñas y adolescentes prevalecen sobre cualquier trámite o restricción administrativa.</div>
+    </article>
+
+    <!-- MÓDULOS 4, 5 Y 6 -->
+    <div class="module-header">
+        <i class="fas fa-clipboard-check"></i> Módulos 4, 5 y 6: PIAR, Ajustes Razonables, Evaluación SIEE y Gestión Institucional (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">Jurídica y pedagógicamente (Ley 1618 de 2013 y Decreto 1421 de 2017), ¿cómo se definen los "Ajustes Razonables"?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Las acciones, adaptaciones, estrategias, apoyos, recursos o modificaciones necesarias y adecuadas del sistema educativo y la gestión escolar, basadas en necesidades específicas de cada estudiante, que no impongan una carga desproporcionada o indebida.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Son modificaciones pertinentes e individualizadas diseñadas para asegurar el goce efectivo del derecho a la educación en igualdad de condiciones.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">Según el Decreto 1421 de 2017, ¿quiénes son los responsables directos del diseño, implementación y seguimiento del Plan Individual de Ajustes Razonables (PIAR)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Los docentes de aula (de cada área/grado) en liderazgo conjunto con el docente de apoyo pedagógico, la familia y el propio estudiante, bajo el seguimiento de directivos docentes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El PIAR es liderado por los docentes de aula en articulación colaborativa con el docente de apoyo, la familia y el estudiante.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Cuál es el plazo y la periodicidad establecidos en el Decreto 1421 de 2017 para la elaboración y actualización del PIAR?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Debe diseñarse durante el primer trimestre del año escolar (o dentro de los primeros 30 días tras un traslado) y actualizarse periódicamente durante el año como herramienta viva de planeación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El artículo 2.3.3.5.2.3.5 del Decreto 1075 de 2015 establece el primer trimestre como plazo máximo para su formulación y seguimiento continuo.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿Qué función cumple el "Acta de Acuerdo" que acompaña al PIAR según el Decreto 1421 de 2017?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Formalizar los compromisos pedagógicos de la institución educativa y los compromisos de acompañamiento de la familia y el estudiante, firmada por el rector, docentes, familia y estudiante.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Acta de Acuerdo formaliza los compromisos mutuos entre la institución educativa, la familia y el estudiante.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Cuál es la finalidad del "Informe Anual de Competencias" (o Informe Anual de Proficiencia) establecido en el Decreto 1421 de 2017?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Documentar al finalizar cada año escolar los avances alcanzados, los ajustes razonables que funcionaron y las recomendaciones pedagógicas para el docente del grado siguiente o la institución receptora en caso de traslado.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza la trazabilidad pedagógica y evita que cada año escolar el estudiante deba reiniciar su proceso sin memoria institucional.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">En el marco de la flexibilización curricular para estudiantes con discapacidad intelectual o psicosocial, el docente de aula debe:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Priorizar y graduar los aprendizajes esenciales y funcionales de las áreas obligatorias en coherencia con los DBA y el PIAR, manteniendo un currículo desafiante, significativo y pertinente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Flexibilizar significa ajustar metas, tiempos y estrategias didácticas sin empobrecer ni excluir al estudiante de las áreas fundamentales.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">En articulación con el Decreto 1290 de 2009 (SIEE), ¿cómo debe realizarse la evaluación de los aprendizajes de un estudiante que cuenta con PIAR?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Evaluando de manera continua y formativa frente a los objetivos y metas acordados en su PIAR, utilizando instrumentos accesibles y los apoyos definidos en dicho plan.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La evaluación debe ser coherente con los ajustes razonables y objetivos establecidos individualmente en el PIAR.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Respecto a la promoción escolar en el SIEE (Decreto 1290 de 2009 y Decreto 1421 de 2017), ¿pueden los estudiantes con discapacidad ser promovidos de grado o eventualmente no promovidos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La Comisión de Evaluación y Promoción analiza su avance frente a las metas del PIAR; la no promoción es una medida excepcional que solo procede si la institución demuestra haber implementado rigurosamente el PIAR y justifica pedagógicamente que repetir el grado beneficia su desarrollo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Nunca puede sancionarse al estudiante con la reprobación si la institución omitió aplicar su PIAR y ajustes razonables.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">De acuerdo con el Decreto 1421 de 2017 y las orientaciones del MEN sobre graduación y titulación de estudiantes con discapacidad en grado undécimo:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Reciben exactamente el mismo título oficial de Bachiller (Académico o Técnico) en ceremonia regular en igualdad de condiciones, una vez cumplidos los objetivos ajustados en su PIAR, acompañado de su Informe Anual de Competencias.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Expedir diplomas diferenciados o menciones clínicas en el título constituye una práctica discriminatoria prohibida por el MEN.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">¿Cuál es el rol pedagógico correcto del "Docente de Apoyo Pedagógico" dentro de la institución educativa según el Decreto 1421 de 2017?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Acompañar y asesorar a los docentes de aula y directivos en el diseño del DUA, la construcción e implementación de los PIAR, el trabajo con familias y la gestión institucional inclusiva.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Su misión es fortalecer las capacidades pedagógicas de toda la institución y asesorar al equipo docente, sin aislar estudiantes.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">Conforme a la Ley 2216 de 2022 y el Decreto 1421 de 2017, ¿cómo debe articularse el enfoque de educación inclusiva en la gestión institucional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) De manera transversal en el Proyecto Educativo Institucional (PEI), el Manual de Convivencia, el SIEE y el Plan de Mejoramiento Institucional (PMI) en sus cuatro áreas de gestión.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La inclusión debe articularse en las gestiones directiva, académica, administrativa y comunitaria del establecimiento.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">En la articulación intersectorial entre el sector Educación y el sector Salud para estudiantes con discapacidad, es fundamental comprender que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Educación garantiza el derecho al aprendizaje y los apoyos pedagógicos (DUA/PIAR), mientras Salud garantiza la rehabilitación integral, ayudas técnicas y tratamientos clínicos; ambos sectores se articulan sin condicionarse mutuamente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Ambos sectores son corresponsables en el marco de sus competencias sin que la falla de uno sirva de excusa para negar el servicio del otro.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">Conforme a la Ley 1620 de 2013 y el Decreto 1965 de 2013, cuando un estudiante con discapacidad es objeto de burlas, exclusión o acoso escolar por su condición, la institución debe:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar de inmediato la Ruta de Atención Integral para la Convivencia Escolar (promoción, prevención, atención y seguimiento), restablecer los derechos del estudiante afectado y desarrollar acciones formativas contra la discriminación en toda la comunidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El Decreto 1965 de 2013 obliga a activar de inmediato la Ruta de Atención Integral y proteger la dignidad del estudiante afectado.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">Según la Ley 1581 de 2012 (Régimen General de Protección de Datos Personales), la información contenida en la historia escolar, soportes clínicos y el PIAR de un estudiante constituye:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Datos personales sensibles de un menor de edad sujetos a estricta reserva, confidencialidad y custodia; solo pueden acceder los actores directamente responsables de su atención pedagógica con autorización de los representantes legales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Los datos relativos a la salud y discapacidad de menores tienen categoría de datos sensibles bajo protección reforzada.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">¿Qué estrategia metodológica de trabajo colaborativo entre pares en el aula regular potencia significativamente la inclusión y el aprendizaje mutuo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El aprendizaje cooperativo con roles interdependientes, tutoría entre pares y grupos heterogéneos donde se valoran las distintas habilidades de cada estudiante.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El aprendizaje cooperativo convierte la heterogeneidad del grupo en un motor de apoyo mutuo y cohesión social.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">El "Índice de Inclusión" utilizado en la autoevaluación institucional permite a los colegios:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diagnosticar el estado de sus culturas, políticas y prácticas inclusivas con participación de toda la comunidad educativa para formular metas concretas en el Plan de Mejoramiento Institucional (PMI).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Permite valorar de forma participativa el grado de desarrollo inclusivo del colegio para orientar su PMI.</div>
+    </article>
+
+    <!-- CASOS PRÁCTICOS -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Aplicación Práctica: Casos de Aula Inclusiva, DUA y Toma de Decisiones (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Una madre de familia acude en enero a matricular a su hijo de 8 años con Trastorno del Espectro Autista (TEA) en grado tercero. El funcionario administrativo le indica que "no puede matricularlo hasta que traiga el certificado actualizado de discapacidad emitido por la EPS y un acompañante terapéutico pagado por ella". Conforme al Decreto 1421 de 2017 y la Ley 1618 de 2013, ¿cuál es la actuación correcta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ordenar la matrícula inmediata sin barreras ni condicionamientos económicos, realizar la valoración pedagógica institucional, iniciar el diseño del PIAR en el primer trimestre y activar la ruta intersectorial con salud para gestionar los soportes clínicos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza el acceso inmediato sin exigir pagos ni diagnósticos previos, activando paralelamente la ruta intersectorial con salud.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: En grado cuarto, un estudiante presenta dificultades persistentes en la decodificación lectora, ortografía y fluidez compatibles con dislexia (trastorno específico de aprendizaje). Aunque no tiene discapacidad intelectual ni sensorial, su docente de Lenguaje le reprueba todos los exámenes escritos por "mala ortografía y lentitud". A la luz de la Ley 2216 de 2022 y el DUA, ¿qué debe hacer el docente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Implementar apoyos pedagógicos y ajustes razonables: otorgar tiempo adicional en evaluaciones, usar fuentes tipográficas accesibles y apoyos auditivos, valorar sus ideas por vía oral o multimedia y activar acompañamiento psicopedagógico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aplica la Ley 2216 de 2022 y los principios de representación y expresión del DUA para evaluar el fondo de sus competencias.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Un profesor de Matemáticas de grado séptimo manifiesta: "Yo no puedo hacer 35 clases diferentes cada día; si el estudiante con discapacidad intelectual no entiende mis explicaciones magistrales, debe irse con el docente de apoyo". Desde el enfoque DUA y el Decreto 1421 de 2017, ¿cuál es la orientación pedagógica correcta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Aclarar que el DUA no exige 35 clases distintas sino una única planeación flexible y accesible para todos (uso de material concreto manipulable, apoyos visuales y múltiples formas de expresión), complementada con ajustes razonables en el PIAR en trabajo colaborativo con el docente de apoyo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El aula regular es el entorno natural de aprendizaje; el DUA optimiza una planeación flexible para todo el grupo.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Durante el primer trimestre del año escolar, la directora de grupo y el docente de apoyo diseñan el PIAR de una estudiante sorda usuaria de Lengua de Señas Colombiana (LSC), pero olvidan convocar a la familia para su revisión y firma. Al final del segundo periodo, los padres reclaman desconocer los ajustes acordados. ¿Qué falla procedimental ocurrió según el Decreto 1421 de 2017?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se omitió la participación corresponsable de la familia y la suscripción obligatoria del "Acta de Acuerdo", instrumento donde se socializan y pactan los compromisos de la escuela, la familia y la estudiante frente al PIAR.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Sin la participación activa de la familia y la firma del Acta de Acuerdo, el proceso del PIAR carece de validez corresponsable.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Al finalizar el año lectivo en grado undécimo, un estudiante con discapacidad intelectual moderada cumplió satisfactoriamente con todas las metas y ajustes razonables definidos en su PIAR y en el SIEE institucional. Algunos miembros del Consejo Académico proponen entregarle un "Certificado de Asistencia y Participación" en lugar del título de Bachiller Académico. ¿Es legal esta propuesta?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) No; conforme al Decreto 1421 de 2017 y las orientaciones del MEN, esa práctica es discriminatoria: el estudiante debe recibir exactamente el mismo título oficial de Bachiller Académico en igualdad de condiciones, acompañado de su Informe Anual de Competencias.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Todo estudiante que cumple los logros flexibilizados en su PIAR tiene pleno derecho a recibir su título oficial de bachiller.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Una familia solicita traslado de su hijo con discapacidad motriz e intelectual leve a otra institución educativa en otro municipio a mitad de año. ¿Qué documentos pedagógicos obligatorios debe entregar la institución de origen para garantizar la continuidad de su proceso inclusivo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La historia escolar completa, el PIAR vigente con sus actas de seguimiento y el Informe Anual/Parcial de Competencias detallando los apoyos y ajustes que resultaron efectivos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza la continuidad del proceso educativo y los apoyos pedagógicos en la nueva institución receptora.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: En una reunión general de padres de familia de grado quinto, un docente proyecta en pantalla una tabla con los nombres de todos los estudiantes del curso y una columna titulada "Diagnóstico / Discapacidad" para explicar por qué algunos tienen evaluaciones diferentes. ¿Qué norma vulnera esta conducta y cómo debió actuar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Vulnera la Ley 1581 de 2012 (protección de datos personales sensibles de menores) y la Ley 1098 de 2006 (derecho a la intimidad); debió explicar de manera general el enfoque DUA y la evaluación formativa del SIEE sin divulgar datos ni diagnósticos individuales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Protege la confidencialidad y dignidad de los menores evitando la exposición pública de datos sensibles.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: La Comisión de Evaluación y Promoción analiza el caso de un estudiante con discapacidad psicosocial que reprobó cuatro áreas al cierre del año escolar. Al revisar los soportes, se evidencia que los docentes nunca elaboraron su PIAR ni aplicaron ajustes razonables durante el año. ¿Qué decisión ética y normativa corresponde tomar?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) No puede sancionarse al estudiante con la reprobación cuando la institución incumplió su deber legal de garantizar el PIAR y los ajustes razonables (Decreto 1421 de 2017); debe garantizarse su promoción con un plan inmediato de nivelación, valoración pedagógica y diseño riguroso del PIAR.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La omisión institucional en garantizar los apoyos obligatorios no puede trasladarse como una sanción de reprobación al estudiante.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

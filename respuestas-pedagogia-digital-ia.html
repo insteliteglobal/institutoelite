@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Pedagogía Digital e Inteligencia Artificial Aplicadas al Aula</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Pedagogía Digital e Inteligencia Artificial Aplicadas al Aula | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-laptop-code"></i> Módulos 1, 2 y 3: Pedagogía Digital, Entornos Virtuales e IA Generativa (Preguntas 1 a 16)
+    </div>
+
+    <!-- P1 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">En la Pedagogía Digital contemporánea, ¿cuál es la transformación esencial del rol docente frente a la simple digitalización de contenidos tradicionales?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Actuar como diseñador de experiencias de aprendizaje activas, curador crítico de recursos digitales y mediador cognitivo que integra la tecnología con sentido pedagógico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La tecnología por sí sola no transforma el aprendizaje sin mediación pedagógica intencionada.</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">De acuerdo con el modelo SAMR, los niveles de 'Modificación' y 'Redefinición' se caracterizan porque:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Permiten rediseñar significativamente la actividad pedagógica y crear tareas nuevas de colaboración global e investigación antes inconcebible sin tecnología.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Constituyen la fase de transformación del aprendizaje, superando la mera sustitución o aumento.</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">El marco conceptual TPACK (Mishra y Koehler) requiere la intersección equilibrada de tres conocimientos:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> A) Conocimiento Disciplinar (Contenido), Conocimiento Pedagógico y Conocimiento Tecnológico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La integración efectiva ocurre cuando la herramienta tecnológica potencia la didáctica específica del área.</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">Los Estándares de Competencias TIC para el Desarrollo Profesional Docente del MEN organizan las competencias en cinco dimensiones:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Tecnológica, Comunicativa, Pedagógica, de Gestión e Investigativa (en los niveles Explorador, Integrador e Innovador).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Marco oficial del Ministerio de Educación Nacional para la cualificación docente.</div>
+    </article>
+
+    <!-- P5 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">La Ley de Educación Digital (Ley 2626 de 2026) y la Política TIC (Ley 1341 de 2009) establecen como prioridad educativa:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Garantizar la alfabetización digital, el pensamiento computacional, el cierre de brechas tecnológicas y la apropiación crítica y ética de herramientas digitales e IA en el aula.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Promueve el acceso equitativo y el desarrollo de competencias digitales críticas.</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">¿Qué característica define un modelo de aula híbrida (Blended Learning) de alta calidad en LMS?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Articular coherentemente los encuentros presenciales sincrónicos con actividades virtuales asincrónicas estructuradas, rutas claras de aprendizaje y seguimiento continuo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Integra lo mejor de la presencialidad y la virtualidad sin duplicar clases expositivas.</div>
+    </article>
+
+    <!-- P7 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">¿Qué distingue a un Recurso Educativo Digital Abierto (REDA) según el MEN?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Es un material digital con intencionalidad educativa que cuenta con licenciamiento abierto (como Creative Commons), permitiendo su acceso, uso, adaptación y redistribución gratuita respetando la autoría.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La apertura legal y técnica permite adaptar el recurso al contexto escolar.</div>
+    </article>
+
+    <!-- P8 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">Conforme a la Ley 23 de 1982 y la Decisión Andina 351 de 1993, al curar contenidos digitales el docente debe:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Respetar los derechos morales citando siempre la fuente y el autor, y verificar los permisos patrimoniales o licencias abiertas antes de adaptar o redistribuir obras.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El derecho moral de paternidad de obra es irrenunciable y de obligatorio cumplimiento.</div>
+    </article>
+
+    <!-- P9 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">En la licencia abierta Creative Commons 'CC BY-NC-SA', ¿qué condiciones establece el autor?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Reconocimiento obligatorio de autoría (BY), prohibición de uso con fines comerciales (NC) y obligación de compartir las obras derivadas bajo la misma licencia (SA).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza que los recursos derivados permanezcan abiertos y sin fines comerciales.</div>
+    </article>
+
+    <!-- P10 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Cómo operan los Modelos Grandes de Lenguaje (LLM) en la Inteligencia Artificial Generativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Predicen estadísticamente secuencias de tokens (palabras o fragmentos) a partir de patrones aprendidos durante su entrenamiento masivo, sin comprensión semántica real ni garantía automática de veracidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Son modelos probabilísticos, no bases de datos enciclopédicas verificadas.</div>
+    </article>
+
+    <!-- P11 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">¿Qué es una 'alucinación' en los sistemas de Inteligencia Artificial Generativa?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La generación de información falsa, citas bibliográficas inexistentes, leyes inventadas o datos erróneos presentados con un tono altamente convincente y coherente.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Obliga al docente y al estudiante a contrastar siempre las salidas con fuentes confiables.</div>
+    </article>
+
+    <!-- P12 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">¿Por qué los sistemas de IA pueden reproducir o amplificar 'sesgos algorítmicos'?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque se entrenan con grandes volúmenes de datos históricos y culturales de internet que contienen prejuicios de género, raza, idioma o contexto socioeconómico.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La IA hereda los sesgos presentes en los corpus de datos con los que fue entrenada.</div>
+    </article>
+
+    <!-- P13 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">En Ingeniería de Instrucciones (Prompting), ¿qué elementos estructuran un prompt efectivo?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Definición de rol docente, contexto educativo (grado, área, DBA), tarea específica, formato de salida, criterios de calidad y restricciones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un prompt estructurado reduce ambigüedades y alucinaciones del modelo.</div>
+    </article>
+
+    <!-- P14 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">La técnica de prompting 'Chain-of-Thought' (Cadena de Pensamiento) consiste en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Solicitar al modelo que desglose su razonamiento paso a paso antes de llegar a la conclusión o propuesta didáctica final, mejorando la precisión lógica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Mejora sustancialmente la calidad de respuestas complejas y secuencias didácticas.</div>
+    </article>
+
+    <!-- P15 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">La Política Nacional de Inteligencia Artificial de Colombia (CONPES 4144 de 2025) orienta la IA educativa hacia:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El desarrollo de capacidades y talento humano, la gobernanza ética, la mitigación de riesgos, la equidad territorial y el uso de la IA como herramienta de apoyo al aprendizaje.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Prioriza el enfoque centrado en el ser humano y el cierre de brechas.</div>
+    </article>
+
+    <!-- P16 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">La diferencia fundamental entre la IA Tradicional y la IA Generativa radica en que esta última:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Crea contenido original nuevo (texto, imágenes, audio, código o simulaciones) a partir de las distribuciones aprendidas de sus datos de entrenamiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Pasa de clasificar o predecir datos existentes a sintetizar contenidos nuevos.</div>
+    </article>
+
+    <!-- MÓDULOS 4, 5 Y 6 -->
+    <div class="module-header">
+        <i class="fas fa-chalkboard-teacher"></i> Módulos 4, 5 y 6: Diseño Didáctico, Evaluación con IA, Ética y Protección de Datos (Preguntas 17 a 32)
+    </div>
+
+    <!-- P17 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">Al diseñar secuencias didácticas con IA en Colombia, ¿cómo garantiza el docente la pertinencia curricular?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Alineando las actividades propuestas con los Estándares Básicos de Competencias (EBC), los Derechos Básicos de Aprendizaje (DBA), el PEI y el contexto sociocultural de sus estudiantes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La IA es un asistente de diseño; el referente obligatorio es el marco curricular colombiano.</div>
+    </article>
+
+    <!-- P18 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">En el 'Aula Invertida' (Flipped Classroom) potenciada con IA, ¿qué función cumple el entorno digital antes de clase?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Permitir que el estudiante explore conceptos base mediante recursos interactivos y tutores de IA en casa, reservando el tiempo presencial para debates, resolución de problemas y trabajo colaborativo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Optimiza el tiempo presencial para procesos cognitivos de orden superior.</div>
+    </article>
+
+    <!-- P19 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">¿Cómo apoya la IA la implementación del DUA y los ajustes razonables (Decreto 1421 de 2017)?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Facilitando la transformación de un mismo contenido en múltiples formatos accesibles (lectura fácil, audiodescripción, apoyos visuales, niveles graduados de complejidad) para atender la diversidad del aula.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Permite diversificar materiales de forma ágil para atender distintos ritmos y estilos.</div>
+    </article>
+
+    <!-- P20 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">En la personalización del aprendizaje mediante IA adaptativa, ¿cuál es el criterio pedagógico correcto?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ofrecer andamiajes dinámicos, ejercicios graduados según la zona de desarrollo próximo y retroalimentación oportuna, manteniendo altas expectativas para todos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La personalización busca equidad en el logro, no segregación ni reducción de exigencia.</div>
+    </article>
+
+    <!-- P21 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">¿Qué ventaja ofrece una rúbrica analítica generada y validada por el docente?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Explicitar niveles claros de desempeño y descriptores observables que orientan al estudiante sobre cómo mejorar su proceso antes de la entrega final.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Convierte la evaluación en una herramienta de aprendizaje transparente.</div>
+    </article>
+
+    <!-- P22 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">Al elaborar ítems tipo pruebas Saber con apoyo de IA, el docente debe verificar que cada pregunta:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Presente un contexto o situación problema auténtica, evalúe una afirmación/evidencia específica de competencia y tenga una única clave válida con distractores plausibles.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Sigue la metodología de Diseño Centrado en Evidencias del ICFES.</div>
+    </article>
+
+    <!-- P23 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">Conforme al Decreto 1290 de 2009, ¿cómo debe integrarse el uso de IA en el SIEE?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Definiendo reglas transparentes de evaluación integral, criterios de citación y uso ético de IA, y estrategias de retroalimentación formativa aprobadas por el Consejo Directivo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El SIEE regula las reglas de juego de la evaluación institucional.</div>
+    </article>
+
+    <!-- P24 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Respecto a los 'detectores de texto generado por IA', ¿cuál es la postura recomendada por la UNESCO?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Presentan altas tasas de falsos positivos (especialmente en textos bien estructurados), por lo que nunca deben usarse como única prueba punitiva; deben combinarse con seguimiento del proceso, defensa oral y evaluación auténtica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Ningún detector probabilístico tiene validez probatoria absoluta por sí solo.</div>
+    </article>
+
+    <!-- P25 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">Para fomentar la integridad académica frente a la IA generativa, la estrategia más efectiva es:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diseñar tareas situadas en el contexto local, exigir trazabilidad de borradores, promover el análisis crítico de respuestas de IA y enseñar a declarar y citar explícitamente su uso como herramienta de apoyo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Evalúa el proceso de pensamiento crítico y no únicamente el producto textual final.</div>
+    </article>
+
+    <!-- P26 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">El principio ético de 'Supervisión Humana' (Human-in-the-Loop) establece que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El criterio profesional, ético y pedagógico del docente siempre prevalece sobre cualquier recomendación automatizada, siendo el humano el responsable final de toda decisión educativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La responsabilidad pedagógica y ética es indelegable en sistemas automatizados.</div>
+    </article>
+
+    <!-- P27 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">Conforme a la Ley 1581 de 2012 y el Decreto 1074 de 2015, los datos personales de niños, niñas y adolescentes:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Gozan de protección reforzada y prevalencia de sus derechos; está prohibido compartir información personal, diagnósticos o identificadores de menores en herramientas externas de IA sin autorización previa y expresa de sus representantes legales y bajo estándares de seguridad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El tratamiento de datos de menores exige autorización expresa y anonimización.</div>
+    </article>
+
+    <!-- P28 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">En cumplimiento de la Ley 1098 de 2006, al utilizar entornos digitales en la escuela se debe garantizar:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) El interés superior del niño, su integridad personal, su intimidad, su imagen y la protección contra toda forma de explotación, violencia o exposición en entornos virtuales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Protege la intimidad y seguridad digital de niños, niñas y adolescentes.</div>
+    </article>
+
+    <!-- P29 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">De acuerdo con la Ley 1620 de 2013 y el Decreto 1965 de 2013, el 'ciberacoso escolar' se define como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Toda forma de intimidación con uso deliberado de tecnologías de información (internet, redes sociales, mensajería, IA) para ejercer maltrato psicológico y continuado contra un miembro de la comunidad educativa.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El colegio tiene competencia formativa y preventiva frente al ciberacoso entre estudiantes.</div>
+    </article>
+
+    <!-- P30 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">Las situaciones de ciberacoso escolar repetitivo que no constituyen delito penal se clasifican como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Situaciones Tipo II (requieren atención inmediata, medidas de restablecimiento de derechos, informe a padres/acudientes y reporte al Comité Escolar de Convivencia).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Clasificación establecida en el artículo 40 del Decreto 1965 de 2013.</div>
+    </article>
+
+    <!-- P31 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">La Ley 1273 de 2009 (Delitos Informáticos) tipifica como conductas punibles en entornos digitales:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El acceso abusivo a sistemas informáticos, la suplantación de identidad en sitios web, el daño informático y la violación de datos personales (que obligan a activar protocolo de Situación Tipo III).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Cuando una conducta digital constituye delito, debe remitirse a las autoridades competentes.</div>
+    </article>
+
+    <!-- P32 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">La 'Ciudadanía Digital Crítica' busca que los estudiantes desarrollen capacidades para:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Evaluar la veracidad de fuentes, proteger su huella y seguridad digital, interactuar con empatía en línea y ejercer sus derechos y deberes democráticos en entornos virtuales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Forma ciudadanos responsables, críticos y seguros en la sociedad digital.</div>
+    </article>
+
+    <!-- CASOS PRÁCTICOS -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Aplicación Práctica: Casos de Aula Digital, Evaluación y Gobernanza Ética de la IA (Preguntas 33 a 40)
+    </div>
+
+    <!-- P33 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Guía sobre Constitución Política de 1991 con artículos inexistentes generados por la IA.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Identificar el fenómeno como una 'alucinación' del modelo, contrastar y corregir el contenido con el texto oficial de la Constitución, y aprovechar la experiencia para enseñar a sus estudiantes a verificar siempre las fuentes primarias.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aplica curaduría crítica y verificación documental.</div>
+    </article>
+
+    <!-- P34 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: Docente que intenta copiar nombres, tarjetas de identidad y diagnósticos médicos de 38 estudiantes en una IA gratuita.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Infringe la Ley 1581 de 2012, el Decreto 1074 de 2015 y la Ley 1098 de 2006 al exponer datos personales y sensibles de menores a servidores externos sin autorización; debe anonimizar completamente los datos (usar códigos o pseudónimos) antes de ingresar cualquier información.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La anonimización previa es obligatoria antes de usar herramientas externas.</div>
+    </article>
+
+    <!-- P35 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Calificación de 1.0 asignada únicamente por el porcentaje de un detector gratuito de IA sin revisar borradores.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Reconocer que los detectores de IA generan falsos positivos y no son prueba concluyente; garantizar el debido proceso revisando el historial de versiones del documento, realizando una sustentación oral dialogada y estableciendo criterios claros en el SIEE.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza el debido proceso y la evaluación formativa.</div>
+    </article>
+
+    <!-- P36 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Creación y difusión de montajes falsos (deepfakes) ofensivos con el rostro de una compañera en grupos escolares.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Como un grave caso de ciberacoso y posible delito informático/violación de imagen y datos personales (Ley 1620 de 2013, Decreto 1965 de 2013 y Ley 1273 de 2009); se debe activar de inmediato la Ruta de Atención Integral (Situación Tipo II/III), proteger a la víctima, informar a acudientes y remitir a autoridades competentes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Activa oportunamente la Ruta de Atención Integral y protege a la víctima.</div>
+    </article>
+
+    <!-- P37 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Planeación de Ciencias Naturales con IA y enfoque DUA para estudiantes con baja visión y dislexia.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diseñar un entorno digital accesible en el LMS donde el contenido esté disponible simultáneamente en texto adaptable (lectura fácil y alto contraste), audio narrado y simulador interactivo, permitiendo que cada estudiante demuestre su aprendizaje mediante infografía, pódcast o modelo digital.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Integra accesibilidad digital y los tres principios del DUA.</div>
+    </article>
+
+    <!-- P38 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Transformación de ejercicios de Matemáticas hacia el nivel de 'Redefinición' del modelo SAMR.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Guiar a los estudiantes para recolectar datos reales de consumo hídrico de su municipio, modelarlos en hojas de cálculo colaborativas con simulaciones interactivas y presentar propuestas de solución en un foro virtual con expertos y estudiantes de otras regiones.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Crea una experiencia investigativa y colaborativa imposible sin tecnología.</div>
+    </article>
+
+    <!-- P39 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Uso de un simulador interactivo con licencia Creative Commons 'CC BY-NC' en Moodle.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Integrar el recurso con fines estrictamente educativos sin ánimo de lucro, manteniendo intactos los créditos del autor original, el enlace a la fuente y el tipo de licencia Creative Commons.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Respeta las condiciones de atribución y uso no comercial.</div>
+    </article>
+
+    <!-- P40 -->
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Definición de política institucional frente a la Ley 2626 de 2026 y el CONPES 4144 de 2025.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) Adoptar un marco institucional de apropiación crítica y ética: formar a los docentes en competencias digitales e IA, actualizar el SIEE con lineamientos de transparencia y citación, proteger los datos de menores (Ley 1581/2012) e integrar la IA como mediación para el pensamiento crítico y la equidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Equilibra innovación pedagógica, gobernanza ética y protección de derechos.</div>
+    </article>
+
+</div>
+
+</body>
+</html>
