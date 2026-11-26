@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Pedagógico de Respuestas | Uso Pedagógico de las TIC en Ambientes Virtuales de Aprendizaje</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1f3565;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --bg-body: #f3f5f8;
+            --card-bg: #ffffff;
+            --text-main: #1f2a44;
+            --text-muted: #5a6a85;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .report-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 35px 30px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(31, 53, 101, 0.15); margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .report-title h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+        .report-title p { font-size: 14px; opacity: 0.9; }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        .module-header {
+            background: #eef2f7; color: var(--primary); padding: 14px 20px;
+            border-radius: 10px; font-weight: 800; font-size: 16px; margin: 35px 0 20px 0;
+            display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary);
+        }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .item-num { display: inline-block; font-size: 12px; font-weight: 800; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; }
+        .item-question { font-size: 15.5px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; line-height: 1.45; }
+        
+        .correct-answer-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #065f46; font-weight: 600; }
+        .correct-answer-box i { margin-top: 3px; color: var(--accent); }
+        .justification-box { background: #f8fafc; border-left: 3px solid var(--secondary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #475569; }
+        .justification-box strong { color: var(--primary); }
+
+        @media print { body { background: white; padding: 0; } .report-header { box-shadow: none; border-radius: 0; } .item-card { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="report-header">
+        <div class="report-title">
+            <h1>Informe Pedagógico y Matriz de Respuestas</h1>
+            <p>Uso Pedagógico de las TIC en Ambientes Virtuales de Aprendizaje | Instituto Técnico Élite</p>
+        </div>
+        <div class="report-badge">
+            <i class="fas fa-check-double"></i> 40 Reactivos Calibrados
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-card">
+            <div class="num">40</div>
+            <div class="lbl">Preguntas Totales</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2.5 pts</div>
+            <div class="lbl">Valor por Pregunta</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">70%</div>
+            <div class="lbl">Umbral de Aprobación (28 aciertos)</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="lbl">Opción Múltiple / Casos</div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS 1, 2 Y 3 -->
+    <div class="module-header">
+        <i class="fas fa-network-wired"></i> Módulos 1, 2 y 3: Fundamentos Pedagógicos TIC, Diseño de AVA y Producción de RED (Preguntas 1 a 16)
+    </div>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 1</span>
+        <div class="item-question">Desde la teoría del Conectivismo (George Siemens), ¿cómo se concibe el aprendizaje en los entornos digitales contemporáneos?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Como un proceso distribuido en redes de información y personas, donde la capacidad de conectar nodos especializados y actualizar el conocimiento es más crítica que almacenar datos estáticos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El conectivismo explica cómo el aprendizaje ocurre a través de redes digitales, comunidades virtuales y fuentes dinámicas de conocimiento.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 2</span>
+        <div class="item-question">En la Matriz de Integración Tecnológica (TIM) y el modelo TPACK, la integración "Transformadora" de las TIC ocurre cuando:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Las herramientas digitales permiten a los estudiantes construir conocimiento activo, colaborativo y situado en problemas reales que serían inabordables sin tecnología.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Supera el uso instrumental básico para poner la tecnología al servicio de la construcción activa y situada del saber.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 3</span>
+        <div class="item-question">De acuerdo con los Estándares de Competencias TIC para el Desarrollo Profesional Docente del MEN, ¿qué caracteriza al nivel "Innovador"?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> C) El docente lidera transformaciones pedagógicas, crea ambientes virtuales propios, produce recursos digitales originales y sistematiza experiencias investigativas con TIC.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Es el nivel superior de apropiación profesional docente definido por el Ministerio de Educación Nacional.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 4</span>
+        <div class="item-question">La Ley 1341 de 2009, la Ley 2626 de 2026 (Ley de Educación Digital) y el Decreto 1075 de 2015 establecen como principio orientador de las TIC en educación:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La masificación equitativa del acceso, la alfabetización digital, el cierre de brechas tecnológicas y el fortalecimiento de la calidad pedagógica mediante entornos digitales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Orienta la política pública hacia la equidad digital y el mejoramiento de los aprendizajes en todo el territorio.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 5</span>
+        <div class="item-question">Un Ambiente Virtual de Aprendizaje (AVA) se diferencia de un simple repositorio de archivos en la nube porque integra articuladamente:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un propósito formativo claro, contenidos estructurados, actividades de interacción y colaboración, mediación tutorial activa y un sistema de evaluación y seguimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Un AVA es un ecosistema pedagógico interactivo, no un almacén pasivo de documentos.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 6</span>
+        <div class="item-question">En el modelo de Diseño Instruccional ADDIE aplicado a la creación de cursos en Moodle o Google Classroom, las cinco fases secuenciales son:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Análisis (necesidades y perfil estudiantil), Diseño (estructura y objetivos), Desarrollo (producción de recursos), Implementación (ejecución en LMS) y Evaluación (formativa y sumativa).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> ADDIE garantiza coherencia sistemática entre objetivos de aprendizaje, recursos, actividades y evaluación.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 7</span>
+        <div class="item-question">En la tutoría virtual dentro de un LMS, ¿cuál es la diferencia pedagógica entre las actividades "Sincrónicas" y las "Asincrónicas"?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Las sincrónicas ocurren en tiempo real con coincidencia temporal (videoconferencias, debates en vivo), mientras las asincrónicas permiten participación flexible en tiempos diferidos (foros reflexivos, wikis, talleres).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La combinación equilibrada de ambas modalidades garantiza cercanía tutorial y flexibilidad horaria.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 8</span>
+        <div class="item-question">El modelo de aprendizaje combinado "B-Learning" (Blended Learning) aporta valor pedagógico cuando:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Se diseñan rutas complementarias donde el espacio virtual potencia la exploración autónoma y el trabajo colaborativo, y el encuentro presencial profundiza en la práctica y el diálogo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Integra intencionadamente lo presencial y lo virtual evitando la redundancia de contenidos.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 9</span>
+        <div class="item-question">En la metodología de "Aula Invertida" (Flipped Classroom), la secuencia didáctica se reorganiza para que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El estudiante aborde los contenidos conceptuales básicos antes de clase mediante videos interactivos o lecturas en el AVA, dedicando el tiempo de encuentro con el docente a resolver dudas, aplicar conceptos y crear proyectos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Maximiza el acompañamiento docente en los procesos cognitivos complejos de aplicación y creación.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 10</span>
+        <div class="item-question">¿Qué define técnicamente a un Objeto Virtual de Aprendizaje (OVA) según los lineamientos del Ministerio de Educación Nacional?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Una entidad digital autocontenible y reutilizable con un propósito educativo claro, constituida por contenidos, actividades de aprendizaje, elementos de contextualización y metadatos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Su estructura modular con metadatos permite catalogarlo, reutilizarlo e integrarlo en distintos LMS.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 11</span>
+        <div class="item-question">Durante el proceso de "Curaduría de Contenidos Digitales", las cuatro etapas metodológicas que realiza el docente son:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Búsqueda y filtrado riguroso, evaluación crítica de calidad y rigor científico, contextualización pedagógica para el grupo y difusión con atribución de fuentes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La curaduría convierte al docente en un filtro experto frente a la sobreabundancia de información en internet.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 12</span>
+        <div class="item-question">En el instrumento estándar LORI (Learning Object Review Instrument) para evaluar la calidad de un Recurso Educativo Digital, se valoran criterios como:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Calidad de los contenidos, adecuación de los objetivos de aprendizaje, retroalimentación y adaptación, motivación, diseño de presentación, usabilidad e interacción y accesibilidad.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> LORI evalúa integralmente tanto el rigor pedagógico como la usabilidad técnica y accesibilidad del recurso.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 13</span>
+        <div class="item-question">La "Gamificación Educativa" en ambientes virtuales consiste en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Incorporar mecánicas y dinámicas propias del juego (retos progresivos, misiones, insignias, retroalimentación inmediata y narrativa) en contextos de aprendizaje para potenciar la motivación intrínseca y el compromiso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Utiliza elementos lúdicos estructurados para fortalecer la participación activa y el logro de metas curriculares.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 14</span>
+        <div class="item-question">Conforme a la Ley 23 de 1982 y la Decisión Andina 351 de 1993 sobre Derechos de Autor en Colombia, ¿cuál es la diferencia entre derechos morales y derechos patrimoniales?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Los derechos morales reconocen la paternidad e integridad de la obra y son perpetuos e irrenunciables (siempre se debe citar al autor); los patrimoniales regulan la reproducción, distribución y explotación económica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Todo uso educativo de obras ajenas obliga a respetar el derecho moral de cita y atribución.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 15</span>
+        <div class="item-question">Si un docente encuentra un Recurso Educativo Digital con licencia Creative Commons "CC BY-ND" (Atribución - Sin Derivadas), ¿qué puede hacer legalmente con ese material?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Compartir y utilizar el recurso en su forma original íntegra dando el crédito correspondiente al autor, pero no puede transformarlo ni crear obras derivadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> La cláusula ND (No Derivadas) permite la redistribución fiel del original pero prohíbe modificarlo.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 16</span>
+        <div class="item-question">La "Netiqueta" en los foros y espacios de comunicación de un Ambiente Virtual de Aprendizaje cumple la función de:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Establecer normas de cortesía, respeto, empatía, redacción clara y argumentación constructiva que garantizan una convivencia digital armónica.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Promueve el diálogo respetuoso y previene malentendidos en la comunicación escrita virtual.</div>
+    </article>
+
+    <!-- MÓDULOS 4, 5 Y 6 -->
+    <div class="module-header">
+        <i class="fas fa-universal-access"></i> Módulos 4, 5 y 6: Inclusión Virtual, Evaluación Formativa y Ciudadanía Digital (Preguntas 17 a 32)
+    </div>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 17</span>
+        <div class="item-question">En el Aprendizaje Basado en Proyectos (ABP) mediado por TIC en entornos virtuales, las herramientas colaborativas en la nube permiten:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) La co-creación simultánea de documentos, trazabilidad de aportes individuales en el historial de versiones, coevaluación entre pares y construcción colectiva de conocimiento.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Facilita el seguimiento individual dentro del trabajo colaborativo en tiempo real o diferido.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 18</span>
+        <div class="item-question">De acuerdo con las pautas internacionales de accesibilidad web (WCAG) y el Diseño Universal para el Aprendizaje (DUA), un aula virtual accesible exige:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Incorporar texto alternativo (ALT) en imágenes, subtítulos y transcripciones en videos, contraste adecuado de color, estructura clara de encabezados y compatibilidad con lectores de pantalla.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Elimina barreras sensoriales y técnicas garantizando el acceso universal a los materiales digitales.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 19</span>
+        <div class="item-question">En cumplimiento del Decreto 1421 de 2017, la Ley 1618 de 2013 y la Ley 2216 de 2022, cuando un estudiante con PIAR o trastorno específico de aprendizaje participa en un AVA, el docente debe:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Implementar ajustes razonables digitales: flexibilidad en tiempos de entrega, múltiples formatos de presentación (audio, video, lectura fácil) y diversas opciones para demostrar su aprendizaje.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza equidad y pertinencia pedagógica para estudiantes con discapacidad o trastornos del aprendizaje en entornos virtuales.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 20</span>
+        <div class="item-question">¿Cuál es el principio pedagógico de la "Evaluación Auténtica" en Ambientes Virtuales de Aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Plantear desempeños complejos y contextualizados (estudios de caso, simulaciones, proyectos aplicados, sustentaciones) que exigen transferir el conocimiento a situaciones reales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Supera la memorización mecánica y evalúa la capacidad real de resolver problemas contextualizados.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 21</span>
+        <div class="item-question">Los Portafolios Electrónicos (e-Portfolios) se consolidan en la pedagogía digital como una estrategia potente de evaluación formativa porque:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Documentan longitudinalmente las evidencias de aprendizaje, borradores, reflexiones metacognitivas y mejoras alcanzadas a lo largo del proceso formativo.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Visibiliza la evolución del aprendizaje y fortalece la autorregulación metacognitiva del estudiante.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 22</span>
+        <div class="item-question">¿Qué utilidad pedagógica ofrece la "Analítica del Aprendizaje" (Learning Analytics) en plataformas como Moodle?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Analizar patrones de participación, tiempos de interacción, entrega de actividades y desempeño en cuestionarios para detectar tempranamente riesgos de rezago o deserción y brindar apoyo oportuno.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Permite tomar decisiones tutoriales preventivas basadas en datos objetivos de actividad en el LMS.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 23</span>
+        <div class="item-question">De conformidad con el Decreto 1290 de 2009 (compilado en el Decreto 1075 de 2015), la evaluación mediada por TIC en el SIEE debe garantizar:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Un proceso integral, continuo y formativo que articule autoevaluación, coevaluación y heteroevaluación, con criterios públicos en rúbricas y retroalimentación oportuna.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Armoniza las herramientas digitales con los principios legales de evaluación del aprendizaje en Colombia.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 24</span>
+        <div class="item-question">Para que la retroalimentación digital en un AVA sea verdaderamente formativa, debe caracterizarse por ser:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Oportuna, específica, constructiva y orientada a la acción, señalando logros concretos, aspectos por mejorar y sugerencias claras para avanzar.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Una retroalimentación descriptiva permite al estudiante corregir errores y consolidar competencias.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 25</span>
+        <div class="item-question">El concepto de "Identidad y Huella Digital" en la formación escolar implica enseñar a los estudiantes que:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Cada interacción, publicación, comentario y dato compartido en línea construye un registro digital persistente que impacta su reputación, privacidad y seguridad presente y futura.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Fomenta la autorregulación y la conciencia sobre la permanencia de la información en internet.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 26</span>
+        <div class="item-question">Conforme a la Ley 1581 de 2012 y el Decreto 1074 de 2015 (Protección de Datos Personales), cuando una institución educativa implementa plataformas digitales o aplicaciones externas debe:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Contar con autorización previa, expresa e informada de los representantes legales, aplicar políticas de tratamiento de datos y asegurar la confidencialidad y seguridad de la información.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El tratamiento de datos de menores exige autorización expresa y garantías de seguridad digital.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 27</span>
+        <div class="item-question">En cumplimiento de la Ley 1098 de 2006 (Código de la Infancia y la Adolescencia), el uso de entornos virtuales en la escuela debe salvaguardar primordialmente:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) El interés superior del niño, su derecho a la intimidad, la protección de su imagen y su integridad física, psicológica y digital frente a riesgos como el grooming o el ciberacoso.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Protege integralmente los derechos fundamentales de niños, niñas y adolescentes en espacios digitales.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 28</span>
+        <div class="item-question">De acuerdo con la Ley 1620 de 2013 y el Decreto 1965 de 2013, ¿qué responsabilidad tiene la institución educativa frente a situaciones de ciberacoso ocurridas en redes sociales entre estudiantes?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar la Ruta de Atención Integral para la Convivencia Escolar (promoción, prevención, atención y seguimiento), proteger a la víctima, informar a las familias y abordar el caso en el Comité Escolar de Convivencia.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> El alcance de la convivencia escolar incluye las agresiones virtuales entre miembros de la comunidad educativa.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 29</span>
+        <div class="item-question">Conforme a la Ley 1273 de 2009 (Ley de Delitos Informáticos), ¿cuál de las siguientes conductas en el entorno escolar constituye un delito que obliga a activar protocolo de Situación Tipo III?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Ingresar sin autorización a las cuentas institucionales de docentes o directivos para alterar calificaciones, suplantar identidades o sustraer datos personales.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Constituye acceso abusivo a sistema informático y violación de datos personales sancionados penalmente.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 30</span>
+        <div class="item-question">¿Cuál es una práctica esencial de "Ciberseguridad y Higiene Digital" que todo docente debe aplicar en la gestión de sus Ambientes Virtuales de Aprendizaje?</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Usar contraseñas robustas y únicas, activar la autenticación en dos factores (2FA), cerrar sesiones en equipos compartidos y verificar la autenticidad de enlaces antes de abrirlos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Protege las cuentas institucionales y la integridad de las calificaciones y datos estudiantiles.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 31</span>
+        <div class="item-question">La "Alfabetización Mediática e Informacional (AMI)" promovida por la UNESCO busca que docentes y estudiantes desarrollen habilidades para:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Buscar, evaluar críticamente la fiabilidad de las fuentes, identificar desinformación o noticias falsas (fake news) y producir contenidos digitales éticos.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Desarrolla pensamiento crítico frente al consumo y producción de información en entornos digitales.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 32</span>
+        <div class="item-question">Para prevenir el plagio académico en entornos virtuales desde una perspectiva formativa, la estrategia más efectiva consiste en:</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Enseñar normas de citación y referenciación, diseñar preguntas de análisis crítico situadas en el contexto local y acompañar entregas parciales con retroalimentación.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Fomenta la honestidad académica y la producción intelectual propia mediante acompañamiento continuo.</div>
+    </article>
+
+    <!-- CASOS PRÁCTICOS -->
+    <div class="module-header">
+        <i class="fas fa-balance-scale"></i> Aplicación Práctica: Casos de Diseño Tecnopedagógico, Inclusión y Gestión Virtual (Preguntas 33 a 40)
+    </div>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 33</span>
+        <div class="item-question">CASO 1: Curso en Google Classroom con 15 documentos PDF extensos y un único examen memorístico final con baja participación.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Estructurar módulos cortos con objetivos claros, combinar recursos multimedia interactivos (videos cortos, infografías, simuladores), abrir foros de indagación guiada y diseñar actividades prácticas con rúbricas de retroalimentación continua.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Transforma un repositorio pasivo en un Ambiente Virtual de Aprendizaje interactivo bajo el modelo ADDIE.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 34</span>
+        <div class="item-question">CASO 2: Implementación de Aula Invertida y uso de TIC en un colegio rural con conectividad intermitente en los hogares.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Diseñar recursos descargables de bajo peso (off-line), utilizar servidores locales o memorias USB institucionales con los OVA del curso, y aprovechar los espacios presenciales y la sala de informática del colegio para sincronizar avances.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Garantiza equidad e inclusión digital adaptando las mediaciones tecnológicas a las condiciones del territorio.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 35</span>
+        <div class="item-question">CASO 3: Adaptación de un video y una guía didáctica con licencia Creative Commons "CC BY-NC-SA" para compartir en municipios vecinos.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Citar explícitamente al autor original y el enlace de la obra fuente (BY), mantener su uso estrictamente educativo sin fines comerciales (NC) y publicar la obra adaptada bajo la misma licencia CC BY-NC-SA (SA).</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Cumple rigurosamente las tres condiciones de la licencia Creative Commons y la Ley 23 de 1982.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 36</span>
+        <div class="item-question">CASO 4: Curso virtual de grado noveno con participación de una estudiante sorda usuaria de LSC y un estudiante con baja visión.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Incorporar subtitulación cerrada y recuadro de interpretación en LSC (o transcripción estructurada) en el video, y diseñar la guía en formato digital compatible con lectores de pantalla, macrotipos, alto contraste y descripción textual (ALT) en todas las imágenes.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aplica las pautas WCAG, los principios DUA y los ajustes razonables exigidos por el Decreto 1421 de 2017.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 37</span>
+        <div class="item-question">CASO 5: Detección en Moodle de 6 estudiantes sin ingreso durante 15 días y con actividades pendientes a mitad de periodo.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar una alerta temprana de acompañamiento: contactar de manera empática a los estudiantes y sus familias para identificar posibles barreras técnicas o personales, ofrecer tutoría de nivelación y acordar un plan flexible de entrega.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Utiliza la analítica del aprendizaje con sentido preventivo y humanizado para evitar la deserción.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 38</span>
+        <div class="item-question">CASO 6: Elección entre un examen memorístico de 30 preguntas o un e-Portafolio con rúbrica analítica y sustentación.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Porque permite evidenciar el proceso real de construcción del aprendizaje, reduce la suplantación o copia mecánica, fomenta la autoevaluación y coevaluación mediante descriptores transparentes y valora competencias aplicadas.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Responde a los criterios de evaluación auténtica y formativa del Decreto 1290 de 2009.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 39</span>
+        <div class="item-question">CASO 7: Creación de perfil falso con fotografías de un estudiante para publicar burlas viralizadas en el salón.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Activar de inmediato la Ruta de Atención Integral (Ley 1620 de 2013 y Decreto 1965 de 2013) para ciberacoso y suplantación (Ley 1273 de 2009), brindar protección y apoyo psicosocial al estudiante afectado, citar a los acudientes, reportar al Comité Escolar de Convivencia y desarrollar acciones pedagógicas de ciudadanía digital.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Aplica el debido proceso convivencial y protege los derechos del menor víctima de ciberacoso.</div>
+    </article>
+
+    <article class="item-card">
+        <span class="item-num">Pregunta 40</span>
+        <div class="item-question">CASO 8: Docente que planea subir a un blog público abierto videos con rostros, nombres y documentos de menores sin permiso familiar.</div>
+        <div class="correct-answer-box"><i class="fas fa-check-circle"></i><span><strong>Respuesta:</strong> B) Infringe la Ley 1581 de 2012, el Decreto 1074 de 2015 y la Ley 1098 de 2006 (protección de datos personales, imagen e intimidad de menores); debe alojar las evidencias en el entorno virtual institucional privado con acceso restringido y contar siempre con autorización expresa de los representantes legales antes de publicar cualquier imagen de menores.</span></div>
+        <div class="justification-box"><strong>Justificación:</strong> Salvaguarda el derecho fundamental a la intimidad, imagen y protección de datos sensibles de los menores.</div>
+    </article>
+
+</div>
+
+</body>
+</html>

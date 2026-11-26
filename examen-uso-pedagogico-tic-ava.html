@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Uso Pedagógico de las TIC en Ambientes Virtuales de Aprendizaje | Instituto Técnico Élite</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f3f5f8; color: #1f2a44; }
+
+        /* NAVBAR */
+        .navbar { background: #1f3565; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 18px; }
+        .navbar nav { display: flex; align-items: center; }
+        .navbar nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; transition: opacity 0.3s; }
+        .navbar nav a:hover { opacity: 0.8; }
+        .btn-blanco { background: white; color: #1f3565 !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; }
+
+        /* PORTADA */
+        .hero { height: 180px; background: linear-gradient(rgba(31,53,101,0.85),rgba(42,82,152,0.85)), url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h1 { font-size: 28px; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor { padding: 40px 20px; max-width: 950px; margin: auto; }
+        .form-evaluacion { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+
+        /* PESTAÑAS (TABS) */
+        .tab-buttons { display: flex; border-bottom: 2px solid #e0e6ed; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 20px; font-size: 16px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; flex-grow: 1; text-align: center; }
+        .tab-btn:hover { color: #1f3565; background: #f8fafc; }
+        .tab-btn.active { color: #1f3565; border-bottom: 3px solid #1f3565; background: #f0f4f8; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ESTILOS DE CAMPOS Y PREGUNTAS */
+        .section-title { color: #1f3565; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 25px; margin-top: 20px; font-size: 20px; }
+        .form-group { margin-bottom: 20px; transition: all 0.3s; }
+        label.field-label { display: block; font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14.5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus, input[type="date"]:focus { border-color: #1f3565; outline: none; box-shadow: 0 0 0 3px rgba(31,53,101,0.1); }
+
+        .question-block { background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1f3565; transition: all 0.3s; }
+        .question-text { font-weight: 600; margin-bottom: 15px; color: #1f2a44; font-size: 15.5px; line-height: 1.45; }
+        .options-group label { display: flex; align-items: flex-start; padding: 12px 14px; background: white; border: 1px solid #e0e6ed; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; line-height: 1.4; color: #334155; }
+        .options-group label:hover { border-color: #1f3565; background: #f0f4f8; }
+        .options-group input[type="radio"] { margin-right: 12px; margin-top: 3px; width: 18px; height: 18px; accent-color: #1f3565; flex-shrink: 0; }
+
+        /* VALIDACIÓN VISUAL */
+        .error-highlight { border-color: #dc3545 !important; box-shadow: 0 0 5px rgba(220, 53, 69, 0.4); }
+        .question-block.error-highlight { border-left: 4px solid #dc3545; background-color: #fff8f8; }
+
+        /* BOTONES */
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #e0e6ed; padding-top: 25px; }
+        .btn-nav { background: #e2e8f0; color: #1f2a44; padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-nav:hover { background: #cbd5e1; }
+        .btn-enviar { background: #1f3565; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-enviar:hover { background: #152446; box-shadow: 0 4px 10px rgba(31,53,101,0.3); }
+
+        /* WHATSAPP */
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+
+        /* MODALES */
+        .modal-overlay, .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
+        .modal-overlay { background: rgba(0,0,0,0.6); }
+        .loading-overlay { background: rgba(255,255,255,0.95); flex-direction: column; z-index: 3000; }
+        .modal-overlay.active, .loading-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-20px); transition: transform 0.3s; }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-icon { font-size: 50px; color: #dc3545; margin-bottom: 15px; }
+        .modal-title { color: #1f3565; font-size: 22px; margin-bottom: 10px; }
+        .modal-text { color: #555; font-size: 15px; margin-bottom: 20px; }
+        .btn-cerrar-modal { background: #1f3565; color: white; border: none; padding: 10px 25px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1f3565; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESULTADO FINAL */
+        #resultadoFinal { display: none; text-align: center; padding: 20px 0; }
+        .resultado-card { background: white; max-width: 650px; margin: auto; padding: 40px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .nota-circulo { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: white; margin: 0 auto 20px auto; }
+        .nota-aprobado { background: #10b981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); }
+        .nota-reprobado { background: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35); }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .navbar { padding: 15px 25px; }
+            .menu-toggle { display: block; }
+            .navbar nav { position: absolute; top: 65px; left: 0; width: 100%; background: #1f3565; flex-direction: column; display: none; }
+            .navbar nav a { margin: 15px 0; }
+            .navbar nav.active { display: flex; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+            .btn-nav, .btn-enviar { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 20px; }
+            .tab-btn { padding: 10px; font-size: 14px; width: 100%; border-bottom: 1px solid #e0e6ed; }
+            .tab-btn.active { border-bottom: 1px solid #1f3565; border-left: 4px solid #1f3565; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="alertaModal">
+        <div class="modal-box">
+            <i class="fas fa-exclamation-circle modal-icon"></i>
+            <h3 class="modal-title">Preguntas Pendientes</h3>
+            <p class="modal-text">Hemos marcado en rojo las preguntas sin responder y nos desplazamos a la sección correspondiente.</p>
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingPdf">
+        <div class="spinner"></div>
+        <h3 style="color:#1f3565;">Procesando y Calificando Evaluación...</h3>
+        <p style="color:#666;">Guardando registro institucional en tiempo real.</p>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">Instituto Técnico Élite</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="menu">
+            <a href="inicio.html">Inicio</a>
+            <a href="oferta-academica.html">Oferta Académica</a>
+            <a href="pagos-en-linea.html">Pagos en línea</a>
+            <a href="quienes-somos.html">Quiénes somos</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="certificados.html">Certificados</a>
+            <a class="btn-blanco" href="https://INSTITUTOELITE.q10.com/Preinscripcion">Inscribirse</a>
+            <a class="btn-blanco" href="https://institutoelite.edu.co">Inicio</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <h1>Evaluación Final: Uso Pedagógico de las TIC en Ambientes Virtuales de Aprendizaje</h1>
+    </section>
+
+    <section class="contenedor">
+        <div class="form-evaluacion" id="contenedorForm">
+            <form id="evaluacionForm">
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Datos del Estudiante / Profesional</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label class="field-label">Nombre del estudiante:</label>
+                            <input type="text" id="nombreEstudiante" required placeholder="Nombres y Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Profesión / Área:</label>
+                            <input type="text" id="profesionEstudiante" required placeholder="Su profesión o área">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Documento de identidad:</label>
+                            <input type="text" id="documentoEstudiante" required placeholder="Ej. 1000123456">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" id="fechaActual" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE PESTAÑAS -->
+                <div class="tab-buttons" id="tabControls">
+                    <button type="button" class="tab-btn active" onclick="openTab(event, 'tab1')">1. Fundamentos TIC, AVA y Recursos (1-16)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab2')">2. Inclusión, Evaluación y Ciudadanía Digital (17-32)</button>
+                    <button type="button" class="tab-btn" onclick="openTab(event, 'tab3')">3. Casos Prácticos de Diseño Virtual (33-40)</button>
+                </div>
+
+                <!-- PESTAÑA 1 -->
+                <div id="tab1" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-network-wired"></i> Módulos 1, 2 y 3: Fundamentos Pedagógicos TIC, Diseño de AVA y Producción de RED</h2>
+
+                    <!-- P1 -->
+                    <div class="question-block">
+                        <div class="question-text">1. Desde la teoría del Conectivismo (George Siemens), ¿cómo se concibe el aprendizaje en los entornos digitales contemporáneos?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P1" value="A"> A) Como la memorización individual de enciclopedias impresas sin interacción externa.</label>
+                            <label><input type="radio" name="P1" value="B" data-correct="true"> B) Como un proceso distribuido en redes de información y personas, donde la capacidad de conectar nodos especializados y actualizar el conocimiento es más crítica que almacenar datos estáticos.</label>
+                            <label><input type="radio" name="P1" value="C"> C) Como la repetición mecánica de ejercicios cronometrados frente a un computador aislado.</label>
+                            <label><input type="radio" name="P1" value="D"> D) Como un proceso exclusivo de formación técnica en reparación de equipos informáticos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="question-block">
+                        <div class="question-text">2. En la Matriz de Integración Tecnológica (TIM) y el modelo TPACK, la integración "Transformadora" de las TIC ocurre cuando:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P2" value="A"> A) El docente proyecta una presentación de texto mientras los estudiantes copian en sus cuadernos.</label>
+                            <label><input type="radio" name="P2" value="B" data-correct="true"> B) Las herramientas digitales permiten a los estudiantes construir conocimiento activo, colaborativo y situado en problemas reales que serían inabordables sin tecnología.</label>
+                            <label><input type="radio" name="P2" value="C"> C) Se reemplazan los libros físicos por archivos escaneados sin cambiar la metodología expositiva.</label>
+                            <label><input type="radio" name="P2" value="D"> D) Se limita el uso de dispositivos al horario de la asignatura de informática.</label>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="question-block">
+                        <div class="question-text">3. De acuerdo con los Estándares de Competencias TIC para el Desarrollo Profesional Docente del MEN, ¿qué caracteriza al nivel "Innovador"?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P3" value="A"> A) El docente apenas comienza a familiarizarse con el encendido del computador y el correo electrónico.</label>
+                            <label><input type="radio" name="P3" value="B"> B) El docente descarga guías de internet sin adaptarlas a su grupo de estudiantes.</label>
+                            <label><input type="radio" name="P3" value="C" data-correct="true"> C) El docente lidera transformaciones pedagógicas, crea ambientes virtuales propios, produce recursos digitales originales y sistematiza experiencias investigativas con TIC.</label>
+                            <label><input type="radio" name="P3" value="D"> D) El docente delega la planeación curricular en el técnico de sistemas del colegio.</label>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="question-block">
+                        <div class="question-text">4. La Ley 1341 de 2009, la Ley 2626 de 2026 (Ley de Educación Digital) y el Decreto 1075 de 2015 establecen como principio orientador de las TIC en educación:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P4" value="A"> A) La sustitución obligatoria de los establecimientos educativos presenciales por educación totalmente virtual en primaria.</label>
+                            <label><input type="radio" name="P4" value="B" data-correct="true"> B) La masificación equitativa del acceso, la alfabetización digital, el cierre de brechas tecnológicas y el fortalecimiento de la calidad pedagógica mediante entornos digitales.</label>
+                            <label><input type="radio" name="P4" value="C"> C) El cobro adicional de derechos de conectividad a los estudiantes de instituciones oficiales.</label>
+                            <label><input type="radio" name="P4" value="D"> D) La restricción de plataformas abiertas en favor de licencias comerciales exclusivas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="question-block">
+                        <div class="question-text">5. Un Ambiente Virtual de Aprendizaje (AVA) se diferencia de un simple repositorio de archivos en la nube porque integra articuladamente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P5" value="A"> A) Únicamente carpetas comprimidas con lecturas extensas en formato PDF.</label>
+                            <label><input type="radio" name="P5" value="B" data-correct="true"> B) Un propósito formativo claro, contenidos estructurados, actividades de interacción y colaboración, mediación tutorial activa y un sistema de evaluación y seguimiento.</label>
+                            <label><input type="radio" name="P5" value="C"> C) Un listado de enlaces externos sin guía de estudio ni espacios de comunicación.</label>
+                            <label><input type="radio" name="P5" value="D"> D) Exclusivamente un sistema automatizado de cobro de matrículas y certificados.</label>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="question-block">
+                        <div class="question-text">6. En el modelo de Diseño Instruccional ADDIE aplicado a la creación de cursos en Moodle o Google Classroom, las cinco fases secuenciales son:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P6" value="A"> A) Administración, Dotación, Diagnóstico, Inspección y Entrega.</label>
+                            <label><input type="radio" name="P6" value="B" data-correct="true"> B) Análisis (necesidades y perfil estudiantil), Diseño (estructura y objetivos), Desarrollo (producción de recursos), Implementación (ejecución en LMS) y Evaluación (formativa y sumativa).</label>
+                            <label><input type="radio" name="P6" value="C"> C) Archivo, Descarga, Digitalización, Impresión y Examen.</label>
+                            <label><input type="radio" name="P6" value="D"> D) Apertura, Dictado, Disciplina, Informe y Egreso.</label>
+                        </div>
+                    </div>
+
+                    <!-- P7 -->
+                    <div class="question-block">
+                        <div class="question-text">7. En la tutoría virtual dentro de un LMS, ¿cuál es la diferencia pedagógica entre las actividades "Sincrónicas" y las "Asincrónicas"?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P7" value="A"> A) Las sincrónicas son exclusivamente exámenes escritos y las asincrónicas son llamadas telefónicas.</label>
+                            <label><input type="radio" name="P7" value="B" data-correct="true"> B) Las sincrónicas ocurren en tiempo real con coincidencia temporal (videoconferencias, debates en vivo), mientras las asincrónicas permiten participación flexible en tiempos diferidos (foros reflexivos, wikis, talleres).</label>
+                            <label><input type="radio" name="P7" value="C"> C) Las sincrónicas no requieren planeación docente y las asincrónicas carecen de retroalimentación.</label>
+                            <label><input type="radio" name="P7" value="D"> D) Las asincrónicas están prohibidas en la educación media y superior.</label>
+                        </div>
+                    </div>
+
+                    <!-- P8 -->
+                    <div class="question-block">
+                        <div class="question-text">8. El modelo de aprendizaje combinado "B-Learning" (Blended Learning) aporta valor pedagógico cuando:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P8" value="A"> A) Se repiten en la plataforma virtual exactamente las mismas clases magistrales dadas en el salón presencial.</label>
+                            <label><input type="radio" name="P8" value="B" data-correct="true"> B) Se diseñan rutas complementarias donde el espacio virtual potencia la exploración autónoma y el trabajo colaborativo, y el encuentro presencial profundiza en la práctica y el diálogo.</label>
+                            <label><input type="radio" name="P8" value="C"> C) Se deja a los estudiantes sin orientación durante las semanas virtuales.</label>
+                            <label><input type="radio" name="P8" value="D"> D) Se evalúa únicamente la asistencia física ignorando la producción en el aula virtual.</label>
+                        </div>
+                    </div>
+
+                    <!-- P9 -->
+                    <div class="question-block">
+                        <div class="question-text">9. En la metodología de "Aula Invertida" (Flipped Classroom), la secuencia didáctica se reorganiza para que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P9" value="A"> A) El docente dicte teoría durante toda la clase y deje los proyectos complejos para que el estudiante los resuelva solo en casa.</label>
+                            <label><input type="radio" name="P9" value="B" data-correct="true"> B) El estudiante aborde los contenidos conceptuales básicos antes de clase mediante videos interactivos o lecturas en el AVA, dedicando el tiempo de encuentro con el docente a resolver dudas, aplicar conceptos y crear proyectos.</label>
+                            <label><input type="radio" name="P9" value="C"> C) Los estudiantes preparen las clases completas mientras el docente evalúa sin intervenir.</label>
+                            <label><input type="radio" name="P9" value="D"> D) Se eliminen los recursos digitales para regresar exclusivamente a la pizarra.</label>
+                        </div>
+                    </div>
+
+                    <!-- P10 -->
+                    <div class="question-block">
+                        <div class="question-text">10. ¿Qué define técnicamente a un Objeto Virtual de Aprendizaje (OVA) según los lineamientos del Ministerio de Educación Nacional?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P10" value="A"> A) Cualquier imagen decorativa descargada de un buscador sin propósito formativo.</label>
+                            <label><input type="radio" name="P10" value="B" data-correct="true"> B) Una entidad digital autocontenible y reutilizable con un propósito educativo claro, constituida por contenidos, actividades de aprendizaje, elementos de contextualización y metadatos.</label>
+                            <label><input type="radio" name="P10" value="C"> C) Un programa de antivirus instalado en la sala de sistemas.</label>
+                            <label><input type="radio" name="P10" value="D"> D) Un documento administrativo de matrícula escolar.</label>
+                        </div>
+                    </div>
+
+                    <!-- P11 -->
+                    <div class="question-block">
+                        <div class="question-text">11. Durante el proceso de "Curaduría de Contenidos Digitales", las cuatro etapas metodológicas que realiza el docente son:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P11" value="A"> A) Copiar, Pegar, Imprimir y Archivar sin leer.</label>
+                            <label><input type="radio" name="P11" value="B" data-correct="true"> B) Búsqueda y filtrado riguroso, evaluación crítica de calidad y rigor científico, contextualización pedagógica para el grupo y difusión con atribución de fuentes.</label>
+                            <label><input type="radio" name="P11" value="C"> C) Compra masiva de licencias comerciales sin revisión curricular.</label>
+                            <label><input type="radio" name="P11" value="D"> D) Eliminación de las referencias bibliográficas para simplificar el texto.</label>
+                        </div>
+                    </div>
+
+                    <!-- P12 -->
+                    <div class="question-block">
+                        <div class="question-text">12. En el instrumento estándar LORI (Learning Object Review Instrument) para evaluar la calidad de un Recurso Educativo Digital, se valoran criterios como:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P12" value="A"> A) Únicamente el peso en megabytes y el color del logotipo.</label>
+                            <label><input type="radio" name="P12" value="B" data-correct="true"> B) Calidad de los contenidos, adecuación de los objetivos de aprendizaje, retroalimentación y adaptación, motivación, diseño de presentación, usabilidad e interacción y accesibilidad.</label>
+                            <label><input type="radio" name="P12" value="C"> C) El precio comercial de suscripción mensual del portal.</label>
+                            <label><input type="radio" name="P12" value="D"> D) La cantidad de anuncios publicitarios que contiene la página.</label>
+                        </div>
+                    </div>
+
+                    <!-- P13 -->
+                    <div class="question-block">
+                        <div class="question-text">13. La "Gamificación Educativa" en ambientes virtuales consiste en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P13" value="A"> A) Dejar jugar videojuegos comerciales libres durante toda la jornada académica sin objetivos curriculares.</label>
+                            <label><input type="radio" name="P13" value="B" data-correct="true"> B) Incorporar mecánicas y dinámicas propias del juego (retos progresivos, misiones, insignias, retroalimentación inmediata y narrativa) en contextos de aprendizaje para potenciar la motivación intrínseca y el compromiso.</label>
+                            <label><input type="radio" name="P13" value="C"> C) Reemplazar las áreas obligatorias del currículo por torneos recreativos.</label>
+                            <label><input type="radio" name="P13" value="D"> D) Calificar a los estudiantes únicamente por la velocidad con la que hacen clic en pantalla.</label>
+                        </div>
+                    </div>
+
+                    <!-- P14 -->
+                    <div class="question-block">
+                        <div class="question-text">14. Conforme a la Ley 23 de 1982 y la Decisión Andina 351 de 1993 sobre Derechos de Autor en Colombia, ¿cuál es la diferencia entre derechos morales y derechos patrimoniales?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P14" value="A"> A) Ambos derechos caducan a los seis meses de publicar un recurso en internet.</label>
+                            <label><input type="radio" name="P14" value="B" data-correct="true"> B) Los derechos morales reconocen la paternidad e integridad de la obra y son perpetuos e irrenunciables (siempre se debe citar al autor); los patrimoniales regulan la reproducción, distribución y explotación económica.</label>
+                            <label><input type="radio" name="P14" value="C"> C) Los derechos morales permiten vender obras ajenas sin pedir autorización.</label>
+                            <label><input type="radio" name="P14" value="D"> D) En entornos educativos virtuales no aplican las normas de propiedad intelectual.</label>
+                        </div>
+                    </div>
+
+                    <!-- P15 -->
+                    <div class="question-block">
+                        <div class="question-text">15. Si un docente encuentra un Recurso Educativo Digital con licencia Creative Commons "CC BY-ND" (Atribución - Sin Derivadas), ¿qué puede hacer legalmente con ese material?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P15" value="A"> A) Modificar el texto, recortar partes y publicar una versión alterada bajo su propio nombre.</label>
+                            <label><input type="radio" name="P15" value="B" data-correct="true"> B) Compartir y utilizar el recurso en su forma original íntegra dando el crédito correspondiente al autor, pero no puede transformarlo ni crear obras derivadas.</label>
+                            <label><input type="radio" name="P15" value="C"> C) Distribuirlo sin mencionar al autor original siempre que sea en un colegio público.</label>
+                            <label><input type="radio" name="P15" value="D"> D) Traducirlo a otro idioma y comercializarlo en plataformas privadas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P16 -->
+                    <div class="question-block">
+                        <div class="question-text">16. La "Netiqueta" en los foros y espacios de comunicación de un Ambiente Virtual de Aprendizaje cumple la función de:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P16" value="A"> A) Censurar cualquier opinión crítica o debate académico entre estudiantes.</label>
+                            <label><input type="radio" name="P16" value="B" data-correct="true"> B) Establecer normas de cortesía, respeto, empatía, redacción clara y argumentación constructiva que garantizan una convivencia digital armónica.</label>
+                            <label><input type="radio" name="P16" value="C"> C) Obligar a escribir todos los mensajes en letras mayúsculas sostenidas.</label>
+                            <label><input type="radio" name="P16" value="D"> D) Limitar la participación en foros únicamente al docente titular.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div></div>
+                        <button type="button" class="btn-nav" onclick="irA('tab2')">Siguiente: Inclusión, Evaluación y Ética <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2 -->
+                <div id="tab2" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-universal-access"></i> Módulos 4, 5 y 6: Inclusión Virtual, Evaluación Formativa y Ciudadanía Digital</h2>
+
+                    <!-- P17 -->
+                    <div class="question-block">
+                        <div class="question-text">17. En el Aprendizaje Basado en Proyectos (ABP) mediado por TIC en entornos virtuales, las herramientas colaborativas en la nube permiten:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P17" value="A"> A) Que un solo estudiante realice todo el trabajo mientras los demás firman al final.</label>
+                            <label><input type="radio" name="P17" value="B" data-correct="true"> B) La co-creación simultánea de documentos, trazabilidad de aportes individuales en el historial de versiones, coevaluación entre pares y construcción colectiva de conocimiento.</label>
+                            <label><input type="radio" name="P17" value="C"> C) Eliminar la necesidad de definir roles, cronogramas y criterios de evaluación.</label>
+                            <label><input type="radio" name="P17" value="D"> D) Sustituir la investigación del entorno por la copia literal de artículos web.</label>
+                        </div>
+                    </div>
+
+                    <!-- P18 -->
+                    <div class="question-block">
+                        <div class="question-text">18. De acuerdo con las pautas internacionales de accesibilidad web (WCAG) y el Diseño Universal para el Aprendizaje (DUA), un aula virtual accesible exige:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P18" value="A"> A) Publicar únicamente imágenes escaneadas sin texto alternativo ni transcripciones.</label>
+                            <label><input type="radio" name="P18" value="B" data-correct="true"> B) Incorporar texto alternativo (ALT) en imágenes, subtítulos y transcripciones en videos, contraste adecuado de color, estructura clara de encabezados y compatibilidad con lectores de pantalla.</label>
+                            <label><input type="radio" name="P18" value="C"> C) Utilizar textos extensos en cursiva con bajo contraste sobre fondos oscuros.</label>
+                            <label><input type="radio" name="P18" value="D"> D) Excluir de las plataformas virtuales a los estudiantes con discapacidad sensorial.</label>
+                        </div>
+                    </div>
+
+                    <!-- P19 -->
+                    <div class="question-block">
+                        <div class="question-text">19. En cumplimiento del Decreto 1421 de 2017, la Ley 1618 de 2013 y la Ley 2216 de 2022, cuando un estudiante con PIAR o trastorno específico de aprendizaje participa en un AVA, el docente debe:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P19" value="A"> A) Mantener tiempos rígidos únicos y formatos textuales complejos sin apoyos visuales ni auditivos.</label>
+                            <label><input type="radio" name="P19" value="B" data-correct="true"> B) Implementar ajustes razonables digitales: flexibilidad en tiempos de entrega, múltiples formatos de presentación (audio, video, lectura fácil) y diversas opciones para demostrar su aprendizaje.</label>
+                            <label><input type="radio" name="P19" value="C"> C) Exonerarlo de participar en las actividades del ambiente virtual aprobándolo sin seguimiento.</label>
+                            <label><input type="radio" name="P19" value="D"> D) Crear un curso virtual separado donde no interactúe con sus compañeros de grupo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P20 -->
+                    <div class="question-block">
+                        <div class="question-text">20. ¿Cuál es el principio pedagógico de la "Evaluación Auténtica" en Ambientes Virtuales de Aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P20" value="A"> A) Aplicar exclusivamente cuestionarios cerrados de memoria literal fáciles de copiar en internet.</label>
+                            <label><input type="radio" name="P20" value="B" data-correct="true"> B) Plantear desempeños complejos y contextualizados (estudios de caso, simulaciones, proyectos aplicados, sustentaciones) que exigen transferir el conocimiento a situaciones reales.</label>
+                            <label><input type="radio" name="P20" value="C"> C) Calificar únicamente al finalizar el curso sin ofrecer retroalimentación intermedia.</label>
+                            <label><input type="radio" name="P20" value="D"> D) Evaluar la velocidad de conexión a internet del hogar del estudiante.</label>
+                        </div>
+                    </div>
+
+                    <!-- P21 -->
+                    <div class="question-block">
+                        <div class="question-text">21. Los Portafolios Electrónicos (e-Portfolios) se consolidan en la pedagogía digital como una estrategia potente de evaluación formativa porque:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P21" value="A"> A) Almacenan únicamente facturas y certificados administrativos del estudiante.</label>
+                            <label><input type="radio" name="P21" value="B" data-correct="true"> B) Documentan longitudinalmente las evidencias de aprendizaje, borradores, reflexiones metacognitivas y mejoras alcanzadas a lo largo del proceso formativo.</label>
+                            <label><input type="radio" name="P21" value="C"> C) Eliminan la necesidad de criterios de evaluación claros.</label>
+                            <label><input type="radio" name="P21" value="D"> D) Impiden que el estudiante revise sus propios avances.</label>
+                        </div>
+                    </div>
+
+                    <!-- P22 -->
+                    <div class="question-block">
+                        <div class="question-text">22. ¿Qué utilidad pedagógica ofrece la "Analítica del Aprendizaje" (Learning Analytics) en plataformas como Moodle?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P22" value="A"> A) Vigilar punitivamente la vida privada del estudiante fuera de la plataforma educativa.</label>
+                            <label><input type="radio" name="P22" value="B" data-correct="true"> B) Analizar patrones de participación, tiempos de interacción, entrega de actividades y desempeño en cuestionarios para detectar tempranamente riesgos de rezago o deserción y brindar apoyo oportuno.</label>
+                            <label><input type="radio" name="P22" value="C"> C) Expulsar automáticamente a los estudiantes que no se conecten todos los días a la misma hora.</label>
+                            <label><input type="radio" name="P22" value="D"> D) Reemplazar el diálogo tutorial del docente por reportes estadísticos fríos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P23 -->
+                    <div class="question-block">
+                        <div class="question-text">23. De conformidad con el Decreto 1290 de 2009 (compilado en el Decreto 1075 de 2015), la evaluación mediada por TIC en el SIEE debe garantizar:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P23" value="A"> A) Que la nota definitiva dependa exclusivamente de un examen automático sin revisión docente.</label>
+                            <label><input type="radio" name="P23" value="B" data-correct="true"> B) Un proceso integral, continuo y formativo que articule autoevaluación, coevaluación y heteroevaluación, con criterios públicos en rúbricas y retroalimentación oportuna.</label>
+                            <label><input type="radio" name="P23" value="C"> C) La eliminación de las actividades de refuerzo y superación de dificultades.</label>
+                            <label><input type="radio" name="P23" value="D"> D) La confidencialidad de los criterios de evaluación hasta el cierre del periodo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P24 -->
+                    <div class="question-block">
+                        <div class="question-text">24. Para que la retroalimentación digital en un AVA sea verdaderamente formativa, debe caracterizarse por ser:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P24" value="A"> A) Un número aislado o una palabra genérica como "Mal" o "Incompleto" entregada un mes después.</label>
+                            <label><input type="radio" name="P24" value="B" data-correct="true"> B) Oportuna, específica, constructiva y orientada a la acción, señalando logros concretos, aspectos por mejorar y sugerencias claras para avanzar.</label>
+                            <label><input type="radio" name="P24" value="C"> C) Una comparación pública entre los mejores y peores estudiantes del curso.</label>
+                            <label><input type="radio" name="P24" value="D"> D) Un mensaje automático idéntico para todos sin revisar la entrega individual.</label>
+                        </div>
+                    </div>
+
+                    <!-- P25 -->
+                    <div class="question-block">
+                        <div class="question-text">25. El concepto de "Identidad y Huella Digital" en la formación escolar implica enseñar a los estudiantes que:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P25" value="A"> A) Todo lo que se borra de una red social desaparece definitivamente de internet sin dejar rastro.</label>
+                            <label><input type="radio" name="P25" value="B" data-correct="true"> B) Cada interacción, publicación, comentario y dato compartido en línea construye un registro digital persistente que impacta su reputación, privacidad y seguridad presente y futura.</label>
+                            <label><input type="radio" name="P25" value="C"> C) Es seguro compartir fotografías privadas y ubicaciones en tiempo real en perfiles públicos.</label>
+                            <label><input type="radio" name="P25" value="D"> D) Solo los adultos tienen huella digital en los entornos virtuales.</label>
+                        </div>
+                    </div>
+
+                    <!-- P26 -->
+                    <div class="question-block">
+                        <div class="question-text">26. Conforme a la Ley 1581 de 2012 y el Decreto 1074 de 2015 (Protección de Datos Personales), cuando una institución educativa implementa plataformas digitales o aplicaciones externas debe:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P26" value="A"> A) Crear cuentas públicas para los estudiantes menores de edad sin informar a sus familias.</label>
+                            <label><input type="radio" name="P26" value="B" data-correct="true"> B) Contar con autorización previa, expresa e informada de los representantes legales, aplicar políticas de tratamiento de datos y asegurar la confidencialidad y seguridad de la información.</label>
+                            <label><input type="radio" name="P26" value="C"> C) Publicar en la web abierta los listados con documentos de identidad y notas de los alumnos.</label>
+                            <label><input type="radio" name="P26" value="D"> D) Compartir las bases de datos escolares con empresas comerciales de publicidad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P27 -->
+                    <div class="question-block">
+                        <div class="question-text">27. En cumplimiento de la Ley 1098 de 2006 (Código de la Infancia y la Adolescencia), el uso de entornos virtuales en la escuela debe salvaguardar primordialmente:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P27" value="A"> A) La exposición mediática de los menores en redes sociales comerciales para promocionar el colegio.</label>
+                            <label><input type="radio" name="P27" value="B" data-correct="true"> B) El interés superior del niño, su derecho a la intimidad, la protección de su imagen y su integridad física, psicológica y digital frente a riesgos como el grooming o el ciberacoso.</label>
+                            <label><input type="radio" name="P27" value="C"> C) El acceso libre a contenidos sin mediación ni acompañamiento formativo.</label>
+                            <label><input type="radio" name="P27" value="D"> D) La delegación total de la seguridad digital en los menores de edad.</label>
+                        </div>
+                    </div>
+
+                    <!-- P28 -->
+                    <div class="question-block">
+                        <div class="question-text">28. De acuerdo con la Ley 1620 de 2013 y el Decreto 1965 de 2013, ¿qué responsabilidad tiene la institución educativa frente a situaciones de ciberacoso ocurridas en redes sociales entre estudiantes?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P28" value="A"> A) Ninguna, porque ocurrieron fuera de las instalaciones físicas del colegio.</label>
+                            <label><input type="radio" name="P28" value="B" data-correct="true"> B) Activar la Ruta de Atención Integral para la Convivencia Escolar (promoción, prevención, atención y seguimiento), proteger a la víctima, informar a las familias y abordar el caso en el Comité Escolar de Convivencia.</label>
+                            <label><input type="radio" name="P28" value="C"> C) Sancionar únicamente a la víctima prohibiéndole el uso de internet.</label>
+                            <label><input type="radio" name="P28" value="D"> D) Ignorar el conflicto hasta que afecte el rendimiento académico del grupo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P29 -->
+                    <div class="question-block">
+                        <div class="question-text">29. Conforme a la Ley 1273 de 2009 (Ley de Delitos Informáticos), ¿cuál de las siguientes conductas en el entorno escolar constituye un delito que obliga a activar protocolo de Situación Tipo III?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P29" value="A"> A) Olvidar la contraseña personal de acceso al aula virtual de Moodle.</label>
+                            <label><input type="radio" name="P29" value="B" data-correct="true"> B) Ingresar sin autorización a las cuentas institucionales de docentes o directivos para alterar calificaciones, suplantar identidades o sustraer datos personales.</label>
+                            <label><input type="radio" name="P29" value="C"> C) Descargar una guía de estudio publicada por el docente en Google Classroom.</label>
+                            <label><input type="radio" name="P29" value="D"> D) Participar activamente en un foro de debate académico con opiniones fundamentadas.</label>
+                        </div>
+                    </div>
+
+                    <!-- P30 -->
+                    <div class="question-block">
+                        <div class="question-text">30. ¿Cuál es una práctica esencial de "Ciberseguridad y Higiene Digital" que todo docente debe aplicar en la gestión de sus Ambientes Virtuales de Aprendizaje?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P30" value="A"> A) Utilizar la misma contraseña sencilla para todas las plataformas y compartirla con los monitores del curso.</label>
+                            <label><input type="radio" name="P30" value="B" data-correct="true"> B) Usar contraseñas robustas y únicas, activar la autenticación en dos factores (2FA), cerrar sesiones en equipos compartidos y verificar la autenticidad de enlaces antes de abrirlos.</label>
+                            <label><input type="radio" name="P30" value="C"> C) Dejar abiertas sus cuentas institucionales en computadores públicos de la sala de profesores.</label>
+                            <label><input type="radio" name="P30" value="D"> D) Descargar archivos ejecutables desconocidos enviados por correos sospechosos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P31 -->
+                    <div class="question-block">
+                        <div class="question-text">31. La "Alfabetización Mediática e Informacional (AMI)" promovida por la UNESCO busca que docentes y estudiantes desarrollen habilidades para:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P31" value="A"> A) Reenviar inmediatamente cualquier cadena o noticia viral en redes sociales sin verificarla.</label>
+                            <label><input type="radio" name="P31" value="B" data-correct="true"> B) Buscar, evaluar críticamente la fiabilidad de las fuentes, identificar desinformación o noticias falsas (fake news) y producir contenidos digitales éticos.</label>
+                            <label><input type="radio" name="P31" value="C"> C) Confiar ciegamente en el primer resultado que aparece en cualquier buscador.</label>
+                            <label><input type="radio" name="P31" value="D"> D) Limitar la consulta académica exclusivamente a blogs anónimos.</label>
+                        </div>
+                    </div>
+
+                    <!-- P32 -->
+                    <div class="question-block">
+                        <div class="question-text">32. Para prevenir el plagio académico en entornos virtuales desde una perspectiva formativa, la estrategia más efectiva consiste en:</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P32" value="A"> A) Asignar resúmenes genéricos de temas enciclopédicos sin seguimiento de proceso.</label>
+                            <label><input type="radio" name="P32" value="B" data-correct="true"> B) Enseñar normas de citación y referenciación, diseñar preguntas de análisis crítico situadas en el contexto local y acompañar entregas parciales con retroalimentación.</label>
+                            <label><input type="radio" name="P32" value="C"> C) Eliminar las tareas escritas y evaluar únicamente mediante asistencia.</label>
+                            <label><input type="radio" name="P32" value="D"> D) Permitir la copia textual siempre que el estudiante cambie el tipo de letra.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab1')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-nav" onclick="irA('tab3')">Siguiente: Casos Prácticos <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3 -->
+                <div id="tab3" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-balance-scale"></i> Aplicación Práctica: Casos de Diseño Tecnopedagógico, Inclusión y Gestión Virtual</h2>
+                    <p style="color: #64748b; margin-bottom: 25px;">Analice con criterio pedagógico, normativo y ético cada situación de aula virtual y elija la decisión profesional más acertada.</p>
+
+                    <!-- P33 -->
+                    <div class="question-block">
+                        <div class="question-text">33. CASO 1: Un docente de Ciencias Naturales monta su curso en Google Classroom subiendo únicamente 15 documentos PDF de 40 páginas cada uno y colocando al final un examen de memoria. La participación estudiantil cae al 20 %. Desde el diseño tecnopedagógico (ADDIE y AVA), ¿cómo debe rediseñar el entorno?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P33" value="A"> A) Subir otros 15 archivos PDF más extensos y aumentar el porcentaje del examen final.</label>
+                            <label><input type="radio" name="P33" value="B" data-correct="true"> B) Estructurar módulos cortos con objetivos claros, combinar recursos multimedia interactivos (videos cortos, infografías, simuladores), abrir foros de indagación guiada y diseñar actividades prácticas con rúbricas de retroalimentación continua.</label>
+                            <label><input type="radio" name="P33" value="C"> C) Obligar a los estudiantes a transcribir a mano los 15 documentos y subir fotos.</label>
+                            <label><input type="radio" name="P33" value="D"> D) Cerrar el aula virtual argumentando que los estudiantes no tienen hábitos de lectura.</label>
+                        </div>
+                    </div>
+
+                    <!-- P34 -->
+                    <div class="question-block">
+                        <div class="question-text">34. CASO 2: En un colegio rural con conectividad intermitente en los hogares, el equipo docente desea implementar un modelo de Aula Invertida y uso pedagógico de las TIC sin excluir a los estudiantes que no tienen internet permanente en casa. ¿Cuál es la estrategia más equitativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P34" value="A"> A) Exigir conexiones sincrónicas diarias de tres horas en la tarde y reprobar a quienes no se conecten.</label>
+                            <label><input type="radio" name="P34" value="B" data-correct="true"> B) Diseñar recursos descargables de bajo peso (off-line), utilizar servidores locales o memorias USB institucionales con los OVA del curso, y aprovechar los espacios presenciales y la sala de informática del colegio para sincronizar avances.</label>
+                            <label><input type="radio" name="P34" value="C"> C) Suspender cualquier uso de tecnologías digitales en la institución rural.</label>
+                            <label><input type="radio" name="P34" value="D"> D) Pedir a las familias de bajos recursos que contraten planes satelitales privados.</label>
+                        </div>
+                    </div>
+
+                    <!-- P35 -->
+                    <div class="question-block">
+                        <div class="question-text">35. CASO 3: Un profesor de Historia encuentra en internet un excelente video documental y una guía didáctica publicados bajo licencia Creative Commons "CC BY-NC-SA". Desea adaptarlos para su curso virtual en Moodle y compartir la versión adaptada con otros colegios públicos de su municipio. ¿Qué debe hacer para cumplir la Ley 23 de 1982?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P35" value="A"> A) Eliminar el nombre del autor original y vender la guía adaptada a otras instituciones.</label>
+                            <label><input type="radio" name="P35" value="B" data-correct="true"> B) Citar explícitamente al autor original y el enlace de la obra fuente (BY), mantener su uso estrictamente educativo sin fines comerciales (NC) y publicar la obra adaptada bajo la misma licencia CC BY-NC-SA (SA).</label>
+                            <label><input type="radio" name="P35" value="C"> C) Cambiar la licencia a "Todos los derechos reservados" a nombre del colegio.</label>
+                            <label><input type="radio" name="P35" value="D"> D) Abstenerse de usar el material porque las licencias abiertas prohíben realizar adaptaciones.</label>
+                        </div>
+                    </div>
+
+                    <!-- P36 -->
+                    <div class="question-block">
+                        <div class="question-text">36. CASO 4: En un curso virtual de grado noveno participa una estudiante sorda usuaria de Lengua de Señas Colombiana (LSC) y un estudiante con baja visión. El docente planea publicar un video explicativo y una guía ilustrada. Conforme al DUA y el Decreto 1421 de 2017, ¿qué ajustes de accesibilidad son obligatorios?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P36" value="A"> A) Publicar el video sin subtítulos y pedir a la estudiante sorda que lea los labios del docente.</label>
+                            <label><input type="radio" name="P36" value="B" data-correct="true"> B) Incorporar subtitulación cerrada y recuadro de interpretación en LSC (o transcripción estructurada) en el video, y diseñar la guía en formato digital compatible con lectores de pantalla, macrotipos, alto contraste y descripción textual (ALT) en todas las imágenes.</label>
+                            <label><input type="radio" name="P36" value="C"> C) Eximir a ambos estudiantes de realizar la actividad evaluativa del módulo.</label>
+                            <label><input type="radio" name="P36" value="D"> D) Enviarles únicamente una fotografía escaneada de un libro impreso.</label>
+                        </div>
+                    </div>
+
+                    <!-- P37 -->
+                    <div class="question-block">
+                        <div class="question-text">37. CASO 5: Al revisar los reportes de Analítica del Aprendizaje (Learning Analytics) en Moodle a mitad del periodo, una docente observa que 6 estudiantes no han ingresado al aula virtual en los últimos 15 días y tienen dos talleres pendientes. ¿Cuál es la intervención tutorial adecuada?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P37" value="A"> A) Esperar hasta el cierre del periodo académico para registrarles calificación reprobatoria sin previo aviso.</label>
+                            <label><input type="radio" name="P37" value="B" data-correct="true"> B) Activar una alerta temprana de acompañamiento: contactar de manera empática a los estudiantes y sus familias para identificar posibles barreras técnicas o personales, ofrecer tutoría de nivelación y acordar un plan flexible de entrega.</label>
+                            <label><input type="radio" name="P37" value="C"> C) Publicar en el foro general del curso la lista de los 6 estudiantes señalándolos por su incumplimiento.</label>
+                            <label><input type="radio" name="P37" value="D"> D) Bloquearles el acceso a la plataforma para que no retrasen al resto del grupo.</label>
+                        </div>
+                    </div>
+
+                    <!-- P38 -->
+                    <div class="question-block">
+                        <div class="question-text">38. CASO 6: Para evaluar un proyecto interdisciplinario en un ambiente virtual, un docente duda entre aplicar un examen de 30 preguntas de selección múltiple sobre definiciones o implementar un e-Portafolio con rúbrica analítica y sustentación. Desde el enfoque de Evaluación Auténtica y SIEE (Decreto 1290 de 2009), ¿por qué es superior la segunda opción?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P38" value="A"> A) Porque el e-Portafolio no requiere criterios claros ni revisión por parte del docente.</label>
+                            <label><input type="radio" name="P38" value="B" data-correct="true"> B) Porque permite evidenciar el proceso real de construcción del aprendizaje, reduce la suplantación o copia mecánica, fomenta la autoevaluación y coevaluación mediante descriptores transparentes y valora competencias aplicadas.</label>
+                            <label><input type="radio" name="P38" value="C"> C) Porque garantiza que todos los estudiantes obtengan la misma calificación máxima automáticamente.</label>
+                            <label><input type="radio" name="P38" value="D"> D) Porque elimina la necesidad de realizar retroalimentación formativa.</label>
+                        </div>
+                    </div>
+
+                    <!-- P39 -->
+                    <div class="question-block">
+                        <div class="question-text">39. CASO 7: Un grupo de estudiantes de grado octavo crea un perfil falso en una red social con el nombre y fotografías de un compañero para publicar burlas y comentarios humillantes que se viralizan en el salón. ¿Qué ruta normativa debe activar la institución educativa?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P39" value="A"> A) Abstenerse de intervenir argumentando que la red social es externa al colegio.</label>
+                            <label><input type="radio" name="P39" value="B" data-correct="true"> B) Activar de inmediato la Ruta de Atención Integral (Ley 1620 de 2013 y Decreto 1965 de 2013) para ciberacoso y suplantación (Ley 1273 de 2009), brindar protección y apoyo psicosocial al estudiante afectado, citar a los acudientes, reportar al Comité Escolar de Convivencia y desarrollar acciones pedagógicas de ciudadanía digital.</label>
+                            <label><input type="radio" name="P39" value="C"> C) Pedir al estudiante afectado que cierre sus redes sociales y guarde silencio para evitar conflictos.</label>
+                            <label><input type="radio" name="P39" value="D"> D) Expulsar inmediatamente a los implicados sin escucharlos ni seguir el debido proceso del Manual de Convivencia.</label>
+                        </div>
+                    </div>
+
+                    <!-- P40 -->
+                    <div class="question-block">
+                        <div class="question-text">40. CASO 8: Un docente diseña un blog público abierto en internet y planea subir allí los videos expositivos donde aparecen los rostros, nombres completos y números de documento de sus estudiantes de grado sexto, sin haber solicitado autorización a los padres de familia. ¿Qué normas infringe y cómo debe proceder?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="P40" value="A"> A) No infringe ninguna norma porque los videos son de contenido académico.</label>
+                            <label><input type="radio" name="P40" value="B" data-correct="true"> B) Infringe la Ley 1581 de 2012, el Decreto 1074 de 2015 y la Ley 1098 de 2006 (protección de datos personales, imagen e intimidad de menores); debe alojar las evidencias en el entorno virtual institucional privado con acceso restringido y contar siempre con autorización expresa de los representantes legales antes de publicar cualquier imagen de menores.</label>
+                            <label><input type="radio" name="P40" value="C"> C) Basta con pedir autorización verbal a los niños en el salón antes de publicar los videos en internet abierto.</label>
+                            <label><input type="radio" name="P40" value="D"> D) Puede publicar los videos libremente siempre que no incluya el nombre del colegio.</label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn-nav" onclick="irA('tab2')"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn-enviar" onclick="procesarYCalificar()">
+                            <i class="fas fa-paper-plane"></i> Finalizar y Calificar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RESULTADO FINAL OCULTO -->
+        <div id="resultadoFinal">
+            <div class="resultado-card">
+                <div id="iconoNota" class="nota-circulo"></div>
+                <h2 style="color: #1f3565; margin-bottom: 12px; font-size: 26px;" id="tituloResultado"></h2>
+                <p style="color: #475569; font-size: 17px; margin-bottom: 25px; line-height: 1.5;" id="detalleResultado"></p>
+                
+                <div style="background: #f8fafc; border-left: 4px solid #1f3565; padding: 16px 20px; border-radius: 6px; font-size: 14.5px; text-align: left; color: #334155; margin-bottom: 30px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>
+                    Los resultados y el reporte detallado de aciertos fueron guardados en el sistema institucional.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/573045778728" class="whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.getElementById('fechaActual').valueAsDate = new Date();
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        function openTab(evt, tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+        }
+
+        function irA(tabId) {
+            let index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+            document.querySelectorAll('.tab-btn')[index].click();
+        }
+
+        function cerrarModal() {
+            document.getElementById("alertaModal").classList.remove("active");
+        }
+    </script>
+
+    <!-- FIREBASE Y CALIFICACIÓN AUTOMÁTICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_p4Ha6LhDneiqxu-HLFt9G8BRnszH1ho",
+            authDomain: "elite-matriculas.firebaseapp.com",
+            projectId: "elite-matriculas",
+            storageBucket: "elite-matriculas.firebasestorage.app",
+            messagingSenderId: "836674120343",
+            appId: "1:836674120343:web:c4ae124456a764045b97d2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NOTA_APROBATORIA = 70;
+        const TOTAL_PREGUNTAS = 40;
+
+        window.procesarYCalificar = async function() {
+            const nombre = document.getElementById('nombreEstudiante').value.trim();
+            const profesion = document.getElementById('profesionEstudiante').value.trim();
+            const documento = document.getElementById('documentoEstudiante').value.trim();
+
+            if (!nombre || !profesion || !documento) {
+                alert("Por favor complete sus datos personales (Nombre, Profesión/Área y Documento).");
+                window.scrollTo({ top: document.getElementById('contenedorForm').offsetTop - 60, behavior: 'smooth' });
+                return;
+            }
+
+            let esValido = true;
+            let primerIncompleto = null;
+            document.querySelectorAll('.error-highlight').forEach(el => el.classList.remove('error-highlight'));
+
+            document.querySelectorAll('.question-block').forEach((block) => {
+                const seleccion = block.querySelector('input[type="radio"]:checked');
+                if (!seleccion) {
+                    esValido = false;
+                    block.classList.add('error-highlight');
+                    if (!primerIncompleto) primerIncompleto = block;
+                }
+            });
+
+            if (!esValido) {
+                const tabPadre = primerIncompleto.closest('.tab-content');
+                if (tabPadre && !tabPadre.classList.contains('active')) {
+                    const tabId = tabPadre.id;
+                    const index = tabId === 'tab1' ? 0 : tabId === 'tab2' ? 1 : 2;
+                    document.querySelectorAll('.tab-btn')[index].click();
+                }
+
+                document.getElementById('alertaModal').classList.add('active');
+                setTimeout(() => {
+                    primerIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 400);
+                return;
+            }
+
+            document.getElementById('loadingPdf').classList.add('active');
+
+            let correctas = 0;
+            let reporte = [];
+
+            document.querySelectorAll('.question-block').forEach((block, idx) => {
+                const textoPregunta = block.querySelector('.question-text').innerText;
+                const radioSeleccionado = block.querySelector('input[type="radio"]:checked');
+                const esCorrecta = radioSeleccionado.hasAttribute('data-correct');
+
+                if (esCorrecta) correctas++;
+
+                const radioCorrecto = block.querySelector('input[type="radio"][data-correct="true"]');
+                const textoDado = radioSeleccionado.parentElement.innerText.trim();
+                const textoCorrecto = radioCorrecto ? radioCorrecto.parentElement.innerText.trim() : '';
+
+                reporte.push({
+                    numero: idx + 1,
+                    pregunta: textoPregunta,
+                    respuestaDada: textoDado,
+                    respuestaCorrecta: textoCorrecto,
+                    esCorrecta: esCorrecta
+                });
+            });
+
+            const puntaje = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
+            const estado = puntaje >= NOTA_APROBATORIA ? "Aprobado" : "No Aprobado";
+
+            const payloadExamen = {
+                origen: "Examen",
+                examen: "Uso Pedagógico de las TIC en Ambientes Virtuales de Aprendizaje",
+                nombre: nombre,
+                profesion: profesion,
+                documento: documento,
+                fechaRegistro: serverTimestamp(),
+                puntaje: puntaje,
+                estado: estado,
+                aciertos: correctas,
+                totalPreguntas: TOTAL_PREGUNTAS,
+                reporte: reporte
+            };
+
+            try {
+                await addDoc(collection(db, "evaluaciones"), payloadExamen);
+
+                document.getElementById('loadingPdf').classList.remove('active');
+                document.getElementById('contenedorForm').style.display = 'none';
+                document.getElementById('heroSection').style.display = 'none';
+
+                const divRes = document.getElementById('resultadoFinal');
+                const circulo = document.getElementById('iconoNota');
+                divRes.style.display = 'block';
+
+                circulo.innerText = puntaje + "%";
+                if (estado === "Aprobado") {
+                    circulo.className = "nota-circulo nota-aprobado";
+                    document.getElementById('tituloResultado').innerText = "¡Felicitaciones! Has Aprobado";
+                } else {
+                    circulo.className = "nota-circulo nota-reprobado";
+                    document.getElementById('tituloResultado').innerText = "Evaluación No Aprobada";
+                }
+
+                document.getElementById('detalleResultado').innerText = `Has obtenido ${correctas} aciertos sobre ${TOTAL_PREGUNTAS} preguntas evaluadas. La calificación mínima requerida para aprobar es ${NOTA_APROBATORIA}%.`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+                document.getElementById('loadingPdf').classList.remove('active');
+                alert("Hubo un inconveniente al registrar la evaluación. Por favor verifica tu conexión a internet.");
+            }
+        };
+
+        document.addEventListener('change', function(e) {
+            if(e.target.type === 'radio') {
+                e.target.closest('.question-block').classList.remove('error-highlight');
+            }
+        });
+    </script>
+</body>
+</html>
